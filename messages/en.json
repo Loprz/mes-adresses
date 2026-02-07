@@ -53,11 +53,16 @@
   "home": {
     "title": "My Addresses",
     "subtitle": "Manage your jurisdiction's addresses simply and efficiently.",
-    "searchPlaceholder": "Search for a jurisdiction...",
-    "createNew": "Create a new Local Address Base",
+    "searchPlaceholder": "Filter local address bases by name",
+    "createNew": "Create a Local Address Base",
+    "recoverBase": "Recover a Local Address Base",
     "recentBases": "Recent Address Bases",
     "welcomeTitle": "Welcome to My Addresses",
-    "welcomeDescription": "My Addresses is a free online tool that lets you create, manage, and publish your Local Address Base (LAB). No technical skills required."
+    "welcomeDescription": "My Addresses is a free online tool that lets you create, manage, and publish your Local Address Base (LAB). No technical skills required.",
+    "sortByDate": "Sort by update date",
+    "sortAlphabetical": "Sort alphabetically",
+    "upcomingTrainings": "Upcoming Trainings",
+    "news": "News"
   },
   "editor": {
     "toolbar": {
@@ -146,7 +151,11 @@
     "modified": "Modified since last publication",
     "readyToPublish": "Ready to publish",
     "conflict": "Conflict detected",
-    "outdated": "Outdated"
+    "outdated": "Outdated",
+    "deleteConfirmDraft": "Are you sure you want to delete this Local Address Base? This action cannot be undone.",
+    "deleteConfirmPublished": "Are you sure you want to hide this Local Address Base? It will no longer appear on your home page, but you can recover it later.",
+    "deleteSuccess": "The Local Address Base has been deleted",
+    "deleteFailed": "The Local Address Base could not be deleted"
   },
   "validation": {
     "requiredField": "This field is required",

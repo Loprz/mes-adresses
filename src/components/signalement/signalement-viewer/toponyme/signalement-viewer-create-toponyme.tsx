@@ -26,8 +26,8 @@ function SignalementViewerCreateToponyme({
     <SignalementToponymeDiffCard
       title={
         <>
-          Demande de création de toponyme{" "}
-          {status === Signalement.status.PROCESSED ? "acceptée" : "refusée"}
+          Place name creation request{" "}
+          {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
           {status === Signalement.status.PROCESSED ? (
             <TickCircleIcon size={20} color="success" marginLeft={10} />
           ) : (

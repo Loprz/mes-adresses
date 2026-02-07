@@ -135,8 +135,8 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           </Heading>
           <Text fontSize={12} fontStyle="italic">
             {updatedAt
-              ? "Dernière mise à jour il y a " + majDate
-              : "Jamais mise à jour"}{" "}
+              ? "Last updated " + majDate
+              : "Never updated"}{" "}
           </Text>
           {communeNom && (
             <Link
@@ -209,7 +209,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
         <NextLink
           href={`/bal/${id}/${TabsEnum.VOIES}`}
           className={`${styles["custom-button"]} ${styles["manage-button"]}`}
-          title="Accéder à la Base Adresse Locale"
+          title="Access the Local Address Base"
         >
           <Text fontSize={16} fontWeight={300} color="inherit">
             Gérer les adresses

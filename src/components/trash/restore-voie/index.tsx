@@ -22,7 +22,7 @@ function RestoreVoie({ voie, onRestoreVoie, onClose }: RestoreVoieProps) {
           (selectedNumerosIds.length > 0
             ? " avec " + selectedNumerosIds.length + " numero(s)"
             : "")
-        : selectedNumerosIds.length + " numéro(s)")
+        : selectedNumerosIds.length + " number(s)")
     );
   };
 

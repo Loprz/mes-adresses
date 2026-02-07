@@ -63,7 +63,7 @@ export default function NewPageComponent({
         canBrowseBack: false,
       },
       {
-        label: "Import des données",
+        label: "Data import",
         canBrowseNext:
           importValue === "file"
             ? Boolean(csvImportFile)
@@ -115,7 +115,7 @@ export default function NewPageComponent({
       pushToast({
         title: "Erreur",
         message:
-          "Une erreur est survenue lors de la création de la Base Adresse Locale",
+          "An error occurred while creating the Local Address Base",
         intent: "danger",
       });
       setIsLoading(false);

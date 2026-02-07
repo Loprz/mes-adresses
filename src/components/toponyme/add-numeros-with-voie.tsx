@@ -57,18 +57,18 @@ function AddNumerosWithVoie({
 
   const selectedVoiesCount = useMemo(() => {
     if (numerosIds.length === voieNumeros.length) {
-      return "Tous les numéros sont sélectionnés";
+      return "All numbers are selected";
     }
 
     if (numerosIds.length === 0) {
-      return "Aucun numéro n’est sélectionné";
+      return "No numbers selected";
     }
 
     if (numerosIds.length === 1) {
-      return "1 numéro est sélectionné";
+      return "1 number is selected";
     }
 
-    return `${numerosIds.length} numéros sont sélectionnés`;
+    return `${numerosIds.length} numbers are selected`;
   }, [numerosIds.length, voieNumeros.length]);
 
   const numeroOptions = useMemo(() => {
@@ -78,8 +78,8 @@ function AddNumerosWithVoie({
       const toggleFullSelect = {
         label:
           numerosIds.length > 0
-            ? "Désélectionner tous les numéros"
-            : "Sélectionner tous les numéros",
+            ? "Deselect all numbers"
+            : "Select all numbers",
         value: "toggle",
       };
       const numeros = voieNumeros.map(({ id, numero, suffixe }) => ({
@@ -104,7 +104,7 @@ function AddNumerosWithVoie({
             flex={1}
             onChange={(e) => handleSelectVoie(e.target.value)}
           >
-            {!selectedVoieId && <option>- Sélectionnez une voie -</option>}
+            {!selectedVoieId && <option>- Select a street -</option>}
             {sortBy(voies, (v) => normalizeSort(v.nom)).map(({ id, nom }) => (
               <option key={id} value={id}>
                 {nom}
@@ -122,7 +122,7 @@ function AddNumerosWithVoie({
               <SelectMenu
                 isMultiSelect
                 hasFilter={false}
-                title="Sélection des numéros"
+                title="Number selection"
                 options={numeroOptions}
                 selected={numerosIds}
                 emptyView={
@@ -135,7 +135,7 @@ function AddNumerosWithVoie({
                     textAlign="center"
                   >
                     <Text size={300}>
-                      Aucun numéro n’est disponible pour cette voie
+                      No numbers are available for this street
                     </Text>
                   </Pane>
                 }
@@ -143,7 +143,7 @@ function AddNumerosWithVoie({
                 onDeselect={handleSelectNumero}
               >
                 <Button marginTop={0} type="button">
-                  Sélectionner les numéros
+                  Select numbers
                 </Button>
               </SelectMenu>
 

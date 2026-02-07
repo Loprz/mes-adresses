@@ -11,13 +11,13 @@ import { ChildrenProps } from "@/types/context";
 import { BaseLocale } from "@/lib/openapi-api-bal";
 
 export enum MatomoEventCategory {
-  DOWNLOAD = "Téléchargement",
+  DOWNLOAD = "Download",
   DOCUMENT = "Document",
   MAP = "Carte",
   GAMIFICATION = "Gamification",
   BAL_EDITOR = "Éditeur BAL",
   HOME_PAGE = "Page d'accueil",
-  SETTINGS = "Paramètres",
+  SETTINGS = "Settings",
 }
 
 export const MatomoEventAction = {

@@ -35,12 +35,12 @@ function CertificationInfos({ baseLocale }: CertificationInfosProps) {
           <ProgressBar percent={percentCertified} />
           <Pane display="flex" justifyContent="center">
             <Counter
-              label="Adresses certifiées"
+              label="Certified addresses"
               value={nbNumerosCertifies}
               color={defaultTheme.colors.green500}
             />
             <Counter
-              label="Adresses non-certifiées"
+              label="Uncertified addresses"
               value={nbNumeros - nbNumerosCertifies}
               color={defaultTheme.colors.gray500}
             />

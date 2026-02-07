@@ -7,7 +7,7 @@ interface SignalementTypeBadgeProps {
 
 export const signalementTypeMap = {
   [Signalement.type.LOCATION_TO_CREATE]: {
-    label: "Création",
+    label: "Creation",
     color: "teal",
     backgroundColor: "#D3F5F7",
     foregroundColor: "#0F5156",

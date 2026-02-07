@@ -35,7 +35,7 @@ function VoieHeading({ voie, baseLocale }: VoieHeadingProps) {
               <IconButton
                 is={NextLink}
                 href={`/bal/${baseLocale.id}/${TabsEnum.VOIES}/${voie.id}`}
-                title="Éditer la voie"
+                title="Edit street"
                 icon={EditIcon}
                 marginBottom={-2}
                 marginLeft={8}
@@ -44,7 +44,7 @@ function VoieHeading({ voie, baseLocale }: VoieHeadingProps) {
           </Pane>
           {numeros && (
             <Text padding={0}>
-              {numeros.length} numéro{numeros.length > 1 ? "s" : ""}
+              {numeros.length} number{numeros.length > 1 ? "s" : ""}
             </Text>
           )}
           {voie.comment && (

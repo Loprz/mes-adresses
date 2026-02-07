@@ -46,11 +46,11 @@ export function SignalementHeader({
       <Pane marginTop={8}>
         {Date.now() - new Date(createdAt).getTime() > MONTH_IN_MS ? (
           <Paragraph>
-            Déposée le <b>{getLongFormattedDate(new Date(createdAt))}</b>{" "}
+            Submitted on <b>{getLongFormattedDate(new Date(createdAt))}</b>{" "}
           </Paragraph>
         ) : (
           <Paragraph>
-            Déposée il y a <b>{getDuration(new Date(createdAt))}</b>{" "}
+            Submitted <b>{getDuration(new Date(createdAt))}</b>{" "}
           </Paragraph>
         )}
         {author && (
@@ -85,7 +85,7 @@ export function SignalementHeader({
 
         {status === Signalement.status.PROCESSED && (
           <Paragraph marginTop={10}>
-            Vous avez accepté cette proposition le{" "}
+            You accepted this request on{" "}
             <b>{getLongFormattedDate(new Date(updatedAt))}</b>
           </Paragraph>
         )}
@@ -93,13 +93,13 @@ export function SignalementHeader({
         {status === Signalement.status.IGNORED && (
           <>
             <Paragraph marginTop={10}>
-              Vous avez refusé cette proposition le{" "}
+              You rejected this request on{" "}
               <b>{getLongFormattedDate(new Date(updatedAt))}</b>
             </Paragraph>
 
             {rejectionReason && (
               <Paragraph marginTop={10}>
-                Raison : <b>{rejectionReason}</b>
+                Reason: <b>{rejectionReason}</b>
               </Paragraph>
             )}
           </>

@@ -40,7 +40,7 @@ function SignalementViewerUpdateToponyme({
   return (
     <>
       <SignalementToponymeDiffCard
-        title="Toponyme concerné"
+        title="Related place name"
         isActive={activeCard === ActiveCardEnum.INITIAL}
         nom={{
           to: existingNom,
@@ -59,7 +59,7 @@ function SignalementViewerUpdateToponyme({
         title={
           <>
             Modification{" "}
-            {status === Signalement.status.PROCESSED ? "acceptée" : "refusée"}
+            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

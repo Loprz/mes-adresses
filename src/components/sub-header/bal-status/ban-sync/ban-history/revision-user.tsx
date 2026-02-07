@@ -23,11 +23,11 @@ function RevisionUser({
         habilitation?.strategy?.type
       )
     ) {
-      userName = `mairie de ${communeName}`;
+      userName = `city hall of ${communeName}`;
     }
 
     if (habilitation?.strategy?.type === StrategyDTO.type.FRANCECONNECT) {
-      userName = `élu(e) de ${communeName}`;
+      userName = `elected official of ${communeName}`;
     }
   }
 
@@ -37,7 +37,7 @@ function RevisionUser({
       {userName ? (
         <Strong>{userName}</Strong>
       ) : (
-        <Text fontStyle="italic">Non renseigné</Text>
+        <Text fontStyle="italic">Not specified</Text>
       )}
     </Pane>
   );

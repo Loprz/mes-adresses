@@ -287,7 +287,7 @@ function GroupedActions({
                     selectedCodeCommune={communeDeleguee}
                     setSelectedCodeCommune={setCommuneDeleguee}
                     withOptionNull={true}
-                    label="Commune déléguée"
+                    label="Sub-jurisdiction"
                   />
                 </FormInput>
               )}
@@ -336,7 +336,7 @@ function GroupedActions({
                     certains numéros sélectionnés possèdent un commentaire. En
                     cas de {removeAllComments ? "suppression" : "modification"},
                     leurs commentaires seront{" "}
-                    {removeAllComments ? "supprimés" : "remplacés"}.
+                    {removeAllComments ? "deleted" : "replaced"}.
                   </Text>
                 </Alert>
               )}

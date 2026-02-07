@@ -28,8 +28,8 @@ function SignalementViewerCreateNumero({
         signalementType={Signalement.type.LOCATION_TO_CREATE}
         title={
           <>
-            Demande de création d&apos;adresse{" "}
-            {status === Signalement.status.PROCESSED ? "acceptée" : "refusée"}
+            Address creation request{" "}
+            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

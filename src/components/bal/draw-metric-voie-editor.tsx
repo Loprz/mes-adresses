@@ -36,7 +36,7 @@ export function DrawMetricVoieEditor({ voie }: DrawMetricVoieEditorProps) {
       <Alert
         marginTop={8}
         intent="none"
-        title="Utilisez la carte pour dessiner le tracé de la voie"
+        title="Use the map to draw the street path"
       >
         {hint}
       </Alert>

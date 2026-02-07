@@ -66,7 +66,7 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
                     alt={
                       foundLangueRegionale
                         ? `Nom de la voie en ${foundLangueRegionale.label}`
-                        : "Nom de la langue régionale non supportée"
+                        : "Regional language name not supported"
                     }
                   />
                   {nomsAlt[language]}
@@ -100,7 +100,7 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
         alt={
           foundLangueRegionale
             ? `Nom de la voie en ${foundLangueRegionale.label}`
-            : "Le nom de la langue régionale n’a pas pu être détecté"
+            : "The regional language name could not be detected"
         }
       />
       <Pane fontWeight="lighter" fontSize={14}>

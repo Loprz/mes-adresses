@@ -61,7 +61,7 @@ function BALSummary({
             icon={EditIcon}
             marginTop={-4}
             onClick={onEditNomsAlt}
-            title="Modifier les noms alternatifs de la commune en langue régionale"
+            title="Edit the alternate names for the jurisdiction in regional language"
           />
         )}
       </Heading>

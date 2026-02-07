@@ -63,7 +63,7 @@ function ItemsListDelete({
         return (
           "voie" +
           (item.numeros.length > 0
-            ? " et " + item.numeros.length + " numero(s) supprimée(s)"
+            ? " et " + item.numeros.length + " number(s) deleted"
             : "")
         );
       }
@@ -88,7 +88,7 @@ function ItemsListDelete({
       {filtered.length === 0 && (
         <Table.Row>
           <Table.TextCell color="muted" fontStyle="italic">
-            Aucun résultat
+            No results
           </Table.TextCell>
         </Table.Row>
       )}

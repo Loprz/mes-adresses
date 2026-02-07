@@ -183,8 +183,8 @@ export default function SignalementsPage({
     const _updateSignalements = toaster(
       () => updateManySignalements(ids, Signalement.status.IGNORED),
       ids.length > 1
-        ? "Les signalements ont bien été ignorés"
-        : "Le signalement a bien été ignoré",
+        ? "The reports have been dismissed"
+        : "The report has been dismissed",
       "Une erreur est survenue"
     );
 
@@ -221,7 +221,7 @@ export default function SignalementsPage({
         borderBottom="muted"
         textAlign="center"
       >
-        <Text>Demandes d&apos;amélioration</Text>
+        <Text>Improvement requests</Text>
       </Pane>
       <Tablist background="white" padding={8}>
         {tabs.map(({ label, key, count }, index) => (
@@ -249,19 +249,19 @@ export default function SignalementsPage({
         {selectedSignalements.length > 1 && (
           <Pane padding={16}>
             <Pane marginBottom={5}>
-              <Heading>Actions groupées</Heading>
+              <Heading>Bulk actions</Heading>
             </Pane>
             <Pane>
               <Dialog
                 isShown={showWarningDialog}
                 intent="success"
-                title="Confirmer l'action groupée"
+                title="Confirm bulk action"
                 hasFooter={false}
                 onCloseComplete={() => setShowWarningDialog(false)}
               >
                 <Pane marginX="-32px" marginBottom="-8px">
                   <Paragraph marginBottom={8} marginLeft={32} color="muted">
-                    Êtes-vous sûr de vouloir ignorer ces signalements ?
+                    Are you sure you want to dismiss these reports ?
                   </Paragraph>
                 </Pane>
 
@@ -275,7 +275,7 @@ export default function SignalementsPage({
                       setSelectedSignalements([]);
                     }}
                   >
-                    Confirmer
+                    Confirm
                   </Button>
                   <Button
                     appearance="default"

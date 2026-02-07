@@ -43,7 +43,7 @@ function Stepper({
         ) : (
           <Pane>
             <Text fontWeight="bold" color="muted">
-              Dernière étape
+              Last step
             </Text>
           </Pane>
         )}

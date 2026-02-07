@@ -173,8 +173,8 @@ function NumerosList({
           reloadTiles();
           refreshBALSync();
         },
-        "Le numéro a bien été archivé",
-        "Le numéro n’a pas pu être archivé"
+        "The number has been archived",
+        "The number could not be archived"
       );
       await softDeleteNumero();
     },
@@ -188,8 +188,8 @@ function NumerosList({
           const url = await NumerosService.generateCertificat(numeroId, data);
           window.open(url, "_blank");
         },
-        "Le certificat d'adressage a bien été téléchargé",
-        "Le certificat d'adressage n'a pas pu être téléchargé"
+        "The addressing certificate has been downloaded",
+        "The addressing certificate could not be downloaded"
       );
       await downloadCertificat();
       matomoTrackEvent(
@@ -211,8 +211,8 @@ function NumerosList({
           );
           window.open(url, "_blank");
         },
-        "L'arrêté de numérotation a bien été téléchargé",
-        "L'arrêté de numérotation n'a pas pu être téléchargé"
+        "The numbering order has been downloaded",
+        "The numbering order could not be downloaded"
       );
       await downloadArreteDeNumerotation();
       matomoTrackEvent(
@@ -240,8 +240,8 @@ function NumerosList({
         setSelectedNumerosIds([]);
         setIsRemoveWarningShown(false);
       },
-      "Les numéros ont bien été archivés",
-      "Les numéros n’ont pas pu être archivés"
+      "The numbers have been archived",
+      "The numbers could not be archived"
     );
     await softDeleteNumeros();
     setIsDisabled(false);
@@ -254,8 +254,8 @@ function NumerosList({
         await reloadNumeros();
         refreshBALSync();
       },
-      "Les numéros ont bien été modifiés",
-      "Les numéros n’ont pas pu être modifiés"
+      "The numbers have been updated",
+      "The numbers could not be updated"
     );
     await updateNumeros();
   };
@@ -274,7 +274,7 @@ function NumerosList({
         minHeight={64}
       >
         <Pane>
-          <Heading>Liste des numéros</Heading>
+          <Heading>Address list</Heading>
         </Pane>
 
         <Pane marginLeft="auto">
@@ -292,7 +292,7 @@ function NumerosList({
                   }
             }
           >
-            Ajouter un numéro
+            Add a number
           </Button>
         </Pane>
       </Pane>
@@ -316,8 +316,7 @@ function NumerosList({
         isShown={isRemoveWarningShown}
         content={
           <Paragraph>
-            Êtes vous bien sûr de vouloir supprimer tous les numéros
-            sélectionnés ?
+            Are you sure you want to delete all selected numbers ?
           </Paragraph>
         }
         onCancel={() => {
@@ -347,7 +346,7 @@ function NumerosList({
             </Table.Cell>
           )}
           <Table.SearchHeaderCell
-            placeholder="Rechercher un numéro"
+            placeholder="Search for a number"
             onChange={setFilter}
           />
         </Table.Head>
@@ -355,7 +354,7 @@ function NumerosList({
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              Aucun numéro
+              No numbers
             </Table.TextCell>
           </Table.Row>
         )}
@@ -406,7 +405,7 @@ function NumerosList({
                 communeDeleguee={getCommuneDeleguee(numero.communeDeleguee)}
                 certification={
                   numero.certifie
-                    ? "Cette adresse est certifiée par la commune"
+                    ? "This address is certified by the local authority"
                     : null
                 }
                 comment={numero.comment}
@@ -445,7 +444,7 @@ function NumerosList({
                     onClick={() => {
                       setIsRecoveryDisplayed(true);
                     }}
-                    title="Récupérer les accès d'administration de la BAL"
+                    title="Recover LAB admin access"
                     type="button"
                     height={24}
                     icon={LockIcon}

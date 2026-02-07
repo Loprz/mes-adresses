@@ -1,6 +1,12 @@
 import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 
+// Static imports for bundler compatibility (Edge middleware can't use dynamic imports)
+import en from "../../messages/en.json";
+import es from "../../messages/es.json";
+
+const messagesByLocale: Record<string, typeof en> = { en, es };
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // This typically corresponds to the `[locale]` segment
   let locale = await requestLocale;
@@ -12,6 +18,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    messages: (await import(`../../../messages/${locale}.json`)).default,
+    messages: messagesByLocale[locale] ?? messagesByLocale.en,
   };
 });

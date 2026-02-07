@@ -10,6 +10,7 @@ import {
   Heading,
   Text,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import HelpContext from "@/contexts/help";
 import { PEERTUBE_LINK } from "@/components/help/video-container";
@@ -19,11 +20,12 @@ import LayoutContext from "@/contexts/layout";
 function Header() {
   const { isMobile } = useContext(LayoutContext);
   const { showHelp, setShowHelp } = useContext(HelpContext);
+  const t = useTranslations();
 
   return (
     <Pane
       is="header"
-      aria-label="mes-adresses-header"
+      aria-label="my-addresses-header"
       borderBottom
       backgroundColor="white"
       display="flex"
@@ -48,16 +50,13 @@ function Header() {
           height={34}
           width={72}
           src="/static/images/mes-adresses.svg"
-          alt="Page d’accueil du site mes-adresses.data.gouv.fr"
+          alt="My Addresses - National Address Platform home page"
         />
         <Heading is="h1" size={500} marginLeft={10} display="inline-block">
           <Text is="span" size={400} fontWeight="normal">
-            mes-adresses.
+            My{" "}
           </Text>
-          data.gouv.
-          <Text is="span" size={400} fontWeight="normal">
-            fr
-          </Text>
+          Addresses
         </Heading>
       </Pane>
       <Pane id="header-menu-wrapper" paddingTop={16} paddingBottom={16}>
@@ -74,7 +73,7 @@ function Header() {
               iconAfter={HelpIcon}
               onClick={() => setShowHelp(!showHelp)}
             >
-              Besoin d’aide
+              {t("common.help")}
             </Button>
 
             <Button
@@ -86,7 +85,7 @@ function Header() {
               minHeight="55px"
               iconAfter={VideoIcon}
             >
-              Tutoriels vidéos
+              Video Tutorials
             </Button>
 
             <Button
@@ -98,7 +97,7 @@ function Header() {
               minHeight="55px"
               iconAfter={BookIcon}
             >
-              Guides de l’adressage
+              {t("nav.documentation")}
             </Button>
           </Pane>
         ) : (

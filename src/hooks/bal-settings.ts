@@ -77,7 +77,7 @@ export function useBALSettings(baseLocale: BaseLocale) {
         }
         await reloadBaseLocale();
         pushToast({
-          title: "Les paramètres ont été enregistrés avec succès",
+          title: "Settings have been saved successfully",
           intent: "success",
         });
       } catch (error) {

@@ -53,7 +53,7 @@ function GeolocationControl({ map }: GeolocationControlProps) {
   return (
     <IconButton
       className={styles.geolocationControl}
-      title="Me géolocaliser"
+      title="Find my location"
       onClick={flyToCurrentPosition}
       height={29}
       width={29}

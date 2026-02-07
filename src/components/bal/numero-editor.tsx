@@ -160,7 +160,7 @@ function NumeroEditor({
 
       if (parseInt(numero) === 99999) {
         setValidationMessages([
-          "numero:Le numero 99999 est réservé au lieu-dit et complément",
+          "numero:Number 99999 is reserved for place names and supplements",
         ]);
         setIsLoading(false);
         return;
@@ -178,8 +178,8 @@ function NumeroEditor({
                 voieId: voie.id,
                 ...body,
               }),
-            "Le numéro a bien été modifié",
-            "Le numéro n’a pas pu être modifié",
+            "The number has been updated",
+            "The number could not be updated",
             (err) => {
               setValidationMessages(err.body.message);
             }
@@ -188,8 +188,8 @@ function NumeroEditor({
         } else {
           const createNumero = toaster(
             () => VoiesService.createNumero(voie.id, body),
-            "Le numéro a bien été ajouté",
-            "Le numéro n’a pas pu être ajouté",
+            "The number has been added",
+            "The number could not be added",
             (err) => {
               setValidationMessages(err.body.message);
             }
@@ -305,10 +305,10 @@ function NumeroEditor({
   useEffect(() => {
     if (markers.length > 1) {
       setHint(
-        "Déplacez les marqueurs sur la carte pour modifier les positions"
+        "Drag the markers on the map to modify positions"
       );
     } else {
-      setHint("Déplacez le marqueur sur la carte pour positionner le numéro");
+      setHint("Drag the marker on the map to position the number");
     }
 
     return () => {
@@ -382,7 +382,7 @@ function NumeroEditor({
               selectedCodeCommune={communeDeleguee}
               setSelectedCodeCommune={setCommuneDeleguee}
               withOptionNull={true}
-              label="Commune déléguée"
+              label="Sub-jurisdiction"
             />
           </FormInput>
         )}

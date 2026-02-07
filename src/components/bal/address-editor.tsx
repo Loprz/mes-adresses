@@ -24,7 +24,7 @@ function AddressEditor({ commune, closeForm }: AddressEditorProps) {
       <Pane padding={12} zIndex={1} background="tint2">
         <Heading is="h4">Nouvelle adresse</Heading>
         <SelectField
-          label="Créer un nouveau"
+          label="Create a new"
           value={isToponyme ? "toponyme" : "numero"}
           onChange={(e) => setIsToponyme(e.target.value === "toponyme")}
         >

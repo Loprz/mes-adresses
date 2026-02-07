@@ -37,8 +37,8 @@ function PopulateSideBar({ baseLocale }: PopulateSideBarProps) {
         onClick={onPopulate}
       >
         {isEditing
-          ? "Récupération des adresses…"
-          : "Récupérer les adresses de la BAN"}
+          ? "Retrieving addresses..."
+          : "Retrieve addresses from the NAP"}
       </Button>
     </Pane>
   );

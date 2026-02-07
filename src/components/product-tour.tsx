@@ -5,7 +5,7 @@ import Joyride from "react-joyride";
 const locale = {
   skip: "Passer",
   next: "Suivant",
-  back: "Précédent",
+  back: "Previous",
   last: "Terminer",
   close: "Fermer",
 };

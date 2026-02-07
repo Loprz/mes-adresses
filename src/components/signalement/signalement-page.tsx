@@ -120,8 +120,8 @@ export default function SignalementPage({
           await refreshBALSync();
         },
         status === Signalement.status.PROCESSED
-          ? "Le signalement a bien été pris en compte"
-          : "Le signalement a bien été ignoré",
+          ? "The report has been processed"
+          : "The report has been dismissed",
         "Une erreur est survenue"
       );
 
@@ -182,7 +182,7 @@ export default function SignalementPage({
             Impossible de trouver la localisation du signalement.
           </Paragraph>
           <Paragraph>
-            Il a été marqué comme expiré et n&apos;apparaîtra plus dans la liste
+            It has been marked as expired and will no longer appear in the list
             des signalements.
           </Paragraph>
           <Button
@@ -194,7 +194,7 @@ export default function SignalementPage({
             alignSelf="center"
             appearance="primary"
           >
-            Retour à la liste des signalements
+            Back to reports list
           </Button>
         </Pane>
       )}

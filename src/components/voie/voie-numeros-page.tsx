@@ -62,7 +62,7 @@ export function VoieNumerosPage() {
           {voie.nom}{" "}
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">Liste des numéros</Text>
+        <Text aria-current="page">Address list</Text>
       </>
     );
 

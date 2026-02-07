@@ -31,72 +31,72 @@ type StatusType = {
 
 const STATUSES: { [key: string]: StatusType } = {
   consultation: {
-    label: "Consultation",
-    title: "Vous consultez cette Base Adresse Locale",
+    label: "View only",
+    title: "You are viewing this Local Address Base",
     content:
-      "Vous consultez cette Base Adresse Locale, aucune modification ne sera répercutée dans la Base Adresse Nationale.",
+      "You are viewing this Local Address Base. No changes will be reflected in the National Address Platform.",
     color: "yellow",
     intent: "none",
     icon: EyeOpenIcon,
   },
   paused: {
-    label: "Suspendue",
+    label: "Paused",
     title:
-      "Les mises à jour automatiques de cette Base Adresse Locale sont actuellement suspendues, elle n’alimente plus la Base Adresse Nationale",
+      "Automatic updates for this Local Address Base are currently paused. It is no longer syncing with the National Address Platform.",
     content:
-      "Les mises à jour automatiques de cette Base Adresse Locale sont actuellement suspendues. Vous pouvez relancer la synchronisation à tout moment.",
+      "Automatic updates for this Local Address Base are currently paused. You can restart synchronization at any time.",
     color: "yellow",
     intent: "warning",
     icon: PauseIcon,
   },
   "no-habilitation": {
-    label: "Aucune habilitation",
+    label: "No authorization",
     title:
-      "Cette Base Adresse Locale a besoin d'une habilitation pour alimenter la Base Adresse Nationale",
+      "This Local Address Base needs authorization to sync with the National Address Platform",
     content:
-      "Les modifications ne seront pas répercutées dans la Base Adresse Nationale.",
+      "Changes will not be reflected in the National Address Platform.",
     color: "yellow",
     intent: "none",
     icon: TimeIcon,
   },
   outdated: {
-    label: "Mise à jour programmée",
-    title: "Cette Base Adresse Locale va alimenter la Base Adresse Nationale",
+    label: "Update scheduled",
+    title: "This Local Address Base will sync with the National Address Platform",
     content:
-      "De nouvelles modifications ont été détectées, elles seront automatiquement répercutées dans la Base Adresse Nationale dans les prochaines heures.",
+      "New changes have been detected. They will be automatically reflected in the National Address Platform within the next few hours.",
     color: "blue",
     intent: "none",
     icon: TimeIcon,
   },
   synced: {
-    label: "À jour",
-    title: "Cette Base Adresse Locale alimente la Base Adresse Nationale",
+    label: "Up to date",
+    title: "This Local Address Base is syncing with the National Address Platform",
     content:
-      "Cette Base Adresse Locale est à jour avec la Base Adresse Nationale. Toute modification sera automatiquement répercutée dans la Base Adresse Nationale dans les prochaines heures.",
+      "This Local Address Base is up to date with the National Address Platform. Any changes will be automatically reflected within the next few hours.",
     color: "green",
     intent: "success",
     icon: TickCircleIcon,
   },
   replaced: {
-    label: "Remplacée",
+    label: "Replaced",
     title:
-      "Cette Base Adresse Locale n’alimente plus la Base Adresse Nationale",
+      "This Local Address Base is no longer syncing with the National Address Platform",
     content:
-      "Une autre Base Adresses Locale est aussi synchronisée avec la Base Adresse Nationale. Veuillez entrer en contact les administrateurs de l’autre Base Adresse Locale ou notre support: adresse@data.gouv.fr",
+      "Another Local Address Base is also synchronized with the National Address Platform. Please contact the administrators of the other Local Address Base or our support: support@addressplatform.gov",
     color: "red",
     intent: "danger",
     icon: ErrorIcon,
   },
   draft: {
-    content: "Cette Base Adresses Locale est en cours de construction",
-    label: "Brouillon",
+    content: "This Local Address Base is under construction",
+    label: "Draft",
     color: "neutral",
     icon: ManuallyEnteredDataIcon,
   },
   demo: {
     content:
-      "Base Adresse Locale de démonstration, aucune adresse ne sera transmise à la Base Adresse Nationale",
-    label: "Démonstration",
+      "Demo Local Address Base — no addresses will be transmitted to the National Address Platform",
+    label: "Demo",
     color: "orange",
     textColor: "black",
     intent: "danger",

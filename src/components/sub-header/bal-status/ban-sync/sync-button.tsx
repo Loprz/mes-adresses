@@ -16,7 +16,7 @@ import RefreshIconRotate from "../refresh-icon-rotate/refresh-icon-rotate";
 function SyncButtonIsLoading() {
   return (
     <Pane display="flex" alignItems="center">
-      Synchronisation en cours <RefreshIconRotate />
+      Synchronization in progress <RefreshIconRotate />
     </Pane>
   );
 }
@@ -56,11 +56,11 @@ function SyncButton({
           onClick={onSync}
           disabled={!isManualActionConfirmed || isLoading}
         >
-          Forcer la mise à jour
+          Force update
         </Button>
         <Checkbox
           checked={isManualActionConfirmed}
-          label="Je comprends que ma Base Adresse Locale remplacera celle actuellement synchronisée avec la Base Adresses Nationale"
+          label="I understand that my Local Address Base will replace the one currently synchronized with the National Address Platform"
           onChange={() => setIsManuelActionConfirmed(!isManualActionConfirmed)}
         />
       </Pane>
@@ -76,7 +76,7 @@ function SyncButton({
         iconAfter={PlayIcon}
         onClick={togglePause}
       >
-        Relancer la mise à jour automatique
+        Restart automatic updates
       </Button>
     );
   }
@@ -101,13 +101,13 @@ function SyncButton({
         {isLoading ? (
           <SyncButtonIsLoading />
         ) : isActionHovered ? (
-          "Mettre à jour"
+          "Update"
         ) : (
-          "Mise à jour automatique"
+          "Automatic update"
         )}
       </Button>
       <Button appearance="minimal" iconAfter={PauseIcon} onClick={togglePause}>
-        Suspendre la mise à jour automatique
+        Pause automatic updates
       </Button>
     </Pane>
   );

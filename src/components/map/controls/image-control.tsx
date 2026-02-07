@@ -150,7 +150,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
         >
           {tileLayerEnabled && (
             <LayerShowHideControl
-              title="Numéros"
+              title="Numbers"
               isDiplayed={adresseLayerIsDisplayed}
               setIsDiplayed={setAdresseLayerIsDisplayed}
             />

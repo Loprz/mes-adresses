@@ -53,11 +53,16 @@
   "home": {
     "title": "Mis Direcciones",
     "subtitle": "Administre las direcciones de su jurisdicción de manera simple y eficiente.",
-    "searchPlaceholder": "Buscar una jurisdicción...",
-    "createNew": "Crear una nueva Base de Direcciones Local",
+    "searchPlaceholder": "Filtrar bases de direcciones locales por nombre",
+    "createNew": "Crear una Base de Direcciones Local",
+    "recoverBase": "Recuperar una Base de Direcciones Local",
     "recentBases": "Bases de Direcciones Recientes",
     "welcomeTitle": "Bienvenido a Mis Direcciones",
-    "welcomeDescription": "Mis Direcciones es una herramienta gratuita en línea que le permite crear, administrar y publicar su Base de Direcciones Local (LAB). No se requieren habilidades técnicas."
+    "welcomeDescription": "Mis Direcciones es una herramienta gratuita en línea que le permite crear, administrar y publicar su Base de Direcciones Local (LAB). No se requieren habilidades técnicas.",
+    "sortByDate": "Ordenar por fecha de actualización",
+    "sortAlphabetical": "Ordenar alfabéticamente",
+    "upcomingTrainings": "Próximas Capacitaciones",
+    "news": "Noticias"
   },
   "editor": {
     "toolbar": {
@@ -146,7 +151,11 @@
     "modified": "Modificado desde la última publicación",
     "readyToPublish": "Listo para publicar",
     "conflict": "Conflicto detectado",
-    "outdated": "Desactualizado"
+    "outdated": "Desactualizado",
+    "deleteConfirmDraft": "¿Está seguro de que desea eliminar esta Base de Direcciones Local? Esta acción no se puede deshacer.",
+    "deleteConfirmPublished": "¿Está seguro de que desea ocultar esta Base de Direcciones Local? Ya no aparecerá en su página de inicio, pero podrá recuperarla más tarde.",
+    "deleteSuccess": "La Base de Direcciones Local ha sido eliminada",
+    "deleteFailed": "No se pudo eliminar la Base de Direcciones Local"
   },
   "validation": {
     "requiredField": "Este campo es obligatorio",

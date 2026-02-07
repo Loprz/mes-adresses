@@ -103,7 +103,7 @@ function PositionEditor({
         justifyContent="center"
         onClick={handleAddMarker}
       >
-        {`Ajouter une position au ${isToponyme ? "toponyme" : "numéro"}`}
+        {`Ajouter une position au ${isToponyme ? "toponyme" : "number"}`}
       </Button>
     </FormField>
   );

@@ -51,7 +51,7 @@ function ToponymeNumeros({
                 {nomVoie}
               </Heading>
               <Table.TextCell flex="0 1 1">
-                {numerosByVoie[nomVoie].length} numéro
+                {numerosByVoie[nomVoie].length} number
                 {numerosByVoie[nomVoie].length > 1 ? "s" : ""}
               </Table.TextCell>
             </Table.Cell>

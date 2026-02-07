@@ -50,8 +50,8 @@ function useTrash(): UseTrashType {
     async (voie: Voie) => {
       const deleteVoie = toaster(
         () => VoiesService.deleteVoie(voie.id),
-        "La voie a bien été supprimée",
-        "La voie n’a pas pu être supprimée"
+        "The street has been deleted",
+        "The street could not be deleted"
       );
       await deleteVoie();
       await reloadAllDeleted();
@@ -66,8 +66,8 @@ function useTrash(): UseTrashType {
       };
       const restoreVoie = toaster(
         () => VoiesService.restoreVoie(voie.id, restoreVoieDTO),
-        "La voie a bien été restaurée",
-        "La voie n’a pas pu être restaurée"
+        "The street has been restored",
+        "The street could not be restored"
       );
       const res = await restoreVoie();
       if (res) {
@@ -101,8 +101,8 @@ function useTrash(): UseTrashType {
             baseLocale.id,
             deleteBatchNumeroDTO
           ),
-        "Les numéros ont bien été supprimés",
-        "Les numéros n’ont pas pu être supprimés"
+        "The numbers have been deleted",
+        "The numbers could not be deleted"
       );
       await deleteNumeros();
       await reloadAllDeleted();
@@ -114,8 +114,8 @@ function useTrash(): UseTrashType {
     async (toponyme: Toponyme) => {
       const deleteToponyme = toaster(
         () => ToponymesService.deleteToponyme(toponyme.id),
-        "Le toponyme a bien été supprimé",
-        "Le toponyme n’a pas pu être supprimé"
+        "The place name has been deleted",
+        "The place name could not be deleted"
       );
       await deleteToponyme();
       await reloadAllDeleted();
@@ -127,8 +127,8 @@ function useTrash(): UseTrashType {
     async (toponyme: Toponyme) => {
       const restoreToponyme = toaster(
         () => ToponymesService.restoreToponyme(toponyme.id),
-        "Le toponyme a bien été restauré",
-        "Le toponyme n’a pas pu être restauré"
+        "The place name has been restored",
+        "The place name could not be restored"
       );
       const res = await restoreToponyme();
       if (res) {

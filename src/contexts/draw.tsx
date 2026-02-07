@@ -164,24 +164,24 @@ export function DrawContextProvider(props: ChildrenProps) {
           if (!data) {
             draw.changeMode("draw_line_string");
             setHint(
-              "Cliquez sur la carte pour mesurer une distance. Double-cliquez pour terminer."
+              "Click on the map to measure a distance. Double-click to finish."
             );
           } else {
             draw.changeMode("direct_select", { featureId: data.id });
             const lineLength = length(data, { units: "meters" });
-            setHint(`Longueur : ${Math.round(lineLength)} m.`);
+            setHint(`Length: ${Math.round(lineLength)} m`);
           }
           break;
         case DrawMode.DRAW_NUMEROS_TO_TOPONYME_POLYGONE:
           draw.changeMode("draw_polygon");
           if (!data) {
             setHint(
-              "Cliquez sur la carte pour indiquer le début du polygone, puis ajoutez de nouveaux points afin de tracer votre polygone. Une fois terminé, cliquez sur le dernier point afin d’indiquer la fin du polygone."
+              "Click on the map to start the polygon, then add new points to draw your polygon. When finished, click the last point to close the polygon."
             );
           } else {
             draw.changeMode("direct_select", { featureId: data.id });
             setHint(
-              "Vous pouvez éditer le polygone en déplaçant les points ou en ajoutant de nouveaux points en cliquant sur le contour du polygone."
+              "You can edit the polygon by dragging points or adding new points by clicking on the polygon outline."
             );
           }
           break;
@@ -190,18 +190,18 @@ export function DrawContextProvider(props: ChildrenProps) {
             draw.deleteAll();
             draw.changeMode("draw_line_string");
             setHint(
-              "Cliquez sur la carte pour indiquer le début de la voie, puis ajoutez de nouveaux points afin de tracer votre voie. Une fois terminé, cliquez sur le dernier point afin d’indiquer la fin de la voie."
+              "Click on the map to start the street, then add new points to draw your street. When finished, click the last point to end the street."
             );
           } else {
             const featureId = data.id || draw.add(data)[0];
             draw.changeMode("direct_select", { featureId });
             setHint(
-              "Vous pouvez éditer le tracé en déplaçant les points ou en ajoutant de nouveaux points en cliquant sur le tracé."
+              "You can edit the path by dragging points or adding new points by clicking on the path."
             );
           }
           break;
         default:
-          throw new Error("Mode de dessin inconnu");
+          throw new Error("Unknown drawing mode");
       }
     } else {
       // Reset states

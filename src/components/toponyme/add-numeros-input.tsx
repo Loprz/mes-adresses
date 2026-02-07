@@ -31,7 +31,7 @@ function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
     <Pane>
       <Pane marginBottom="8px">
         <Pane marginBottom="8px">
-          <Text marginBottom="8px">Associer des numéros</Text>
+          <Text marginBottom="8px">Associate numbers</Text>
         </Pane>
         <Pane display="flex" alignItems="center" justifyContent="space-between">
           <Button

@@ -19,7 +19,7 @@ function AddressEditorControl({
           width={29}
           icon={CrossIcon}
           onClick={() => handleAddressForm(false)}
-          title="Annuler la création d'une adresse"
+          title="Cancel address creation'une adresse"
         />
       ) : (
         <IconButton
@@ -30,7 +30,7 @@ function AddressEditorControl({
           intent="success"
           appearance="primary"
           onClick={() => handleAddressForm(true)}
-          title="Créer une adresse"
+          title="Create an address"
         />
       )}
     </>

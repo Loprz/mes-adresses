@@ -46,7 +46,7 @@ function SignalementDeleteVoie({
     <>
       <SignalementVoieDiffCard
         signalementType={Signalement.type.LOCATION_TO_DELETE}
-        title="Demande de suppression d'une voie"
+        title="Request to delete a street"
         nom={{
           to: nom,
         }}

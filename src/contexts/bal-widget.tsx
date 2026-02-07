@@ -139,6 +139,9 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
     isBalWidgetConfigLoaded,
   ]);
 
+  const widgetUrl = process.env.NEXT_PUBLIC_BAL_WIDGET_URL;
+  const hasValidUrl = Boolean(widgetUrl && widgetUrl.trim() !== '');
+
   useEffect(() => {
     function BALWidgetMessageHandler(event: {
       data: { type: string; content: any };
@@ -179,13 +182,18 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
     }
 
     window.addEventListener("message", BALWidgetMessageHandler);
-    setIsWidgetDisplayed(true);
+    // Only set widget as displayed if we have a valid URL
+    if (hasValidUrl) {
+      setIsWidgetDisplayed(true);
+    }
 
     return () => {
       window.removeEventListener("message", BALWidgetMessageHandler);
       clearTimeout(transitionTimeout.current);
     };
-  }, [isBalWidgetOpen, matomoTrackEvent]);
+  }, [isBalWidgetOpen, matomoTrackEvent, hasValidUrl]);
+
+  const shouldRenderIframe = isWidgetDisplayed && hasValidUrl;
 
   return (
     <BALWidgetContext.Provider
@@ -201,11 +209,11 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
       }}
     >
       {children}
-      {isWidgetDisplayed && (
+      {shouldRenderIframe && (
         <Pane
           is="iframe"
           ref={balWidgetRef}
-          src={process.env.NEXT_PUBLIC_BAL_WIDGET_URL}
+          src={widgetUrl || undefined}
           title="BAL Widget"
           position="fixed"
           bottom={40}

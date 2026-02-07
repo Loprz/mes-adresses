@@ -83,7 +83,7 @@ export default function ToponymeNumerosPage() {
       await reloadNumeros();
       await reloadToponymes();
       pushToast({
-        title: "Les numéros ont bien été modifiés",
+        title: "The numbers have been updated",
         intent: "success",
       });
     } catch (error: unknown) {
@@ -148,7 +148,7 @@ export default function ToponymeNumerosPage() {
           {toponyme.nom}
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">Liste des numéros</Text>
+        <Text aria-current="page">Address list</Text>
       </>
     );
 
@@ -213,7 +213,7 @@ export default function ToponymeNumerosPage() {
                       }
                 }
               >
-                Associer des numéros
+                Associate numbers
               </Button>
             </Pane>
           </Pane>
@@ -230,7 +230,7 @@ export default function ToponymeNumerosPage() {
             {!isEditing && (
               <Table.Head>
                 <Table.SearchHeaderCell
-                  placeholder="Rechercher un numéro"
+                  placeholder="Search for a number"
                   onChange={setFilter}
                 />
               </Table.Head>
@@ -239,7 +239,7 @@ export default function ToponymeNumerosPage() {
             {filtered.length === 0 && (
               <Table.Row>
                 <Table.TextCell color="muted" fontStyle="italic">
-                  Aucun numéro
+                  No numbers
                 </Table.TextCell>
               </Table.Row>
             )}

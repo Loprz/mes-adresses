@@ -59,11 +59,11 @@ function BALStatus({
     try {
       await BasesLocalesService.pauseBaseLocale(baseLocale.id);
       toaster.success(
-        "Mise en pause des mises à jour automatiques de la Base Adresses Nationale"
+        "Automatic updates to the National Address Platform have been paused"
       );
     } catch (error: unknown) {
       toaster.danger(
-        "Impossible de suspendre la mise à jour de la Base Adresses Nationale",
+        "Unable to pause updates to the National Address Platform",
         {
           description: (error as any).body.message,
         }
@@ -76,11 +76,11 @@ function BALStatus({
     try {
       await BasesLocalesService.resumeBaseLocale(baseLocale.id);
       toaster.success(
-        "Reprise de la mise à jour automatique de la Base Adresses Nationale"
+        "Automatic updates to the National Address Platform have resumed"
       );
     } catch (error: unknown) {
       toaster.danger(
-        "Impossible de reprendre la mise à jour automatique de la Base Adresses Nationale",
+        "Unable to resume automatic updates to the National Address Platform",
         {
           description: (error as any).body.message,
         }
@@ -125,7 +125,7 @@ function BALStatus({
                   appearance="primary"
                   onClick={handleShowHabilitationProcess}
                 >
-                  Habiliter la BAL
+                  Authorize the LAB
                 </Button>
               )}
             {baseLocale.status === ExtendedBaseLocaleDTO.status.DRAFT && (
@@ -135,7 +135,7 @@ function BALStatus({
                 appearance="primary"
                 onClick={handleHabilitation}
               >
-                Publier
+                Publish
               </Button>
             )}
           </>

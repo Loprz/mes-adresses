@@ -43,7 +43,7 @@ function SignalementViewerUpdateNumero({
   return (
     <>
       <SignalementNumeroDiffCard
-        title="Adresse concernée"
+        title="Related address"
         isActive={activeCard === ActiveCardEnum.INITIAL}
         numero={{
           to: `${existingNumero}${
@@ -70,7 +70,7 @@ function SignalementViewerUpdateNumero({
         title={
           <>
             Modification{" "}
-            {status === Signalement.status.PROCESSED ? "acceptée" : "refusée"}
+            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

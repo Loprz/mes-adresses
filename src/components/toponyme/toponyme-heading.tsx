@@ -35,7 +35,7 @@ function ToponymeHeading({ toponyme, baseLocale }: ToponymeHeadingProps) {
               <IconButton
                 is={NextLink}
                 href={`/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/${toponyme.id}`}
-                title="Éditer le toponyme"
+                title="Edit place name"
                 icon={EditIcon}
                 marginBottom={-2}
                 marginLeft={8}
@@ -44,7 +44,7 @@ function ToponymeHeading({ toponyme, baseLocale }: ToponymeHeadingProps) {
           </Pane>
           {numeros && (
             <Text padding={0}>
-              {numeros.length} numéro{numeros.length > 1 ? "s" : ""}
+              {numeros.length} number{numeros.length > 1 ? "s" : ""}
             </Text>
           )}
         </Pane>

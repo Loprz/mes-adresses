@@ -35,7 +35,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
               <CommuneFlag codeCommune={commune.code} />
             </Heading>
             <Heading>
-              Bienvenue sur la nouvelle Base Adresse Locale de {commune.nom}
+              Welcome to the new Local Address Base for {commune.nom}
             </Heading>
           </Pane>
           <Icon
@@ -48,7 +48,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           />
         </Pane>
       }
-      confirmLabel="Commencez l’adressage"
+      confirmLabel="Start addressing"
       hasCancel={false}
       onConfirm={() => setWasWelcomed(true)}
       onCloseComplete={() => setWasWelcomed(true)}
@@ -66,29 +66,29 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           </Pane>
           <Pane>
             <Heading>
-              Commencez par la <b>publication</b> !
+              Start with <b>publication</b> !
             </Heading>
             <Paragraph marginY={16}>
-              La BAL deviendra alors l&apos;unique source officielle des
-              adresses de {commune.nom}
+              The LAB will then become the sole official source of
+              addresses for {commune.nom}
             </Paragraph>
           </Pane>
         </Pane>
         <br />
         <Pane display="flex" flexDirection="row">
           <Pane>
-            <Heading>Adressez à votre rythme.</Heading>
+            <Heading>Address at your own pace.</Heading>
             <Paragraph marginY={16}>
-              Une fois publiées, les adresses sont syncronisées avec la Base
-              Adresse Nationale.
+              Once published, addresses are synchronized with the
+              National Address Platform.
               <br />
-              Toutes vos modifications remonteront au fil de l&apos;eau.
+              All your changes will be synced automatically.
             </Paragraph>
           </Pane>
         </Pane>
 
         <Pane marginY={16}>
-          <Heading marginBottom={16}>Besoin d&apos;aide ?</Heading>
+          <Heading marginBottom={16}>Need help?</Heading>
           <Pane
             display="flex"
             flexDirection="row"
@@ -96,17 +96,17 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           >
             <MiniCard
               img="/static/images/education.png"
-              message="Suivez une formation"
+              message="Take a training"
               href="https://adresse.data.gouv.fr/formation-en-ligne"
             />
             <MiniCard
               img="/static/images/video-call.png"
-              message="Regardez les tutoriels"
+              message="Watch the tutorials"
               href="https://tube.numerique.gouv.fr/w/p/cm6YcSnDdztzRjKTH3vNFn?playlistPosition=1"
             />
             <MiniCard
               img="/static/images/manual.png"
-              message="Consultez les guides"
+              message="Read the guides"
               href="https://adresse.data.gouv.fr/documentation-bal"
             />
           </Pane>

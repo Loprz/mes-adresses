@@ -1,12 +1,14 @@
 export const positionsTypesList = [
-  { value: "entrée", name: "Entrée" },
-  { value: "délivrance postale", name: "Délivrance postale" },
-  { value: "bâtiment", name: "Bâtiment" },
-  { value: "cage d’escalier", name: "Cage d’escalier" },
-  { value: "logement", name: "Logement" },
-  { value: "parcelle", name: "Parcelle" },
-  { value: "segment", name: "Segment" },
-  { value: "service technique", name: "Service technique" },
+  { value: "entrance", name: "Entrance" },
+  { value: "postal_delivery", name: "Postal delivery" },
+  { value: "building", name: "Building" },
+  { value: "staircase", name: "Staircase" },
+  { value: "unit", name: "Unit" },
+  { value: "parcel", name: "Parcel" },
+  { value: "segment", name: "Road segment" },
+  { value: "utility", name: "Utility" },
+  { value: "rooftop", name: "Rooftop" },
+  { value: "structure", name: "Structure" },
 ];
 
 export const getPositionName = (value) => {

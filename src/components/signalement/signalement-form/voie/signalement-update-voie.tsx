@@ -55,7 +55,7 @@ function SignalementUpdateVoie({
         }}
       />
       <SignalementVoieDiffCard
-        title="Modification proposée"
+        title="Proposed change"
         signalementType={Signalement.type.LOCATION_TO_UPDATE}
         nom={{
           from: existingNom,
@@ -63,7 +63,7 @@ function SignalementUpdateVoie({
         }}
       />
       <SignalementVoieDiffCard
-        title="Nom de la voie après modification"
+        title="Street name after modification"
         nom={{
           to: nom,
         }}

@@ -52,7 +52,7 @@ export function SignalementListItem({
           />
         ) : signalement.status === Signalement.status.IGNORED ? (
           <Tooltip
-            content={`Refusée le ${new Date(
+            content={`Rejected on ${new Date(
               signalement.updatedAt
             ).toLocaleDateString("fr-FR")}`}
           >
@@ -60,7 +60,7 @@ export function SignalementListItem({
           </Tooltip>
         ) : signalement.status === Signalement.status.PROCESSED ? (
           <Tooltip
-            content={`Acceptée le ${new Date(
+            content={`Accepted on ${new Date(
               signalement.updatedAt
             ).toLocaleDateString("fr-FR")}`}
           >

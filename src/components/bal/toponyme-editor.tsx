@@ -119,8 +119,8 @@ function ToponymeEditor({
         const submit = initialValue
           ? toaster(
               () => ToponymesService.updateToponyme(initialValue.id, body),
-              "Le toponyme a bien été modifié",
-              "Le toponyme n’a pas pu être modifié",
+              "The place name has been updated",
+              "The place name could not be updated",
               (error) => {
                 setValidationMessages(error.body.message);
               }
@@ -134,8 +134,8 @@ function ToponymeEditor({
                 await updateNumerosToponyme(toponyme.id);
                 return toponyme;
               },
-              "Le toponyme a bien été ajouté",
-              "Le toponyme n’a pas pu être ajouté",
+              "The place name has been added",
+              "The place name could not be added",
               (error) => {
                 setValidationMessages(error.body.message);
               }
@@ -206,10 +206,10 @@ function ToponymeEditor({
   useEffect(() => {
     if (markers.length > 1) {
       setHint(
-        "Déplacez les marqueurs sur la carte pour modifier les positions"
+        "Drag the markers on the map to modify positions"
       );
     } else {
-      setHint("Déplacez le marqueur sur la carte pour positionner le toponyme");
+      setHint("Drag the marker on the map to position the place name");
     }
 
     return () => {
@@ -250,7 +250,7 @@ function ToponymeEditor({
               selectedCodeCommune={communeDeleguee}
               setSelectedCodeCommune={setCommuneDeleguee}
               withOptionNull={true}
-              label="Commune déléguée"
+              label="Sub-jurisdiction"
             />
           </FormInput>
         )}

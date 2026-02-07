@@ -81,7 +81,7 @@ function ListNumerosDeleted({
         minHeight={64}
       >
         <Pane>
-          <Heading>Liste des numéros supprimés</Heading>
+          <Heading>List of deleted numbers</Heading>
         </Pane>
       </Pane>
 
@@ -93,7 +93,7 @@ function ListNumerosDeleted({
             </Table.Cell>
           )}
           <Table.SearchHeaderCell
-            placeholder="Rechercher un numéro"
+            placeholder="Search for a number"
             onChange={setFilter}
           />
         </Table.Head>
@@ -101,7 +101,7 @@ function ListNumerosDeleted({
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              Aucun numéro
+              No numbers
             </Table.TextCell>
           </Table.Row>
         )}

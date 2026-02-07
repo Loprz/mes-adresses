@@ -180,9 +180,9 @@ export function BalDataContextProvider({
         await reloadBaseLocale();
         setIsRefrehSyncStat(false);
         pushToast({
-          title: "De nouvelles modifications ont été détectées",
+          title: "New changes have been detected",
           message:
-            "Elles seront automatiquement transmises dans la Base Adresses Nationale d’ici quelques heures.",
+            "They will be automatically transmitted to the National Address Platform within a few hours.",
           intent: "info",
           duration: 5000,
         });
@@ -322,7 +322,7 @@ export function BalDataContextProvider({
         >
           <Spinner />
           <Paragraph marginTop={10}>
-            Chargement de la base adresse locale...
+            Loading the Local Address Base...
           </Paragraph>
         </Pane>
       )}

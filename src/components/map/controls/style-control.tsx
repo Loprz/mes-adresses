@@ -34,7 +34,7 @@ function StyleControl({
     const { hasOrtho, hasOpenMapTiles, hasPlanIGN } = commune;
     return [
       {
-        label: "Photographie aérienne",
+        label: "Aerial photography",
         value: MapStyle.ORTHO,
         isAvailable: hasOrtho,
       },

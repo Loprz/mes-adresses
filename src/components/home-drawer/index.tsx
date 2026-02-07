@@ -37,8 +37,8 @@ function HomeDrawer() {
     const showPulsar = lastNews && lastNews.id !== lastNewsSeen;
 
     return [
-      { label: "Prochaines formations" },
-      { label: "Actualités", showPulsar: showPulsar },
+      { label: "Upcoming Trainings" },
+      { label: "News", showPulsar: showPulsar },
     ];
   }, [news, lastNewsSeen]);
 

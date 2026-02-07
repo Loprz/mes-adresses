@@ -28,7 +28,7 @@ function AddNumerosWithPolygon({
   useEffect(() => {
     setDrawMode(DrawMode.DRAW_NUMEROS_TO_TOPONYME_POLYGONE);
     setHint(
-      "Cliquez sur la carte pour dessiner un polygon. Une fois terminé, cliquez sur le dernier point afin de fermer le polygone. Les numeros dans le polygone seront selectionnés"
+      "Click on the map to draw a polygon. Une fois terminé, cliquez sur le dernier point afin de fermer le polygone. Les numeros dans le polygone seront selectionnés"
     );
     return () => {
       setDrawMode(null);
@@ -54,14 +54,14 @@ function AddNumerosWithPolygon({
 
   const selectedNumerosCount = useMemo(() => {
     if (numerosSelected.length === 0) {
-      return "Aucun numéro n’est sélectionné";
+      return "No numbers selected";
     }
 
     if (numerosSelected.length === 1) {
-      return "1 numéro est sélectionné";
+      return "1 number is selected";
     }
 
-    return `${numerosSelected.length} numéros sont sélectionnés`;
+    return `${numerosSelected.length} numbers are selected`;
   }, [numerosSelected.length]);
 
   const numeroOptions = useMemo(() => {
@@ -91,7 +91,7 @@ function AddNumerosWithPolygon({
         <>
           <Alert
             intent="none"
-            title="Modifier le polygone directement depuis la carte pour changer les numeros sélectionés."
+            title="Edit the polygon directly on the map pour changer les numeros sélectionés."
             marginBottom={8}
           />
 
@@ -104,7 +104,7 @@ function AddNumerosWithPolygon({
             <SelectMenu
               isMultiSelect
               hasFilter={false}
-              title="Sélection des numéros"
+              title="Number selection"
               options={numeroOptions}
               selected={numerosIds}
               emptyView={
@@ -117,7 +117,7 @@ function AddNumerosWithPolygon({
                   textAlign="center"
                 >
                   <Text size={300}>
-                    Aucun numéro n’est disponible pour cette voie
+                    No numbers are available for this street
                   </Text>
                 </Pane>
               }
@@ -125,7 +125,7 @@ function AddNumerosWithPolygon({
               onDeselect={handleSelectNumero}
             >
               <Button marginTop={0} type="button">
-                Sélectionner les numéros
+                Select numbers
               </Button>
             </SelectMenu>
 

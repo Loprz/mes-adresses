@@ -26,14 +26,14 @@ function DrawerContent() {
     ...(baseLocale.status !== BaseLocale.status.DEMO && isAdmin
       ? [
           {
-            label: "Paramètres",
+            label: "Settings",
             key: "settings",
             content: <Settings baseLocale={baseLocale} token={token} />,
           },
         ]
       : []),
     {
-      label: "Téléchargements",
+      label: "Downloads",
       key: "downloads",
       content: <Downloads baseLocale={baseLocale} />,
     },

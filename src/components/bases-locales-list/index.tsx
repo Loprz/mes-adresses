@@ -1,4 +1,5 @@
 import { useState, useCallback, useContext, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
   defaultTheme,
   IconButton,
@@ -70,6 +71,7 @@ function BasesLocalesList({ initialBasesLocales }: BasesLocalesListProps) {
     useState<keyof SortType>("updatedAt");
   const { removeBalAccess, getBalToken } = useContext(LocalStorageContext);
   const { toaster } = useContext(LayoutContext);
+  const t = useTranslations();
   const [BALtoRemove, setBALToRemove] =
     useState<BaseLocaleWithHabilitationDTO | null>(null);
 
@@ -115,8 +117,8 @@ function BasesLocalesList({ initialBasesLocales }: BasesLocalesListProps) {
           await BasesLocalesService.deleteBaseLocale(balId);
           Object.assign(OpenAPI, { TOKEN: null });
         },
-        "La Base Adresse Locale a bien été supprimée",
-        "La Base Adresse Locale n’a pas pu être supprimée"
+        "The Local Address Base has been deleted",
+        "The Local Address Base could not be deleted"
       );
 
       await deleteBaseLocale();
@@ -160,14 +162,11 @@ function BasesLocalesList({ initialBasesLocales }: BasesLocalesListProps) {
           BALtoRemove?.status === BaseLocaleWithHabilitationDTO.status.DRAFT ||
           BALtoRemove?.status === BaseLocaleWithHabilitationDTO.status.DEMO ? (
             <Paragraph>
-              Êtes vous bien sûr de vouloir supprimer cette Base Adresse Locale
-              ? Cette action est définitive.
+              {t("status.deleteConfirmDraft")}
             </Paragraph>
           ) : (
             <Paragraph>
-              Êtes vous bien sûr de vouloir masquer cette Base Adresse Locale ?
-              Elle n&apos;apparaitra plus sur votre page d&apos;accueil, mais
-              vous pourrez toujours la récupérer ultérieurement.
+              {t("status.deleteConfirmPublished")}
             </Paragraph>
           )
         }
@@ -193,7 +192,7 @@ function BasesLocalesList({ initialBasesLocales }: BasesLocalesListProps) {
               flexWrap="wrap"
             >
               <SearchInput
-                placeholder="Filtrer les bases adresses locales par nom"
+                placeholder={t("home.searchPlaceholder")}
                 onChange={(e) => {
                   setSearch(e.target.value);
                   setCurrentPage(1);
@@ -208,7 +207,7 @@ function BasesLocalesList({ initialBasesLocales }: BasesLocalesListProps) {
                 justifySelf="flex-end"
               >
                 <IconButton
-                  title="Trier par date de mise à jour"
+                  title={t("home.sortByDate")}
                   appearance="minimal"
                   className={styles["sort-button"]}
                   icon={
@@ -224,7 +223,7 @@ function BasesLocalesList({ initialBasesLocales }: BasesLocalesListProps) {
                   })}
                 />
                 <IconButton
-                  title="Trier par ordre alphabétique"
+                  title={t("home.sortAlphabetical")}
                   className={styles["sort-button"]}
                   appearance="minimal"
                   icon={

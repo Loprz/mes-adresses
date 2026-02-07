@@ -29,10 +29,10 @@ export default function NotFound() {
           color="#101840"
         />
         <Heading size={800} marginBottom="2em">
-          Erreur 404 - Page introuvable
+          Error 404 - Page not found
         </Heading>
         <Button iconBefore={ArrowLeftIcon} is={Link} href="/">
-          Retour à la page d’accueil
+          Back to home page
         </Button>
       </Pane>
     </>

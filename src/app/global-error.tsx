@@ -44,10 +44,10 @@ export default function Error({
           color="#101840"
         />
         <Heading size={800} marginBottom="2em">
-          Une erreur est survenue.
+          An error has occurred.
         </Heading>
         <Button iconBefore={ArrowLeftIcon} onClick={reload}>
-          Réessayer
+          Try again
         </Button>
       </Pane>
     </Main>

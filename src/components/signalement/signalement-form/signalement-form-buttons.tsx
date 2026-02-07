@@ -25,8 +25,8 @@ interface SignalementFormButtonsProps {
 const rejectionReasonsOptions = [
   "Signalement non pertinent",
   "Signalement en double",
-  "Signalement déjà traité",
-  "Signalement mal positionné",
+  "Report already processed",
+  "Report incorrectly positioned",
   "Signalement non conforme",
   "Autre",
 ] as const;
@@ -88,7 +88,7 @@ export function SignalementFormButtons({
                 id="reject-reason"
                 value={rejectionReason}
                 onChange={(e) => setRejectionReason(e.target.value)}
-                placeholder="Précisez la raison du refus, merci de ne pas indiquer de données personnelles"
+                placeholder="Please specify the reason for rejection. Do not include personal data."
                 rows={4}
                 resize="none"
               />

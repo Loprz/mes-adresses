@@ -34,7 +34,7 @@ interface VoieEditorProps {
 }
 
 const options = [
-  { label: "Numérique", value: Voie.typeNumerotation.NUMERIQUE },
+  { label: "Numeric", value: Voie.typeNumerotation.NUMERIQUE },
   { label: "Métrique", value: Voie.typeNumerotation.METRIQUE },
 ];
 
@@ -81,8 +81,8 @@ function VoieEditor({
           ? toaster(
               async () =>
                 VoiesService.updateVoie(initialValue.id, body as UpdateVoieDTO),
-              "La voie a bien été modifiée",
-              "La voie n’a pas pu être modifiée",
+              "The street has been updated",
+              "The street could not be updated",
               (err) => {
                 setValidationMessages(err.body.message);
               }
@@ -93,8 +93,8 @@ function VoieEditor({
                   baseLocale.id,
                   body as CreateVoieDTO
                 ),
-              "La voie a bien été ajoutée",
-              "La voie n’a pas pu être ajoutée",
+              "The street has been added",
+              "The street could not be added",
               (err) => {
                 setValidationMessages(err.body.message);
               }
@@ -174,7 +174,7 @@ function VoieEditor({
             isRequired
             className={styles["custom-radio-group"]}
             marginTop="1em"
-            label="Type de numérotation *"
+            label="Numbering type *"
             value={typeNumerotation}
             options={options}
             onChange={(event) =>

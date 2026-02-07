@@ -78,10 +78,10 @@ function Sidebar({
             onClick={handleClick}
             title={
               isHidden
-                ? "Ouvrir la barre latérale"
+                ? "Open sidebar"
                 : isEditing || voie || toponyme
-                  ? "Fermer le formulaire"
-                  : "Masquer la barre latérale"
+                  ? "Close form"
+                  : "Hide sidebar"
             }
           >
             {isHidden ? (

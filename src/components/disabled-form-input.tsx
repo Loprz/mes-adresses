@@ -17,7 +17,7 @@ function DisabledFormInput({ label }: DisabledFormInputProps) {
       <Alert
         marginY={4}
         intent="warning"
-        title="Cette fonctionnalité n’est pas disponible pour cette commune."
+        title="This feature is not available for this jurisdiction."
       />
     </Pane>
   );

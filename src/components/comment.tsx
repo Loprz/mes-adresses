@@ -23,7 +23,7 @@ function Comment({
         Commentaire
       </Label>
       <TextareaField
-        placeholder="Cette note est confidentielle et ne sera pas diffusée."
+        placeholder="This note is confidential and will not be shared."
         value={input}
         disabled={isDisabled}
         onChange={input.length < limit ? onChange : () => {}}

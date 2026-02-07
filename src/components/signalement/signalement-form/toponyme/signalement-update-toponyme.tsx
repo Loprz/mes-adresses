@@ -78,7 +78,7 @@ function SignalementUpdateToponyme({
         }}
       />
       <SignalementToponymeDiffCard
-        title="Modification proposée"
+        title="Proposed change"
         isActive={activeCard === ActiveCardEnum.CHANGES}
         signalementType={Signalement.type.LOCATION_TO_UPDATE}
         nom={{
@@ -98,7 +98,7 @@ function SignalementUpdateToponyme({
         }}
       />
       <SignalementToponymeDiffCard
-        title="Toponyme après modification"
+        title="Place name after modification"
         isActive={activeCard === ActiveCardEnum.FINAL}
         nom={{
           to: nom,

@@ -43,9 +43,9 @@ export default function usePublishProcess(
       return (baseLocale.nbNumeros / communeBAN.nbNumeros) * 100 <= 50;
     } catch (error) {
       pushToast({
-        title: "Erreur",
+        title: "Error",
         message:
-          "Impossible de récupérer les données de la Base Adresse Nationale",
+          "Unable to retrieve data from the National Address Platform",
         intent: "danger",
       });
 
@@ -76,8 +76,8 @@ export default function usePublishProcess(
         }
       } catch (err) {
         pushToast({
-          title: "Erreur",
-          message: "Impossible de créer un processus d'habilitation",
+          title: "Error",
+          message: "Unable to create an authorization process",
           intent: "danger",
         });
       }

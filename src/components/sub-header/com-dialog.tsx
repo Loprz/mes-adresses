@@ -25,23 +25,23 @@ function COMDialog({ baseLocaleId, handleClose }: COMDialogProps) {
     >
       <Pane display="flex" flexDirection="column" marginY={16}>
         <Heading size={700} textAlign="center" marginBottom={8}>
-          Publication de votre Base Adresse Locale
+          Publishing your Local Address Base
         </Heading>
         <InlineAlert intent="warning" marginY={16}>
-          Votre commune fait partie des Collectivités d’Outre-Mer pour
+          Your jurisdiction is part of an overseas territory for
           lesquelles une authentification automatique est en cours de
           développement.
         </InlineAlert>
 
-        <Alert intent="none" title="Merci de nous contacter">
+        <Alert intent="none" title="Please contact us">
           <Paragraph marginTop={8}>
-            Dans l’attente, afin de pouvoir publier vos adresses dans la{" "}
+            In the meantime, in order to publish your addresses in the{" "}
             <Strong>Base Adresse Nationale</Strong>, vous devez nous contacter à
             l’adresse :{" "}
             <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>.
           </Paragraph>
           <Paragraph>
-            Dans votre courriel, veuillez nous indiquer l’identifiant de votre
+            In your email, please include the identifier of your
             Base Adresse Locale <Strong>({baseLocaleId})</Strong>.
           </Paragraph>
         </Alert>
