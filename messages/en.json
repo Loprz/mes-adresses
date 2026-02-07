@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "title": "My Addresses — National Address Platform",
+    "description": "My Addresses is an online tool that allows you to easily manage your addresses, from creating a Local Address Base to keeping it up to date."
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "add": "Add",
+    "search": "Search",
+    "publish": "Publish",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "of": "of",
+    "all": "All",
+    "none": "None",
+    "required": "Required",
+    "optional": "Optional",
+    "actions": "Actions",
+    "details": "Details",
+    "download": "Download",
+    "upload": "Upload",
+    "import": "Import",
+    "export": "Export",
+    "filter": "Filter",
+    "sort": "Sort",
+    "copy": "Copy",
+    "share": "Share",
+    "settings": "Settings",
+    "help": "Help"
+  },
+  "nav": {
+    "home": "Home",
+    "newBase": "New Local Address Base",
+    "myBases": "My Address Bases",
+    "documentation": "Documentation",
+    "accessibility": "Accessibility",
+    "legalNotice": "Legal Notice"
+  },
+  "home": {
+    "title": "My Addresses",
+    "subtitle": "Manage your jurisdiction's addresses simply and efficiently.",
+    "searchPlaceholder": "Search for a jurisdiction...",
+    "createNew": "Create a new Local Address Base",
+    "recentBases": "Recent Address Bases",
+    "welcomeTitle": "Welcome to My Addresses",
+    "welcomeDescription": "My Addresses is a free online tool that lets you create, manage, and publish your Local Address Base (LAB). No technical skills required."
+  },
+  "editor": {
+    "toolbar": {
+      "save": "Save",
+      "undo": "Undo",
+      "redo": "Redo",
+      "addAddress": "Add an address",
+      "addStreet": "Add a street",
+      "addPlaceName": "Add a place name",
+      "deleteSelected": "Delete selected",
+      "certification": "Certification"
+    },
+    "addressForm": {
+      "streetName": "Street name",
+      "number": "Number",
+      "suffix": "Suffix",
+      "positionType": "Position type",
+      "comment": "Comment",
+      "parcels": "Parcels",
+      "certified": "Certified by local authority"
+    },
+    "streetForm": {
+      "name": "Street name",
+      "type": "Street type",
+      "placeName": "Place name / Locality",
+      "comment": "Comment"
+    },
+    "map": {
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "resetView": "Reset view",
+      "satellite": "Satellite",
+      "streets": "Streets",
+      "parcels": "Parcels",
+      "layers": "Map layers"
+    },
+    "publish": {
+      "title": "Publish your Local Address Base",
+      "description": "Publishing makes your addresses available in the National Address Platform.",
+      "readyToPublish": "Ready to publish",
+      "notReady": "Not ready to publish",
+      "publishNow": "Publish now",
+      "lastPublished": "Last published",
+      "unpublished": "Unpublished changes"
+    }
+  },
+  "jurisdiction": {
+    "label": "Jurisdiction",
+    "selectState": "Select a state",
+    "selectCounty": "Select a county",
+    "selectCity": "Select a city or township",
+    "fipsCode": "FIPS Code",
+    "name": "Jurisdiction name",
+    "population": "Population",
+    "addressCount": "Address count",
+    "coverage": "Coverage"
+  },
+  "address": {
+    "label": "Address",
+    "number": "Number",
+    "street": "Street",
+    "suffix": "Suffix",
+    "placeName": "Place name",
+    "positionType": "Position type",
+    "certified": "Certified",
+    "notCertified": "Not certified",
+    "source": "Source",
+    "lastUpdated": "Last updated",
+    "parcelIds": "Parcel IDs"
+  },
+  "positionTypes": {
+    "postal_delivery": "Postal delivery",
+    "entrance": "Entrance",
+    "building": "Building",
+    "staircase": "Staircase",
+    "unit": "Unit",
+    "parcel": "Parcel",
+    "segment": "Road segment",
+    "utility": "Utility",
+    "rooftop": "Rooftop",
+    "structure": "Structure"
+  },
+  "status": {
+    "draft": "Draft",
+    "published": "Published",
+    "modified": "Modified since last publication",
+    "readyToPublish": "Ready to publish",
+    "conflict": "Conflict detected",
+    "outdated": "Outdated"
+  },
+  "validation": {
+    "requiredField": "This field is required",
+    "invalidNumber": "Please enter a valid number",
+    "invalidCoordinates": "Invalid coordinates",
+    "invalidFipsCode": "Invalid FIPS code",
+    "duplicateAddress": "This address already exists",
+    "streetRequired": "A street name is required",
+    "numberRequired": "An address number is required"
+  },
+  "help": {
+    "title": "Help",
+    "gettingStarted": "Getting Started",
+    "addresses": "Addresses",
+    "streets": "Streets",
+    "placeNames": "Place Names",
+    "publication": "Publication",
+    "tutorial": "Tutorial"
+  },
+  "newBase": {
+    "title": "Create a new Local Address Base",
+    "step1Title": "Select your jurisdiction",
+    "step1Description": "Choose the state, county, and city or township for your address base.",
+    "step2Title": "Import existing data",
+    "step2Description": "Upload an existing LAB file, or start from scratch.",
+    "step3Title": "Review and create",
+    "step3Description": "Review your settings and create the address base.",
+    "importFile": "Import a LAB file (CSV)",
+    "startEmpty": "Start with an empty base",
+    "creating": "Creating your Local Address Base..."
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "title": "Mis Direcciones — Plataforma Nacional de Direcciones",
+    "description": "Mis Direcciones es una herramienta en línea que le permite administrar fácilmente sus direcciones, desde la creación de una Base de Direcciones Local hasta su actualización."
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "add": "Agregar",
+    "search": "Buscar",
+    "publish": "Publicar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "confirm": "Confirmar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "yes": "Sí",
+    "no": "No",
+    "or": "o",
+    "and": "y",
+    "of": "de",
+    "all": "Todos",
+    "none": "Ninguno",
+    "required": "Obligatorio",
+    "optional": "Opcional",
+    "actions": "Acciones",
+    "details": "Detalles",
+    "download": "Descargar",
+    "upload": "Subir",
+    "import": "Importar",
+    "export": "Exportar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "copy": "Copiar",
+    "share": "Compartir",
+    "settings": "Configuración",
+    "help": "Ayuda"
+  },
+  "nav": {
+    "home": "Inicio",
+    "newBase": "Nueva Base de Direcciones Local",
+    "myBases": "Mis Bases de Direcciones",
+    "documentation": "Documentación",
+    "accessibility": "Accesibilidad",
+    "legalNotice": "Aviso Legal"
+  },
+  "home": {
+    "title": "Mis Direcciones",
+    "subtitle": "Administre las direcciones de su jurisdicción de manera simple y eficiente.",
+    "searchPlaceholder": "Buscar una jurisdicción...",
+    "createNew": "Crear una nueva Base de Direcciones Local",
+    "recentBases": "Bases de Direcciones Recientes",
+    "welcomeTitle": "Bienvenido a Mis Direcciones",
+    "welcomeDescription": "Mis Direcciones es una herramienta gratuita en línea que le permite crear, administrar y publicar su Base de Direcciones Local (LAB). No se requieren habilidades técnicas."
+  },
+  "editor": {
+    "toolbar": {
+      "save": "Guardar",
+      "undo": "Deshacer",
+      "redo": "Rehacer",
+      "addAddress": "Agregar una dirección",
+      "addStreet": "Agregar una calle",
+      "addPlaceName": "Agregar un nombre de lugar",
+      "deleteSelected": "Eliminar seleccionado",
+      "certification": "Certificación"
+    },
+    "addressForm": {
+      "streetName": "Nombre de la calle",
+      "number": "Número",
+      "suffix": "Sufijo",
+      "positionType": "Tipo de posición",
+      "comment": "Comentario",
+      "parcels": "Parcelas",
+      "certified": "Certificado por la autoridad local"
+    },
+    "streetForm": {
+      "name": "Nombre de la calle",
+      "type": "Tipo de calle",
+      "placeName": "Nombre del lugar / Localidad",
+      "comment": "Comentario"
+    },
+    "map": {
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar",
+      "resetView": "Restablecer vista",
+      "satellite": "Satélite",
+      "streets": "Calles",
+      "parcels": "Parcelas",
+      "layers": "Capas del mapa"
+    },
+    "publish": {
+      "title": "Publicar su Base de Direcciones Local",
+      "description": "La publicación hace que sus direcciones estén disponibles en la Plataforma Nacional de Direcciones.",
+      "readyToPublish": "Listo para publicar",
+      "notReady": "No está listo para publicar",
+      "publishNow": "Publicar ahora",
+      "lastPublished": "Última publicación",
+      "unpublished": "Cambios no publicados"
+    }
+  },
+  "jurisdiction": {
+    "label": "Jurisdicción",
+    "selectState": "Seleccionar un estado",
+    "selectCounty": "Seleccionar un condado",
+    "selectCity": "Seleccionar una ciudad o municipio",
+    "fipsCode": "Código FIPS",
+    "name": "Nombre de la jurisdicción",
+    "population": "Población",
+    "addressCount": "Cantidad de direcciones",
+    "coverage": "Cobertura"
+  },
+  "address": {
+    "label": "Dirección",
+    "number": "Número",
+    "street": "Calle",
+    "suffix": "Sufijo",
+    "placeName": "Nombre del lugar",
+    "positionType": "Tipo de posición",
+    "certified": "Certificado",
+    "notCertified": "No certificado",
+    "source": "Fuente",
+    "lastUpdated": "Última actualización",
+    "parcelIds": "IDs de parcela"
+  },
+  "positionTypes": {
+    "postal_delivery": "Entrega postal",
+    "entrance": "Entrada",
+    "building": "Edificio",
+    "staircase": "Escalera",
+    "unit": "Unidad",
+    "parcel": "Parcela",
+    "segment": "Segmento de calle",
+    "utility": "Servicio público",
+    "rooftop": "Azotea",
+    "structure": "Estructura"
+  },
+  "status": {
+    "draft": "Borrador",
+    "published": "Publicado",
+    "modified": "Modificado desde la última publicación",
+    "readyToPublish": "Listo para publicar",
+    "conflict": "Conflicto detectado",
+    "outdated": "Desactualizado"
+  },
+  "validation": {
+    "requiredField": "Este campo es obligatorio",
+    "invalidNumber": "Ingrese un número válido",
+    "invalidCoordinates": "Coordenadas inválidas",
+    "invalidFipsCode": "Código FIPS inválido",
+    "duplicateAddress": "Esta dirección ya existe",
+    "streetRequired": "Se requiere un nombre de calle",
+    "numberRequired": "Se requiere un número de dirección"
+  },
+  "help": {
+    "title": "Ayuda",
+    "gettingStarted": "Primeros Pasos",
+    "addresses": "Direcciones",
+    "streets": "Calles",
+    "placeNames": "Nombres de Lugares",
+    "publication": "Publicación",
+    "tutorial": "Tutorial"
+  },
+  "newBase": {
+    "title": "Crear una nueva Base de Direcciones Local",
+    "step1Title": "Seleccione su jurisdicción",
+    "step1Description": "Elija el estado, condado y ciudad o municipio para su base de direcciones.",
+    "step2Title": "Importar datos existentes",
+    "step2Description": "Suba un archivo LAB existente o comience desde cero.",
+    "step3Title": "Revisar y crear",
+    "step3Description": "Revise su configuración y cree la base de direcciones.",
+    "importFile": "Importar un archivo LAB (CSV)",
+    "startEmpty": "Comenzar con una base vacía",
+    "creating": "Creando su Base de Direcciones Local..."
+  }
+}
