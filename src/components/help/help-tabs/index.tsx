@@ -5,10 +5,10 @@ import Numeros from "@/components/help/help-tabs/numeros";
 import Publication from "@/components/help/help-tabs/publication";
 
 export const TABS = [
-  "Base locale",
-  "Voies",
-  "Toponymes",
-  "Numéros",
+  "Local Base",
+  "Streets",
+  "Place Names",
+  "Numbers",
   "Publication",
 ];
 

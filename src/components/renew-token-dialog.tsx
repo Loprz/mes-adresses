@@ -30,8 +30,8 @@ function RenewTokenDialog({
 
     const renewTokenBaseLocale = toaster(
       () => BasesLocalesService.renewTokenBaseLocale(baseLocaleId),
-      "Les autorisations ont été renouvellé avec succès",
-      "Impossible de renouveller les autorisations",
+      "Authorizations have been renewed successfully",
+      "Unable to renew authorizations",
       (err) => {
         setError(err.message);
       }
@@ -49,21 +49,21 @@ function RenewTokenDialog({
     <Pane>
       <Dialog
         isShown={isShown}
-        title="Renouvellement des autorisations"
+        title="Renew authorizations"
         intent="success"
-        cancelLabel="Annuler"
-        confirmLabel="Valider"
+        cancelLabel="Cancel"
+        confirmLabel="Confirm"
         isConfirmLoading={isLoading}
         onConfirm={() => handleConfirm()}
         onCloseComplete={() => setIsShown(false)}
       >
         <Paragraph>
-          Vous avez supprimé un ou plusieurs collaborateurs, souhaitez-vous
-          procéder au renouvellement des autorisations ?
+          You have removed one or more collaborators. Do you wish to
+          proceed with renewing the authorizations ?
         </Paragraph>
-        <Alert title="Action irréversible" marginY={8} intent="warning">
-          Vous ne pourrez plus modifier la Base Adresse Locale avant de
-          récupérer la nouvelle autorisation que vous recevrez par courriel.
+        <Alert title="Irreversible action" marginY={8} intent="warning">
+          You will no longer be able to modify the Local Address Base until you
+          receive the new authorization by email.
         </Alert>
       </Dialog>
     </Pane>

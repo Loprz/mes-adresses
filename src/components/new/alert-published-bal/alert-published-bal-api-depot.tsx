@@ -20,7 +20,7 @@ function AlertPublishedBALApiDepot({
 
   return (
     <Alert
-      title={`Une Base Adresse Locale a déjà été publiée pour ${commune.nom}`}
+      title={`A Local Address Base has already been published for ${commune.nom}`}
       intent={isOutdatedClient ? "info" : "warning"}
       marginTop={16}
     >

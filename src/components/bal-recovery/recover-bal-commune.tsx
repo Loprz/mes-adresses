@@ -76,7 +76,7 @@ function RecoverBALCommune({
     });
     setRecoveryEmailCommuneSent(new Date());
     pushToast({
-      title: `Un email a été envoyé à la commune`,
+      title: `An email has been sent to the jurisdiction`,
       intent: "success",
     });
     setError(null);
@@ -95,7 +95,7 @@ function RecoverBALCommune({
       setIsLoading(false);
       onClose();
       pushToast({
-        title: "Un email a déjà été envoyé, merci de patienter.",
+        title: "An email has already been sent, please wait.",
         intent: "warning",
       });
       return;
@@ -178,7 +178,7 @@ function RecoverBALCommune({
           <Alert marginTop={16} intent="info" hasIcon={false}>
             <Paragraph color="blue600">
               Un courrier électronique avec le lien de récupération va être
-              envoyé à l&apos;adresse de votre commune:{" "}
+              sent to the address of your jurisdiction:{" "}
               <Strong>{emailsCommune.join(", ")}</Strong>
             </Paragraph>
           </Alert>

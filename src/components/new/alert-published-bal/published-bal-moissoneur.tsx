@@ -63,12 +63,12 @@ function PublishedBALMoissoneur({
       {organizationDataGouv && (
         <>
           <Paragraph marginTop={16}>
-            Une Base Adresse Locale est déjà publiée par{" "}
+            A Local Address Base is already published by{" "}
             {organizationDataGouv.name} pour {commune.nom}.
           </Paragraph>
           {!isOutdatedSource && (
             <Paragraph marginTop={16}>
-              Nous recommandons de prendre contact avec cet organisme :{" "}
+              We recommend contacting this organization:{" "}
               {organizationMoissonneur?.email ? (
                 <b>{organizationMoissonneur.email}</b>
               ) : (
@@ -88,8 +88,8 @@ function PublishedBALMoissoneur({
 
       {isOutdatedSource && (
         <Paragraph marginTop={16}>
-          La Base Adresse Locale publiée est obsolète. Vous pouvez continuer à
-          l&apos;étape suivante pour la remplacer par la vôtre.
+          The published Local Address Base is outdated. You may continue to
+          the next step to replace it with yours.
         </Paragraph>
       )}
 

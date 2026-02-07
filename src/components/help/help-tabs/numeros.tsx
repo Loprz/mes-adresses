@@ -32,9 +32,9 @@ import {
 
 const before = (
   <Paragraph marginTop="default">
-    Affichez la liste des numéros d’une voie en la sélectionnant depuis le menu
-    latéral ou en cliquant sur son nom ou un de ses numéros directement depuis
-    la carte.
+    Display the list of numbers for a street by selecting it from the
+    sidebar or by clicking on its name or one of its numbers directly from
+    the map.
   </Paragraph>
 );
 
@@ -42,25 +42,25 @@ function Numeros() {
   return (
     <Pane>
       <VideoContainer
-        title="Création / Modification d’un numéro :"
+        title="Creating / Editing a number:"
         link={`${PEERTUBE_LINK}/w/ts9chg7zehHXkTrotsjpqr`}
       />
-      <Tuto title="Bon à savoir">
+      <Tuto title="Good to know">
         <ListItem listStyleType="none">
-          Pour renforcer la qualité des adresses, nous vous recommandons de
-          certifier la totalité de vos adresses.{" "}
-          <b>Une adresse certifiée est déclarée authentique par la mairie</b>,
-          ce qui renforce la qualité de la Base Adresse Locale et facilite sa
-          réutilisation.
+          To improve address quality, we recommend
+          certifying all of your addresses.{" "}
+          <b>A certified address is declared authentic by the local government</b>,
+          which improves the quality of the Local Address Base and facilitates
+          its reuse.
         </ListItem>
       </Tuto>
-      <Tuto title="Ajouter un numéro">
+      <Tuto title="Add a number">
         {before}
 
-        <SubTuto title="Depuis le menu latéral" icon={ColumnLayoutIcon}>
+        <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Cliquez sur le bouton
+              Click the button
               <Button
                 iconBefore={AddIcon}
                 marginX={4}
@@ -75,47 +75,47 @@ function Numeros() {
               carte, déplacez le à l’endroit souhaité à l’aide de votre souris
             </ListItem>
             <ListItem>
-              Indiquez le numéro dans le champ{" "}
-              <Strong size={500}>Numéro</Strong>
+              Enter the number in the field{" "}
+              <Strong size={500}>Number</Strong>
             </ListItem>
             <ListItem>
-              Indiquez le suffixe (exemple: bis) dans le champ{" "}
-              <Strong size={500}>Suffixe</Strong>
+              Enter the suffix (example: 1/2) in the field{" "}
+              <Strong size={500}>Suffix</Strong>
             </ListItem>
             <ListItem>
-              Recherchez la voie à laquelle le numéro appartient et sélectionnez
-              la. À noter que si une voie est déjà sélectionnée alors elle vous
-              sera proposée par défaut. Vous pouvez également créer une nouvelle
-              voie directement en cliquant sur{" "}
+              Search for the street the number belongs to and select
+              it. Note that if a street is already selected, it will be
+              suggested by default. You can also create a new
+              street directly by clicking{" "}
               <Button marginX={4} iconBefore={PlusIcon}>
-                Créer une voie
+                Create a street
               </Button>
-              . Vous serez automatiquement redirigé vers cette voie.
+              . You will be automatically redirected to this street.
             </ListItem>
             <ListItem>
-              Sélectionnez la position grâce au menu déroulant{" "}
+              Select the position using the dropdown{" "}
               <Strong size={500}>Type</Strong>
             </ListItem>
             <ListItem>
-              Pour terminer, cliquez sur le bouton{" "}
+              To finish, click the button{" "}
               <Button
                 marginX={4}
                 appearance="primary"
                 intent="success"
                 iconAfter={EndorsedIcon}
               >
-                Certifier et enregister
+                Certify and save
               </Button>{" "}
-              si vous validez cette adresse ou{" "}
+              if you validate this address, or{" "}
               <Button marginX={4} intent="success">
-                Enregister
+                Save
               </Button>{" "}
-              pour vous laisser le temps de vérifier avant de certifier.
+              to give yourself time to verify before certifying.
             </ListItem>
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="Depuis la carte" icon={MapIcon}>
+        <SubTuto title="From the map" icon={MapIcon}>
           <OrderedList margin={8}>
             <ListItem>
               <Pane display="flex" alignItems="center">
@@ -133,8 +133,8 @@ function Numeros() {
               carte, déplacez le à l’endroit souhaité à l’aide de votre souris
             </ListItem>
             <ListItem>
-              Dans le nouveau menu qui est apparu, indiquez le numéro dans le
-              champ <Strong size={500}>Numéro</Strong>
+              In the new menu that appeared, enter the number in the
+              field <Strong size={500}>Numéro</Strong>
             </ListItem>
             <ListItem>
               Indiquez le suffixe (exemple: bis) dans le champ{" "}
@@ -151,7 +151,7 @@ function Numeros() {
               . Vous serez automatiquement redirigé vers cette voie.
             </ListItem>
             <ListItem>
-              Sélectionnez la position grâce au menu déroulant{" "}
+              Select the position using the dropdown{" "}
               <Strong size={500}>Type</Strong>
             </ListItem>
             <ListItem>
@@ -174,10 +174,10 @@ function Numeros() {
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Éditer un numéro">
+      <Tuto title="Edit a number">
         {before}
 
-        <SubTuto title="Depuis le menu latéral" icon={ColumnLayoutIcon}>
+        <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
               Cliquez sur le bouton{" "}
@@ -186,28 +186,28 @@ function Numeros() {
                 iconBefore={MoreIcon}
                 appearance="minimal"
               />{" "}
-              se situant à droite du numéro
+              to the right of the number
             </ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                Dans le menu qui vient d’apparaître, choisissez
+                In the menu that appeared, choose
                 <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                  Modifier
+                  Edit
                 </Menu.Item>
               </Pane>
             </ListItem>
             <ListItem>
-              Il vous est désormais possible de modifier le numéro, le suffixe,
-              le type d’adresse ou encore sa position en déplaçant le{" "}
-              <MapMarkerIcon color="info" /> sur la carte et de certifier votre
-              adresse.
+              You can now modify the number, suffix,
+              address type, or position by moving the{" "}
+              <MapMarkerIcon color="info" /> on the map, and certify your
+              address.
             </ListItem>
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="Depuis la carte" icon={MapIcon}>
+        <SubTuto title="From the map" icon={MapIcon}>
           <OrderedList margin={8}>
-            <ListItem>Cliquez sur le numéro</ListItem>
+            <ListItem>Click on the number</ListItem>
             <ListItem>
               Il vous est désormais possible de modifier le numéro, le suffixe,
               le type d’adresse ou encore sa position en déplaçant le{" "}
@@ -218,7 +218,7 @@ function Numeros() {
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Supprimer un numéro">
+      <Tuto title="Delete a number">
         {before}
 
         <SubTuto title="Depuis le menu latéral" icon={ColumnLayoutIcon}>
@@ -241,7 +241,7 @@ function Numeros() {
                   icon={TrashIcon}
                   intent="danger"
                 >
-                  Supprimer…
+                  Delete...
                 </Menu.Item>
               </Pane>
             </ListItem>
@@ -250,7 +250,7 @@ function Numeros() {
 
         <SubTuto title="Depuis la carte" icon={MapIcon}>
           <OrderedList margin={8}>
-            <ListItem>Faites un clique droit sur le numéro</ListItem>
+            <ListItem>Right-click on the number</ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
                 Dans le menu qui vient d’apparaître, choisissez
@@ -268,25 +268,25 @@ function Numeros() {
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Ne plus certifier une adresse">
+      <Tuto title="Uncertify an address">
         <OrderedList margin={8}>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Affichez la liste des numéros d’une voie en la sélectionnant
-              depuis le menu latéral ou en cliquant sur son nom ou sur un de ses
-              numéros directement depuis la carte.
+              Display the list of numbers for a street by selecting it
+              from the sidebar or by clicking on its name or one of its
+              numbers directly from the map.
             </Pane>
           </ListItem>
           <ListItem>
-            En bas de page, cliquez sur le bouton{" "}
+            At the bottom of the page, click the button{" "}
             <Button marginX={4} intent="danger">
-              Ne plus certifier et enregistrer
+              Uncertify and save
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Associer des parcelles">
+      <Tuto title="Associate parcels">
         {before}
 
         <OrderedList margin={8}>
@@ -308,11 +308,11 @@ function Numeros() {
             </Pane>
           </ListItem>
           <ListItem>
-            Depuis la carte, cliquez sur la ou les parcelles que vous souhaitez
-            associer au numéro
+            From the map, click on the parcel(s) you want to
+            associate with the number
           </ListItem>
           <ListItem>
-            Pour enregistrer les parcelles, cliquez sur le bouton{" "}
+            To save the parcels, click the button{" "}
             <Button
               marginX={4}
               appearance="primary"
@@ -325,27 +325,27 @@ function Numeros() {
             <Button marginX={4} intent="success">
               Enregister
             </Button>{" "}
-            si vous ne souhaitez pas certifier cette adresse pour le moment.
+            if you do not want to certify this address at this time.
           </ListItem>
         </OrderedList>
 
         <Pane>
-          <Strong>Code couleur des parcelles :</Strong>
+          <Strong>Parcel color code:</Strong>
           <Paragraph display="flex">
             <Badge margin={4} height="100%" color="green">
-              parcelle associée
+              associated parcel
             </Badge>
             <Badge margin={4} height="100%" color="yellow">
-              parcelle pouvant être associée
+              parcel that can be associated
             </Badge>
             <Badge margin={4} height="100%" color="red">
-              parcelle pouvant être dissociée
+              parcel that can be dissociated
             </Badge>
           </Paragraph>
         </Pane>
       </Tuto>
 
-      <Tuto title="Ajouter une note ou un commentaire">
+      <Tuto title="Add a note or comment">
         {before}
 
         <OrderedList margin={8}>
@@ -367,11 +367,11 @@ function Numeros() {
             </Pane>
           </ListItem>
           <ListItem>
-            Remplissez le champ de texte <Strong size={500}>Commentaire</Strong>{" "}
-            afin de laisser une note concernant le numéro
+            Fill in the text field <Strong size={500}>Comment</Strong>{" "}
+            to leave a note about the number
           </ListItem>
           <ListItem>
-            Pour enregistrer votre commentaire, cliquez sur le bouton{" "}
+            To save your comment, click the button{" "}
             <Button
               marginX={4}
               appearance="primary"
@@ -389,20 +389,20 @@ function Numeros() {
         </OrderedList>
 
         <Paragraph>
-          Vous remarquerez un <CommentIcon /> sur la ligne du numéro. Le
-          survoler vous permettra de faire apparaitre le commentaire.
+          You will notice a <CommentIcon /> on the number row. Hovering over
+          it will show the comment.
         </Paragraph>
       </Tuto>
 
       <Problems>
-        <Tuto title="Je ne trouve pas de voie lorsque j’ajoute un numéro depuis la carte">
+        <Tuto title="I can't find a street when adding a number from the map">
           <Paragraph marginTop="default">
-            Avant de créer un numéro depuis la carte, assurez vous que la voie à
-            laquelle il appartient a bien été créée.
+            Before creating a number from the map, make sure that the street
+            it belongs to has been created.
           </Paragraph>
         </Tuto>
 
-        <Unauthorized title="Je n’arrive pas à ajouter/supprimer un numéro" />
+        <Unauthorized title="I can't add/delete a number" />
 
         <Sidebar />
       </Problems>

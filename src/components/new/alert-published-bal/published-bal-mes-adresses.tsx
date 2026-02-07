@@ -19,7 +19,7 @@ function PublishedBALMesAdresses({
   return (
     <Pane marginLeft={35}>
       <Paragraph marginTop={8}>
-        Une Base Adresse Locale est déjà publiée pour {commune.nom}.
+        A Local Address Base is already published for {commune.nom}.
       </Paragraph>
       <Paragraph marginTop={8}>
         Si vous en êtes l&apos;administrateur, nous vous recommandons de
@@ -37,7 +37,7 @@ function PublishedBALMesAdresses({
           target="_blank"
           href={`${process.env.NEXT_PUBLIC_EDITEUR_URL}/bal/${publishedBALId}`}
         >
-          Accéder à la Base Adresse Locale publiée
+          Access the published Local Address Base
         </Button>
       </Pane>
     </Pane>

@@ -67,7 +67,7 @@ function LanguageField({
       marginTop="1em"
     >
       <SelectMenu
-        title="Choisir une langue régionale"
+        title="Choose a regional language"
         options={availableLanguages
           .map(({ code, label }) => {
             return { value: code, label: capitalize(label) };
@@ -86,7 +86,7 @@ function LanguageField({
           fontStyle={codeISO ? "default" : "italic"}
         >
           <PropertyIcon marginRight={8} />{" "}
-          {languageLabel || "Sélectionner une langue régionale"}
+          {languageLabel || "Select a regional language"}
         </Button>
       </SelectMenu>
 
@@ -101,7 +101,7 @@ function LanguageField({
           forwadedRef={ref}
           exitFocus={() => setIsFocus(false)}
           isRequired={false}
-          placeholder={`Nom en ${codeISO ? languageLabel : "langue régionale"}`}
+          placeholder={`Nom en ${codeISO ? languageLabel : "regional language"}`}
           value={input}
           onChange={handleLanguageChange}
           isDisabled={!codeISO}

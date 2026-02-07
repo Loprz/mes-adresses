@@ -21,7 +21,7 @@ function ShareQRCode({ url }: ShareQRCodeProps) {
         fontWeight="500"
         color="dark"
       >
-        QR code de connexion administrateur
+        Administrator login QR code
       </Text>
       <QRCodeSVG
         id="bal-access-qr-code"

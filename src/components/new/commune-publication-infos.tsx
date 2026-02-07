@@ -122,7 +122,7 @@ function CommunePublicationInfos({
           )}
 
           <Button marginTop={16} intent="none" onClick={onCreateNewBAL}>
-            Créer une nouvelle Base Adresse Locale
+            Create a new Local Address Base
           </Button>
         </>
       )}

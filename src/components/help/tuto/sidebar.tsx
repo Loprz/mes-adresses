@@ -4,14 +4,14 @@ import Tuto from "@/components/help/tuto";
 
 function Sidebar() {
   return (
-    <Tuto title="Je ne vois pas le menu latéral">
+    <Tuto title="I can't see the sidebar">
       <Paragraph marginTop="default">
-        Ce menu peut-être caché afin de laisser plus d’espace à la cartographie.
+        This menu may be hidden to leave more space for the map.
       </Paragraph>
       <Paragraph marginTop="default">
-        Pour le faire réapparaitre, cliquez sur le bouton{" "}
+        To make it reappear, click the button{" "}
         <IconButton display="inline-block" margin={8} icon={ChevronRightIcon} />
-        en haut à gauche de votre écran.
+        in the upper left of your screen.
       </Paragraph>
     </Tuto>
   );

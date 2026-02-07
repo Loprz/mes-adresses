@@ -111,8 +111,8 @@ export default function VoiesPage() {
     setIsDisabled(true);
     const softDeleteVoie = toaster(
       () => VoiesService.softDeleteVoie(toRemove),
-      "La voie a bien été archivée",
-      "La voie n’a pas pu être archivée"
+      "The street has been archived",
+      "The street could not be archived"
     );
     await softDeleteVoie();
     await reloadVoies();
@@ -143,8 +143,8 @@ export default function VoiesPage() {
           );
           window.open(url, "_blank");
         },
-        "L'arrêté de numérotation a bien été téléchargé",
-        "L'arrêté de numérotation n'a pas pu être téléchargé"
+        "The numbering certificate has been downloaded",
+        "The numbering certificate could not be downloaded"
       );
       await downloadArreteDeNumerotation();
       matomoTrackEvent(
@@ -299,7 +299,7 @@ export default function VoiesPage() {
         </Pane>
         <Table.Head background="white">
           <Table.SearchHeaderCell
-            placeholder="Rechercher une voie, une place, un lieu-dit..."
+            placeholder="Search for a street, une place, un lieu-dit..."
             onChange={changeFilter}
             value={search}
           />
@@ -314,7 +314,7 @@ export default function VoiesPage() {
             />
             <ButtonIconExpandHover
               icon={AddIcon}
-              title="Ajouter une voie"
+              title="Add a street"
               is={NextLink}
               size="medium"
               appearance="primary"
@@ -329,7 +329,7 @@ export default function VoiesPage() {
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              Aucun résultat
+              No results
             </Table.TextCell>
           </Table.Row>
         )}

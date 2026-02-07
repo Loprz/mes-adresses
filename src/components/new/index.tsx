@@ -27,7 +27,7 @@ interface NewPageProps {
 }
 
 const getSuggestedBALName = (commune?: CommuneType) => {
-  return commune ? `Adresses de ${commune.nom}` : null;
+  return commune ? `Addresses of ${commune.nom}` : null;
 };
 
 export default function NewPageComponent({
@@ -58,7 +58,7 @@ export default function NewPageComponent({
   const steps = useMemo(() => {
     return [
       {
-        label: "Choix de la commune",
+        label: "Choose your jurisdiction",
         canBrowseNext: Boolean(commune),
         canBrowseBack: false,
       },
@@ -71,7 +71,7 @@ export default function NewPageComponent({
         canBrowseBack: !isLoading,
       },
       {
-        label: "Informations sur la BAL",
+        label: "LAB information",
         canBrowseNext:
           !isLoading && Boolean(balName) && Boolean(adminEmails.length),
         canBrowseBack: !isLoading,
@@ -113,7 +113,7 @@ export default function NewPageComponent({
       }
     } catch (err) {
       pushToast({
-        title: "Erreur",
+        title: "Error",
         message:
           "An error occurred while creating the Local Address Base",
         intent: "danger",
@@ -197,7 +197,7 @@ export default function NewPageComponent({
                       style: { visibility: "hidden" },
                     })}
                   >
-                    Précédent
+                    Previous
                   </Button>
                   <Button
                     appearance="primary"
@@ -210,8 +210,8 @@ export default function NewPageComponent({
                     type="button"
                   >
                     {currentStepIndex === steps.length - 1
-                      ? "Terminer"
-                      : "Suivant"}
+                      ? "Finish"
+                      : "Next"}
                   </Button>
                 </Pane>
               )}

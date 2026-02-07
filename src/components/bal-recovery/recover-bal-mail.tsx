@@ -51,7 +51,7 @@ function RecoverBALMail({
     });
     setRecoveryEmailSent(new Date());
     pushToast({
-      title: `Un email a été envoyé à l’adresse ${email}`,
+      title: `An email has been sent to the address ${email}`,
       intent: "success",
     });
     setError(null);
@@ -64,7 +64,7 @@ function RecoverBALMail({
       setIsLoading(false);
       onClose();
       pushToast({
-        title: "Un email a déjà été envoyé, merci de patienter.",
+        title: "An email has already been sent, please wait.",
         intent: "warning",
       });
       throw new Error("Un email a déjà été envoyé, merci de patienter.");

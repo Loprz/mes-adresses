@@ -25,38 +25,38 @@ function MassDeletionDialog({
     <Dialog
       isShown={isShown}
       intent="danger"
-      title="⚠️ Un très grand nombre d’adresses a été supprimé"
-      cancelLabel="Annuler"
-      confirmLabel="Continuer"
+      title="⚠️ A very large number of addresses have been deleted"
+      cancelLabel="Cancel"
+      confirmLabel="Continue"
       onConfirm={onConfirm}
       onCancel={handleCancel}
       onCloseComplete={onClose}
     >
       <Pane>
         <Paragraph>
-          Vous avez <Strong>supprimé au moins 50% des adresses</Strong> connues
-          actuellement dans la Base Adresse Nationale.
+          Vous avez <Strong>deleted at least 50% of the addresses</Strong> connues
+          currently in the National Address Platform.
         </Paragraph>
         <Paragraph marginTop={8}>
-          Nous vous rappelons que la publication de vos adresses doit se faire
-          sur <Strong>la totalité de la commune</Strong>.
+          Please remember that your addresses should be published
+          sur <Strong>the entire jurisdiction</Strong>.
         </Paragraph>
 
         <Paragraph marginTop={8}>
-          Si vous éprouvez des difficultés à utiliser notre outil et souhaitez
-          être accompagné,{" "}
+          If you are having difficulty using our tool and would like
+          assistance,{" "}
           <Strong>
-            vous pouvez nous contacter à l’adresse{" "}
+            you can contact us at{" "}
             <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
           </Strong>
         </Paragraph>
         <Paragraph marginTop={8}>
           Des{" "}
           <a href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}>
-            <VideoIcon size={12} /> tutoriels vidéo
+            <VideoIcon size={12} /> video tutorials
           </a>{" "}
           sont également disponibles afin de vous accompagner lors de vos
-          travaux d’adressage.
+          addressing work.
         </Paragraph>
       </Pane>
     </Dialog>

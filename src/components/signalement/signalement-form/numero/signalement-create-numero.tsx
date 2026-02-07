@@ -127,7 +127,7 @@ function SignalementCreateNumero({
       <SignalementNumeroDiffCard
         isActive
         signalementType={Signalement.type.LOCATION_TO_CREATE}
-        title="Demande de création d'adresse"
+        title="Address creation request"
         numero={{
           to: `${numero}${suffixe ? ` ${suffixe}` : ""}`,
         }}
@@ -148,7 +148,7 @@ function SignalementCreateNumero({
       {!existingVoie && similarVoies.length === 0 && (
         <Alert flexShrink={0}>
           <Text>
-            La nouvelle voie <b>{nomVoie}</b> sera créée en acceptant ce
+            La nouvelle voie <b>{nomVoie}</b> will be created by accepting this
             signalement.
           </Text>
         </Alert>
@@ -156,7 +156,7 @@ function SignalementCreateNumero({
 
       {!isLoading && !existingVoie && similarVoies.length > 0 && (
         <Alert
-          title="Accepter ce signalement pourrait créer un doublon"
+          title="Accepting this report may create a duplicate"
           flexShrink={0}
           intent="warning"
         >

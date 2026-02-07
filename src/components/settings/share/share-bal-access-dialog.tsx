@@ -24,7 +24,7 @@ export function ShareBALAccessDialog({
   return (
     <Dialog
       isShown={isShown}
-      title="Partagez l'accès avec d'autres appareils"
+      title="Share access with other devices"
       hasFooter={false}
       onCloseComplete={onCloseComplete}
     >
@@ -36,8 +36,8 @@ export function ShareBALAccessDialog({
           <Pane display="flex" alignItems="center">
             <MobilePhoneIcon size={24} marginRight={8} />
             <Text>
-              Mes Adresses fonctionne aussi sur votre mobile. Scannez le code QR
-              pour accéder à votre BAL.
+              My Addresses also works on your phone. Scan the QR code
+              to access your LAB.
             </Text>
           </Pane>
         </Alert>

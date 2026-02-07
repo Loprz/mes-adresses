@@ -20,19 +20,19 @@ function PublishedBALApiDepot({
   return (
     <>
       <Paragraph marginTop={16}>
-        Une Base Adresse Locale a déjà été publiée par{" "}
+        A Local Address Base has already been published by{" "}
         <Strong>
           {client.chefDeFile ? client.chefDeFile : client.mandataire}
         </Strong>{" "}
         pour {commune.nom}.
         {isOutdatedClient ? (
           <>
-            La Base Adresse Locale publiée est obsolète et n&apos;est plus
-            maintenue. Vous pouvez donc poursuivre la création de votre BAL.
+            The published Local Address Base is outdated and no longer
+            maintained. You may proceed with creating your LAB.
           </>
         ) : client.chefDeFileEmail ? (
           <>
-            Nous vous recommandons de prendre contact avec{" "}
+            We recommend contacting{" "}
             <Strong>{client.chefDeFileEmail}</Strong> avant de poursuivre la
             création de votre BAL.
           </>

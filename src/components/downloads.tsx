@@ -86,7 +86,7 @@ function Downloads({ baseLocale }: DownloadsProps) {
       >
         <Pane display="flex" alignItems="center">
           <DownloadIcon />
-          <Heading paddingLeft={5}>Téléchargements</Heading>
+          <Heading paddingLeft={5}>Downloads</Heading>
         </Pane>
       </Pane>
       <Pane
@@ -104,7 +104,7 @@ function Downloads({ baseLocale }: DownloadsProps) {
               onClick={downloadBalCsv}
               marginRight={12}
             >
-              Base Adresse Locale (format CSV)
+              Local Address Base (CSV format)
             </Link>
             {token && (
               <>
@@ -113,36 +113,36 @@ function Downloads({ baseLocale }: DownloadsProps) {
                   onChange={(e) => setWithComment(e.target.checked)}
                   margin={0}
                 />
-                <Text marginLeft={6}>Avec commentaires</Text>
+                <Text marginLeft={6}>With comments</Text>
               </>
             )}
           </Pane>
           {withComment && (
             <Alert marginLeft={-30} marginRight={10} hasIcon={false}>
               <Text is="p" textAlign="center">
-                Attention, si vous avez renseigné des informations à caractère
-                personnel dans vos commentaires, celles-ci seront présentes dans
-                l’export de votre Base Adresse Locale.
+                Warning: if you have entered personal information
+                in your comments, it will be included in
+                the export of your Local Address Base.
               </Text>
             </Alert>
           )}
         </Pane>
         <Pane is="li" marginBottom={16}>
           <Link style={{ cursor: "pointer" }} onClick={downloadVoieCsv}>
-            Liste des voies (format CSV)
+            Street list (CSV format)
           </Link>
         </Pane>
         <Pane is="li" marginBottom={16}>
           <Link style={{ cursor: "pointer" }} onClick={downloadVoieGeoJSON}>
-            Liste des filaires de voie (format GeoJSON)
+            Street centerlines (GeoJSON format)
           </Link>
         </Pane>
         {token && baseLocale.status === BaseLocale.status.PUBLISHED && (
           <Pane is="li" marginBottom={16}>
             <Text>
-              Pour télécharger un certificat d&apos;adressage, rendez-vous dans
-              la liste des numéros d&apos;une voie et ouvrez le menu
-              d&apos;actions du numéro concerné.
+              To download an addressing certificate, go to
+              the number list for a street and open the
+              actions menu for the number in question.
             </Text>
           </Pane>
         )}

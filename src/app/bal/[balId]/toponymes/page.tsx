@@ -85,8 +85,8 @@ export default function ToponymesPage() {
     setIsDisabled(true);
     const softDeleteToponyme = toaster(
       () => ToponymesService.softDeleteToponyme(toRemove),
-      "Le toponyme a bien été archivé",
-      "Le toponyme n’a pas pu être archivé"
+      "The place name has been archived",
+      "The place name could not be archived"
     );
     await softDeleteToponyme();
     await reloadToponymes();
@@ -164,18 +164,18 @@ export default function ToponymesPage() {
           borderBottom="muted"
           textAlign="center"
         >
-          <Text>Lieux-dits complémentaires et voies sans adresse</Text>
+          <Text>Supplementary place names and streets without addresses</Text>
         </Pane>
         <Table.Head background="white">
           <Table.SearchHeaderCell
-            placeholder="Rechercher un toponyme"
+            placeholder="Search for a place name"
             onChange={changeFilter}
             value={search}
           />
           <Table.HeaderCell flex="unset">
             <ButtonIconExpandHover
               icon={AddIcon}
-              title="Ajouter un toponyme"
+              title="Add a place name"
               is={NextLink}
               appearance="primary"
               intent="success"
@@ -189,7 +189,7 @@ export default function ToponymesPage() {
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              Aucun résultat
+              No results
             </Table.TextCell>
           </Table.Row>
         )}

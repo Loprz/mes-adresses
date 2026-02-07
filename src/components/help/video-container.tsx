@@ -29,7 +29,7 @@ function VideoContainer({ title, link }: VideoContainerProps) {
         </Heading>
       )}
       <iframe
-        title="Création d’une Base Adresse Locale"
+        title="Creating a Local Address Base"
         src={`${PEERTUBE_LINK}/videos/embed/${embedCode}?p2p=0`}
         height="315px"
         width="100%"
@@ -40,7 +40,7 @@ function VideoContainer({ title, link }: VideoContainerProps) {
       <Paragraph paddingTop={10}>
         <VideoIcon paddingRight={5} verticalAlign="middle" size={25} />
         <Link href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}>
-          Retouvez tous les tutoriels vidéos
+          Find all video tutorials
         </Link>
       </Paragraph>
     </Pane>

@@ -68,7 +68,7 @@ function Settings({ baseLocale, token }: SettingsProps) {
       >
         <Pane display="flex" alignItems="center">
           <CogIcon />
-          <Heading paddingLeft={5}>Paramètres</Heading>
+          <Heading paddingLeft={5}>Settings</Heading>
         </Pane>
       </Pane>
       <Pane
@@ -104,17 +104,17 @@ function Settings({ baseLocale, token }: SettingsProps) {
             alignSelf="flex-end"
           >
             <EyeOpenIcon marginRight={8} />
-            Partage d&apos;accès
+            Share access
           </Button>
         </Pane>
         {error && (
-          <Alert marginBottom={16} intent="danger" title="Erreur">
+          <Alert marginBottom={16} intent="danger" title="Error">
             {error}
           </Alert>
         )}
         <Pane marginBottom={16}>
           <Label display="block" marginBottom={8}>
-            Fonds de cartes
+            Map backgrounds
           </Label>
           <Pane display="flex" gap={16} marginBottom={16}>
             {baseLocale.settings?.fondsDeCartes?.length > 0 && (
@@ -127,7 +127,7 @@ function Settings({ baseLocale, token }: SettingsProps) {
               alignSelf="flex-end"
             >
               <MapCreateIcon marginRight={8} />
-              Ajouter fond de carte
+              Add map background
             </Button>
           </Pane>
         </Pane>
@@ -139,7 +139,7 @@ function Settings({ baseLocale, token }: SettingsProps) {
           isLoading={isLoading}
           width="fit-content"
         >
-          {isLoading ? "En cours…" : "Enregistrer les changements"}
+          {isLoading ? "Saving..." : "Save changes"}
         </Button>
       </Pane>
       <RenewTokenDialog

@@ -16,19 +16,19 @@ function AlertExistingBALMesAdresses({
 
   return (
     <Alert
-      title={`Des Bases Adresses Locales non-publiées existent déjà pour ${commune.nom}`}
+      title={`Unpublished Local Address Bases already exist for ${commune.nom}`}
       intent="info"
       marginTop={16}
     >
       <Paragraph marginTop={8}>
-        Il y a déjà <b>{existingBALCount} BAL(s) non publiée(s)</b> pour{" "}
+        There are already <b>{existingBALCount} unpublished LAB(s)</b> pour{" "}
         {commune.nom}. Tout le monde peut créer une BAL, s&apos;il s&apos;agit
         d&apos;un brouillon de votre mairie, peut-être souhaitez-vous le
         récupérer ?
       </Paragraph>
       <Pane marginTop={8} display="flex" gap={8}>
         <Button onClick={() => setIsRecoveryDisplayed(true)} type="button">
-          Récupérer une BAL avec un email
+          Recover a LAB with an email
         </Button>
       </Pane>
     </Alert>

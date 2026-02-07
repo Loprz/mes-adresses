@@ -23,13 +23,13 @@ function AlertPublishedBALMesAdresses({
           <Pane position="relative" width={24} height={24}>
             <NextImage
               src="/static/images/published-bal-icon.svg"
-              alt="Icone Base Adresse Locale publiée"
+              alt="Published Local Address Base icon"
               width={24}
               height={24}
             />
           </Pane>
           <span style={{ marginLeft: 10 }}>
-            Base Adresse Locale déjà publiée
+            Local Address Base already published
           </span>
         </Pane>
       }

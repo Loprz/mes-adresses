@@ -14,7 +14,7 @@ function Problems({ children }: ProblemsProps) {
       display="flex"
       flexDirection="column"
     >
-      <Heading is="h2">Vous rencontrez un problème ?</Heading>
+      <Heading is="h2">Having a problem?</Heading>
       <Pane margin={8}>{children}</Pane>
     </Pane>
   );

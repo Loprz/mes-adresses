@@ -29,8 +29,8 @@ import {
 
 const before = (
   <Paragraph marginTop="default">
-    Affichez la liste des toponymes d’une commune en cliquant sur le nom de
-    celle-ci en haut à gauche de votre écran
+    Display the list of place names for a jurisdiction by clicking on its name
+    in the upper left of your screen
   </Paragraph>
 );
 
@@ -38,18 +38,18 @@ function Toponymes() {
   return (
     <Pane>
       <VideoContainer
-        title="Création / Modification d’un toponyme :"
+        title="Creating / Editing a place name:"
         link={`${PEERTUBE_LINK}/w/7AeS1b84kmwjbL3A19Wphw`}
       />
-      <Tuto title="Ajouter un toponyme">
+      <Tuto title="Add a place name">
         {before}
         <OrderedList margin={8}>
           <ListItem>
             Sélectionnez l‘onglet{" "}
             <Tab>
-              <Heading size={300}>Liste des Toponymes</Heading>
+              <Heading size={300}>Place Name List</Heading>
             </Tab>
-            , puis cliquez sur{" "}
+            , then click{" "}
             <Button
               iconBefore={AddIcon}
               marginX={4}
@@ -60,28 +60,28 @@ function Toponymes() {
             </Button>
           </ListItem>
           <ListItem>
-            Entrez le nom du toponyme dans le champs{" "}
+            Enter the place name in the field{" "}
             <Text color="muted">
-              <i>Nom du toponyme...</i>
+              <i>Place name...</i>
             </Text>
           </ListItem>
           <ListItem>
-            Un <MapMarkerIcon color="info" /> est apparu sur la carte, vous
-            pouvez le déplacer pour assigner une ou plusieurs positions à votre
-            toponyme.
+            Un <MapMarkerIcon color="info" /> has appeared on the map. You
+            can move it to assign one or more positions to your
+            place name.
             <br />
-            Vous pouvez préciser le type de position avec le menu déroulant{" "}
+            You can specify the position type using the dropdown{" "}
             <Select>
               <option>Segment</option>
             </Select>
-            Si vous ne souhaitez pas définir de position pour le toponyme,
-            cliquez simplement sur{" "}
+            If you do not want to define a position for the place name,
+            simply click on{" "}
             <TrashIcon marginX={6} color="danger" verticalAlign="middle" />
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Assigner un numéro à un toponyme">
+      <Tuto title="Assign a number to a place name">
         {before}
         <OrderedList margin={8}>
           <ListItem>
@@ -92,16 +92,16 @@ function Toponymes() {
               appearance="primary"
               intent="success"
             >
-              Ajouter un numéro
+              Add a number
             </Button>
           </ListItem>
           <ListItem>
-            Sélectionnez la voie du numéro que vous souhaitez assigner
+            Select the street of the number you want to assign
           </ListItem>
           <ListItem>
-            Un menu déroulant va s’afficher. Vous pouvez sélectionner un ou
-            plusieurs numéros de la liste. Tous les numéros de la liste seront
-            assignés au toponyme si aucun numéro n’est sélectionné.
+            A dropdown will appear. You can select one or more
+            numbers from the list. All numbers in the list will be
+            assigned to the place name if no number is selected.
           </ListItem>
           <ListItem>
             Pour terminer, cliquez sur le bouton{" "}
@@ -112,26 +112,26 @@ function Toponymes() {
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Éditer un toponyme">
+      <Tuto title="Edit a place name">
         {before}
         <OrderedList margin={8}>
-          <ListItem>Cliquez sur le nom du toponyme</ListItem>
-          <ListItem>Éditez le nom du toponyme</ListItem>
+          <ListItem>Click on the place name</ListItem>
+          <ListItem>Edit the place name</ListItem>
           <ListItem>
-            Vous pouvez également modifier la position du toponyme en déplaçant
-            le <MapMarkerIcon color="info" /> sur la carte
+            You can also modify the place name position by moving
+            the <MapMarkerIcon color="info" /> on the map
           </ListItem>
           <ListItem>
-            Vous pouvez ajouter des positions avec le bouton{" "}
+            You can add positions with the button{" "}
             <Button
               iconBefore={AddIcon}
               marginX={4}
               appearance="primary"
               intent="success"
             >
-              Ajouter une position au toponyme
+              Add a position to the place name
             </Button>
-            ou en supprimer avec le bouton{" "}
+            or remove them with the button{" "}
             <TrashIcon marginX={6} color="danger" verticalAlign="middle" />
           </ListItem>
           <ListItem>
@@ -143,7 +143,7 @@ function Toponymes() {
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Supprimer un toponyme">
+      <Tuto title="Delete a place name">
         {before}
         <OrderedList margin={8}>
           <ListItem>
@@ -153,31 +153,31 @@ function Toponymes() {
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            se situant à droite du nom du toponyme
+            to the right of the place name
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Dans le menu qui vient d’apparaître, choisissez
+              In the menu that appeared, choose
               <Menu.Item
                 background="tint1"
                 marginLeft={8}
                 icon={TrashIcon}
                 intent="danger"
               >
-                Supprimer…
+                Delete...
               </Menu.Item>
             </Pane>
           </ListItem>
           <ListItem>
-            Pour terminer, confirmez votre choix en cliquant sur{" "}
+            To finish, confirm your choice by clicking{" "}
             <Button marginX={4} intent="danger" appearance="primary">
-              Supprimer
+              Delete
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Associer des parcelles">
+      <Tuto title="Associate parcels">
         {before}
 
         <OrderedList margin={8}>
@@ -188,22 +188,22 @@ function Toponymes() {
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            se situant à droite du toponyme
+            to the right of the place name
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
               Dans le menu qui vient d’apparaître, choisissez
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                Modifier
+                Edit
               </Menu.Item>
             </Pane>
           </ListItem>
           <ListItem>
-            Depuis la carte, cliquez sur la ou les parcelles que vous souhaitez
-            associer au toponyme
+            From the map, click on the parcel(s) you want to
+            associate with the place name
           </ListItem>
           <ListItem>
-            Pour enregistrer les parcelles, cliquez sur le bouton{" "}
+            To save the parcels, click the button{" "}
             <Button marginX={4} appearance="primary" intent="success">
               Enregistrer
             </Button>
@@ -211,23 +211,23 @@ function Toponymes() {
         </OrderedList>
 
         <Pane>
-          <Strong>Code couleur des parcelles :</Strong>
+          <Strong>Parcel color code:</Strong>
           <Paragraph display="flex">
             <Badge margin={4} height="100%" color="green">
-              parcelle associée
+              associated parcel
             </Badge>
             <Badge margin={4} height="100%" color="yellow">
-              parcelle pouvant être associée
+              parcel that can be associated
             </Badge>
             <Badge margin={4} height="100%" color="red">
-              parcelle pouvant être dissociée
+              parcel that can be dissociated
             </Badge>
           </Paragraph>
         </Pane>
       </Tuto>
 
       <Problems>
-        <Unauthorized title="Je n’arrive pas à ajouter/supprimer un toponyme" />
+        <Unauthorized title="I can't add/delete a place name" />
         <Sidebar />
       </Problems>
     </Pane>

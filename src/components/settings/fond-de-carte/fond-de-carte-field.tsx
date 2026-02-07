@@ -47,7 +47,7 @@ function FondDeCarteField({
       backgroundColor="white"
     >
       <IconButton
-        title="Supprimer le fond de carte"
+        title="Delete map background"
         onClick={() => onAnimationEnd()}
         intent="danger"
         icon={CrossIcon}
@@ -58,32 +58,32 @@ function FondDeCarteField({
       />
       <TextInputField
         label="Nom"
-        title="Nom du fond de carte"
+        title="Map background name"
         value={initialValue.name}
         onChange={(e) => onChange("name", e.target.value)}
         width="80%"
         marginBottom={0}
-        placeholder="Mon fond de carte"
+        placeholder="My map background"
         required
         validationMessage={
           errors?.["name"] == false &&
           (initialValue.name === ""
-            ? "Le nom est obligatoire"
-            : "Le nom est invalide")
+            ? "Name is required"
+            : "Name is invalid")
         }
         isInvalid={errors?.["name"] == false}
       />
       <TextareaField
         label="Url"
         required
-        title="URL du fond de carte"
+        title="Map background URL"
         value={initialValue.url}
         onChange={(e) => onChange("url", e.target.value)}
         marginBottom={8}
         marginTop={8}
         placeholder="https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&FORMAT=image/jpeg&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
         validationMessage={
-          errors?.["url"] == false && "L'url du fond de carte est invalide"
+          errors?.["url"] == false && "The map background URL is invalid"
         }
         isInvalid={errors?.["url"] == false}
       />

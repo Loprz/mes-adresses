@@ -23,61 +23,61 @@ function BaseLocale() {
   return (
     <Pane>
       <VideoContainer
-        title="Création d’une Base Adresse Locale :"
+        title="Creating a Local Address Base:"
         link={`${PEERTUBE_LINK}/w/f2b6yiXosmfoKkmyF4YLtE`}
       />
-      <Tuto title="Créer une nouvelle Base Adresse Locale">
+      <Tuto title="Create a new Local Address Base">
         <Paragraph marginTop="default">
-          Sur la page <b>Nouvelle Base Adresse Locale</b>, sélectionnez l’onglet{" "}
-          <Tab isSelected>Créer</Tab>
+          On the <b>New Local Address Base</b> page, select the tab{" "}
+          <Tab isSelected>Create</Tab>
         </Paragraph>
         <OrderedList margin={8}>
           <ListItem>
-            Indiquez le nom de votre Base Adresse Locale dans le champ{" "}
+            Enter the name of your Local Address Base in the field{" "}
             <Strong size={500} fontStyle="italic">
               Nom
             </Strong>
-            . Il vous permettra de pouvoir identifier votre Base Adresse Locale.
+            . This will help you identify your Local Address Base.
           </ListItem>
           <ListItem>
-            Indiquez l’adresse email de votre mairie ou de l’administrateur de
-            la Base Adresse Locale. C’est cette adresse qui recevra le lien
-            permettant d’accèder à l’édition de votre Base Adresse Locale.
+            Enter the email address of your local government or the administrator of
+            the Local Address Base. This address will receive the link
+            to access and edit your Local Address Base.
           </ListItem>
           <ListItem>
-            Recherchez votre commune puis sélectionnez la dans la liste des
+            Search for your jurisdiction and select it from the list of
             suggestions.
           </ListItem>
           <ListItem>
-            Si vous souhaitez partir de zéro, décochez la case{" "}
+            If you want to start from scratch, uncheck the box{" "}
             <Strong size={500} fontStyle="italic">
-              Importer les voies et numéros depuis la BAN
+              Import streets and numbers from the NAP
             </Strong>
             .
           </ListItem>
           <ListItem>
-            Pour terminer, cliquez sur le bouton{" "}
+            To finish, click the button{" "}
             <Button
               marginX={4}
               appearance="primary"
               intent="success"
               iconAfter={PlusIcon}
             >
-              Créer la Base Adresse Locale
+              Create the Local Address Base
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Importer une Base Adresse Locale">
+      <Tuto title="Import a Local Address Base">
         <Paragraph marginTop="default">
           Sur la page <b>Nouvelle Base Adresse Locale</b>, sélectionnez l’onglet{" "}
-          <Tab isSelected>Importer un fichier CSV</Tab>
+          <Tab isSelected>Import a CSV file</Tab>
         </Paragraph>
         <OrderedList margin={8}>
           <ListItem>
-            Sélectionnez ou déposez votre fichier au format <b>csv</b>.
-            Attention ce fichier ne doit pas dépasser 10 Mo.
+            Select or drop your file in <b>csv</b> format.
+            Note that this file must not exceed 10 MB.
           </ListItem>
           <ListItem>
             Indiquez le nom de votre Base Adresse Locale dans le champ{" "}
@@ -105,24 +105,24 @@ function BaseLocale() {
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Administrer votre Base Adresse Locale">
+      <Tuto title="Manage your Local Address Base">
         <Paragraph marginTop="default">
-          Accédez aux paramètres de votre Base Adresse Locale en cliquant sur
-          l’icône{" "}
+          Access your Local Address Base settings by clicking on
+          the icon{" "}
           <span>
             <CogIcon marginX={4} />
           </span>{" "}
-          située en haut à droite de votre écran. Puis choissez «Paramètres».
+          located in the upper right of your screen. Then choose "Settings".
         </Paragraph>
-        <Paragraph marginTop="default">Il vous sera possible de :</Paragraph>
+        <Paragraph marginTop="default">You will be able to:</Paragraph>
         <OrderedList margin={8}>
-          <ListItem>Changer le nom de votre Base Adresse Locale</ListItem>
-          <ListItem>Ajouter ou supprimer des collaborateurs</ListItem>
-          <ListItem>Télécharger vos adresses au format .csv</ListItem>
+          <ListItem>Change the name of your Local Address Base</ListItem>
+          <ListItem>Add or remove collaborators</ListItem>
+          <ListItem>Download your addresses in .csv format</ListItem>
         </OrderedList>
 
         <Paragraph marginTop="default">
-          Une fois vos réglages terminés, cliquez sur{" "}
+          Once your settings are done, click{" "}
           <Button marginX={4} appearance="primary">
             Enregistrer les changements
           </Button>
@@ -130,13 +130,13 @@ function BaseLocale() {
       </Tuto>
 
       <Problems>
-        <Unauthorized title="Je n’arrive pas à éditer ma BAL" />
+        <Unauthorized title="I can't edit my LAB" />
 
-        <Tuto title="Je ne trouve pas ma commune">
+        <Tuto title="I can't find my jurisdiction">
           <Paragraph marginTop="default">
-            Si votre commune est une nouvelle commune issue d’une fusion, alors
-            il est possible qu’elle n’apparaisse pas dans la liste des
-            propositions. Si c’est votre cas, vous pouvez nous contacter sur{" "}
+            If your jurisdiction is a new one resulting from a merger, it may
+            not appear in the list of suggestions. If this is the case,
+            you can contact us at{" "}
             <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
           </Paragraph>
         </Tuto>

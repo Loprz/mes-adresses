@@ -63,13 +63,13 @@ function BALInfosStep({
           name="nom"
           id="nom"
           value={balName}
-          label="Nom de la Base Adresse Locale"
+          label="Local Address Base name"
           onChange={(e) => setBalName(e.target.value)}
           disabled={isLoading}
         />
         <FormInput padding={0}>
           <Pane marginBottom={8}>
-            <Label>Adresses emails de des administrateurs *</Label>
+            <Label>Administrator email addresses *</Label>
           </Pane>
           {adminEmails.map((email, index) => (
             <Pane
@@ -94,14 +94,14 @@ function BALInfosStep({
               display="block"
               type="email"
               width="100%"
-              placeholder="Ajouter une adresse email…"
+              placeholder="Add an email address..."
               maxWidth={400}
               value={newEmailInput}
               onChange={(e) => setNewEmailInput(e.target.value)}
             />
             <IconButton
               type="button"
-              title="Ajouter"
+              title="Add"
               icon={AddIcon}
               marginLeft={4}
               appearance="primary"
@@ -113,21 +113,21 @@ function BALInfosStep({
         </FormInput>
       </Pane>
       <Pane display="flex" flexWrap="wrap" alignItems="center" gap={10}>
-        <Text>OU</Text>
+        <Text>OR</Text>
         <Button onClick={createDemoBAL} type="button" disabled={isLoading}>
-          Créer une Base Adresse Locale de démonstration
+          Create a demo Local Address Base
         </Button>
       </Pane>
       {isLoading && (
         <>
           <Alert
-            title={`Base Adresse Locale en cours de création...`}
+            title={`Creating Local Address Base...`}
             intent="info"
             marginTop={16}
           >
             <Text marginTop={8}>
-              Votre Base Adresse Locale est en cours de création. Cette
-              opération peut prendre plusieurs minutes.
+              Your Local Address Base is being created. This
+              operation may take several minutes.
             </Text>
           </Alert>
           <Pane

@@ -34,8 +34,8 @@ function SearchCommuneStep({
         innerRef={setRef}
         id="commune"
         initialSelectedItem={commune}
-        label="Rechercher une commune"
-        placeholder="Roche 42"
+        label="Search for a jurisdiction"
+        placeholder="Springfield 62"
         appearance="default"
         maxWidth={500}
         onSelect={setCommune}

@@ -38,8 +38,8 @@ function FondDeCarteForm() {
               fondsDeCartes,
             },
           }),
-        "Les fonds de carte ont bien été mis à jour",
-        "Les fonds de carte n’ont pas pu être mis à jour"
+        "Map backgrounds have been updated successfully",
+        "Map backgrounds could not be updated"
       );
       await saveFondsDeCarte();
       await reloadBaseLocale();
@@ -67,7 +67,7 @@ function FondDeCarteForm() {
 
         const nameIsValid =
           Boolean(styleMap.name) &&
-          !["Photographie aérienne", "Plan OpenStreetMap", "Plan IGN"].includes(
+          !["Aerial photography", "OpenStreetMap", "IGN Plan"].includes(
             styleMap.name
           ) &&
           fondsDeCartesForm
@@ -134,7 +134,7 @@ function FondDeCarteForm() {
         iconBefore={AddIcon}
         onClick={onAddForm}
       >
-        Ajouter un fond de carte
+        Add a map background
       </Button>
       {(fondsDeCartesForm.length > 0 ||
         baseLocale.settings?.fondsDeCartes?.length > 0) && (
@@ -155,7 +155,7 @@ function FondDeCarteForm() {
               appearance="primary"
               onClick={saveFondDeCartes}
             >
-              Enregistrer les changements {isLoading && <RefreshIconRotate />}
+              Save changes {isLoading && <RefreshIconRotate />}
             </Button>
           </Pane>
         </Pane>

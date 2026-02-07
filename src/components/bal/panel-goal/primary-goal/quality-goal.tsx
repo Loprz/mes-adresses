@@ -21,14 +21,14 @@ function QualityGoal() {
                 title="Publication"
                 completed={isAllCertified}
               />
-              <Heading color={isAllCertified && "#317159"}>Qualité</Heading>
+              <Heading color={isAllCertified && "#317159"}>Quality</Heading>
             </Pane>
             <Pane width="100%">
               <StarRating value={3} />
               <Pane display="flex" justifyContent="center" alignItems="center">
-                <Counter label="Erreurs détectées" value={1} color="red" />
+                <Counter label="Errors detected" value={1} color="red" />
                 <Counter
-                  label="Avertissements détectés"
+                  label="Warnings detected"
                   value={2}
                   color="orange"
                 />

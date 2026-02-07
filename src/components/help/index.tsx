@@ -16,7 +16,7 @@ import {
 import HelpContext from "@/contexts/help";
 
 import HelpTabs, { TABS } from "@/components/help/help-tabs";
-import LayoutContext from "@/contexts/layout";
+import LayortContext from "@/contexts/layout";
 
 function Help() {
   const { isMobile } = useContext(LayoutContext);
@@ -36,7 +36,7 @@ function Help() {
     >
       <Pane zIndex={1} flexShrink={0} elevation={0} backgroundColor="white">
         <Pane padding={16} borderBottom="muted">
-          <Heading size={600}>Besoin d’aide ?</Heading>
+          <Heading size={600}>Need help?</Heading>
         </Pane>
         <Pane display="flex" padding={8}>
           <Tablist>
@@ -58,15 +58,15 @@ function Help() {
       </Pane>
 
       <Pane padding={16} background="tint2" elevation={1}>
-        <Heading>Vous n’avez pas trouvé la solution à votre problème ?</Heading>
+        <Heading>Didn't find the solution to your problem?</Heading>
         <Paragraph>
           <Link target="_blank" href="https://doc.adresse.data.gouv.fr/">
-            Consultez les guides de l’adressage
+            Check the addressing guides
           </Link>
         </Paragraph>
         <Paragraph>ou</Paragraph>
         <Paragraph>
-          Contactez nous sur{" "}
+          Contact us at{" "}
           <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
         </Paragraph>
       </Pane>

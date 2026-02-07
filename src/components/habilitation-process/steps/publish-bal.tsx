@@ -67,7 +67,7 @@ function PublishBalStep({
       setIsConflicted(conflicted);
     } catch (error) {
       console.error(
-        "ERROR: Impossible de récupérer les révisions pour cette commune",
+        "ERROR: Unable to retrieve revisions for this jurisdiction",
         error.body
       );
     } finally {
@@ -88,7 +88,7 @@ function PublishBalStep({
         );
       } catch (error) {
         console.error(
-          "ERROR: Impossible de récupérer les clients API Depot pour cette commune",
+          "ERROR: Unable to retrieve API Depot clients for this jurisdiction",
           error.body
         );
       }
@@ -116,7 +116,7 @@ function PublishBalStep({
           borderRadius={8}
         >
           <Spinner size={42} />
-          <Text>Vérification sur la Base Adresse Nationale...</Text>
+          <Text>Checking the National Address Platform...</Text>
         </Pane>
       )}
       {isLoadingPublish && (

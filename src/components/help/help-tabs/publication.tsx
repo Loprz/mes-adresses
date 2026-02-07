@@ -27,30 +27,30 @@ function Publication() {
   return (
     <Pane>
       <VideoContainer
-        title="Publication de votre Base Adresse Locale :"
+        title="Publishing your Local Address Base:"
         link={`${PEERTUBE_LINK}/w/oMKnhiVycDTjddCBXZuYMB`}
       />
-      <Tuto title="Publier sa Base Adresse Locale">
+      <Tuto title="Publish your Local Address Base">
         <OrderedList margin={8}>
           <ListItem>
             <Paragraph>
-              Cliquez sur le bouton
+              Click the button
               <Button marginX={4} height={24} appearance="primary">
-                Publier
+                Publish
               </Button>
             </Paragraph>
           </ListItem>
 
           <ListItem>
             <Paragraph>
-              Authentifiez-vous via le courriel officiel de la mairie ou a votre
-              compte Proconnect
+              Authenticate via your local government's official email or your
+              Proconnect account
             </Paragraph>
           </ListItem>
 
           <ListItem>
-            Une fois l’habilitation obtenue, vous serez automatiquement invité à
-            publier votre Base Adresse Locale en cliquant sur
+            Once authorization is obtained, you will be automatically invited to
+            publish your Local Address Base by clicking
             <Button
               marginX={4}
               height={24}
@@ -61,29 +61,29 @@ function Publication() {
             </Button>
           </ListItem>
         </OrderedList>
-        <Alert title="En cas de conflit">
+        <Alert title="In case of conflict">
           <Text display="block" color="muted">
-            Il peut arriver qu’une autre Base Adresse Locale soit déjà
-            synchronisée avec la Base Adresse Nationale. Dans ce cas, votre Base
-            Adresse Locale va entrer en conflit avec celle-ci.
+            It may happen that another Local Address Base is already
+            synchronized with the National Address Platform. In this case, your Local
+            Address Base will conflict with it.
           </Text>
           <Text display="block" marginTop={8} color="muted">
-            En cliquant sur
+            By clicking
             <Button
               appearance="primary"
               intent="danger"
               height={24}
               marginX={4}
             >
-              Forcer la publication
+              Force publish
             </Button>
-            votre Base Adresse Locale sera publiée et remplacera celle
-            actuellement en place.
+            your Local Address Base will be published and will replace the one
+            currently in place.
           </Text>
         </Alert>
       </Tuto>
 
-      <Tuto title="Statuts de synchronisation">
+      <Tuto title="Synchronization statuses">
         <Pane display="flex" flexDirection="column" gap={16} marginTop={8}>
           <Pane display="grid" gridTemplateColumns="160px 1fr" gap={8}>
             <Pane height={32} marginTop={4}>
@@ -94,8 +94,8 @@ function Publication() {
               />
             </Pane>
             <Text>
-              Votre Base Adresse Locale est à jour avec la Base Adresse
-              Nationale. Toutes ses adresses sont prises en compte.
+              Your Local Address Base is up to date with the National Address
+              Platform. All its addresses are accounted for.
             </Text>
           </Pane>
 
@@ -111,9 +111,9 @@ function Publication() {
               />
             </Pane>
             <Text>
-              Des modifications ont été détectées, elles seront automatiquement
-              répercutées dans la Base Adresse Nationale dans les prochaines
-              heures.
+              Changes have been detected and will be automatically
+              reflected in the National Address Platform within the next
+              few hours.
             </Text>
           </Pane>
 
@@ -126,9 +126,9 @@ function Publication() {
               />
             </Pane>
             <Text>
-              Vous avez suspendus les mises à jour de votre Base Adresse Locale.
-              Aucune modification ne sera transmise à la Base Adresse Nationale.
-              Vous pouvez relancer les mises à jours à tout moment.
+              You have paused updates for your Local Address Base.
+              No changes will be sent to the National Address Platform.
+              You can resume updates at any time.
             </Text>
           </Pane>
 
@@ -144,10 +144,10 @@ function Publication() {
               />
             </Pane>
             <Text>
-              Une autre Base Adresse Locale a remplacé la votre, impossible de
-              mettre à jour automatiquement vos adresses. Vous pouvez forcer la
-              mise à jour afin de remplacer la Base Adresse Locale actuellement
-              en place.
+              Another Local Address Base has replaced yours. Automatic address
+              updates are not possible. You can force an update to replace
+              the Local Address Base currently
+              in place.
             </Text>
           </Pane>
 
@@ -163,16 +163,16 @@ function Publication() {
               />
             </Pane>
             <Text>
-              L&apos;habilitation de la Base Adresse Locale n&apos;est pas
-              valide. Il vous faut renouveler celle-ci pour que les nouvelles
-              modifications remontent dans la Base Adresse Nationale.
+              The Local Address Base authorization is not
+              valid. You need to renew it so that new
+              changes are reflected in the National Address Platform.
             </Text>
           </Pane>
         </Pane>
       </Tuto>
 
       <Problems>
-        <Unauthorized title="Je n’arrive pas à éditer ma BAL" />
+        <Unauthorized title="I can't edit my LAB" />
       </Problems>
     </Pane>
   );

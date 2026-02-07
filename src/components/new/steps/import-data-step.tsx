@@ -53,27 +53,27 @@ function extractCommuneFromCSV(rows: ValidateRowFullType[]): CommuneRow[] {
 
 const getImportOptions = (commune: CommuneType) => [
   {
-    label: "Partir des données existantes dans la Base Adresse Nationale",
+    label: "Start from existing data in the National Address Platform",
     value: "ban",
     description: (
       <>
-        Cette méthode est recommandée dans la plupart des cas. Elle vous permet
-        de partir des adresses déjà présentes dans la{" "}
+        This method is recommended in most cases. It allows you
+        to start from addresses already present in the{" "}
         <a
           href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/carte-base-adresse-nationale?id=${commune.code}`}
           target="_blank"
         >
-          Base Adresse Nationale
+          National Address Platform
         </a>{" "}
-        (BAN) et de les enrichir avec vos propres données.
+        (NAP) and to enrich them with your own data.
       </>
     ),
   },
   {
-    label: "Utiliser un fichier CSV au format BAL",
+    label: "Use a CSV file in LAB format",
     value: "file",
     description:
-      "Cette méthode est recommandée si vous avez déjà un fichier CSV au format BAL.",
+      "This method is recommended if you already have a CSV file in LAB format.",
   },
 ];
 
@@ -102,9 +102,9 @@ function ImportDataStep({
     if (file) {
       if (getFileExtension(file.name).toLowerCase() !== "csv") {
         return onAlert(
-          <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
-            Ce type de fichier n’est pas supporté. Vous devez déposer un fichier
-            CSV.
+          <Alert title="An error occurred" intent="danger" marginTop={16}>
+            This file type is not supported. You must upload a
+            CSV file.
           </Alert>
         );
       }
@@ -132,8 +132,8 @@ function ImportDataStep({
               intent="danger"
               marginTop={16}
             >
-              Le fichier ne correspond pas à la commune sélectionnée à
-              l&apos;étape précédente.
+              The file does not match the jurisdiction selected in
+              the previous step.
             </Alert>
           );
         } else if (communes.length > 1) {
@@ -143,8 +143,8 @@ function ImportDataStep({
               intent="danger"
               marginTop={16}
             >
-              Le fichier ne doit contenir qu’une seule commune. Veuillez
-              vérifier votre fichier.
+              The file must contain only one jurisdiction. Please
+              check your file.
             </Alert>
           );
         } else {
@@ -154,7 +154,7 @@ function ImportDataStep({
               intent="danger"
               marginTop={16}
             >
-              Aucune commune n&apos;a pu être trouvée.
+              No jurisdiction could be found.
             </Alert>
           );
         }
@@ -162,7 +162,7 @@ function ImportDataStep({
         if (invalidRowsCount > 0) {
           onAlert(
             <Alert
-              title="Le fichier comporte des erreurs"
+              title="The file contains errors"
               intent="warning"
               marginTop={16}
             >
@@ -170,33 +170,33 @@ function ImportDataStep({
                 {invalidRowsCount > 1 ? (
                   <>
                     <Strong>
-                      {invalidRowsCount} lignes comportent au moins une erreur
+                      {invalidRowsCount} rows contain at least one error
                     </Strong>{" "}
-                    et ne pourront pas être importées dans votre Base Adresse
-                    Locale.
+                    and cannot be imported into your Local Address
+                    Base.
                   </>
                 ) : (
                   <>
-                    <Strong>1 ligne comporte au moins une erreur</Strong> et ne
-                    pourra pas être importée dans votre Base Adresse Locale.
+                    <Strong>1 row contains at least one error</Strong> and
+                    cannot be imported into your Local Address Base.
                   </>
                 )}
               </Paragraph>
 
               <Paragraph>
-                En continuant, seules les adresses conformes seront utilisées
-                pour créer votre Base Adresse Locale.
+                By continuing, only compliant addresses will be used
+                to create your Local Address Base.
               </Paragraph>
 
               <Paragraph>
-                Pour obtenir un rapport détaillé des erreurs qui ont été
-                détectées, consultez{" "}
+                For a detailed report of the errors that were
+                detected, see{" "}
                 <a
                   href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/bases-locales/validateur`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  le validateur de Bases Adresses Locales{" "}
+                  the Local Address Base validator{" "}
                   <ShareIcon verticalAlign="middle" />
                 </a>
                 .
@@ -209,7 +209,7 @@ function ImportDataStep({
         console.error(err);
         onAlert(
           <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
-            Une erreur est survenue lors de l’analyse du fichier.
+            An error occurred while analyzing the file.
           </Alert>
         );
       } finally {
@@ -224,20 +224,20 @@ function ImportDataStep({
     if (rejectedFiles.length > 1) {
       onAlert(
         <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
-          Vous ne pouvez déposer qu’un seul fichier.
+          You can only upload one file.
         </Alert>
       );
     } else if (file.size > MAX_SIZE) {
       return onAlert(
         <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
-          Ce fichier est trop volumineux. Vous devez déposer un fichier de moins
-          de 10 Mo.
+          This file is too large. You must upload a file smaller
+          than 10 MB.
         </Alert>
       );
     } else {
       onAlert(
         <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
-          Impossible de déposer ce fichier.
+          Unable to upload this file.
         </Alert>
       );
     }
@@ -249,7 +249,7 @@ function ImportDataStep({
 
   return (
     <>
-      <Pane aria-label="Choisissez votre point de départ" role="group">
+      <Pane aria-label="Choose your starting point" role="group">
         <Text fontWeight={500} fontSize="14px" color="gray700">
           Choisissez votre point de départ
         </Text>
@@ -278,8 +278,8 @@ function ImportDataStep({
             maxSize={MAX_SIZE}
             height={150}
             marginBottom={24}
-            placeholder="Sélectionnez ou glissez ici votre fichier BAL au format CSV (maximum 10 Mo)"
-            loadingLabel="Analyse en cours"
+            placeholder="Select or drag your LAB file in CSV format here (maximum 10 MB)"
+            loadingLabel="Analyzing..."
             disabled={isLoading}
             onDrop={onDrop}
             onDropRejected={onDropRejected}
@@ -288,12 +288,12 @@ function ImportDataStep({
           {alert}
 
           <Alert
-            title="Vous disposez déjà d’une Base Adresse Locale au format CSV gérée à partir d’un autre outil ?"
+            title="Do you already have a Local Address Base in CSV format managed from another tool?"
             marginY={16}
           >
             <Paragraph marginTop={16}>
-              Utilisez le formulaire de dépôt afin de publier vos adresses dans
-              la Base Adresse Nationale.
+              Use the submission form to publish your addresses to
+              the National Address Platform.
             </Paragraph>
             <Pane marginTop={16}>
               <Button
@@ -303,7 +303,7 @@ function ImportDataStep({
                 href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/bases-locales/publication`}
                 target="_blank"
               >
-                Accéder au formulaire de dépôt
+                Go to submission form
               </Button>
             </Pane>
           </Alert>

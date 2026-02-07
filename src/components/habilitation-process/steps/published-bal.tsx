@@ -95,7 +95,7 @@ function PublishedBalStep({
             </a>
           </Paragraph>
           <Paragraph is="li" marginBottom={8}>
-            Votre commune s&apos;est mise en conformité avec la{" "}
+            Your jurisdiction has complied with the{" "}
             <a
               href="https://guide-bonnes-pratiques.adresse.data.gouv.fr/transmettre-les-informations-a-la-base-adresse-nationale/le-coeur-de-linformation-legale"
               target="_blank"
@@ -107,11 +107,11 @@ function PublishedBalStep({
           </Paragraph>
           <Paragraph is="li" marginBottom={8}>
             Les services de secours, administrations et particuliers peuvent
-            désormais <Strong>déposer des signalements</Strong> pour vous aider
+            désormais <Strong>submit reports</Strong> pour vous aider
             à fiabiliser vos adresses.
           </Paragraph>
           <Paragraph is="li" marginBottom={16}>
-            Vous pouvez désormais{" "}
+            You can now{" "}
             <Strong>télécharger des arrêtés de numérotation</Strong> pour les
             voies et les numéros.
           </Paragraph>
