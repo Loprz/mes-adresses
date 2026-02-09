@@ -1,0 +1,8 @@
+# Railway config for mes-adresses (Next.js frontend)
+# See docs/RAILWAY_DEPLOYMENT.md in the repo root.
+
+[build]
+buildCommand = "yarn install --frozen-lockfile && yarn build-available-flags && yarn build"
+
+[deploy]
+startCommand = "yarn start"
