@@ -27,7 +27,7 @@ function AuthenticationValidateStep({
       />
 
       <Button iconBefore={ChevronLeftIcon} onClick={onCancel}>
-        Annuler
+        Cancel
       </Button>
     </Pane>
   );

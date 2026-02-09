@@ -73,9 +73,9 @@ export default function SignalementsPage({
   });
 
   const tabs = [
-    { label: "En cours", key: "pending", count: pendingSignalementsCount },
+    { label: "In progress", key: "pending", count: pendingSignalementsCount },
     {
-      label: `Archivé${archivedSignalementsCount > 1 ? "s" : ""}`,
+      label: `Archived${archivedSignalementsCount > 1 ? "s" : ""}`,
       key: "archived",
       count: archivedSignalementsCount,
     },
@@ -185,7 +185,7 @@ export default function SignalementsPage({
       ids.length > 1
         ? "The reports have been dismissed"
         : "The report has been dismissed",
-      "Une erreur est survenue"
+      "An error occurred"
     );
 
     await _updateSignalements();
@@ -281,7 +281,7 @@ export default function SignalementsPage({
                     appearance="default"
                     onClick={() => setShowWarningDialog(false)}
                   >
-                    Annuler
+                    Cancel
                   </Button>
                 </Pane>
               </Dialog>
@@ -291,7 +291,7 @@ export default function SignalementsPage({
                 intent="danger"
                 onClick={() => setShowWarningDialog(true)}
               >
-                Ignorer les signalements
+                Ignore reports
               </Button>
             </Pane>
           </Pane>

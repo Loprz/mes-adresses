@@ -198,7 +198,7 @@ function GroupedActions({
         <Dialog
           isShown={isShown}
           intent="success"
-          title="Modification multiple"
+          title="Multiple modification"
           isConfirmLoading={isLoading}
           hasFooter={false}
           onCloseComplete={() => onFormCancel()}
@@ -208,7 +208,7 @@ function GroupedActions({
               marginBottom={8}
               marginLeft={32}
               color="muted"
-            >{`${selectedNumerosIds.length} numéros sélectionnés`}</Paragraph>
+            >{`${selectedNumerosIds.length} selected numbers`}</Paragraph>
             <Pane
               is="form"
               background="gray300"
@@ -220,7 +220,7 @@ function GroupedActions({
               <FormInput>
                 <SelectField
                   value={selectedVoieId}
-                  label="Voie"
+                  label="Street"
                   margin={0}
                   flex={1}
                   disabled={selectedNumerosUniqVoie.length > 1}
@@ -238,9 +238,9 @@ function GroupedActions({
 
               {selectedNumerosUniqVoie.length > 1 && (
                 <Alert intent="none" marginBottom={8}>
-                  Les numéros sélectionnés ne sont pas situés sur la même voie.
-                  La modification groupée de la voie n’est pas possible. Ils
-                  doivent être modifiés séparément.
+                  The selected numbers are not located on the same street.
+                  Bulk modification of the street is not possible. They must
+                  be modified separately.
                 </Alert>
               )}
 
@@ -248,7 +248,7 @@ function GroupedActions({
                 <FormInput>
                   <SelectField
                     value={selectedToponymeId || ""}
-                    label="Toponyme"
+                    label="Place name"
                     margin={0}
                     flex={1}
                     disabled={selectedNumerosUniqToponyme.length > 1}
@@ -258,8 +258,8 @@ function GroupedActions({
                   >
                     <option value="">
                       {selectedToponymeId || selectedToponymeId === ""
-                        ? "Ne pas associer de toponyme"
-                        : "- Choisir un toponyme -"}
+                        ? "Do not associate a place name"
+                        : "- Choose a place name -"}
                     </option>
                     {sortBy(toponymes, (t) => normalizeSort(t.nom)).map(
                       ({ id, nom }) => (
@@ -274,9 +274,9 @@ function GroupedActions({
 
               {selectedNumerosUniqToponyme.length > 1 && (
                 <Alert intent="none" marginBottom={8}>
-                  Les numéros sélectionnés ne possèdent pas le même toponyme. La
-                  modification groupée du toponyme n’est pas possible. Ils
-                  doivent être modifiés séparément.
+                  The selected numbers do not have the same place name.
+                  Bulk modification of the place name is not possible. They
+                  must be modified separately.
                 </Alert>
               )}
 
@@ -297,7 +297,7 @@ function GroupedActions({
                   value={positionType}
                   disabled={hasMultiposition}
                   flex={1}
-                  label="Type de position"
+                  label="Position type"
                   margin={0}
                   display="block"
                   onChange={onPositionTypeChange}
@@ -305,7 +305,7 @@ function GroupedActions({
                   {(selectedNumerosUniqType.length !== 1 ||
                     hasMultiposition) && (
                     <option value="">
-                      -- Veuillez choisir un type de position --
+                      -- Please choose a position type --
                     </option>
                   )}
                   {positionsTypesList.map((positionType) => (
@@ -318,9 +318,9 @@ function GroupedActions({
 
               {hasMultiposition && (
                 <Alert intent="none" marginBottom={8}>
-                  Certains numéros sélectionnés possèdent plusieurs positions.
-                  La modification groupée du type de position n’est pas
-                  possible. Ils doivent être modifiés séparément.
+                  Some selected numbers have multiple positions.
+                  Bulk modification of the position type is not possible.
+                  They must be modified separately.
                 </Alert>
               )}
 
@@ -331,11 +331,10 @@ function GroupedActions({
               />
 
               {hasComment && (comment.length > 0 || removeAllComments) && (
-                <Alert intent="warning" title="Attention" marginBottom={8}>
+                <Alert intent="warning" title="Warning" marginBottom={8}>
                   <Text>
-                    certains numéros sélectionnés possèdent un commentaire. En
-                    cas de {removeAllComments ? "suppression" : "modification"},
-                    leurs commentaires seront{" "}
+                    some selected numbers have a comment. In case of {removeAllComments ? "deletion" : "modification"},
+                    their comments will be{" "}
                     {removeAllComments ? "deleted" : "replaced"}.
                   </Text>
                 </Alert>
@@ -343,7 +342,7 @@ function GroupedActions({
 
               {hasComment && (
                 <Checkbox
-                  label="Effacer tous les commentaires"
+                  label="Clear all comments"
                   checked={removeAllComments}
                   onChange={onRemoveAllCommentsChange}
                 />
@@ -364,7 +363,7 @@ function GroupedActions({
           appearance="primary"
           onClick={() => handleClick()}
         >
-          Modifier les numéros
+          Modify the numbers
         </Button>
         <Button
           marginLeft={16}
@@ -372,7 +371,7 @@ function GroupedActions({
           intent="danger"
           onClick={() => setIsRemoveWarningShown(true)}
         >
-          Supprimer les numéros
+          Delete the numbers
         </Button>
       </Pane>
     </Pane>

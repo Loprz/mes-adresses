@@ -68,13 +68,13 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
                   completed={isCompleted}
                 />
                 <Heading color={isCompleted && defaultTheme.colors.green700}>
-                  Lieux-dits / Compléments
+                  Place Names / Supplements
                 </Heading>
               </Pane>
               {!hasToponymes && (
                 <IconButton
                   icon={TrashIcon}
-                  title="Supprimer objectif"
+                  title="Remove goal"
                   appearance="minimal"
                   intent="danger"
                   onClick={onIgnoreGoal}
@@ -84,16 +84,16 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
             {hasToponymes ? (
               <Pane display="flex" justifyContent="start">
                 <Counter
-                  label={`lieux-dit${
+                  label={`place name${
                     toponymes.length > 1 ? "s" : ""
-                  } / complément${toponymes.length > 1 ? "s" : ""}`}
+                  } / supplement${toponymes.length > 1 ? "s" : ""}`}
                   value={toponymes.length}
                   color={defaultTheme.colors.orange700}
                 />
                 <Counter
-                  label={`numéro${
+                  label={`number${
                     nbNumerosWithToponymes > 1 ? "s" : ""
-                  } associé${nbNumerosWithToponymes > 1 ? "s" : ""}`}
+                  } associated`}
                   value={nbNumerosWithToponymes}
                   color={defaultTheme.colors.orange700}
                 />
@@ -101,19 +101,19 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
             ) : (
               <Pane marginTop={16}>
                 <Paragraph>
-                  Enrichissez l&apos;adressage de votre commune en renseignant
-                  vos lieux-dits complémentaires et voies sans adresse.
+                  Enhance the addressing of your jurisdiction by entering
+                  your supplementary place names and streets without addresses.
                 </Paragraph>
                 <Button
                   marginTop={16}
-                  title="Ajouter un toponyme"
+                  title="Add a place name"
                   is={NextLink}
                   appearance="primary"
                   intent="success"
                   href={`/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/new`}
                   width="100%"
                 >
-                  Créez un lieu-dit complémentaire ou une voie sans adresse
+                  Create a supplementary place name or a street without addresses
                   <AddIcon marginLeft={8} />
                 </Button>
               </Pane>
@@ -130,8 +130,8 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
         {hasToponymes && (
           <Pane padding={8}>
             <Paragraph>
-              Conservez vos noms de hameaux et lieux-dits historiques.
-              Associez-les aux numéros comme complément d&apos;adresse.
+              Preserve your hamlet and historical place names.
+              Associate them with numbers as address supplements.
             </Paragraph>
           </Pane>
         )}

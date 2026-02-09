@@ -37,17 +37,17 @@ function ItemsListDelete({
     const actions = [
       {
         label:
-          model === "voie"
+          model === "street"
             ? item.deletedAt
-              ? "Restaurer voie"
-              : "Voir numero(s)"
+              ? "Restore street"
+              : "View number(s)"
             : "Restaurer toponyme",
         callback: () => onRestore(item),
         icon: AddIcon,
         intent: "none",
       },
       {
-        label: "Supprimer",
+        label: "Delete",
         callback: () =>
           item.deletedAt ? onRemove(item) : onRemoveNumeros(item),
         icon: TrashIcon,
@@ -58,10 +58,10 @@ function ItemsListDelete({
   };
 
   const complement = (item) => {
-    if (model === "voie" && item.numeros) {
+    if (model === "street" && item.numeros) {
       if (item.deletedAt) {
         return (
-          "voie" +
+          "street" +
           (item.numeros.length > 0
             ? " et " + item.numeros.length + " number(s) deleted"
             : "")
@@ -69,7 +69,7 @@ function ItemsListDelete({
       }
 
       return item.numeros.length > 0
-        ? item.numeros.length + " numero(s) supprimée(s)"
+        ? item.numeros.length + " numero(s) deleted"
         : "";
     }
 
@@ -80,7 +80,7 @@ function ItemsListDelete({
     <Table display="flex" flex={1} flexDirection="column" overflowY="auto">
       <Table.Head>
         <Table.SearchHeaderCell
-          placeholder={`Rechercher une ${model}`}
+          placeholder={`Search for a ${model}`}
           onChange={setFilter}
         />
       </Table.Head>

@@ -88,7 +88,7 @@ function PanoramaxControl({
           style={{ filter: disabled ? "grayscale(1) opacity(0.5)" : "none" }}
         />
       }
-      title="Ouvrir Panoramax"
+      title="Open Street View"
     />
   );
 
@@ -100,7 +100,7 @@ function PanoramaxControl({
       onClick={() => {
         setShowPanoramax(false);
       }}
-      title="Fermer Panoramax"
+      title="Close Street View"
     />
   ) : disabled ? (
     <Tooltip
@@ -108,17 +108,17 @@ function PanoramaxControl({
         <>
           <Pane marginBottom={8}>
             <Text color="white">
-              Aucune photographie du territoire n&apos;est disponible.
+              No territory photography is&apos;available.
             </Text>
           </Pane>
           <Button
             is="a"
             size="small"
-            href="https://panoramax.fr/"
+            href="https://www.google.com/maps"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Participer à Panoramax
+            Contribute to Street View
           </Button>
         </>
       }

@@ -36,7 +36,7 @@ import SelectCommune from "../select-commune";
 import { CommuneType } from "@/types/commune";
 import DrawContext from "@/contexts/draw";
 
-const REMOVE_TOPONYME_LABEL = "Aucun toponyme";
+const REMOVE_TOPONYME_LABEL = "No place name";
 
 interface NumeroEditorProps {
   initialVoieId?: string;
@@ -61,7 +61,7 @@ function NumeroEditor({
 }: NumeroEditorProps) {
   const [voieId, setVoieId] = useState(initialVoieId || initialValue?.voieId);
   const [selectedNomToponyme, setSelectedNomToponyme] = useState("");
-  const [toponymeId, setToponymeId] = useState(initialValue?.toponymeId);
+  const [toponymeId, setToponymeId] = useState<string | null>(initialValue?.toponymeId ?? null);
   const [isLoading, setIsLoading] = useState(false);
   const [certifie, setCertifie] = useState(initialValue?.certifie || false);
   const [numero, onNumeroChange] = useInput(
@@ -237,7 +237,7 @@ function NumeroEditor({
 
   useEffect(() => {
     onNumeroChange({ target: { value: initialValue?.numero.toString() } });
-    onSuffixeChange({ target: { value: initialValue?.suffixe } });
+    onSuffixeChange({ target: { value: initialValue?.suffixe || "" } });
     setCompleteNumero(
       computeCompletNumero(initialValue?.numero, initialValue?.suffixe)
     );
@@ -346,23 +346,24 @@ function NumeroEditor({
         <Pane display="flex">
           <FormInput>
             <SelectField
-              label="Toponyme"
+              label="Place name"
               flex={1}
               marginBottom={0}
               value={toponymeId || ""}
               onChange={({ target }) => {
                 setToponymeId(
                   target.value === REMOVE_TOPONYME_LABEL ||
-                    target.value === "- Choisir un toponyme -"
+                    target.value === "- Choose a place name -" ||
+                    target.value === ""
                     ? null
                     : target.value
                 );
               }}
             >
-              <option value={null}>
+              <option value="">
                 {initialValue?.toponymeId
                   ? REMOVE_TOPONYME_LABEL
-                  : "- Choisir un toponyme -"}
+                  : "- Choose a place name -"}
               </option>
               {sortBy(toponymes, (t) => normalizeSort(t.nom)).map(
                 ({ id, nom }) => (
@@ -392,7 +393,7 @@ function NumeroEditor({
             <TextInputField
               ref={ref}
               required
-              label="Numéro"
+              label="Number"
               display="block"
               type="number"
               disabled={isLoading}
@@ -402,8 +403,8 @@ function NumeroEditor({
               value={numero}
               marginBottom={0}
               onWheel={(e) => e.target.blur()}
-              placeholder={`Numéro${
-                suggestedNumero ? ` recommandé : ${suggestedNumero}` : ""
+              placeholder={`Number${
+                suggestedNumero ? ` recommended: ${suggestedNumero}` : ""
               }`}
               onChange={handleChangeNumero}
               validationMessage={getValidationMessage("numero")}
@@ -435,12 +436,12 @@ function NumeroEditor({
           />
         </FormInput>
 
-        {commune.hasCadastre ? (
+        {commune.hasParcels ? (
           <FormInput ref={refs?.parcelles}>
             <SelectParcelles initialParcelles={initialValue?.parcelles || []} />
           </FormInput>
         ) : (
-          <DisabledFormInput label="Parcelles" />
+          <DisabledFormInput label="Parcels" />
         )}
 
         <Comment

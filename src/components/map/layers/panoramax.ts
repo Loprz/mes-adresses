@@ -1,6 +1,9 @@
 export const PANORAMAX_SOURCE_ID = "panoramax";
 
-export const PANORAMAX_TILE_URL = `${process.env.NEXT_PUBLIC_PANORAMAX_API_ENDPOINT}/api/map/{z}/{x}/{y}.mvt`;
+const panoramaxEndpoint = process.env.NEXT_PUBLIC_PANORAMAX_API_ENDPOINT;
+export const PANORAMAX_TILE_URL = panoramaxEndpoint && panoramaxEndpoint.trim() !== ''
+  ? `${panoramaxEndpoint}/api/map/{z}/{x}/{y}.mvt`
+  : null;
 
 export const PANORAMAX_LAYERS_SOURCE = {
   SEQUENCES: "sequences",

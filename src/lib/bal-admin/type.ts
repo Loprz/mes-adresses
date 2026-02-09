@@ -26,16 +26,16 @@ export interface BALWidgetConfig {
 export enum EventTypeTypeEnum {
   FORMATION = "formation",
   FORMATION_LVL2 = "formation-lvl2",
-  FORMATION_SPECIALE = "formation spéciale",
+  FORMATION_SPECIALE = "special training",
   PARTENAIRE = "partenaire",
   ADRESSE_LAB = "adresselab",
   ADRESSE_REGION = "adresse-region",
-  PRESENTATION = "présentation",
+  PRESENTATION = "presentation",
 }
 
 export enum EventTypeTagEnum {
-  PROGRAMME_BAL = "Programme Base Adresse Locale",
-  BAL = "Base Adresse Locale",
+  PROGRAMME_BAL = "Local Address Base Program",
+  BAL = "Local Address Base",
   COMMUNE = "Commune",
   BAN = "Base Adresse Nationale",
   GOUVERNANCE = "Gouvernance",

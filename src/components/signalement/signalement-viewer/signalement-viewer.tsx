@@ -127,7 +127,7 @@ export function SignalementViewer({
             display="inline-flex"
             onClick={onClose}
           >
-            Fermer
+            Close
           </Button>
         </Pane>
       </Pane>

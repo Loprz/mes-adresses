@@ -14,6 +14,7 @@ import { ChildrenProps } from "@/types/context";
 import { TilesLayerMode } from "@/components/map/layers/tiles";
 import { CommuneDTO } from "@/lib/openapi-api-bal";
 import BalDataContext from "@/contexts/bal-data";
+import type { BoundaryVisibility } from "@/components/map/controls/boundary-control";
 
 interface MapContextType {
   map: MaplibreMap | null;
@@ -26,8 +27,10 @@ interface MapContextType {
   isStyleLoaded: boolean;
   viewport: Partial<ViewState>;
   setViewport: React.Dispatch<React.SetStateAction<Partial<ViewState>>>;
-  isCadastreDisplayed: boolean;
-  setIsCadastreDisplayed: React.Dispatch<React.SetStateAction<boolean>>;
+  isParcelsDisplayed: boolean;
+  setIsParcelsDisplayed: React.Dispatch<React.SetStateAction<boolean>>;
+  boundaryVisibility: BoundaryVisibility;
+  setBoundaryVisibility: React.Dispatch<React.SetStateAction<BoundaryVisibility>>;
   balTilesUrl: string;
   isMapLoaded: boolean;
   tileLayersMode: TilesLayerMode;
@@ -37,9 +40,9 @@ interface MapContextType {
 const MapContext = React.createContext<MapContextType | null>(null);
 
 const defaultViewport: Partial<ViewState> = {
-  latitude: 46.5693,
-  longitude: 1.1771,
-  zoom: 6,
+  latitude: 39.8,
+  longitude: -98.5,
+  zoom: 4,
 };
 
 export const BAL_API_URL =
@@ -68,8 +71,14 @@ export function MapContextProvider(props: ChildrenProps) {
     registeredBalMapStyle || getDefaultStyle(commune)
   );
   const [viewport, setViewport] = useState<Partial<ViewState>>(defaultViewport);
-  const [isCadastreDisplayed, setIsCadastreDisplayed] =
+  const [isParcelsDisplayed, setIsParcelsDisplayed] =
     useState<boolean>(false);
+  const [boundaryVisibility, setBoundaryVisibility] =
+    useState<BoundaryVisibility>({
+      states: false,
+      counties: true,
+      places: true,
+    });
   const [isTileSourceLoaded, setIsTileSourceLoaded] = useState<boolean>(false);
   const [isStyleLoaded, setIsStyleLoaded] = useState<boolean>(false);
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
@@ -127,8 +136,10 @@ export function MapContextProvider(props: ChildrenProps) {
       isStyleLoaded,
       viewport,
       setViewport,
-      isCadastreDisplayed,
-      setIsCadastreDisplayed,
+      isParcelsDisplayed,
+      setIsParcelsDisplayed,
+      boundaryVisibility,
+      setBoundaryVisibility,
       balTilesUrl,
       isMapLoaded,
       tileLayersMode,
@@ -142,7 +153,8 @@ export function MapContextProvider(props: ChildrenProps) {
       isStyleLoaded,
       style,
       viewport,
-      isCadastreDisplayed,
+      isParcelsDisplayed,
+      boundaryVisibility,
       balTilesUrl,
       isMapLoaded,
       tileLayersMode,

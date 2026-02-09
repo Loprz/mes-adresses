@@ -20,7 +20,7 @@ function Stepper({
         <Heading is="h2">
           {steps[currentStepIndex].label}
           <Text marginLeft={8} fontSize={12} color="muted">
-            Étape {currentStepIndex + 1} sur {steps.length}
+            Step {currentStepIndex + 1} of {steps.length}
           </Text>
         </Heading>
         <Pane className={styles["stepper-steps"]}>
@@ -36,7 +36,7 @@ function Stepper({
         {currentStepIndex !== steps.length - 1 ? (
           <Pane>
             <Text fontWeight="bold" color="muted">
-              Étape suivante :
+              Next step:
             </Text>{" "}
             <Text color="muted">{steps[currentStepIndex + 1].label}</Text>
           </Pane>

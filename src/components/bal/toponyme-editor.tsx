@@ -191,10 +191,10 @@ function ToponymeEditor({
 
   const submitLabel = useMemo(() => {
     if (isLoading) {
-      return "En cours…";
+      return "In progress…";
     }
 
-    return "Enregistrer";
+    return "Save";
   }, [isLoading]);
 
   useEffect(() => {
@@ -229,8 +229,8 @@ function ToponymeEditor({
             forwadedRef={ref}
             exitFocus={() => setIsFocus(false)}
             isDisabled={isLoading}
-            label="Nom du toponyme"
-            placeholder="Nom du toponyme"
+            label="Place name"
+            placeholder="Place name"
             value={nom}
             onChange={onNomChange}
             validationMessage={getValidationMessage("voie_nom")}
@@ -274,7 +274,7 @@ function ToponymeEditor({
           />
         </FormInput>
 
-        {commune.hasCadastre ? (
+        {commune.hasParcels ? (
           <FormInput ref={refs?.parcelles}>
             <SelectParcelles
               initialParcelles={initialValue?.parcelles || []}
@@ -282,7 +282,7 @@ function ToponymeEditor({
             />
           </FormInput>
         ) : (
-          <DisabledFormInput label="Parcelles" />
+          <DisabledFormInput label="Parcels" />
         )}
       </Pane>
 
@@ -312,7 +312,7 @@ function ToponymeEditor({
           onClick={onFormCancel}
           boxShadow="0 0 1px rgba(67, 90, 111, 0.3), 0 5px 8px -4px rgba(67, 90, 111, 0.47)"
         >
-          Annuler
+          Cancel
         </Button>
       </Pane>
     </Form>

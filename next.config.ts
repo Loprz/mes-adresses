@@ -32,6 +32,10 @@ const nextConfig: NextConfig = withBundleAnalyzer({
       new URL(
         "https://annuaire-des-collectivites-production-storage.s3.fr-par.scw.cloud/**"
       ),
+      new URL("https://commons.wikimedia.org/**"),
+      new URL("https://upload.wikimedia.org/**"),
+      // Official .gov logos discovered from dotgov-data (e.g. city/county seals)
+      { protocol: "https", hostname: "**.gov", pathname: "/**" },
     ],
   },
 });

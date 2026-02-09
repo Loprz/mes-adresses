@@ -67,7 +67,7 @@ function FondDeCarteForm() {
 
         const nameIsValid =
           Boolean(styleMap.name) &&
-          !["Aerial photography", "OpenStreetMap", "IGN Plan"].includes(
+          !["Aerial photography", "OpenStreetMap", "US Topo"].includes(
             styleMap.name
           ) &&
           fondsDeCartesForm

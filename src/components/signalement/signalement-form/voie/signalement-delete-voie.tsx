@@ -36,7 +36,7 @@ function SignalementDeleteVoie({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Erreur lors de l'acceptation du signalement.",
+        title: "Error while accepting'the report.",
         intent: "danger",
       });
     }
@@ -53,11 +53,11 @@ function SignalementDeleteVoie({
       />
       <Alert intent={nbNumeros > 0 ? "warning" : "info"} flexShrink={0}>
         <Text>
-          En acceptant ce signalement, la voie <b>{nom}</b> sera placée dans la
-          corbeille{" "}
+          By accepting this report, the street <b>{nom}</b> will be moved to the
+          trash{" "}
           {nbNumeros > 0 && (
             <>
-              avec les <b>{nbNumeros} adresses</b> qui y sont rattachées
+              with the <b>{nbNumeros} addresses</b> attached to it
             </>
           )}
         </Text>

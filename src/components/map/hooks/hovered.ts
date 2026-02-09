@@ -9,7 +9,7 @@ import { PANORAMAX_LAYERS_SOURCE } from "../layers/panoramax";
 function useHovered(map) {
   const hovered = useRef<{
     id: string;
-    source: "tiles" | "cadastre";
+    source: "tiles" | "parcels";
     sourceLayer: typeof LAYERS_SOURCE;
   }>(undefined);
   const { handleHoveredParcelles } = useContext(ParcellesContext);
@@ -93,16 +93,16 @@ function useHovered(map) {
 
         const { source, id, sourceLayer } = feature;
 
-        const parcelles = event.features.filter(
+        const parcels = event.features.filter(
           ({ source, sourceLayer, layer }) =>
-            source === "cadastre" &&
-            sourceLayer === "parcelles" &&
-            layer?.id === "parcelles-fill"
+            source === "parcels" &&
+            sourceLayer === "parcels" &&
+            layer?.id === "parcels-fill"
         );
 
-        if (source === "cadastre") {
+        if (source === "parcels") {
           handleHoveredParcelles(
-            parcelles.map(({ properties }) => properties.id)
+            parcels.map(({ properties }) => properties.id)
           );
         }
 
@@ -145,7 +145,7 @@ function useHovered(map) {
       handleRelatedFeatures(map, hovered.current, false);
       setFeatureHovered(null);
 
-      if (source === "cadastre") {
+      if (source === "parcels") {
         handleHoveredParcelles([]);
       }
     }

@@ -23,12 +23,12 @@ interface SignalementFormButtonsProps {
 }
 
 const rejectionReasonsOptions = [
-  "Signalement non pertinent",
-  "Signalement en double",
+  "Irrelevant report",
+  "Duplicate report",
   "Report already processed",
   "Report incorrectly positioned",
-  "Signalement non conforme",
-  "Autre",
+  "Non-compliant report",
+  "Other",
 ] as const;
 
 type RejectionReasonOption = (typeof rejectionReasonsOptions)[number];
@@ -68,7 +68,7 @@ export function SignalementFormButtons({
             width="100%"
           >
             <Label htmlFor="reject-reason" marginBottom={8} display="block">
-              <Text fontWeight="bold">Raison</Text>
+              <Text fontWeight="bold">Reason</Text>
               {author?.email && (
                 <Text marginLeft={4} size={300} color="muted">
                   (L&apos;auteur du signalement recevra cette information par
@@ -83,7 +83,7 @@ export function SignalementFormButtons({
               }
               value={rejectionReasonSelected}
             />
-            {rejectionReasonSelected === "Autre" && (
+            {rejectionReasonSelected === "Other" && (
               <Textarea
                 id="reject-reason"
                 value={rejectionReason}
@@ -109,7 +109,7 @@ export function SignalementFormButtons({
                   isLoading={isLoading}
                   onClick={async () => {
                     await onReject(
-                      rejectionReasonSelected === "Autre"
+                      rejectionReasonSelected === "Other"
                         ? rejectionReason
                         : rejectionReasonSelected
                     );
@@ -122,7 +122,7 @@ export function SignalementFormButtons({
                 >
                   Refuser et{" "}
                   {pendingSignalementsCount > 1
-                    ? "passer au suivant"
+                    ? "move to next"
                     : "terminer"}
                 </Button>
               </Pane>
@@ -137,7 +137,7 @@ export function SignalementFormButtons({
                   display="inline-flex"
                   onClick={() => setShowRejectionForm(false)}
                 >
-                  Annuler
+                  Cancel
                 </Button>
               </Pane>
             </Pane>
@@ -156,7 +156,7 @@ export function SignalementFormButtons({
               intent="success"
               iconAfter={TickCircleIcon}
             >
-              Accepter
+              Accept
             </Button>
           </Pane>
 
@@ -188,7 +188,7 @@ export function SignalementFormButtons({
               display="inline-flex"
               onClick={onClose}
             >
-              Retour
+              Back
             </Button>
           </Pane>
         </>

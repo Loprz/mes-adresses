@@ -88,7 +88,7 @@ function PositionEditor({
         </Pane>
       ) : (
         <Pane paddingBottom=".5em" textAlign="center">
-          <Heading size={400}>Ce toponyme n’a pas de position</Heading>
+          <Heading size={400}>This place name has n’o position</Heading>
         </Pane>
       )}
 
@@ -103,7 +103,7 @@ function PositionEditor({
         justifyContent="center"
         onClick={handleAddMarker}
       >
-        {`Ajouter une position au ${isToponyme ? "toponyme" : "number"}`}
+        {`Add a position to the ${isToponyme ? "place name" : "number"}`}
       </Button>
     </FormField>
   );

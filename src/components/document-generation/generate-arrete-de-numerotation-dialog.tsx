@@ -178,9 +178,9 @@ export function GenerateArreteDeNumerotationDialog<
   return (
     <Dialog
       isShown={data?.type === GeneratedDocumentType.ARRETE_DE_NUMEROTATION}
-      title="Télécharger un modèle d'arrêté de numérotation"
-      cancelLabel="Annuler"
-      confirmLabel="Générer"
+      title="Download a numbering certificate template"
+      cancelLabel="Cancel"
+      confirmLabel="Generate"
       onCloseComplete={() => setData(null)}
       onCancel={() => setData(null)}
       isConfirmLoading={isLoading}
@@ -196,7 +196,7 @@ export function GenerateArreteDeNumerotationDialog<
       <Pane is="form" onSubmit={(e) => e.preventDefault()}>
         <FileUploader
           label="Plan de situation (optionnel)"
-          description="Le plan de situation fourni sera inséré dans l'arrêté de numérotation"
+          description="The site plan provided will be inserted into the numbering certificate"
           browseOrDragText={() => (
             <Pane
               display="flex"
@@ -205,7 +205,7 @@ export function GenerateArreteDeNumerotationDialog<
               gap={10}
             >
               <Text>
-                Sélectionner le fichier (Format PNG et JPEG, maximum 5 Mo)
+                Select a file (PNG or JPEG format, maximum 5 MB)
               </Text>
             </Pane>
           )}
@@ -237,17 +237,17 @@ export function GenerateArreteDeNumerotationDialog<
         />
         <Pane>
           <Text>
-            Ou cliquer sur
+            Or click on
             <IconButton
               marginLeft={8}
               marginRight={8}
               height={29}
               width={29}
               icon={CameraIcon}
-              title="Prendre une photo de la carte"
+              title="Take a screenshot of the map"
               onClick={handleTakeScreenshot}
             />
-            pour générer le plan de situation automatiquement
+            to automatically generate the site plan
           </Text>
         </Pane>
       </Pane>

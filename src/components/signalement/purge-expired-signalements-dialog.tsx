@@ -83,16 +83,16 @@ export function PurgeExpiredSignalementsDialog({
       }
 
       pushToast({
-        title: "Succès",
-        message: `${purgedSignalementsCount} signalement(s) expiré(s) ont été retirés de la liste.`,
+        title: "Success",
+        message: `${purgedSignalementsCount} expired report(s) have been removed from the list.`,
         intent: "success",
       });
     } catch (error) {
       console.error("Failed to purge expired signalements:", error);
       pushToast({
-        title: "Erreur",
+        title: "Error",
         message:
-          "Une erreur est survenue lors de l'actualisation des signalements. Veuillez réessayer ultérieurement.",
+          "An error occurred while updating'the reports. Please try again later.",
         intent: "danger",
       });
     } finally {
@@ -116,13 +116,13 @@ export function PurgeExpiredSignalementsDialog({
     >
       <Pane paddingY={16}>
         <Heading is="h4" size={600}>
-          Actualisation des signalements
+          Updating reports
         </Heading>
       </Pane>
       {isLoading ? (
         <>
           <Paragraph>
-            Cette opération peut prendre un certain temps, merci de patienter.
+            This operation may take some time, please wait.
           </Paragraph>
           <Pane marginBottom={16}>
             <ProgressBar percent={progress} />
@@ -131,20 +131,20 @@ export function PurgeExpiredSignalementsDialog({
       ) : (
         <>
           <Paragraph>
-            Si vous avez fait des modifications sur votre Base Adresse Locale
-            telles que des suppressions ou des renommages de voie, certains
-            signalements peuvent être devenus obsolètes.
+            If you have made changes to your Local Address Base,
+            such as street deletions or renames, some
+            reports may have become obsolete.
           </Paragraph>
           <Paragraph marginTop={8}>
-            En les actualisant, les signalements obsolètes seront retirés de la
-            liste.
+            By refreshing, obsolete reports will be removed from the
+            list.
           </Paragraph>
           <Pane marginY={16} display="flex" justifyContent="flex-end">
             <Button marginRight={16} appearance="primary" onClick={handlePurge}>
-              Actualiser les signalements
+              Update reports
             </Button>
             <Button appearance="default" onClick={onClose}>
-              Fermer
+              Close
             </Button>
           </Pane>
         </>

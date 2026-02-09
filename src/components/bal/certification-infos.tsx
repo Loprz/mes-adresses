@@ -47,8 +47,8 @@ function CertificationInfos({ baseLocale }: CertificationInfosProps) {
           </Pane>
         </Pane>
         <Paragraph>
-          Les adresses certifiées par la commune sont marquées comme fiables et
-          prêtes à être utilisées par les réutilisateurs.
+          Addresses certified by the jurisdiction are marked as reliable and
+          ready to be used by data consumers.
         </Paragraph>
       </Alert>
     </Pane>

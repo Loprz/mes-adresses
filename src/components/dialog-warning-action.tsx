@@ -21,7 +21,7 @@ function DialogWarningAction({
     <Dialog
       isShown={isShown}
       title="Attention"
-      cancelLabel="Annuler"
+      cancelLabel="Cancel"
       confirmLabel={confirmLabel}
       onCloseComplete={onCancel}
       onCancel={onCancel}

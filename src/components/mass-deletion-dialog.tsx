@@ -47,7 +47,7 @@ function MassDeletionDialog({
           assistance,{" "}
           <Strong>
             you can contact us at{" "}
-            <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
+            <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>
           </Strong>
         </Paragraph>
         <Paragraph marginTop={8}>
@@ -55,7 +55,7 @@ function MassDeletionDialog({
           <a href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}>
             <VideoIcon size={12} /> video tutorials
           </a>{" "}
-          sont également disponibles afin de vous accompagner lors de vos
+          are also available to assist you during your
           addressing work.
         </Paragraph>
       </Pane>

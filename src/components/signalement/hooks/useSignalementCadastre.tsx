@@ -6,20 +6,20 @@ import { useParams } from "next/navigation";
 import { useCallback, useContext, useEffect } from "react";
 
 export function useSignalementCadastre(parcelles: string[]) {
-  const { isStyleLoaded, setIsCadastreDisplayed } = useContext(MapContext);
+  const { isStyleLoaded, setIsParcelsDisplayed } = useContext(MapContext);
 
   const { setHighlightedParcelles, setShowSelectedParcelles, setIsDiffMode } =
     useContext(ParcellesContext);
   const params = useParams();
-  const toggleSignalementCadastre = useCallback(
+  const toggleSignalementParcels = useCallback(
     (enabled: boolean) => {
       if (enabled) {
-        setIsCadastreDisplayed(true);
+        setIsParcelsDisplayed(true);
         setShowSelectedParcelles(false);
         setHighlightedParcelles(parcelles);
         setIsDiffMode(true);
       } else {
-        setIsCadastreDisplayed(false);
+        setIsParcelsDisplayed(false);
         setShowSelectedParcelles(true);
         setHighlightedParcelles([]);
         setIsDiffMode(false);
@@ -28,21 +28,21 @@ export function useSignalementCadastre(parcelles: string[]) {
     [
       parcelles,
       setHighlightedParcelles,
-      setIsCadastreDisplayed,
+      setIsParcelsDisplayed,
       setShowSelectedParcelles,
       setIsDiffMode,
     ]
   );
 
-  // Disable cadastre on route change
+  // Disable parcels on route change
   useEffect(() => {
-    toggleSignalementCadastre(false);
+    toggleSignalementParcels(false);
   }, [params]);
 
-  // Enable cadastre when there are parcelles and the map style is loaded
+  // Enable parcels when there are parcels and the map style is loaded
   useEffect(() => {
     if (isStyleLoaded && parcelles?.length > 0) {
-      toggleSignalementCadastre(true);
+      toggleSignalementParcels(true);
     }
-  }, [toggleSignalementCadastre, isStyleLoaded, parcelles]);
+  }, [toggleSignalementParcels, isStyleLoaded, parcelles]);
 }

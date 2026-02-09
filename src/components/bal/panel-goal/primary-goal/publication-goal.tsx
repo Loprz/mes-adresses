@@ -74,22 +74,22 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
         <Pane padding={8}>
           {baseLocale.status === ExtendedBaseLocaleDTO.status.DRAFT && (
             <Paragraph is="div">
-              Afin d&apos;être synchronisée avec la Base Adresse Nationale,
-              cette Base Adresse Locale doit être publiée par la commune de{" "}
+              To be synchronized with the National Address Platform,
+              this Local Address Base must be published by the jurisdiction of{" "}
               {commune.nom}.
               <br />
-              Notez qu&apos;une fois publiée,{" "}
+              Note that once published,{" "}
               <Strong>
-                toutes les modifications remonteront automatiquement
+                all changes will automatically be uploaded
               </Strong>{" "}
-              dans la Base Adresse Nationale.
+              to the National Address Platform.
               <Pane display="flex" justifyContent="right">
                 <Button
                   appearance="primary"
                   onClick={(e) => handlePublication(e)}
                   textAlign="center"
                 >
-                  Publier
+                  Publish
                 </Button>
               </Pane>
             </Paragraph>
@@ -97,15 +97,15 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
           {baseLocale.status === ExtendedBaseLocaleDTO.status.PUBLISHED &&
             habilitation?.status === HabilitationDTO.status.ACCEPTED && (
               <Paragraph>
-                Toutes les modifications remonteront automatiquement dans la
-                Base Adresse Nationale
+                All changes will automatically be uploaded to the
+                National Address Platform
               </Paragraph>
             )}
           {baseLocale.status === ExtendedBaseLocaleDTO.status.PUBLISHED &&
             habilitation?.status !== HabilitationDTO.status.ACCEPTED && (
               <Paragraph display="flex" flexDirection="column" gap={8} is="div">
-                Votre habilitation n&apos;est plus valide, veuillez la
-                renouveler
+                Your authorization is no longer valid, please
+                renew it
                 <Pane display="flex" justifyContent="right">
                   <Button
                     marginRight={8}
@@ -113,7 +113,7 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
                     appearance="primary"
                     onClick={handleShowHabilitationProcess}
                   >
-                    Habiliter la BAL
+                    Authorize the LAB
                   </Button>
                 </Pane>
               </Paragraph>
@@ -121,13 +121,13 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
           {baseLocale.status === ExtendedBaseLocaleDTO.status.REPLACED && (
             <Pane>
               <Paragraph color={defaultTheme.colors.red700}>
-                La Base Adresse Locale a été remplacée par une autre, une autre
-                Base Adresses Locale est synchronisée avec la Base Adresse
-                Nationale.
+                The Local Address Base has been replaced by another; another
+                Local Address Base is synchronized with the National Address
+                Platform.
               </Paragraph>
               <Paragraph>
                 Veuillez entrer en contact les administrateurs de l’autre Base
-                Adresse Locale ou notre support: adresse@data.gouv.fr
+                Address Base or our support: support@nap.us.gov
               </Paragraph>
             </Pane>
           )}

@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext } from "react";
 import NextLink from "next/link";
 import Image from "next/image";
@@ -51,6 +53,7 @@ function Header() {
           width={72}
           src="/static/images/mes-adresses.svg"
           alt="My Addresses - National Address Platform home page"
+          loading="eager"
         />
         <Heading is="h1" size={500} marginLeft={10} display="inline-block">
           <Text is="span" size={400} fontWeight="normal">
@@ -90,7 +93,7 @@ function Header() {
 
             <Button
               is="a"
-              href="https://doc.adresse.data.gouv.fr/"
+              href="#"
               target="_blank"
               appearance="minimal"
               marginRight="12px"

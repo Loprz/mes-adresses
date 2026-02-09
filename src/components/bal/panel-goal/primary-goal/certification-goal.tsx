@@ -108,9 +108,9 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
               certification
             </a>{" "}
             vous permet de{" "}
-            <Strong>suivre l&apos;avancée de la fiabilisation</Strong> des
+            <Strong>track the reliability progress</Strong> des
             adresses et de <Strong>mettre en valeur votre travail</Strong>{" "}
-            auprès des réutilisateurs.
+            among data consumers.
           </Paragraph>
         </Pane>
       </AccordionCard>

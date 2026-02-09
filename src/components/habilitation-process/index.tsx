@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useCallback, useContext, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
 import { Dialog, Pane, Text, Spinner } from "evergreen-ui";
-
-const EDITEUR_URL =
-  process.env.NEXT_PUBLIC_EDITEUR_URL || "https://mes-adresses.data.gouv.fr";
-
-import { ApiDepotService } from "@/lib/api-depot";
 
 import BalDataContext from "@/contexts/bal-data";
 
@@ -27,8 +21,6 @@ import PublishBalStep from "./steps/publish-bal";
 import PublishedBalStep from "./steps/published-bal";
 import PublishBalRejectedStep from "./steps/publish-bal-rejected";
 import AuthenticationValidateStep from "./steps/validate-authentication";
-
-export const PRO_CONNECT_QUERY_PARAM = "pro-connect";
 
 export const StepPublicationEnum = {
   STRATEGY_SELECTION: 0,
@@ -80,8 +72,6 @@ function HabilitationProcess({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { pushToast } = useContext(LayoutContext);
   const { reloadHabilitation, reloadBaseLocale } = useContext(BalDataContext);
-  const router = useRouter();
-  const pathname = usePathname();
 
   const sendCode = async () => {
     try {
@@ -94,23 +84,10 @@ function HabilitationProcess({
     } catch (error) {
       pushToast({
         intent: "danger",
-        title: "Le courriel n’a pas pu être envoyé",
+        title: "The email could not be sent",
         message: error.body?.message,
       });
     }
-  };
-
-  const redirectToProConnect = () => {
-    const redirectUrl = encodeURIComponent(
-      `${EDITEUR_URL}${pathname}?${PRO_CONNECT_QUERY_PARAM}=1`
-    );
-
-    const urlProConnect = ApiDepotService.getUrlProConnect(
-      habilitation.id,
-      redirectUrl
-    );
-
-    router.push(urlProConnect);
   };
 
   const handleStrategy = async (selectedStrategy: StrategyDTO.type) => {
@@ -121,11 +98,6 @@ function HabilitationProcess({
         setStep(StepPublicationEnum.AUTHENTICATION_VALIDATE);
       }
     }
-
-    if (selectedStrategy === StrategyDTO.type.PROCONNECT) {
-      redirectToProConnect();
-    }
-
     setIsLoading(false);
   };
 
@@ -136,7 +108,7 @@ function HabilitationProcess({
         code,
       });
 
-      // SET RESUME BAL IF HABILITATION CODE
+      // Resume LAB sync if it was paused
       if (baseLocale.sync?.isPaused == true) {
         await BasesLocalesService.resumeBaseLocale(baseLocale.id);
       }
@@ -144,8 +116,8 @@ function HabilitationProcess({
     } catch (error) {
       pushToast({
         intent: "danger",
-        title: "Le code n’est pas valide",
-        message: error.body.message,
+        title: "The code is not valid",
+        message: error.body?.message,
       });
     }
 
@@ -215,6 +187,7 @@ function HabilitationProcess({
       >
         {step === StepPublicationEnum.STRATEGY_SELECTION && (
           <StrategySelectionStep
+            baseLocaleId={baseLocale.id}
             codeCommune={commune.code}
             emailSelected={emailSelected}
             setEmailSelected={setEmailSelected}
@@ -271,7 +244,7 @@ function HabilitationProcess({
             alignItems="center"
           >
             <Spinner size={42} />
-            <Text fontStyle="italic">Chargement…</Text>
+            <Text fontStyle="italic">Loading...</Text>
           </Pane>
         )}
       </Pane>

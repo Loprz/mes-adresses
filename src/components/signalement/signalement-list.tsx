@@ -91,7 +91,7 @@ function SignalementList({
           </Table.Cell>
         )}
         <Table.SearchHeaderCell
-          placeholder="Rechercher un signalement"
+          placeholder="Search for a report"
           onChange={onSearch}
         />
         <Table.HeaderCell flex="unset">
@@ -138,11 +138,11 @@ function SignalementList({
             />
           )}
           {editionEnabled && (
-            <Tooltip content="Actualiser les signalements">
+            <Tooltip content="Refresh reports">
               <IconButton
                 icon={RefreshIcon}
                 marginLeft={16}
-                title="Actualiser les signalements"
+                title="Refresh reports"
                 onClick={onShowPurgeExpiredSignalementsDialog}
               />
             </Tooltip>

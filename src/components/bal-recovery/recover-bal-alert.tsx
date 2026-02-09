@@ -53,8 +53,8 @@ function RecoverBALAlert({
         <Pane background="white" borderRadius={8} padding={16}>
           <Heading is="h2" textAlign="center">
             {baseLocale
-              ? "Récupération de votre Base Adresse Locale"
-              : "Récupération de mes Bases Adresses Locales"}
+              ? "Recover your Local Address Base"
+              : "Recover my Local Address Bases"}
           </Heading>
         </Pane>
         <Pane display="flex" gap={16}>

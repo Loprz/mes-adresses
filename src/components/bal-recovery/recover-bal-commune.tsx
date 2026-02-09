@@ -140,12 +140,12 @@ function RecoverBALCommune({
           />
         </Pane>
         <Heading is="h2" marginBottom={8}>
-          Avec le courrier électronique officiel de votre commune
+          With the official email of your jurisdiction
         </Heading>
         {!baseLocale?.id && (
           <Paragraph marginBottom={8}>
-            Renseigner la commune dont vous voulez récupérer les Bases Adresses
-            Locales.
+            Enter the jurisdiction for which you want to recover the Local Address
+            Bases.
           </Paragraph>
         )}
         {!baseLocale && (
@@ -170,14 +170,14 @@ function RecoverBALCommune({
           <Pane marginTop={16} display="flex" alignItems="center" gap={8}>
             <Spinner />
             <Paragraph>
-              Chargement des adresses email de la commune...
+              Loading jurisdiction email addresses...
             </Paragraph>
           </Pane>
         )}
         {!isLoadingEmails && emailsCommune.length > 0 && (
           <Alert marginTop={16} intent="info" hasIcon={false}>
             <Paragraph color="blue600">
-              Un courrier électronique avec le lien de récupération va être
+              An email with the recovery link will be
               sent to the address of your jurisdiction:{" "}
               <Strong>{emailsCommune.join(", ")}</Strong>
             </Paragraph>
@@ -192,7 +192,7 @@ function RecoverBALCommune({
           disabled={(!Boolean(baseLocale?.id) && !commune) || isLoading}
           alignSelf="flex-end"
         >
-          {isLoading ? "Chargement..." : "Recevoir le courriel"}
+          {isLoading ? "Loading..." : "Receive the email"}
         </Button>
       )}
     </Pane>

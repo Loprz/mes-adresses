@@ -71,7 +71,7 @@ function BaseLocale() {
 
       <Tuto title="Import a Local Address Base">
         <Paragraph marginTop="default">
-          Sur la page <b>Nouvelle Base Adresse Locale</b>, sélectionnez l’onglet{" "}
+          Sur la page <b>New Local Address Base</b>, select the tab{" "}
           <Tab isSelected>Import a CSV file</Tab>
         </Paragraph>
         <OrderedList margin={8}>
@@ -80,26 +80,26 @@ function BaseLocale() {
             Note that this file must not exceed 10 MB.
           </ListItem>
           <ListItem>
-            Indiquez le nom de votre Base Adresse Locale dans le champ{" "}
+            Enter the name of your Local Address Base in the field{" "}
             <Strong size={500} fontStyle="italic">
               Nom
             </Strong>
-            . Il vous permettra de pouvoir identifier votre Base Adresse Locale.
+            . This will help you identify your Local Address Base.
           </ListItem>
           <ListItem>
-            Indiquez l’adresse email de votre mairie ou de l’administrateur de
-            la Base Adresse Locale. C’est cette adresse qui recevra le lien
-            permettant d’accèder à l’édition de votre Base Adresse Locale.
+            Enter the email address of your jurisdiction or the administrator of
+            the Local Address Base. This address will receive the link
+            to access and edit your Local Address Base.
           </ListItem>
           <ListItem>
-            Pour terminer, cliquez sur le bouton{" "}
+            To finish, click on the button{" "}
             <Button
               marginX={4}
               appearance="primary"
               intent="success"
               iconAfter={PlusIcon}
             >
-              Créer la Base Adresse Locale
+              Create the Local Address Base
             </Button>
           </ListItem>
         </OrderedList>
@@ -124,7 +124,7 @@ function BaseLocale() {
         <Paragraph marginTop="default">
           Once your settings are done, click{" "}
           <Button marginX={4} appearance="primary">
-            Enregistrer les changements
+            Save changes
           </Button>
         </Paragraph>
       </Tuto>
@@ -137,7 +137,7 @@ function BaseLocale() {
             If your jurisdiction is a new one resulting from a merger, it may
             not appear in the list of suggestions. If this is the case,
             you can contact us at{" "}
-            <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
+            <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>
           </Paragraph>
         </Tuto>
 

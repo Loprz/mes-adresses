@@ -65,7 +65,7 @@ function SignalementUpdateNumero({
     } catch (error) {
       console.error("Error accepting signalement update:", error);
       pushToast({
-        title: "Erreur lors de l'acceptation du signalement.",
+        title: "Error while accepting the report.",
         intent: "danger",
       });
     }
@@ -74,7 +74,7 @@ function SignalementUpdateNumero({
   return (
     <>
       <SignalementNumeroDiffCard
-        title="Adresse actuelle"
+        title="Current address"
         isActive={activeCard === ActiveCardEnum.INITIAL}
         numero={{
           to: `${existingNumero}${
@@ -98,7 +98,7 @@ function SignalementUpdateNumero({
         }}
       />
       <SignalementNumeroDiffCard
-        title="Modification proposée"
+        title="Proposed modification"
         isActive={activeCard === ActiveCardEnum.CHANGES}
         signalementType={Signalement.type.LOCATION_TO_UPDATE}
         numero={{
@@ -128,7 +128,7 @@ function SignalementUpdateNumero({
         }}
       />
       <SignalementNumeroDiffCard
-        title="Adresse après modification"
+        title="Address after modification"
         isActive={activeCard === ActiveCardEnum.FINAL}
         numero={{
           to: `${numero}${suffixe ? ` ${suffixe}` : ""}`,

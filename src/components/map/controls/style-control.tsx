@@ -3,7 +3,7 @@
 import { useContext, useMemo, useState, useEffect } from "react";
 import { Pane, SelectMenu, Button, Position, LayersIcon } from "evergreen-ui";
 
-import CadastreControl from "@/components/map/controls/cadastre-control";
+import ParcelControl from "@/components/map/controls/cadastre-control";
 import { CommuneType } from "@/types/commune";
 import { MapStyle } from "@/contexts/map";
 import LocalStorageContext from "@/contexts/local-storage";
@@ -12,8 +12,8 @@ import { ExtendedBaseLocaleDTO } from "@/lib/openapi-api-bal";
 interface StyleControlProps {
   style: string;
   handleStyle: (style: MapStyle | string) => void;
-  isCadastreDisplayed: boolean;
-  handleCadastre: (fn: (show: boolean) => boolean) => void;
+  isParcelsDisplayed: boolean;
+  handleParcelsToggle: (fn: (show: boolean) => boolean) => void;
   commune: CommuneType;
   baseLocale: ExtendedBaseLocaleDTO;
 }
@@ -23,8 +23,8 @@ function StyleControl({
   commune,
   baseLocale,
   handleStyle,
-  isCadastreDisplayed,
-  handleCadastre,
+  isParcelsDisplayed,
+  handleParcelsToggle,
 }: StyleControlProps) {
   const [showPopover, setShowPopover] = useState(false);
   const { registeredMapStyle, setRegisteredMapStyle } =
@@ -39,11 +39,11 @@ function StyleControl({
         isAvailable: hasOrtho,
       },
       {
-        label: "Plan OpenStreetMap",
+        label: "OpenStreetMap",
         value: MapStyle.VECTOR,
         isAvailable: hasOpenMapTiles,
       },
-      { label: "Plan IGN", value: MapStyle.PLAN_IGN, isAvailable: hasPlanIGN },
+      { label: "US Topo", value: MapStyle.PLAN_IGN, isAvailable: hasPlanIGN },
       ...(baseLocale.settings?.fondsDeCartes?.map((styleMap) => ({
         label: styleMap.name,
         value: styleMap.name,
@@ -83,7 +83,7 @@ function StyleControl({
         <SelectMenu
           closeOnSelect
           position={Position.TOP_LEFT}
-          title="Choix du fond de carte"
+          title="Choose map style"
           hasFilter={false}
           height={40 + 33 * availableStyles.length}
           options={availableStyles}
@@ -113,10 +113,9 @@ function StyleControl({
           <div className="map-style-label">{availableStyles[0].label}</div>
         </Button>
       )}
-      <CadastreControl
-        hasCadastre={commune.hasCadastre}
-        isCadastreDisplayed={isCadastreDisplayed}
-        onClick={() => handleCadastre((show) => !show)}
+      <ParcelControl
+        isParcelsDisplayed={isParcelsDisplayed}
+        onClick={() => handleParcelsToggle((show) => !show)}
       />
     </Pane>
   );

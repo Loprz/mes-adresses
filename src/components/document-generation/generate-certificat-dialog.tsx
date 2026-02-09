@@ -35,7 +35,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
     <Dialog
       isShown={docData?.type === GeneratedDocumentType.CERTIFICAT_ADRESSAGE}
       title="Generate an addressing certificate"
-      cancelLabel="Annuler"
+      cancelLabel="Cancel"
       confirmLabel="Download"
       onCloseComplete={() => setData(null)}
       onCancel={() => setData(null)}
@@ -62,7 +62,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
       <Pane is="form" onSubmit={(e) => e.preventDefault()}>
         <TextInputField
           label="Issuer (optional)"
-          description="L'émetteur sera mentionné dans le certificat d'adressage"
+          description="L' will be mentioned in the addressing certificate'"
           value={data?.emetteur || ""}
           onChange={(e) =>
             setData((data) => ({
@@ -76,7 +76,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
           placeholder="Sylvie Loiseau, Adjointe au Maire"
         />
         <Checkbox
-          label="Se souvenir de l'émetteur"
+          label="Remember the issuer'"
           checked={data?.rememberEmetteur || false}
           onChange={(e) =>
             setData((data) => ({
@@ -91,7 +91,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
         />
         <TextInputField
           label="Destinataire (optionnel)"
-          description="Renseigner le nom du destinataire pour un certificat nominatif"
+          description="Enter the recipient name for a named certificate"
           value={data?.destinataire || ""}
           onChange={(e) =>
             setData((data) => ({
@@ -102,7 +102,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
               },
             }))
           }
-          placeholder="Mr Rémi Dupont"
+          placeholder="Mr John Smith"
         />
       </Pane>
     </Dialog>

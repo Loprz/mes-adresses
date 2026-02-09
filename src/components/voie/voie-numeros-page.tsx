@@ -52,7 +52,7 @@ export function VoieNumerosPage() {
             savedSearchPagination[TabsEnum.VOIES]
           )}
         >
-          Voies
+          Streets
         </Link>
         <Text color="muted">{" > "}</Text>
         <Link
@@ -83,7 +83,7 @@ export function VoieNumerosPage() {
         const voieMetas: VoieMetas = await VoiesService.findVoieMetas(voie.id);
         setVoie({ ...voie, ...voieMetas });
       } catch (e) {
-        console.error("Impossible de charger les commentaires de voie", e);
+        console.error("Unable to load street comments", e);
       }
     }
 

@@ -39,7 +39,7 @@ function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
             type="button"
             onClick={() => setTypeSelection("voie")}
           >
-            Avec une voie
+            With a street
           </Button>
           <Text>ou</Text>
           <Button
@@ -47,7 +47,7 @@ function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
             type="button"
             onClick={() => setTypeSelection("polygon")}
           >
-            En dessinant le contour
+            By drawing the outline
           </Button>
         </Pane>
       </Pane>{" "}

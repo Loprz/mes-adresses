@@ -35,7 +35,7 @@ interface VoieEditorProps {
 
 const options = [
   { label: "Numeric", value: Voie.typeNumerotation.NUMERIQUE },
-  { label: "Métrique", value: Voie.typeNumerotation.METRIQUE },
+  { label: "Metric", value: Voie.typeNumerotation.METRIQUE },
 ];
 
 function VoieEditor({
@@ -163,8 +163,8 @@ function VoieEditor({
           <AssistedTextField
             forwadedRef={ref}
             exitFocus={() => setIsFocus(false)}
-            label="Nom de la voie"
-            placeholder="Nom de la voie"
+            label="Street name"
+            placeholder="Street name"
             value={nom}
             onChange={onNomChange}
             validationMessage={getValidationMessage("voie_nom")}
@@ -207,7 +207,7 @@ function VoieEditor({
           appearance="primary"
           intent="success"
         >
-          {isLoading ? "En cours…" : "Enregistrer"}
+          {isLoading ? "In progress…" : "Save"}
         </Button>
 
         {onClose && (
@@ -218,7 +218,7 @@ function VoieEditor({
             display="inline-flex"
             onClick={onFormCancel}
           >
-            Annuler
+            Cancel
           </Button>
         )}
       </Pane>

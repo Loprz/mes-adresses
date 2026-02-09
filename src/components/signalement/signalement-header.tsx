@@ -79,7 +79,7 @@ export function SignalementHeader({
 
         {changesRequested.comment && (
           <Paragraph marginTop={10}>
-            Commentaire : <b>{changesRequested.comment}</b>
+            Comment: <b>{changesRequested.comment}</b>
           </Paragraph>
         )}
 

@@ -65,8 +65,8 @@ function NumeroVoieSelector({
           <AssistedTextField
             forwadedRef={ref}
             exitFocus={() => setIsFocus(false)}
-            label="Nouvelle voie"
-            placeholder="Nom de la voie"
+            label="New street"
+            placeholder="Street name"
             value={nomVoie}
             validationMessage={validationMessage}
             onChange={handleNomVoieChange}
@@ -74,13 +74,13 @@ function NumeroVoieSelector({
         ) : (
           <SelectField
             required
-            label="Voie"
+            label="Street"
             flex={1}
             value={voieId}
             margin={0}
             onChange={handleVoieChange}
           >
-            {!voieId && <option value="">- Choisir une voie-</option>}
+            {!voieId && <option value="">- Select a street -</option>}
             {sortBy(voies, (v) => normalizeSort(v.nom)).map(({ id, nom }) => (
               <option key={id} value={id}>
                 {nom}
@@ -90,14 +90,14 @@ function NumeroVoieSelector({
         )}
       </Pane>
 
-      <Text marginX={16}>OU</Text>
+      <Text marginX={16}>OR</Text>
 
       <Button
         type="button"
         iconBefore={isCreateMode ? PropertyIcon : PlusIcon}
         onClick={toggleMode}
       >
-        {isCreateMode ? "Choisir" : "Créer"} une voie
+        {isCreateMode ? "Choose" : "Create"} a street
       </Button>
     </Pane>
   );

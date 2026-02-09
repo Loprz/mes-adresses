@@ -73,7 +73,7 @@ function BALSummary({
       <Pane display="flex" alignItems="center" gap={8}>
         {voies && (
           <Text>
-            <b>{voies.length}</b> voie{voies.length > 1 && "s"}
+            <b>{voies.length}</b> street{voies.length > 1 && "s"}
           </Text>
         )}
         {toponymes && (
@@ -82,7 +82,7 @@ function BALSummary({
           </Text>
         )}
         <Text>
-          <b>{nbNumeros}</b> numéro{nbNumeros > 1 && "s"}
+          <b>{nbNumeros}</b> number{nbNumeros > 1 && "s"}
         </Text>
       </Pane>
     </Pane>

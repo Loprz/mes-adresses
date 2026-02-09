@@ -26,10 +26,10 @@ export default function NewVoiePage() {
     setBreadcrumbs(
       <>
         <Link is={NextLink} href={`/bal/${baseLocale.id}/${TabsEnum.VOIES}`}>
-          Voies
+          Streets
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">Nouvelle voie</Text>
+        <Text aria-current="page">New street</Text>
       </>
     );
 

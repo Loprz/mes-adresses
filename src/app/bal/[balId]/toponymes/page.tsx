@@ -135,7 +135,7 @@ export default function ToponymesPage() {
         isShown={Boolean(toRemove)}
         content={
           <Paragraph>
-            Êtes vous bien sûr de vouloir supprimer ce toponyme ?
+            Are you sure you want to delete this place name?
           </Paragraph>
         }
         isDisabled={isDisabled}
@@ -181,7 +181,7 @@ export default function ToponymesPage() {
               intent="success"
               disabled={!token || (token && isEditing)}
               href={`/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/new`}
-              message="Ajouter un toponyme"
+              message="Add a place name"
             />
           </Table.HeaderCell>
         </Table.Head>
@@ -229,12 +229,12 @@ export default function ToponymesPage() {
                 communeDeleguee={getCommuneDeleguee(toponyme.communeDeleguee)}
                 warning={
                   toponyme.positions.length === 0
-                    ? "Ce toponyme n’a pas de position"
+                    ? "This place name has no position"
                     : null
                 }
                 certification={
                   toponyme.isAllCertified
-                    ? "Les adresses sont certifiées"
+                    ? "The addresses are certified"
                     : null
                 }
                 comment={
@@ -264,7 +264,7 @@ export default function ToponymesPage() {
                       browseToToponyme(toponyme.id);
                     }}
                   >
-                    Modifier
+                    Edit
                   </Menu.Item>
                   <Menu.Item
                     icon={TrashIcon}
@@ -273,7 +273,7 @@ export default function ToponymesPage() {
                       setToRemove(toponyme.id);
                     }}
                   >
-                    Supprimer…
+                    Delete…
                   </Menu.Item>
                 </TableRowActions>
               )}

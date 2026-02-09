@@ -21,7 +21,7 @@ function SignalementViewerUpdateVoie({
   return (
     <>
       <SignalementVoieDiffCard
-        title="Nom de la voie avant modification"
+        title="Street name before modification"
         nom={{
           to: existingNom,
         }}

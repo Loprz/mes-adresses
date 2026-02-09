@@ -122,7 +122,7 @@ export default function SignalementPage({
         status === Signalement.status.PROCESSED
           ? "The report has been processed"
           : "The report has been dismissed",
-        "Une erreur est survenue"
+        "An error occurred"
       );
 
       await _updateSignalement();
@@ -179,11 +179,11 @@ export default function SignalementPage({
       ) : (
         <Pane padding={20}>
           <Paragraph>
-            Impossible de trouver la localisation du signalement.
+            Unable to find the report location.
           </Paragraph>
           <Paragraph>
             It has been marked as expired and will no longer appear in the list
-            des signalements.
+            of reports.
           </Paragraph>
           <Button
             is={NextLink}

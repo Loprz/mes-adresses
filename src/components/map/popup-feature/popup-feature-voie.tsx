@@ -28,12 +28,12 @@ function PopupFeatureVoie({ feature, commune }: PopupFeatureNumeroProps) {
         {commune.code} - {commune.nom}
       </Text>
       {voie.nbNumeros <= 0 ? (
-        <Badge color="red">Aucun numero</Badge>
+        <Badge color="red">No number</Badge>
       ) : voie.isAllCertified ? (
-        <Badge color="green">Tous les numeros certifiés</Badge>
+        <Badge color="green">All numbers certified</Badge>
       ) : (
         <Badge color="yellow">
-          {voie.nbNumerosCertifies}/{voie.nbNumeros} certifié(s)
+          {voie.nbNumerosCertifies}/{voie.nbNumeros} certified
         </Badge>
       )}
     </Pane>

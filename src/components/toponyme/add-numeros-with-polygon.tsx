@@ -28,7 +28,7 @@ function AddNumerosWithPolygon({
   useEffect(() => {
     setDrawMode(DrawMode.DRAW_NUMEROS_TO_TOPONYME_POLYGONE);
     setHint(
-      "Click on the map to draw a polygon. Une fois terminé, cliquez sur le dernier point afin de fermer le polygone. Les numeros dans le polygone seront selectionnés"
+      "Click on the map to draw a polygon. Once finished, click on the last point to close the polygon. The numbers within the polygon will be selected"
     );
     return () => {
       setDrawMode(null);
@@ -84,14 +84,14 @@ function AddNumerosWithPolygon({
       {data === null ? (
         <Alert
           intent="none"
-          title="Cliquez sur la carte pour dessiner un polygon. Une fois terminé, cliquez sur le dernier point afin de fermer le polygone. Les numeros dans le polygone seront selectionnés"
+          title="Click on the map to draw a polygon. Once finished, click on the last point to close the polygon. The numbers within the polygon will be selected"
           marginBottom={32}
         />
       ) : (
         <>
           <Alert
             intent="none"
-            title="Edit the polygon directly on the map pour changer les numeros sélectionés."
+            title="Edit the polygon directly on the map to change the selected numbers."
             marginBottom={8}
           />
 

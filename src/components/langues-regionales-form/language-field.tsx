@@ -31,7 +31,7 @@ function LanguageField({
   onChange,
   onDelete,
 }: LanguageFieldProps) {
-  const [codeISO, setCodeISO] = useState(initialValue?.code);
+  const [codeISO, setCodeISO] = useState(initialValue?.code || "");
   const [input, setInput] = useState(initialValue?.value || "");
   const [ref, setIsFocus] = useFocus();
 
@@ -109,7 +109,7 @@ function LanguageField({
 
         <Button
           type="button"
-          aria-label="Supprimer la langue régionale"
+          aria-label="Remove the regional language"
           onClick={() => onDelete(codeISO)}
           intent="danger"
           width="fit-content"

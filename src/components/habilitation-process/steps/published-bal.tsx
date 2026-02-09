@@ -74,67 +74,67 @@ function PublishedBalStep({
               className={style.slideInRight}
               color={defaultTheme.colors.green700}
             >
-              Votre Base Adresse Locale a bien été publiée
+              Your Local Address Base has been successfully published
             </Heading>
           )}
         </Pane>
 
         <Pane background="white" padding={24} borderRadius={8}>
           <Heading is="h3" marginBottom={8}>
-            Grâce à la publication
+            Thanks to publication
           </Heading>
           <Paragraph is="li" marginBottom={8}>
-            Toutes les{" "}
-            <Strong>modifications remonteront automatiquement</Strong> dans la{" "}
+            All{" "}
+            <Strong>modifications will automatically be uploaded</Strong> to the{" "}
             <a
-              href={`https://adresse.data.gouv.fr/commune/${commune.code}`}
+              href={`https://nationaladdressplatform.us/jurisdiction/${commune.code}`}
               target="_blank"
               rel="noreferrer"
             >
-              Base Adresse Nationale.
+              National Address Database.
             </a>
           </Paragraph>
           <Paragraph is="li" marginBottom={8}>
             Your jurisdiction has complied with the{" "}
             <a
-              href="https://guide-bonnes-pratiques.adresse.data.gouv.fr/transmettre-les-informations-a-la-base-adresse-nationale/le-coeur-de-linformation-legale"
+              href="https://nationaladdressplatform.us/standards"
               target="_blank"
               rel="noreferrer"
             >
-              Loi 3DS
+              applicable addressing standards
             </a>
             .
           </Paragraph>
           <Paragraph is="li" marginBottom={8}>
-            Les services de secours, administrations et particuliers peuvent
-            désormais <Strong>submit reports</Strong> pour vous aider
-            à fiabiliser vos adresses.
+            Emergency services, government agencies, and the public can
+            now <Strong>submit reports</Strong> to help you
+            improve the reliability of your addresses.
           </Paragraph>
           <Paragraph is="li" marginBottom={16}>
             You can now{" "}
-            <Strong>télécharger des arrêtés de numérotation</Strong> pour les
-            voies et les numéros.
+            <Strong>download numbering certificates</Strong> for
+            streets and address numbers.
           </Paragraph>
           <Heading is="h3" marginBottom={8}>
-            Prochain objectif
+            Next goal
           </Heading>
           <Paragraph>
-            Fiabiliser vos adresses grâce à la{" "}
+            Improve your address reliability thanks to{" "}
             <a
-              href="https://guide.mes-adresses.data.gouv.fr/publier-une-base-adresse-locale-1/certifier-ses-adresses"
+              href="https://nationaladdressplatform.us/guide/certification"
               target="_blank"
               rel="noreferrer"
             >
               certification
             </a>
-            . Celle-ci permet de mettre en valeur votre travail et de{" "}
-            <Strong>faciliter la réutilisation de la donnée</Strong>.
+            . This helps highlight your work and{" "}
+            <Strong>facilitate data reuse</Strong>.
           </Paragraph>
         </Pane>
 
         <Pane display="flex" flexDirection="row" justifyContent="end" gap={16}>
           <Button intent="primary" appearance="primary" onClick={handleClose}>
-            Continuer l&apos;adressage
+            Continue addressing
           </Button>
         </Pane>
       </Pane>

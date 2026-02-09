@@ -52,12 +52,19 @@ import {
 import GeolocationControl from "./controls/geolocation-control";
 import { getStyleDynamically, ortho, planIGN, vector } from "./styles";
 import {
-  cadastreLayers,
-  LAYER as CADASTRE_LAYER,
-  SOURCE_LAYER as CADASTRE_SOURCE_LAYER,
-} from "./layers/cadastre";
+  parcelLayers,
+  parcelRasterLayer,
+  LAYER as PARCEL_LAYER,
+  SOURCE_LAYER as PARCEL_SOURCE_LAYER,
+  SOURCE as PARCEL_SOURCE,
+  PARCELS_AVAILABLE,
+  PARCEL_TILES_URL,
+  PARCEL_TILES_TYPE,
+  PARCEL_PROMOTE_ID,
+} from "./layers/parcels";
 import RulerControl from "./controls/ruler-control";
 import PanoramaxControl from "./controls/panoramax-control";
+import BoundaryControl from "./controls/boundary-control";
 import {
   PANORAMAX_LAYERS_SOURCE,
   PANORAMAX_PICTURE_LAYER_ID,
@@ -66,6 +73,12 @@ import {
   panoramaxPictureLayer,
   panoramaxSequenceLayer,
 } from "./layers/panoramax";
+import {
+  boundarySourceConfigs,
+  boundaryLayerConfigs,
+  BOUNDARY_SOURCES,
+  BOUNDARY_LAYERS,
+} from "./layers/boundaries";
 
 const settings = {
   maxZoom: 19,
@@ -88,8 +101,6 @@ export interface MapProps {
   handleAddressForm: (open: boolean) => void;
 }
 
-const LAYERS = [...cadastreLayers];
-
 function Map({
   commune,
   baseLocale,
@@ -107,8 +118,10 @@ function Map({
     isStyleLoaded,
     viewport,
     setViewport,
-    isCadastreDisplayed,
-    setIsCadastreDisplayed,
+    isParcelsDisplayed,
+    setIsParcelsDisplayed,
+    boundaryVisibility,
+    setBoundaryVisibility,
     balTilesUrl,
     isMapLoaded,
     tileLayersMode,
@@ -162,7 +175,8 @@ function Map({
 
   function generateNewStyle(style: MapStyle | string) {
     const baseStyle = getBaseStyle(style);
-    return baseStyle.updateIn(["layers"], (arr: any[]) => arr.push(...LAYERS));
+    // Parcel layers are added as dynamic <Source>/<Layer> components, not baked into the style.
+    return baseStyle;
   }
 
   const updatePositionsLayer = useCallback(() => {
@@ -219,8 +233,8 @@ function Map({
   const interactiveLayerIds = useMemo(() => {
     const layers = [];
 
-    if (isParcelleSelectionEnabled && isCadastreDisplayed) {
-      return ["parcelles-fill"];
+    if (isParcelleSelectionEnabled && isParcelsDisplayed && PARCELS_AVAILABLE) {
+      return [PARCEL_LAYER.PARCELS_FILL];
     }
 
     if (!isEditing && isTileSourceLoaded) {
@@ -238,7 +252,7 @@ function Map({
   }, [
     isEditing,
     isParcelleSelectionEnabled,
-    isCadastreDisplayed,
+    isParcelsDisplayed,
     isTileSourceLoaded,
   ]);
 
@@ -248,7 +262,7 @@ function Map({
         .queryRenderedFeatures(event.point)
         .filter(({ source }) => {
           return (
-            source === "cadastre" ||
+            source === PARCEL_SOURCE ||
             source === "tiles" ||
             source === "panoramax"
           );
@@ -257,16 +271,16 @@ function Map({
       const source = feature && feature.source;
 
       switch (source) {
-        case "cadastre": {
-          const parcelles = features.filter(
+        case PARCEL_SOURCE: {
+          const parcels = features.filter(
             ({ source, sourceLayer, layer }) =>
-              source === "cadastre" &&
-              sourceLayer === CADASTRE_SOURCE_LAYER.PARCELLES &&
-              layer?.id === CADASTRE_LAYER.PARCELLES_FILL
+              source === PARCEL_SOURCE &&
+              sourceLayer === PARCEL_SOURCE_LAYER.PARCELS &&
+              layer?.id === PARCEL_LAYER.PARCELS_FILL
           );
 
-          if (parcelles.length > 0) {
-            handleParcelles(parcelles.map(({ properties }) => properties.id));
+          if (parcels.length > 0) {
+            handleParcelles(parcels.map(({ properties }) => properties.id));
           }
           break;
         }
@@ -374,26 +388,17 @@ function Map({
     };
   }, [balTilesUrl]);
 
+  // Jurisdiction boundary highlight (subtle fill for current jurisdiction area)
   const layerCommune: LayerProps = useMemo(() => {
     return {
       id: "communes-fill",
-      source: "decoupage-administratif",
-      "source-layer": "communes",
-      minzoom: 2,
       type: "fill",
+      source: "openmaptiles",
+      "source-layer": "boundary",
       paint: {
         "fill-color": "#3288bd",
-        "fill-opacity": [
-          "interpolate",
-          ["exponential", 0.5],
-          ["zoom"],
-          12,
-          0.8,
-          13,
-          0,
-        ],
+        "fill-opacity": 0,
       },
-      filter: ["==", ["get", "code"], commune.code],
     };
   }, [commune]);
 
@@ -419,8 +424,8 @@ function Map({
         handleStyle={setStyle}
         baseLocale={baseLocale}
         commune={commune}
-        isCadastreDisplayed={isCadastreDisplayed}
-        handleCadastre={setIsCadastreDisplayed}
+        isParcelsDisplayed={isParcelsDisplayed}
+        handleParcelsToggle={setIsParcelsDisplayed}
       />
 
       <Pane
@@ -447,6 +452,10 @@ function Map({
           map={map}
           showPanoramax={showPanoramax}
           setShowPanoramax={setShowPanoramax}
+        />
+        <BoundaryControl
+          visibility={boundaryVisibility}
+          onChange={setBoundaryVisibility}
         />
       </Pane>
 
@@ -491,27 +500,129 @@ function Map({
             ))}
           </Source>
 
+          {PANORAMAX_TILE_URL && (
+            <Source
+              id={PANORAMAX_SOURCE_ID}
+              type="vector"
+              tiles={[PANORAMAX_TILE_URL]}
+            >
+              <Layer
+                {...({
+                  ...panoramaxSequenceLayer,
+                  paint: {
+                    ...panoramaxSequenceLayer.paint,
+                    "line-opacity": showPanoramax ? 1 : 0,
+                  },
+                } as LayerProps)}
+              />
+              <Layer
+                {...({
+                  ...panoramaxPictureLayer,
+                  layout: { visibility: showPanoramax ? "visible" : "none" },
+                } as LayerProps)}
+              />
+            </Source>
+          )}
+
+          {/* TIGER Boundary Layers — States */}
           <Source
-            id={PANORAMAX_SOURCE_ID}
-            type="vector"
-            tiles={[PANORAMAX_TILE_URL]}
+            id={BOUNDARY_SOURCES.STATES}
+            type="raster"
+            tiles={boundarySourceConfigs[BOUNDARY_SOURCES.STATES].tiles}
+            tileSize={256}
           >
             <Layer
               {...({
-                ...panoramaxSequenceLayer,
-                paint: {
-                  ...panoramaxSequenceLayer.paint,
-                  "line-opacity": showPanoramax ? 1 : 0,
+                ...boundaryLayerConfigs[BOUNDARY_LAYERS.STATES],
+                layout: {
+                  visibility: boundaryVisibility.states ? "visible" : "none",
                 },
               } as LayerProps)}
             />
+          </Source>
+
+          {/* TIGER Boundary Layers — Counties */}
+          <Source
+            id={BOUNDARY_SOURCES.COUNTIES}
+            type="raster"
+            tiles={boundarySourceConfigs[BOUNDARY_SOURCES.COUNTIES].tiles}
+            tileSize={256}
+          >
             <Layer
               {...({
-                ...panoramaxPictureLayer,
-                layout: { visibility: showPanoramax ? "visible" : "none" },
+                ...boundaryLayerConfigs[BOUNDARY_LAYERS.COUNTIES],
+                layout: {
+                  visibility: boundaryVisibility.counties ? "visible" : "none",
+                },
               } as LayerProps)}
             />
           </Source>
+
+          {/* TIGER Boundary Layers — Incorporated Places (cities/towns) */}
+          <Source
+            id={BOUNDARY_SOURCES.PLACES}
+            type="raster"
+            tiles={boundarySourceConfigs[BOUNDARY_SOURCES.PLACES].tiles}
+            tileSize={256}
+          >
+            <Layer
+              {...({
+                ...boundaryLayerConfigs[BOUNDARY_LAYERS.PLACES],
+                layout: {
+                  visibility: boundaryVisibility.places ? "visible" : "none",
+                },
+              } as LayerProps)}
+            />
+          </Source>
+
+          {/* US Parcel Tile Layers */}
+          {PARCELS_AVAILABLE && PARCEL_TILES_TYPE === "vector" && (
+            <Source
+              id={PARCEL_SOURCE}
+              type="vector"
+              tiles={[PARCEL_TILES_URL]}
+              promoteId={PARCEL_PROMOTE_ID}
+              minzoom={14}
+              maxzoom={20}
+            >
+              {parcelLayers.map((layer) => (
+                <Layer
+                  key={layer.id}
+                  {...({
+                    ...layer,
+                    layout: {
+                      ...layer.layout,
+                      visibility: isParcelsDisplayed
+                        ? layer.layout?.visibility === "none"
+                          ? "visible"
+                          : layer.layout?.visibility
+                        : "none",
+                    },
+                  } as LayerProps)}
+                />
+              ))}
+            </Source>
+          )}
+
+          {PARCELS_AVAILABLE && PARCEL_TILES_TYPE === "raster" && (
+            <Source
+              id={PARCEL_SOURCE}
+              type="raster"
+              tiles={[PARCEL_TILES_URL]}
+              tileSize={256}
+              minzoom={15}
+              maxzoom={17}
+            >
+              <Layer
+                {...({
+                  ...parcelRasterLayer,
+                  layout: {
+                    visibility: isParcelsDisplayed ? "visible" : "none",
+                  },
+                } as LayerProps)}
+              />
+            </Source>
+          )}
 
           {(voie || toponyme) && !drawMode && numeros && (
             <NumerosMarkers

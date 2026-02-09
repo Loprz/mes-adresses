@@ -129,7 +129,7 @@ function PublishBalStep({
           borderRadius={8}
         >
           <Spinner size={42} />
-          <Text>Publication en cours...</Text>
+          <Text>Publishing in progress...</Text>
         </Pane>
       )}
       {isConflicted && (
@@ -142,7 +142,7 @@ function PublishBalStep({
             padding={16}
           >
             <Heading size={600} textAlign="center">
-              Cette commune possède déjà une Base Adresse Locale publiée.
+              This jurisdiction already has a published Local Address Base.
             </Heading>
           </Pane>
           <Pane
@@ -161,11 +161,11 @@ function PublishBalStep({
               gap={8}
             >
               <Icon icon={ErrorIcon} />
-              Êtes-vous sûr de vouloir la remplacer ?
+              Are you sure you want to replace it?
             </Heading>
             <Text is="p" marginTop={8}>
-              En forcant la publication, cette Base Adresse Locale{" "}
-              <Strong>remplacera celle actuellement en place</Strong>.
+              By forcing publication, this Local Address Base{" "}
+              <Strong>will replace the one currently in place</Strong>.
             </Text>
             <Pane
               width="100%"
@@ -177,7 +177,7 @@ function PublishBalStep({
                 src="/static/images/schema_bals_conflict.png"
                 maxHeight={200}
                 overflow="hidden"
-                alt="Schema du conflit entre la Base Adresse Locale et la Base Adresse Nationale"
+                alt="Diagram of conflict between the Local Address Base and the National Address Platform"
               />
             </Pane>
 
@@ -187,7 +187,7 @@ function PublishBalStep({
                 appearance="primary"
                 onClick={forcePublication}
               >
-                Forcer la publication
+                Force publication
               </Button>
             </Pane>
           </Pane>
@@ -210,12 +210,12 @@ function PublishBalStep({
                 <Pane position="relative" width={24} height={24}>
                   <NextImage
                     src="/static/images/published-bal-icon.svg"
-                    alt="Icone Base Adresse Locale publiée"
+                    alt="Published Local Address Base icon"
                     width={24}
                     height={24}
                   />
                 </Pane>
-                Ou souhaitez vous poursuivre sur la BAL déjà publiée ?
+                Or would you like to continue with the already published LAB?
               </Heading>
               {lastRevision.context.extras?.balId ? (
                 <PublishedBALMesAdresses
@@ -246,7 +246,7 @@ function PublishBalStep({
             gap={16}
           >
             <Button intent="primary" onClick={handleClose}>
-              Fermer
+              Close
             </Button>
           </Pane>
         </Pane>

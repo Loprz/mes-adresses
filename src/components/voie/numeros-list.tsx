@@ -371,7 +371,7 @@ function NumerosList({
                         ? () => {
                             handleSelect(numero.id);
                           }
-                        : null
+                        : () => {} // No-op when only one item
                     }
                   />
                 </Table.Cell>
@@ -419,14 +419,14 @@ function NumerosList({
                       handleEditing(numero.id);
                     }}
                   >
-                    Modifier
+                    Edit
                   </Menu.Item>
                   <Menu.Item
                     icon={TrashIcon}
                     intent="danger"
                     onSelect={() => onRemove(numero.id)}
                   >
-                    Supprimer…
+                    Delete…
                   </Menu.Item>
                   {Boolean(token) &&
                     baseLocale.status === BaseLocale.status.PUBLISHED && (

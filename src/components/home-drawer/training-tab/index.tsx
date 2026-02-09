@@ -34,7 +34,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
           flex={1}
           padding={10}
         >
-          <Text>Pas de formations à venir</Text>
+          <Text>No upcoming events</Text>
         </Pane>
       )}
       <Pane is="ul" listStyle="none" padding={0} margin={0}>
@@ -97,7 +97,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
         width="fit-content"
         margin={10}
       >
-        Voir tous nos évènements
+        See all our events
       </Button>
     </Pane>
   );

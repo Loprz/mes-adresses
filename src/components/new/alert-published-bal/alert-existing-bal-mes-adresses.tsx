@@ -21,10 +21,10 @@ function AlertExistingBALMesAdresses({
       marginTop={16}
     >
       <Paragraph marginTop={8}>
-        There are already <b>{existingBALCount} unpublished LAB(s)</b> pour{" "}
-        {commune.nom}. Tout le monde peut créer une BAL, s&apos;il s&apos;agit
-        d&apos;un brouillon de votre mairie, peut-être souhaitez-vous le
-        récupérer ?
+        There are already <b>{existingBALCount} unpublished LAB(s)</b> for{" "}
+        {commune.nom}. Anyone can create a LAB. If this is
+        a draft from your jurisdiction, perhaps you would like to
+        recover it?
       </Paragraph>
       <Pane marginTop={8} display="flex" gap={8}>
         <Button onClick={() => setIsRecoveryDisplayed(true)} type="button">

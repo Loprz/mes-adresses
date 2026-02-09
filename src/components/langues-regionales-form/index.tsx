@@ -129,7 +129,7 @@ function LanguesRegionalesForm({
         marginTop="1em"
         disabled={nomAlt.length >= languesRegionales.length}
       >
-        Ajouter une langue régionale
+        Add a regional language
       </Button>
     </>
   );

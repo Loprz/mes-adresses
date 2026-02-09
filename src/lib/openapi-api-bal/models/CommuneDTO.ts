@@ -7,10 +7,17 @@ import type { CommunePrecedenteDTO } from './CommunePrecedenteDTO';
 
 export type CommuneDTO = {
     code: string;
-    codeCommunesCadastre: Array<string>;
+    /** @deprecated Legacy field — no longer used in US context */
+    codeCommunesCadastre?: Array<string>;
     nom: string;
+    /** Whether this is a place (city/town) or county */
+    level?: 'place' | 'county';
+    /** Type: city, town, village, borough, or county */
+    type?: string;
+    /** Parent county name (for places) */
+    countyName?: string;
     isCOM: boolean;
-    hasCadastre: boolean;
+    hasParcels: boolean;
     hasOpenMapTiles: boolean;
     hasOrtho: boolean;
     hasPlanIGN: boolean;

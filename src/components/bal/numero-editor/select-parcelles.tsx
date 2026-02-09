@@ -23,7 +23,7 @@ function SelectParcelles({
   initialParcelles = [],
   isToponyme,
 }: SelectParcellesProps) {
-  const { isCadastreDisplayed, setIsCadastreDisplayed } =
+  const { isParcelsDisplayed, setIsParcelsDisplayed } =
     useContext(MapContext);
   const {
     highlightedParcelles,
@@ -33,7 +33,7 @@ function SelectParcelles({
     handleHoveredParcelles,
     handleParcelles,
   } = useContext(ParcellesContext);
-  const addressType = isToponyme ? "toponyme" : "numéro";
+  const addressType = isToponyme ? "place name" : "number";
 
   useEffect(() => {
     setHighlightedParcelles(initialParcelles);
@@ -47,8 +47,8 @@ function SelectParcelles({
   return (
     <Pane display="flex" flexDirection="column">
       <InputLabel
-        title="Parcelles cadastre"
-        help={`Depuis la carte, cliquez sur les parcelles que vous souhaitez ajouter au ${addressType}. En précisant les parcelles associées à cette adresse, vous accélérez sa réutilisation par de nombreux services, DDFiP, opérateurs de courrier, de fibre et de GPS.`}
+        title="Parcel data"
+        help={`From the map, click on the parcels you want to add to the ${addressType}. By specifying the parcels associated with this address, you accelerate its reuse by many services including mail carriers, fiber providers, and GPS services.`}
       />
       {highlightedParcelles.length > 0 ? (
         <Pane display="grid" gridTemplateColumns="1fr 1fr 1fr">
@@ -83,8 +83,8 @@ function SelectParcelles({
         <Pane>
           <Alert marginTop={8}>
             <Text>
-              Depuis la carte, cliquez sur les parcelles que vous souhaitez
-              ajouter au {addressType}.
+              On the map, click on the parcels you want to add to the{" "}
+              {addressType}.
             </Text>
           </Alert>
         </Pane>
@@ -96,9 +96,9 @@ function SelectParcelles({
         justifyContent="center"
         marginTop={8}
         iconAfter={ControlIcon}
-        onClick={() => setIsCadastreDisplayed(!isCadastreDisplayed)}
+        onClick={() => setIsParcelsDisplayed(!isParcelsDisplayed)}
       >
-        {isCadastreDisplayed ? "Masquer" : "Afficher"} le cadastre
+        {isParcelsDisplayed ? "Hide" : "Show"} parcel data
       </Button>
     </Pane>
   );

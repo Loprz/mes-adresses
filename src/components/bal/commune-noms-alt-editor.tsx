@@ -50,8 +50,8 @@ function CommuneNomsAltEditor({
         const submit = toaster(
           async () =>
             BasesLocalesService.updateBaseLocale(initialValue.id, body),
-          "Le nom de la commune en langue régional a bien été modifié",
-          "Le nom de la commune en langue régional n’a pas pu être modifiée",
+          "The jurisdiction's regional language name has been updated",
+          "The jurisdiction's regional language name could n’ot be updated",
           (err) => {
             setValidationMessages(err.body.message);
           }
@@ -97,7 +97,7 @@ function CommuneNomsAltEditor({
     >
       <Pane>
         <FormInput>
-          <Label>Nom en langue régionale de la commune</Label>
+          <Label>Jurisdiction name in regional language</Label>
           <LanguesRegionalesForm
             initialValue={initialValue?.communeNomsAlt}
             validationMessage={getValidationMessage("lang_alt")}
@@ -114,7 +114,7 @@ function CommuneNomsAltEditor({
           appearance="primary"
           intent="success"
         >
-          {isLoading ? "En cours…" : "Enregistrer"}
+          {isLoading ? "In progress…" : "Save"}
         </Button>
 
         {closeForm && (
@@ -125,7 +125,7 @@ function CommuneNomsAltEditor({
             display="inline-flex"
             onClick={onFormCancel}
           >
-            Annuler
+            Cancel
           </Button>
         )}
       </Pane>

@@ -8,11 +8,11 @@ const steps = [
     content: (
       <Pane>
         <Heading size={800}>
-          Votre Base Adresse Locale a reçu des propositions d&apos;amélioration
+          Your Local Address Base has received improvement proposals
         </Heading>
         <Paragraph margin={20} textAlign="justify">
-          Des administrés ou des services publics ont proposé des améliorations
-          sur les adresses de votre commune via le dispositif de signalement.
+          Residents or public services have proposed improvements to the
+          addresses in your jurisdiction through the reporting system.
         </Paragraph>
       </Pane>
     ),
@@ -22,7 +22,7 @@ const steps = [
     content: (
       <Pane>
         <Paragraph>
-          Pour les visualiser, rendez-vous sur l&apos;onglet signalements.
+          To view them, go to the reports tab.
         </Paragraph>
       </Pane>
     ),
@@ -45,8 +45,7 @@ const steps = [
     content: (
       <Pane>
         <Paragraph>
-          Cet onglet vous permet de consulter les signalements en attente de
-          traitement
+          This tab lets you view pending reports awaiting review
         </Paragraph>
       </Pane>
     ),
@@ -57,19 +56,18 @@ const steps = [
     content: (
       <Pane>
         <Paragraph>
-          Celui-ci vous permet de consulter les signalements déjà traités
+          This tab lets you view reports that have already been processed
         </Paragraph>
       </Pane>
     ),
     spotlightPadding: 5,
   },
   {
-    target: "input[placeholder='Rechercher un signalement']",
+    target: "input[placeholder='Search for a report']",
     content: (
       <Pane>
         <Paragraph>
-          Vous pouvez filtrer les signalements par nom en tapant dans cette
-          barre de recherche...
+          You can filter reports by name by typing in this search bar...
         </Paragraph>
       </Pane>
     ),
@@ -80,8 +78,8 @@ const steps = [
     content: (
       <Pane>
         <Paragraph>
-          ...ou par type (Création, Modification et Suppression) en cliquant sur
-          ce bouton
+          ...or by type (Creation, Modification, and Deletion) by clicking this
+          button
         </Paragraph>
       </Pane>
     ),
@@ -92,7 +90,7 @@ const steps = [
     content: (
       <Pane>
         <Paragraph>
-          Enfin séléctionnez un signalement soit via la liste...
+          Finally, select a report either from the list...
         </Paragraph>
       </Pane>
     ),
@@ -102,7 +100,7 @@ const steps = [
     target: ".maplibregl-marker",
     content: (
       <Pane>
-        <Paragraph>Soit via la carte</Paragraph>
+        <Paragraph>Or from the map</Paragraph>
       </Pane>
     ),
     spotlightPadding: 5,

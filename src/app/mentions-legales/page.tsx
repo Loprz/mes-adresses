@@ -3,7 +3,7 @@
 import { Pane, Heading, Paragraph } from "evergreen-ui";
 import useWindowSize from "@/hooks/useWindowSize";
 
-export default function MentionsLegales() {
+export default function LegalNotice() {
   const { isMobile } = useWindowSize();
   return (
     <>
@@ -18,114 +18,105 @@ export default function MentionsLegales() {
             })}
       >
         <Heading is="h1" fontSize={24} marginBottom={30}>
-          Bases Adresses Locales – Mentions légales
+          National Address Platform &ndash; Legal Notice
         </Heading>
 
         <Pane marginTop="20px" marginBottom="20px" is="section">
           <Heading is="h2" fontSize={20} marginBottom={10}>
-            Éditeur de la plateforme
+            About This Platform
           </Heading>
 
           <Paragraph>
-            Bases Adresses Locales est édité au sein de l’Incubateur des
-            Territoires de l’Agence nationale de la cohésion des territoires
-            (ANCT) située :
-          </Paragraph>
-          <Pane marginTop="15px">
-            <Paragraph>20 avenue de Ségur</Paragraph>
-            <Paragraph>75007 Paris</Paragraph>
-            <Paragraph>France</Paragraph>
-
-            <Paragraph marginTop="15px">Téléphone : 01 85 58 60 00</Paragraph>
-          </Pane>
-        </Pane>
-
-        <Pane marginTop="20px" marginBottom="20px" is="section">
-          <Heading is="h2" fontSize={20} marginBottom={10}>
-            Directeur de la publication
-          </Heading>
-
-          <Paragraph>
-            Le directeur de publication est Monsieur Stanislas BOURRON,
-            Directeur général de l’ANCT.
+            The National Address Platform (NAP) is an open-source initiative to
+            build a comprehensive, authoritative national address database for the
+            United States. This platform is inspired by France&apos;s Base Adresse
+            Nationale and adapted for US addressing standards and practices.
           </Paragraph>
         </Pane>
 
         <Pane marginTop="20px" marginBottom="20px" is="section">
           <Heading is="h2" fontSize={20} marginBottom={10}>
-            Hébergement de la plateforme
-          </Heading>
-
-          <Paragraph>La plateforme est hébergée par :</Paragraph>
-
-          <Pane marginTop="15px">
-            <Paragraph>Scalingo SAS</Paragraph>
-            <Paragraph>13 rue Jacques Peirotes</Paragraph>
-            <Paragraph>67000 Strasbourg</Paragraph>
-            <Paragraph>France</Paragraph>
-
-            <Paragraph marginTop="15px">SIRET 80866548300018</Paragraph>
-          </Pane>
-        </Pane>
-
-        <Pane marginTop="20px" marginBottom="20px" is="section">
-          <Heading is="h2" fontSize={20} marginBottom={10}>
-            Accessibilité
+            Open Source License
           </Heading>
 
           <Paragraph>
-            La conformité aux normes d’accessibilité numérique est un objectif
-            ultérieur mais nous tâchons de rendre cette plateforme accessible à
-            toutes et à tous.
-          </Paragraph>
-
-          <Heading is="h3" fontSize={18} marginBottom={10} marginTop={10}>
-            En savoir plus
-          </Heading>
-
-          <Paragraph>
-            Pour en savoir plus sur la politique d’accessibilité numérique de
-            l’État :{" "}
-            <a target="_blank" href="https://accessibilite.numerique.gouv.fr/">
-              https://accessibilite.numerique.gouv.fr/
-            </a>
+            This software is provided under an open-source license. The source
+            code is available on GitHub. Use of this platform is subject to the
+            terms of the applicable open-source license agreement.
           </Paragraph>
         </Pane>
 
         <Pane marginTop="20px" marginBottom="20px" is="section">
           <Heading is="h2" fontSize={20} marginBottom={10}>
-            Signaler un dysfonctionnement
+            Data Sources
           </Heading>
 
           <Paragraph>
-            Si vous rencontrez un défaut d’accessibilité vous empêchant
-            d’accéder à un contenu ou une fonctionnalité de la plateforme, merci
-            de nous en faire part :{" "}
-            <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
-          </Paragraph>
-
-          <Paragraph>
-            Si vous n’obtenez pas de réponse rapide de notre part, vous êtes en
-            droit de faire parvenir vos doléances ou une demande de saisine au
-            Défenseur des Droits.
+            Address data available through this platform is compiled from multiple
+            sources including local government submissions, the Overture Maps
+            Foundation, the National Address Database (NAD), and other public
+            data sources. While every effort is made to ensure accuracy, the
+            platform makes no guarantees regarding data completeness or
+            correctness.
           </Paragraph>
         </Pane>
 
         <Pane marginTop="20px" marginBottom="20px" is="section">
           <Heading is="h2" fontSize={20} marginBottom={10}>
-            Sécurité
+            Accessibility
           </Heading>
 
           <Paragraph>
-            La plateforme est protégée par un certificat électronique,
-            matérialisé pour la grande majorité des navigateurs par un cadenas.
-            Cette protection participe à la confidentialité des échanges.
+            We are committed to ensuring digital accessibility for people of all
+            abilities. We are continually improving the user experience for
+            everyone and applying the relevant accessibility standards, including
+            compliance with Section 508 of the Rehabilitation Act and WCAG 2.1
+            Level AA guidelines.
+          </Paragraph>
+        </Pane>
+
+        <Pane marginTop="20px" marginBottom="20px" is="section">
+          <Heading is="h2" fontSize={20} marginBottom={10}>
+            Report an Issue
+          </Heading>
+
+          <Paragraph>
+            If you encounter an accessibility barrier or any other issue
+            preventing you from accessing content or functionality on this
+            platform, please contact us at{" "}
+            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>.
+          </Paragraph>
+        </Pane>
+
+        <Pane marginTop="20px" marginBottom="20px" is="section">
+          <Heading is="h2" fontSize={20} marginBottom={10}>
+            Security
+          </Heading>
+
+          <Paragraph>
+            This platform is protected by SSL/TLS encryption, indicated by the
+            padlock icon in your browser. This protection helps ensure the
+            confidentiality of data exchanges.
           </Paragraph>
 
           <Paragraph>
-            En aucun cas, les services associés à la plateforme ne seront à
-            l’origine d’envoi d’e-mails pour vous demander la saisie
-            d’informations personnelles.
+            This platform will never send emails requesting personal information
+            such as passwords or Social Security numbers. Be cautious of any
+            such requests.
+          </Paragraph>
+        </Pane>
+
+        <Pane marginTop="20px" marginBottom="20px" is="section">
+          <Heading is="h2" fontSize={20} marginBottom={10}>
+            Privacy
+          </Heading>
+
+          <Paragraph>
+            Address data published through this platform is public geographic
+            information. Personal information submitted by platform
+            administrators (such as email addresses) is used solely for account
+            management and communication purposes and is not shared with third
+            parties.
           </Paragraph>
         </Pane>
       </Pane>

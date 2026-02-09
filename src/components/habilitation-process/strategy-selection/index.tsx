@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Pane,
   Strong,
@@ -6,16 +6,15 @@ import {
   Text,
   Heading,
   PeopleIcon,
-  TimeIcon,
   UnorderedList,
   ListItem,
 } from "evergreen-ui";
 
 import CodeEmail from "@/components/habilitation-process/strategy-selection/code-email";
 import { StrategyDTO } from "@/lib/openapi-api-bal";
-import ProConnect from "./pro-connect";
 
 interface StrategySelectionStepProps {
+  baseLocaleId: string;
   codeCommune: string;
   emailSelected: string;
   setEmailSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -23,13 +22,12 @@ interface StrategySelectionStepProps {
 }
 
 export function StrategySelectionStep({
+  baseLocaleId,
   codeCommune,
   emailSelected,
   setEmailSelected,
   handleStrategy,
 }: StrategySelectionStepProps) {
-  const [hovered, setHovered] = useState<StrategyDTO.type | null>(null);
-
   return (
     <Pane>
       <Pane
@@ -42,48 +40,25 @@ export function StrategySelectionStep({
         borderRadius={8}
       >
         <Heading is="h2" textAlign="center">
-          Habilitez votre <Strong size={400}>Base Adresse Locale</Strong> pour
-          la publier dans la <Strong size={400}>Base Adresse Nationale</Strong>.
+          Authorize your <Strong size={400}>Local Address Base</Strong> to
+          publish it in the <Strong size={400}>National Address Platform</Strong>.
         </Heading>
+        <Text marginTop={8} color="muted">
+          Verify your jurisdiction authority by receiving a PIN code at your
+          official email address.
+        </Text>
       </Pane>
 
-      <Pane
-        display="grid"
-        gridTemplateColumns="repeat(auto-fit, minmax(330px, 1fr))"
-        marginTop={16}
-        gap={16}
-        background="gray300"
-      >
-        <Pane
-          onMouseEnter={() => setHovered(StrategyDTO.type.EMAIL)}
-          onMouseLeave={() => setHovered(null)}
-          elevation={hovered === StrategyDTO.type.EMAIL ? 3 : 0}
-          background="white"
-          padding={16}
-          borderRadius={8}
-          flex={1}
-        >
-          <CodeEmail
-            codeCommune={codeCommune}
-            emailSelected={emailSelected}
-            setEmailSelected={setEmailSelected}
-            handleStrategy={() => handleStrategy(StrategyDTO.type.EMAIL)}
-          />
-        </Pane>
-        <Pane
-          onMouseEnter={() => setHovered(StrategyDTO.type.PROCONNECT)}
-          onMouseLeave={() => setHovered(null)}
-          elevation={hovered === StrategyDTO.type.PROCONNECT ? 3 : 0}
-          background="white"
-          padding={16}
-          borderRadius={8}
-          flex={1}
-        >
-          <ProConnect
-            handleStrategy={() => handleStrategy(StrategyDTO.type.PROCONNECT)}
-          />
-        </Pane>
+      <Pane marginTop={16} background="white" padding={16} borderRadius={8}>
+        <CodeEmail
+          baseLocaleId={baseLocaleId}
+          codeCommune={codeCommune}
+          emailSelected={emailSelected}
+          setEmailSelected={setEmailSelected}
+          handleStrategy={() => handleStrategy(StrategyDTO.type.EMAIL)}
+        />
       </Pane>
+
       <Pane
         display="flex"
         flexDirection="column"
@@ -92,20 +67,22 @@ export function StrategySelectionStep({
         borderRadius={8}
         marginTop={16}
       >
-        <Heading>Comprendre l’habilitation</Heading>
+        <Heading>Understanding authorization</Heading>
         <UnorderedList>
           <ListItem icon={PeopleIcon}>
             <Text size={400}>
-              Elle permet de s&apos;assurer que la publication est{" "}
-              <Strong size={400}>réalisée par une personne compétente</Strong>{" "}
-              en matière d&apos;adressage.
+              Authorization ensures that the publication is{" "}
+              <Strong size={400}>carried out by a competent person</Strong>{" "}
+              with authority over addressing matters in this jurisdiction.
             </Text>
           </ListItem>
         </UnorderedList>
-        <Alert title="Besoin d'aide pour vous habiliter ?" marginTop={16}>
+        <Alert title="Need help getting authorized?" marginTop={16}>
           <Text is="div" marginTop={8}>
-            Contactez-nous à{" "}
-            <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
+            Contact us at{" "}
+            <a href="mailto:support@nationaladdressplatform.us">
+              support@nationaladdressplatform.us
+            </a>
           </Text>
         </Alert>
       </Pane>

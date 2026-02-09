@@ -94,8 +94,8 @@ function PublishedBALMoissoneur({
       )}
 
       <Paragraph marginTop={16}>
-        La commune étant compétente en matière d’adressage, vous pouvez prendre
-        la main directement en continuant à l&apos;étape suivante.
+        The jurisdiction is the competent authority in addressing, and you can take
+        control directly by proceeding to the next step.
       </Paragraph>
     </>
   );

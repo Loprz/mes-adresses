@@ -9,6 +9,12 @@ export type CommuneApiGeoType = {
     type: "Polygon";
     coordinates: number[][][];
   };
+  /** Whether this is a place (city/town) or county */
+  level?: 'place' | 'county';
+  /** Place type: city, town, village, borough, or county */
+  type?: string;
+  /** Parent county name (for places) */
+  countyName?: string;
   codeDepartement?: string;
   codeEpci?: string;
   codeRegion?: string;

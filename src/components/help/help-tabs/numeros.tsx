@@ -67,12 +67,12 @@ function Numeros() {
                 appearance="primary"
                 intent="success"
               >
-                Ajouter un numéro
+                Add a number
               </Button>
             </ListItem>
             <ListItem>
-              Un <MapMarkerIcon color="info" /> est apparu au centre de la
-              carte, déplacez le à l’endroit souhaité à l’aide de votre souris
+              Un <MapMarkerIcon color="info" /> has appeared at the center of the
+              map, move it to the desired location using your mouse
             </ListItem>
             <ListItem>
               Enter the number in the field{" "}
@@ -119,7 +119,7 @@ function Numeros() {
           <OrderedList margin={8}>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                Cliquez sur le bouton{" "}
+                Click on the button{" "}
                 <IconButton
                   marginLeft={8}
                   icon={AddIcon}
@@ -129,33 +129,33 @@ function Numeros() {
               </Pane>
             </ListItem>
             <ListItem>
-              Un <MapMarkerIcon color="info" /> est apparu au centre de la
-              carte, déplacez le à l’endroit souhaité à l’aide de votre souris
+              Un <MapMarkerIcon color="info" /> has appeared at the center of the
+              map, move it to the desired location using your mouse
             </ListItem>
             <ListItem>
               In the new menu that appeared, enter the number in the
               field <Strong size={500}>Numéro</Strong>
             </ListItem>
             <ListItem>
-              Indiquez le suffixe (exemple: bis) dans le champ{" "}
+              Enter the suffix (example: bis) in the field{" "}
               <Strong size={500}>Suffixe</Strong>
             </ListItem>
             <ListItem>
-              Recherchez la voie à laquelle le numéro appartient et sélectionnez
-              la. À noter que si une voie est déjà sélectionnée alors elle vous
+              Search for the street to which the number belongs and select
+              la. Note que si une voie est déjà sélectionnée alors elle vous
               sera proposée par défaut. Vous pouvez également créer une nouvelle
-              voie directement en cliquant sur{" "}
+              street directly by clicking on{" "}
               <Button marginX={4} iconBefore={PlusIcon}>
-                Créer une voie
+                Create a street
               </Button>
-              . Vous serez automatiquement redirigé vers cette voie.
+              . You will be automatically redirected to this street.
             </ListItem>
             <ListItem>
               Select the position using the dropdown{" "}
               <Strong size={500}>Type</Strong>
             </ListItem>
             <ListItem>
-              Pour terminer, cliquez sur le bouton{" "}
+              To finish, click on the button{" "}
               <Button
                 marginX={4}
                 appearance="primary"
@@ -168,7 +168,7 @@ function Numeros() {
               <Button marginX={4} intent="success">
                 Enregister
               </Button>{" "}
-              pour vous laisser le temps de vérifier avant de certifier.
+              to give you time to verify before certifying.
             </ListItem>
           </OrderedList>
         </SubTuto>
@@ -180,7 +180,7 @@ function Numeros() {
         <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Cliquez sur le bouton{" "}
+              Click on the button{" "}
               <Button
                 background="tint1"
                 iconBefore={MoreIcon}
@@ -209,9 +209,9 @@ function Numeros() {
           <OrderedList margin={8}>
             <ListItem>Click on the number</ListItem>
             <ListItem>
-              Il vous est désormais possible de modifier le numéro, le suffixe,
-              le type d’adresse ou encore sa position en déplaçant le{" "}
-              <MapMarkerIcon color="info" /> sur la carte et de certifier votre
+              You can now modify the number, suffix,
+              address type or position by moving the{" "}
+              <MapMarkerIcon color="info" /> on the map and certify your
               adresse.
             </ListItem>
           </OrderedList>
@@ -221,20 +221,20 @@ function Numeros() {
       <Tuto title="Delete a number">
         {before}
 
-        <SubTuto title="Depuis le menu latéral" icon={ColumnLayoutIcon}>
+        <SubTuto title="From the sidebar menu" icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Cliquez sur le bouton{" "}
+              Click on the button{" "}
               <Button
                 background="tint1"
                 iconBefore={MoreIcon}
                 appearance="minimal"
               />{" "}
-              se situant à droite du numéro
+              located to the right of the number
             </ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                Dans le menu qui vient d’apparaître, choisissez
+                In the menu that just appeared, choose
                 <Menu.Item
                   background="tint1"
                   marginLeft={8}
@@ -253,14 +253,14 @@ function Numeros() {
             <ListItem>Right-click on the number</ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                Dans le menu qui vient d’apparaître, choisissez
+                In the menu that just appeared, choose
                 <Menu.Item
                   background="tint1"
                   marginLeft={8}
                   icon={TrashIcon}
                   intent="danger"
                 >
-                  Supprimer…
+                  Delete…
                 </Menu.Item>
               </Pane>
             </ListItem>
@@ -291,19 +291,19 @@ function Numeros() {
 
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton{" "}
+            Click on the button{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            se situant à droite du numéro
+            located to the right of the number
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Dans le menu qui vient d’apparaître, choisissez
+              In the menu that just appeared, choose
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                Modifier
+                Edit
               </Menu.Item>
             </Pane>
           </ListItem>
@@ -350,19 +350,19 @@ function Numeros() {
 
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton{" "}
+            Click on the button{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            se situant à droite du numéro
+            located to the right of the number
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Dans le menu qui vient d’apparaître, choisissez
+              In the menu that just appeared, choose
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                Modifier
+                Edit
               </Menu.Item>
             </Pane>
           </ListItem>
@@ -384,7 +384,7 @@ function Numeros() {
             <Button marginX={4} intent="success">
               Enregister
             </Button>{" "}
-            si vous ne souhaitez pas certifier cette adresse pour le moment.
+            if you do not wish to certify this address at the moment.
           </ListItem>
         </OrderedList>
 

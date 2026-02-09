@@ -33,15 +33,15 @@ function PublishedBALApiDepot({
         ) : client.chefDeFileEmail ? (
           <>
             We recommend contacting{" "}
-            <Strong>{client.chefDeFileEmail}</Strong> avant de poursuivre la
-            création de votre BAL.
+            <Strong>{client.chefDeFileEmail}</Strong> before proceeding with the
+            creation of your LAB.
           </>
         ) : null}
       </Paragraph>
       <Paragraph marginTop={16}>
-        La commune reste toutefois l’autorité compétente en matière d’adressage,
+        However, the jurisdiction remains the’competent authority in’adressage,
         et vous pouvez décider à tout moment de reprendre la main sur la
-        publication de votre BAL.
+        publication of your LAB.
       </Paragraph>
     </>
   );

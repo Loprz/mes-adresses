@@ -15,7 +15,7 @@ export enum MatomoEventCategory {
   DOCUMENT = "Document",
   MAP = "Carte",
   GAMIFICATION = "Gamification",
-  BAL_EDITOR = "Éditeur BAL",
+  BAL_EDITOR = "LAB Editor",
   HOME_PAGE = "Page d'accueil",
   SETTINGS = "Settings",
 }

@@ -214,7 +214,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           is="iframe"
           ref={balWidgetRef}
           src={widgetUrl || undefined}
-          title="BAL Widget"
+          title="LAB Widget"
           position="fixed"
           bottom={40}
           right={40}

@@ -53,7 +53,7 @@ function SignalementUpdateToponyme({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Erreur lors de l'acceptation du signalement.",
+        title: "Error while accepting'the report.",
         intent: "danger",
       });
     }
@@ -62,7 +62,7 @@ function SignalementUpdateToponyme({
   return (
     <>
       <SignalementToponymeDiffCard
-        title="Toponyme actuel"
+        title="Current place name"
         isActive={activeCard === ActiveCardEnum.INITIAL}
         nom={{
           to: existingNom,

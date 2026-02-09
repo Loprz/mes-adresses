@@ -44,22 +44,22 @@ function QualityGoal() {
         <Pane padding={8}>
           <Heading size={400}>Qualité</Heading>
           <Text>
-            Pour garantir la qualité de votre Base Adresse Locale, il est{" "}
-            <u>important de corriger les alertes</u>.
+            To ensure the quality of your Local Address Base, it is{" "}
+            <u>important to correct the alerts</u>.
             <br />
             <br />
-            Les alertes sont des indicateurs de qualité de votre Base Adresse
-            Locale. Elles sont classées en erreurs et avertissements.
+            Alerts are quality indicators for your Base Adresse
+            Locale. They are classified as errors and warnings.
             <br />
-            Pour garantir la qualité de votre Base Adresse Locale, il est
-            important de corriger les alertes.
+            To ensure the quality of your Local Address Base, it is
+            important to correct the alerts.
             <br />
             <br />
-            Les erreurs sont des alertes qui doivent être corrigées avant la
-            publication de votre Base Adresse Locale.
+            Errors are alerts that must be corrected before
+            publication of your Local Address Base.
             <br />
-            Les avertissements sont des alertes qui peuvent être corrigées après
-            la publication de votre Base Adresse Locale.
+            Warnings are alerts that can be corrected after
+            the publication of your Local Address Base.
           </Text>
         </Pane>
       </AccordionCard>

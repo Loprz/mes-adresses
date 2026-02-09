@@ -6,7 +6,7 @@ import useTrash from "@/hooks/trash";
 import ItemsDeletedList from "@/components/trash/list/items-deleted-list";
 import RestoreVoie from "@/components/trash/restore-voie/index";
 
-const TABS = ["Voies", "Toponymes"];
+const TABS = ["Streets", "Place names"];
 
 function Trash() {
   const {

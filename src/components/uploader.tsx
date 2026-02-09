@@ -22,7 +22,7 @@ function Uploader({
   onDropRejected,
   height = 100,
   isLoading,
-  loadingLabel = "Chargement…",
+  loadingLabel = "Loading…",
   ...props
 }: UploaderProps & Omit<PaneProps, "onDrop">) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

@@ -17,7 +17,7 @@ export function VoieGeneratedDocuments<type extends GeneratedDocumentType>({
   return (
     <>
       <Menu.Divider />
-      <Menu.Group title="Générer un modèle">
+      <Menu.Group title="Generate a template">
         <Menu.Item
           icon={DownloadIcon}
           onSelect={() =>

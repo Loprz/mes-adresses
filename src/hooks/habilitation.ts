@@ -10,8 +10,6 @@ import {
   HabilitationDTO,
   HabilitationService,
 } from "@/lib/openapi-api-bal";
-import { PRO_CONNECT_QUERY_PARAM } from "@/lib/api-depot";
-import { useSearchParams } from "next/navigation";
 
 interface UseHabilitationType {
   habilitation: HabilitationDTO | null;
@@ -25,12 +23,11 @@ export default function useHabilitation(
   baseLocale: ExtendedBaseLocaleDTO,
   token: string
 ): UseHabilitationType {
-  const searchParams = useSearchParams();
   const [habilitation, setHabilitation] = useState<HabilitationDTO | null>(
     null
   );
   const [isHabilitationProcessDisplayed, setIsHabilitationProcessDisplayed] =
-    useState<boolean>(searchParams.get(PRO_CONNECT_QUERY_PARAM) === "1");
+    useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const reloadHabilitation = useCallback(async () => {
@@ -39,7 +36,6 @@ export default function useHabilitation(
         const habilitation: HabilitationDTO =
           await HabilitationService.findHabilitation(baseLocale.id);
         setHabilitation(habilitation);
-        // SET IF HABILITATION IS VALID
       } catch {
         setHabilitation(null);
       }

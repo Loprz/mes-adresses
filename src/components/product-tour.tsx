@@ -4,10 +4,10 @@ import Joyride from "react-joyride";
 
 const locale = {
   skip: "Passer",
-  next: "Suivant",
+  next: "Next",
   back: "Previous",
   last: "Terminer",
-  close: "Fermer",
+  close: "Close",
 };
 
 const styles = {

@@ -31,12 +31,12 @@ export function MobileHelpMenu() {
               icon={VideoIcon}
               href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}
             >
-              Tutoriels vidéos
+              Video tutorials
             </Menu.Item>
             <Menu.Item
               is="a"
               target="_blank"
-              href="https://doc.adresse.data.gouv.fr/"
+              href="#"
               icon={BookIcon}
             >
               Guides de l’adressage

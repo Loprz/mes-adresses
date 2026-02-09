@@ -128,7 +128,7 @@ function ImportDataStep({
         } else if (communes.length === 1 && communes[0].code !== commune.code) {
           onAlert(
             <Alert
-              title="Une erreur est survenue"
+              title="An error occurred"
               intent="danger"
               marginTop={16}
             >
@@ -139,7 +139,7 @@ function ImportDataStep({
         } else if (communes.length > 1) {
           onAlert(
             <Alert
-              title="Une erreur est survenue"
+              title="An error occurred"
               intent="danger"
               marginTop={16}
             >
@@ -150,7 +150,7 @@ function ImportDataStep({
         } else {
           onAlert(
             <Alert
-              title="Une erreur est survenue"
+              title="An error occurred"
               intent="danger"
               marginTop={16}
             >
@@ -208,7 +208,7 @@ function ImportDataStep({
       } catch (err) {
         console.error(err);
         onAlert(
-          <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
+          <Alert title="An error occurred" intent="danger" marginTop={16}>
             An error occurred while analyzing the file.
           </Alert>
         );
@@ -223,20 +223,20 @@ function ImportDataStep({
 
     if (rejectedFiles.length > 1) {
       onAlert(
-        <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
+        <Alert title="An error occurred" intent="danger" marginTop={16}>
           You can only upload one file.
         </Alert>
       );
     } else if (file.size > MAX_SIZE) {
       return onAlert(
-        <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
+        <Alert title="An error occurred" intent="danger" marginTop={16}>
           This file is too large. You must upload a file smaller
           than 10 MB.
         </Alert>
       );
     } else {
       onAlert(
-        <Alert title="Une erreur est survenue" intent="danger" marginTop={16}>
+        <Alert title="An error occurred" intent="danger" marginTop={16}>
           Unable to upload this file.
         </Alert>
       );
@@ -251,7 +251,7 @@ function ImportDataStep({
     <>
       <Pane aria-label="Choose your starting point" role="group">
         <Text fontWeight={500} fontSize="14px" color="gray700">
-          Choisissez votre point de départ
+          Choose your starting point
         </Text>
         {options.map((option) => (
           <Fragment key={option.value}>

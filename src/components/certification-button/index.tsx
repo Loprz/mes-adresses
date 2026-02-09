@@ -19,18 +19,18 @@ function CertificationButton({
 }: CertificationButtonProps) {
   const submitCertificationLabel = useMemo(() => {
     if (isLoading) {
-      return "En cours…";
+      return "In progress…";
     }
 
-    return isCertified ? "Enregistrer" : "Certifier et enregistrer";
+    return isCertified ? "Save" : "Certify and save";
   }, [isLoading, isCertified]);
 
   const submitLabel = useMemo(() => {
     if (isLoading) {
-      return "En cours…";
+      return "In progress…";
     }
 
-    return isCertified ? "Ne plus certifier et enregistrer" : "Enregistrer";
+    return isCertified ? "Uncertify and save" : "Save";
   }, [isLoading, isCertified]);
 
   return (
@@ -74,7 +74,7 @@ function CertificationButton({
           display="inline-flex"
           onClick={onCancel}
         >
-          Annuler
+          Cancel
         </Button>
       </div>
     </div>

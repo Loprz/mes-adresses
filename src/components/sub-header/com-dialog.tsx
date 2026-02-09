@@ -29,20 +29,20 @@ function COMDialog({ baseLocaleId, handleClose }: COMDialogProps) {
         </Heading>
         <InlineAlert intent="warning" marginY={16}>
           Your jurisdiction is part of an overseas territory for
-          lesquelles une authentification automatique est en cours de
-          développement.
+          which automatic authentication is currently under
+          development.
         </InlineAlert>
 
         <Alert intent="none" title="Please contact us">
           <Paragraph marginTop={8}>
             In the meantime, in order to publish your addresses in the{" "}
-            <Strong>Base Adresse Nationale</Strong>, vous devez nous contacter à
-            l’adresse :{" "}
-            <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>.
+            <Strong>National Address Database</Strong>, you must contact us at
+            the following address:{" "}
+            <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>.
           </Paragraph>
           <Paragraph>
             In your email, please include the identifier of your
-            Base Adresse Locale <Strong>({baseLocaleId})</Strong>.
+            Local Address Base <Strong>({baseLocaleId})</Strong>.
           </Paragraph>
         </Alert>
       </Pane>

@@ -158,7 +158,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
 
           {tileLayerEnabled && tileLayersMode !== TilesLayerMode.TOPONYME && (
             <LayerShowHideControl
-              title="Voies"
+              title="Streets"
               isDiplayed={voieLayerIsDisplayed}
               setIsDiplayed={setVoieLayerIsDisplayed}
             />
@@ -173,14 +173,14 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
           )}
 
           <LayerShowHideControl
-            title="Points d'intérets"
+            title="Points of interest"
             isDiplayed={poiLayerIsDisplayed}
             setIsDiplayed={setPoiLayerIsDisplayed}
           />
 
           <Button onClick={takeScreenshot}>
             <CameraIcon marginRight={4} />
-            Prendre une photo
+            Take a screenshot
           </Button>
         </Pane>
       }
@@ -189,7 +189,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
         height={29}
         width={29}
         icon={CameraIcon}
-        title="Prendre une photo de la carte"
+        title="Take a map screenshot"
       />
     </Popover>
   );

@@ -97,7 +97,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
             <MiniCard
               img="/static/images/education.png"
               message="Take a training"
-              href="https://adresse.data.gouv.fr/formation-en-ligne"
+              href="#"
             />
             <MiniCard
               img="/static/images/video-call.png"
@@ -107,7 +107,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
             <MiniCard
               img="/static/images/manual.png"
               message="Read the guides"
-              href="https://adresse.data.gouv.fr/documentation-bal"
+              href="#"
             />
           </Pane>
         </Pane>

@@ -4,16 +4,26 @@ import qs from "querystring";
 import { toaster } from "evergreen-ui";
 import { CommuneApiGeoType } from "./type";
 
-const GEO_API_URL =
-  process.env.NEXT_PUBLIC_GEO_API_URL || "https://geo.api.gouv.fr";
+/**
+ * US Jurisdiction Search Service
+ *
+ * Replaces the French geo.api.gouv.fr with our own backend API.
+ * The backend searches US FIPS county data and returns results
+ * in the same format the frontend components expect.
+ */
+const BAL_API_URL =
+  process.env.NEXT_PUBLIC_BAL_API_URL || "http://localhost:5050/v2";
+
+// Strip trailing path if present (e.g., "http://localhost:5050/v2" → "http://localhost:5050/v2")
+const API_BASE = BAL_API_URL.replace(/\/+$/, "");
 
 export class ApiGeoService {
   private static async request(url: string) {
     try {
-      const res = await fetch(`${GEO_API_URL}${url}`);
+      const res = await fetch(`${API_BASE}${url}`);
       return res.json();
     } catch (error) {
-      toaster.danger("Erreur inattendue", {
+      toaster.danger("Unexpected error", {
         description: error.message,
       });
     }
@@ -21,30 +31,21 @@ export class ApiGeoService {
     return null;
   }
 
-  private static isCodeDep(token: string) {
-    return ["2A", "2B"].includes(token) || token.match(/^\d{2,3}$/);
-  }
-
   public static async searchCommunes(
     search: string,
-    options = {}
+    options: Record<string, any> = {}
   ): Promise<CommuneApiGeoType[]> {
     const query: any = {
       nom: search,
     };
 
-    const codeDep: string = search
-      .split(" ")
-      .find((token) => this.isCodeDep(token));
-    if (codeDep) {
-      query.codeDepartement = codeDep;
+    // Include limit if specified
+    if (options.limit) {
+      query.limit = options.limit;
     }
 
     const res = await this.request(
-      `/communes?${qs.stringify({
-        ...options,
-        ...query,
-      })}`
+      `/commune/search?${qs.stringify(query)}`
     );
     return res || [];
   }
@@ -54,7 +55,7 @@ export class ApiGeoService {
     options = {}
   ): Promise<CommuneApiGeoType> {
     return this.request(
-      `/communes/${code.toUpperCase()}?${qs.stringify(options)}`
+      `/commune/${code.toUpperCase()}?${qs.stringify(options)}`
     );
   }
 }

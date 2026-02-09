@@ -45,7 +45,7 @@ export function CommuneSearchField({
   appearance,
   spellCheck = true, // Rest props are spread on the FormField
 
-  placeholder = "Chercher une commune…",
+  placeholder = "Search for a jurisdiction…",
   innerRef,
   initialSelectedItem = null,
   onSelect,

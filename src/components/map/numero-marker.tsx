@@ -32,7 +32,7 @@ function NumeroMarker({
   removeAddress,
 }: NumeroMarkerProps) {
   const position =
-    numero.positions.find((position) => position.type === "entrée") ||
+    numero.positions.find((position) => position.type === "entrance") ||
     numero.positions[0];
 
   if (!position) {
@@ -63,7 +63,7 @@ function NumeroMarker({
 
         {numero.certifie && (
           <Tooltip
-            content="Cette adresse est certifiée"
+            content="Cette adresse est certifiede"
             position={Position.BOTTOM_RIGHT}
           >
             <EndorsedIcon
@@ -86,7 +86,7 @@ function NumeroMarker({
                 intent="danger"
                 onSelect={() => removeAddress(numero.id)}
               >
-                Supprimer
+                Delete
               </Menu.Item>
             </Menu.Group>
           </Menu>

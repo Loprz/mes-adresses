@@ -1,38 +1,37 @@
 import { Tooltip, Button, ControlIcon } from "evergreen-ui";
+import { PARCELS_AVAILABLE } from "@/components/map/layers/parcels";
 
-interface CadastreControlProps {
-  hasCadastre?: boolean;
-  isCadastreDisplayed?: boolean;
+interface ParcelControlProps {
+  isParcelsDisplayed?: boolean;
   onClick: () => void;
 }
 
-function CadastreControl({
-  hasCadastre,
-  isCadastreDisplayed,
+function ParcelControl({
+  isParcelsDisplayed,
   onClick,
-}: CadastreControlProps) {
-  return hasCadastre ? (
+}: ParcelControlProps) {
+  return PARCELS_AVAILABLE ? (
     <Tooltip
       content={
-        isCadastreDisplayed ? "Masquer le cadastre" : "Afficher le cadastre"
+        isParcelsDisplayed ? "Hide parcel data" : "Show parcel data"
       }
     >
       <Button
         style={{ padding: ".8em" }}
         onClick={onClick}
         title={
-          isCadastreDisplayed ? "Masquer le cadastre" : "Afficher le cadastre"
+          isParcelsDisplayed ? "Hide parcel data" : "Show parcel data"
         }
       >
-        <ControlIcon color={isCadastreDisplayed ? "selected" : "muted"} />
+        <ControlIcon color={isParcelsDisplayed ? "selected" : "muted"} />
       </Button>
     </Tooltip>
   ) : (
-    <Tooltip content="Le cadastre n’est pas disponible pour cette commune">
+    <Tooltip content="Parcel data is not configured — set NEXT_PUBLIC_PARCEL_TILES_URL">
       <Button
         style={{ padding: ".8em" }}
         cursor="not-allowed"
-        title="Le cadastre n’est pas disponible pour cette commune"
+        title="Parcel data is not available"
       >
         <ControlIcon color="muted" />
       </Button>
@@ -40,4 +39,4 @@ function CadastreControl({
   );
 }
 
-export default CadastreControl;
+export default ParcelControl;

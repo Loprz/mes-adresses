@@ -13,7 +13,7 @@ export interface CommuneSearchProps {
 }
 
 function CommuneSearch({
-  placeholder = "Chercher une commune…",
+  placeholder = "Search for a jurisdiction…",
   innerRef = () => {},
   initialSelectedItem = null,
   onSelect = () => {},
@@ -45,10 +45,16 @@ function CommuneSearch({
       items={communes}
       itemToString={(item) =>
         item
-          ? `${item.nom} ${
+          ? `${item.nom}${
               item.departement
-                ? `(${item.departement.nom} - ${item.departement.code})`
+                ? `, ${item.departement.code}`
                 : ""
+            }${
+              item.level === 'county'
+                ? ' (county)'
+                : item.countyName
+                  ? ` — ${item.countyName}`
+                  : ''
             }`
           : ""
       }

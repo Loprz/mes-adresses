@@ -99,7 +99,7 @@ export default function VoiesPage() {
   }, [setTileLayersMode]);
 
   useEffect(() => {
-    setBreadcrumbs(<Text aria-current="page">Voies</Text>);
+    setBreadcrumbs(<Text aria-current="page">Streets</Text>);
     scrollAndHighlightLastSelectedItem(TabsEnum.VOIES);
 
     return () => {
@@ -171,8 +171,8 @@ export default function VoiesPage() {
           `/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/${toponyme.id}`
         );
       },
-      "La voie a bien été convertie en toponyme",
-      "La voie n’a pas pu être convertie en toponyme"
+      "The street has been successfully converted to a place name",
+      "The street could n’ot be converted to a place name"
     );
 
     await convertToponyme();
@@ -221,12 +221,12 @@ export default function VoiesPage() {
   return (
     <>
       <DialogWarningAction
-        confirmLabel="Certifier les numéros de la voie"
+        confirmLabel="Certify the numbers of the street"
         isShown={Boolean(toCertify)}
         content={
           <Paragraph>
-            Êtes vous bien sûr de vouloir certifier toutes les adresses de cette
-            voie ?
+            Are you sure you want to certify all addresses on this
+            street?
           </Paragraph>
         }
         isLoading={onCertifyLoading}
@@ -237,11 +237,11 @@ export default function VoiesPage() {
       />
 
       <DialogWarningAction
-        confirmLabel="Convertir en toponyme"
+        confirmLabel="Convert to place name"
         isShown={Boolean(toConvert)}
         content={
           <Paragraph>
-            Êtes vous bien sûr de vouloir convertir cette voie en toponyme ?
+            Are you sure you want to convert this street to a place name?
           </Paragraph>
         }
         isLoading={onConvertLoading}
@@ -255,8 +255,8 @@ export default function VoiesPage() {
         isShown={Boolean(toRemove)}
         content={
           <Paragraph>
-            Êtes vous bien sûr de vouloir supprimer cette voie ainsi que tous
-            ses numéros ?
+            Are you sure you want to delete this street and all
+            its numbers?
           </Paragraph>
         }
         onCancel={() => {
@@ -295,22 +295,22 @@ export default function VoiesPage() {
           borderBottom="muted"
           textAlign="center"
         >
-          <Text>Voies, places et lieux-dits numérotés</Text>
+          <Text>Streets, places, and numbered place names</Text>
         </Pane>
         <Table.Head background="white">
           <Table.SearchHeaderCell
-            placeholder="Search for a street, une place, un lieu-dit..."
+            placeholder="Search for a street, a place, a location..."
             onChange={changeFilter}
             value={search}
           />
           <Table.HeaderCell flex="unset">
             <ButtonIconExpandHover
               icon={showUncertify ? FilterRemoveIcon : FilterIcon}
-              title="Voir seulement les voies avec des adresses non certifiées"
+              title="View only streets with uncertified addresses"
               size="small"
               marginRight={16}
               onClick={() => setShowUncertify(!showUncertify)}
-              message="Filtre adresses non certifiées"
+              message="Filter uncertified addresses"
             />
             <ButtonIconExpandHover
               icon={AddIcon}
@@ -321,7 +321,7 @@ export default function VoiesPage() {
               intent="success"
               disabled={!token || (token && isEditing)}
               href={`/bal/${baseLocale.id}/${TabsEnum.VOIES}/new`}
-              message="Ajouter une voie"
+              message="Add a street"
             />
           </Table.HeaderCell>
         </Table.Head>
@@ -367,7 +367,7 @@ export default function VoiesPage() {
 
               <TableRowNotifications
                 certification={
-                  voie.isAllCertified ? "Les adresses sont certifiées" : null
+                  voie.isAllCertified ? "The addresses are certified" : null
                 }
                 comment={
                   voie.comment?.length || voie.commentedNumeros?.length > 0 ? (
@@ -382,15 +382,15 @@ export default function VoiesPage() {
                     <>
                       <Pane marginBottom={8}>
                         <Text color="white">
-                          Cette voie ne contient aucun numéro
+                          This street contains no numbers
                         </Text>
                       </Pane>
                       <Button
                         onClick={() => setToConvert(voie.id)}
                         size="small"
-                        title="Convertir la voie en toponyme"
+                        title="Convert the street to a place name"
                       >
-                        Convertir en toponyme
+                        Convert to place name
                       </Button>
                     </>
                   ) : null
@@ -413,7 +413,7 @@ export default function VoiesPage() {
                       browseToVoie(voie.id);
                     }}
                   >
-                    Modifier
+                    Edit
                   </Menu.Item>
                   {!voie.isAllCertified && (
                     <Menu.Item
@@ -422,7 +422,7 @@ export default function VoiesPage() {
                         setToCertify(voie.id);
                       }}
                     >
-                      Certifier
+                      Certify
                     </Menu.Item>
                   )}
                   <Menu.Item
@@ -432,7 +432,7 @@ export default function VoiesPage() {
                       setToRemove(voie.id);
                     }}
                   >
-                    Supprimer…
+                    Delete…
                   </Menu.Item>
                   {Boolean(token) &&
                     baseLocale.status === BaseLocale.status.PUBLISHED && (

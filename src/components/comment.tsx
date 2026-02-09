@@ -20,7 +20,7 @@ function Comment({
   return (
     <FormInput>
       <Label marginBottom={4} display="block">
-        Commentaire
+        Comment
       </Label>
       <TextareaField
         placeholder="This note is confidential and will not be shared."

@@ -74,7 +74,7 @@ export function SignalementPositionDiff({
       <Pane display="grid" gridTemplateColumns="2fr 2fr" rowGap={6}>
         <Pane />
         <Strong fontWeight={200} fontSize="small">
-          Modification proposée
+          Proposed modification
         </Strong>
 
         {positionsDiff.map(({ type, diff }, index) => {
@@ -97,7 +97,7 @@ export function SignalementPositionDiff({
                   {getPositionName(diff[1])}
                 </Badge>
                 <Heading size={100} marginY="auto">
-                  <Small>Modification de type</Small>
+                  <Small>Type modification</Small>
                 </Heading>
               </React.Fragment>
             );
@@ -153,7 +153,7 @@ export function SignalementPositionDiff({
                   {getPositionName(type)}
                 </Badge>
                 <Heading size={100} marginY="auto">
-                  <Small>Pas de modification</Small>
+                  <Small>No modification</Small>
                 </Heading>
               </React.Fragment>
             );

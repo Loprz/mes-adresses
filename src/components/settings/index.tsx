@@ -88,8 +88,8 @@ function Settings({ baseLocale, token }: SettingsProps) {
           maxWidth={600}
           marginTop={8}
           disabled={isLoading}
-          label="Nom"
-          placeholder="Nom"
+          label="Name"
+          placeholder="Name"
           onChange={(e) => setNomInput(e.target.value)}
         />
 

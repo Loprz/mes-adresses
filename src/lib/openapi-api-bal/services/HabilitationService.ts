@@ -13,7 +13,7 @@ import { request as __request } from '../core/request';
 export class HabilitationService {
 
     /**
-     * Find habiliation is Valid
+     * Check if authorization is valid
      * @param baseLocaleId
      * @returns boolean
      * @throws ApiError
@@ -31,7 +31,7 @@ export class HabilitationService {
     }
 
     /**
-     * Find habiliation
+     * Get authorization details
      * @param baseLocaleId
      * @returns HabilitationDTO
      * @throws ApiError
@@ -49,7 +49,7 @@ export class HabilitationService {
     }
 
     /**
-     * Create habiliation
+     * Create authorization
      * @param baseLocaleId
      * @returns HabilitationDTO
      * @throws ApiError
@@ -67,7 +67,25 @@ export class HabilitationService {
     }
 
     /**
-     * Send pin code of habilitation
+     * Get registered jurisdiction emails for this LAB
+     * @param baseLocaleId
+     * @returns string[]
+     * @throws ApiError
+     */
+    public static getRegisteredEmails(
+        baseLocaleId: string,
+    ): CancelablePromise<string[]> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/v2/bases-locales/{baseLocaleId}/habilitation/emails',
+            path: {
+                'baseLocaleId': baseLocaleId,
+            },
+        });
+    }
+
+    /**
+     * Send PIN code for authorization
      * @param baseLocaleId
      * @param requestBody
      * @returns any
@@ -89,7 +107,7 @@ export class HabilitationService {
     }
 
     /**
-     * Valide pin code of habiliation
+     * Validate PIN code for authorization
      * @param baseLocaleId
      * @param requestBody
      * @returns any

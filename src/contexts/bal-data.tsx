@@ -25,11 +25,9 @@ import {
 import TokenContext from "@/contexts/token";
 import useHabilitation from "@/hooks/habilitation";
 import LayoutContext from "./layout";
-import { PRO_CONNECT_QUERY_PARAM } from "@/lib/api-depot";
 import { CommuneType } from "@/types/commune";
 import { getCommuneWithBBox } from "@/lib/commune";
 import { Pane, Paragraph, Spinner } from "evergreen-ui";
-import { useSearchParams } from "next/navigation";
 
 interface BALDataContextType {
   isEditing: boolean;
@@ -77,7 +75,6 @@ export function BalDataContextProvider({
   initialBaseLocale,
   children,
 }: BalDataContextProviderProps) {
-  const searchParams = useSearchParams();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editingId, _setEditingId] = useState<string>(null);
   const [parcelles, setParcelles] = useState<Array<string>>([]);
@@ -226,9 +223,8 @@ export function BalDataContextProvider({
       await BasesLocalesService.resumeBaseLocale(baseLocale.id);
       await reloadBaseLocale();
     }
-    // SET RESUME BAL IF HABILITATION FRANCE_CONNECT
+    // Resume LAB sync if authorization is accepted and sync was paused
     if (
-      searchParams.get(PRO_CONNECT_QUERY_PARAM) === "1" &&
       habilitation?.status === HabilitationDTO.status.ACCEPTED &&
       baseLocale.sync?.isPaused == true
     ) {
@@ -238,7 +234,6 @@ export function BalDataContextProvider({
     baseLocale.id,
     baseLocale.sync?.isPaused,
     habilitation?.status,
-    searchParams,
     reloadBaseLocale,
   ]);
 

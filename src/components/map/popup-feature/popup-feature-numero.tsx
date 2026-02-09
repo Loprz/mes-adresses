@@ -45,9 +45,9 @@ function PopupFeatureNumero({ feature, commune }: PopupFeatureNumeroProps) {
         {commune.code} - {commune.nom}
       </Text>
       {feature.properties.certifie ? (
-        <Badge color="green">Certifié</Badge>
+        <Badge color="green">Certified</Badge>
       ) : (
-        <Badge color="yellow">Non certifié</Badge>
+        <Badge color="yellow">Non certified</Badge>
       )}
       {getParcelles.length > 0 && (
         <>

@@ -53,8 +53,8 @@ function DemoWarning({
         await reloadBaseLocale();
       } catch (error: unknown) {
         pushToast({
-          title: "Erreur",
-          message: "Impossible de conserver cette Base Adresse Locale",
+          title: "Error",
+          message: "Unable to save this Local Address Base",
           intent: "danger",
         });
       }
@@ -83,17 +83,17 @@ function DemoWarning({
         style={{ verticalAlign: "sub" }}
       />
       <Text fontSize={isMobile ? 10 : 14}>
-        Cette Base Adresse Locale de démonstration sera supprimée d’ici 24
-        heures sans modifications
+        This demonstration Local Address Base will be deleted within 24
+        hours without modifications
       </Text>
 
       <Dialog
         isShown={isShown}
-        title="Sauvegarder mes modifications"
-        cancelLabel="Annuler"
+        title="Save my modifications"
+        cancelLabel="Cancel"
         intent="success"
         isConfirmLoading={isLoading}
-        confirmLabel="Conserver"
+        confirmLabel="Keep"
         hasFooter={false}
         onCloseComplete={() => {
           setIsShown(false);
@@ -111,7 +111,7 @@ function DemoWarning({
             id="nom"
             disabled={isLoading}
             value={nom}
-            label="Nom de la Base Adresse Locale"
+            label="Name of the Local Address Base"
             placeholder={communeName}
             onChange={(e) => {
               setNom(e.target.value as string);
@@ -125,7 +125,7 @@ function DemoWarning({
             id="email"
             disabled={isLoading}
             value={email}
-            label="Votre adresse email"
+            label="Your email address"
             placeholder="nom@example.com"
             onChange={onEmailChange}
           />
@@ -148,7 +148,7 @@ function DemoWarning({
           setIsShown(true);
         }}
       >
-        Je souhaite la conserver
+        I wish to keep it
       </Button>
     </Pane>
   );

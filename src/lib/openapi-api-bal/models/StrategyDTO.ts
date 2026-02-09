@@ -5,7 +5,6 @@
 
 export type StrategyDTO = {
     type: StrategyDTO.type;
-    pinCode: string;
     pinCodeExpiration: string;
     remainingAttempts: number;
     createdAt: string;
@@ -15,11 +14,9 @@ export namespace StrategyDTO {
 
     export enum type {
         EMAIL = 'email',
-        FRANCECONNECT = 'franceconnect',
-        PROCONNECT = 'proconnect',
+        LOGIN_GOV = 'login_gov',
         INTERNAL = 'internal',
     }
 
 
 }
-

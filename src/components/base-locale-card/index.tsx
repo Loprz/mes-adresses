@@ -27,7 +27,7 @@ import styles from "./base-locale-card.module.css";
 import { TabsEnum } from "../sidebar/main-tabs/main-tabs";
 
 const ADRESSE_URL =
-  process.env.NEXT_PUBLIC_ADRESSE_URL || "https://adresse.data.gouv.fr";
+  process.env.NEXT_PUBLIC_ADRESSE_URL || "";
 
 interface BaseLocaleCardProps {
   baseLocale: BaseLocaleWithHabilitationDTO & { token: string };
@@ -148,14 +148,14 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
               textDecoration="underline"
               width="fit-content"
             >
-              Voir la page de {communeNom}
+              View the page for {communeNom}
             </Link>
           )}
         </Pane>
         <Pane display="flex" flexDirection="column">
           <Pane marginTop={5} display="flex">
             <Text display="block" marginRight={5}>
-              Adresses certifiées :
+              Certified addresses:
             </Text>
             <CertificationCount
               nbNumeros={nbNumeros}
@@ -190,7 +190,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           <button
             onClick={onRemove}
             className={`${styles["custom-button"]} ${styles["delete-button"]}`}
-            title="Supprimer la Base Adresse Locale"
+            title="Delete the Local Address Base"
           >
             <Icon icon={TrashIcon} />
           </button>
@@ -199,7 +199,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           <button
             onClick={onRemove}
             className={`${styles["custom-button"]} ${styles["hide-button"]}`}
-            title="Masquer la Base Adresse Locale"
+            title="Hide the Local Address Base"
           >
             <Icon icon={EyeOffIcon} />
           </button>
@@ -212,7 +212,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           title="Access the Local Address Base"
         >
           <Text fontSize={16} fontWeight={300} color="inherit">
-            Gérer les adresses
+            Manage addresses
           </Text>
           <Icon marginLeft={10} icon={ArrowRightIcon} />
         </NextLink>

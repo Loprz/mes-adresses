@@ -2,79 +2,24 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   Pane,
   Heading,
-  Strong,
   Button,
   Alert,
   Text,
-  OrderedList,
-  Link,
   EnvelopeIcon,
-  ListItem,
   SelectField,
   Spinner,
 } from "evergreen-ui";
 
-import TextWrapper from "@/components/text-wrapper";
-import { ApiDepotService } from "@/lib/api-depot";
+import { HabilitationService } from "@/lib/openapi-api-bal";
 
-function isEmail(email) {
+function isEmail(email: string) {
   const regexp =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))$/;
   return regexp.test(String(email).toLowerCase());
 }
 
-function TextValidEmail() {
-  return (
-    <>
-      <Alert
-        title="Ce courriel est incorrect ou obsolète ?"
-        width="100%"
-        marginTop={16}
-        textAlign="left"
-        overflow="auto"
-      >
-        <TextWrapper placeholder="Mettez à jour le courriel">
-          <AnnuaireServicePublic />
-        </TextWrapper>
-      </Alert>
-    </>
-  );
-}
-
-function TextInvalidEmail() {
-  return (
-    <Alert
-      intent="danger"
-      title="Courriel invalide"
-      marginTop={16}
-      textAlign="left"
-    >
-      <TextWrapper placeholder="Mettez à jour le courriel">
-        <AnnuaireServicePublic />
-      </TextWrapper>
-    </Alert>
-  );
-}
-
-function AnnuaireServicePublic() {
-  return (
-    <OrderedList>
-      <ListItem>
-        Rendez vous sur{" "}
-        <Link href="https://lannuaire.service-public.fr/">
-          lannuaire.service-public.fr
-        </Link>
-      </ListItem>
-      <ListItem>Consultez la fiche annuaire de votre commune</ListItem>
-      <ListItem>
-        Cliquez sur le lien «Demander une mise à jour de cette page», visible en
-        bas de page
-      </ListItem>
-    </OrderedList>
-  );
-}
-
 interface CodeEmailProps {
+  baseLocaleId: string;
   codeCommune: string;
   emailSelected: string;
   setEmailSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -82,6 +27,7 @@ interface CodeEmailProps {
 }
 
 function CodeEmail({
+  baseLocaleId,
   codeCommune,
   emailSelected,
   setEmailSelected,
@@ -89,46 +35,92 @@ function CodeEmail({
 }: CodeEmailProps) {
   const [emailsCommune, setEmailsCommune] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchEmailsCommune() {
+    async function fetchRegisteredEmails() {
       setIsLoading(true);
-      const emails = await ApiDepotService.getEmailsCommune(codeCommune);
-      setEmailsCommune(emails);
-      if (emails.length > 0) {
-        setEmailSelected(emails[0]);
+      setError(null);
+      try {
+        const emails =
+          await HabilitationService.getRegisteredEmails(baseLocaleId);
+        setEmailsCommune(emails);
+        if (emails.length > 0) {
+          setEmailSelected(emails[0]);
+        }
+      } catch (err: any) {
+        console.error("Failed to fetch registered emails:", err);
+        setError(
+          "Unable to retrieve registered emails for this jurisdiction. Please try again."
+        );
       }
       setIsLoading(false);
     }
 
-    fetchEmailsCommune();
-  }, [codeCommune, setEmailSelected]);
+    if (baseLocaleId) {
+      fetchRegisteredEmails();
+    }
+  }, [baseLocaleId, codeCommune, setEmailSelected]);
 
   const isValidEmailSelected = useMemo(() => {
-    return isEmail(emailSelected);
+    return emailSelected ? isEmail(emailSelected) : false;
   }, [emailSelected]);
 
   if (isLoading) {
     return (
-      <Pane display="flex" alignItems="center" justifyContent="center" flex={1}>
+      <Pane
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flex={1}
+        padding={32}
+      >
         <Spinner />
       </Pane>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert intent="danger" title="Error loading emails" marginTop={16}>
+        <Text>{error}</Text>
+      </Alert>
     );
   }
 
   return (
     <>
       <Pane display="flex" flexDirection="column" alignItems="center">
-        <Heading is="h5">Via le courriel officiel de la mairie</Heading>
+        <Heading is="h5">Verify via official jurisdiction email</Heading>
+
+        {emailsCommune.length === 0 && (
+          <Alert
+            intent="warning"
+            title="No registered emails found"
+            marginTop={16}
+            width="100%"
+          >
+            <Text>
+              No official email addresses are registered for this jurisdiction
+              yet. Please contact{" "}
+              <a href="mailto:support@nationaladdressplatform.us">
+                support@nationaladdressplatform.us
+              </a>{" "}
+              to get your jurisdiction set up.
+            </Text>
+          </Alert>
+        )}
 
         {emailsCommune.length === 1 && (
           <Text height={40} verticalAlign="middle" paddingTop={8}>
-            <Strong whiteSpace="nowrap">{emailSelected}</Strong>
+            A verification code will be sent to:{" "}
+            <strong>{emailSelected}</strong>
           </Text>
         )}
         {emailsCommune.length > 1 && (
           <SelectField
-            marginTop={0}
+            label="Select the email address to receive the verification code"
+            marginTop={8}
             marginBottom={0}
             value={emailSelected}
             onChange={({ target }) => {
@@ -148,18 +140,18 @@ function CodeEmail({
         flexDirection="column"
         alignItems="center"
         marginTop={16}
-        marginBottom={32}
+        marginBottom={16}
       >
         <Button
           disabled={!emailSelected || !isValidEmailSelected}
           cursor={emailSelected ? "pointer" : "not-allowed"}
           appearance="primary"
           onClick={handleStrategy}
-          width={214}
+          width={260}
           height={56}
-          borderRadius={0}
+          borderRadius={4}
           lineHeight="18px"
-          iconBefore={<EnvelopeIcon size={40} />}
+          iconBefore={<EnvelopeIcon size={24} />}
         >
           <Text
             whiteSpace="pre-line"
@@ -167,12 +159,28 @@ function CodeEmail({
             fontSize={16}
             textAlign="left"
           >
-            Recevoir un code d&apos;habilitation
+            Send verification code
           </Text>
         </Button>
       </Pane>
 
-      {isValidEmailSelected ? <TextValidEmail /> : <TextInvalidEmail />}
+      {emailsCommune.length > 0 && (
+        <Alert
+          title="Is this email incorrect or outdated?"
+          width="100%"
+          marginTop={16}
+          textAlign="left"
+          overflow="auto"
+        >
+          <Text>
+            Contact{" "}
+            <a href="mailto:support@nationaladdressplatform.us">
+              support@nationaladdressplatform.us
+            </a>{" "}
+            to update the registered email for your jurisdiction.
+          </Text>
+        </Alert>
+      )}
     </>
   );
 }

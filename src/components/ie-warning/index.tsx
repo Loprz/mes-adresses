@@ -4,11 +4,11 @@ function IEWarning() {
   return (
     <div className={styles["ie-warning"]}>
       <p>
-        Votre navigateur <b>Internet Explorer</b> n‘est plus supporté par notre
+        Your browser <b>Internet Explorer</b> is no longer supported by our
         service.
       </p>
       <p>
-        <b>Nous vous recommandons d‘utiliser un autre navigateur</b>
+        <b>We recommend using a different browser</b>
       </p>
     </div>
   );

@@ -57,7 +57,7 @@ function FondDeCarteField({
         appearance="minimal"
       />
       <TextInputField
-        label="Nom"
+        label="Name"
         title="Map background name"
         value={initialValue.name}
         onChange={(e) => onChange("name", e.target.value)}
@@ -81,7 +81,7 @@ function FondDeCarteField({
         onChange={(e) => onChange("url", e.target.value)}
         marginBottom={8}
         marginTop={8}
-        placeholder="https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&FORMAT=image/jpeg&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
+        placeholder="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         validationMessage={
           errors?.["url"] == false && "The map background URL is invalid"
         }

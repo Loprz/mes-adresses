@@ -22,8 +22,8 @@ function PublishedBALMesAdresses({
         A Local Address Base is already published for {commune.nom}.
       </Paragraph>
       <Paragraph marginTop={8}>
-        Si vous en êtes l&apos;administrateur, nous vous recommandons de
-        poursuivre l’adressage depuis cette dernière.
+        If you are the administrator, we recommend
+        continuing the addressing from the existing one.
       </Paragraph>
       <Pane
         display="flex"

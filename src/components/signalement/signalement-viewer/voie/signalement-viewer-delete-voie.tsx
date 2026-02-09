@@ -18,7 +18,7 @@ function SignalementViewerDeleteVoie({
       signalementType={Signalement.type.LOCATION_TO_DELETE}
       title={
         <>
-          Demande de suppression de voie{" "}
+          Street deletion request{" "}
           {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
           {status === Signalement.status.PROCESSED ? (
             <TickCircleIcon size={20} color="success" marginLeft={10} />

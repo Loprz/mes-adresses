@@ -45,7 +45,7 @@ function Toponymes() {
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Sélectionnez l‘onglet{" "}
+            Select the tab{" "}
             <Tab>
               <Heading size={300}>Place Name List</Heading>
             </Tab>
@@ -56,7 +56,7 @@ function Toponymes() {
               appearance="primary"
               intent="success"
             >
-              Ajouter un toponyme
+              Add a place name
             </Button>
           </ListItem>
           <ListItem>
@@ -85,7 +85,7 @@ function Toponymes() {
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton
+            Click on the button
             <Button
               iconBefore={AddIcon}
               marginX={4}
@@ -104,7 +104,7 @@ function Toponymes() {
             assigned to the place name if no number is selected.
           </ListItem>
           <ListItem>
-            Pour terminer, cliquez sur le bouton{" "}
+            To finish, click on the button{" "}
             <Button marginX={4} appearance="primary" intent="success">
               Enregistrer
             </Button>
@@ -135,7 +135,7 @@ function Toponymes() {
             <TrashIcon marginX={6} color="danger" verticalAlign="middle" />
           </ListItem>
           <ListItem>
-            Pour terminer, cliquez sur{" "}
+            To finish, click on{" "}
             <Button marginX={4} appearance="primary" intent="success">
               Enregistrer
             </Button>
@@ -147,7 +147,7 @@ function Toponymes() {
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton{" "}
+            Click on the button{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
@@ -182,7 +182,7 @@ function Toponymes() {
 
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton{" "}
+            Click on the button{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
@@ -192,7 +192,7 @@ function Toponymes() {
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Dans le menu qui vient d’apparaître, choisissez
+              In the menu that just appeared, choose
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
                 Edit
               </Menu.Item>

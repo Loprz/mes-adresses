@@ -34,8 +34,8 @@ function SearchCommuneStep({
         innerRef={setRef}
         id="commune"
         initialSelectedItem={commune}
-        label="Search for a jurisdiction"
-        placeholder="Springfield 62"
+        label="Search for a city, town, or county"
+        placeholder="Fresno County CA"
         appearance="default"
         maxWidth={500}
         onSelect={setCommune}

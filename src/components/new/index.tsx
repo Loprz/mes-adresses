@@ -132,9 +132,9 @@ export default function NewPageComponent({
       }
     } catch (err) {
       pushToast({
-        title: "Erreur",
+        title: "Error",
         message:
-          "Une erreur est survenue lors de l'importation des données dans la Base Adresse Locale",
+          "An error occurred while importing data into the Local Address Base",
         intent: "danger",
       });
       setIsLoading(false);

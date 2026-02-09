@@ -16,7 +16,7 @@ import {
 import HelpContext from "@/contexts/help";
 
 import HelpTabs, { TABS } from "@/components/help/help-tabs";
-import LayortContext from "@/contexts/layout";
+import LayoutContext from "@/contexts/layout";
 
 function Help() {
   const { isMobile } = useContext(LayoutContext);
@@ -67,7 +67,7 @@ function Help() {
         <Paragraph>ou</Paragraph>
         <Paragraph>
           Contact us at{" "}
-          <a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>
+          <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>
         </Paragraph>
       </Pane>
       {isMobile && (

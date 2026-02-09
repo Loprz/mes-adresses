@@ -37,13 +37,13 @@ function GeolocationControl({ map }: GeolocationControlProps) {
       },
       (err) => {
         pushToast({
-          title: "Erreur",
+          title: "Error",
           message:
-            "Nous n'arrivons pas à vous géolocaliser. Vérifiez les paramètres de votre navigateur.",
+            "We cannot'geolocate you. Check your browser settings.",
           intent: "danger",
         });
         console.error(
-          `Erreur de géolocalisation (${err.code}): ${err.message}`
+          `Geolocation error (${err.code}): ${err.message}`
         );
       },
       { timeout: 10000, enableHighAccuracy: false }

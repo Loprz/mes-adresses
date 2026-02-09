@@ -28,7 +28,7 @@ function Breadcrumbs({
       {...props}
     >
       <Link is={NextLink} href="/">
-        Accueil
+        Home
       </Link>
       <Text color="muted">{" > "}</Text>
 

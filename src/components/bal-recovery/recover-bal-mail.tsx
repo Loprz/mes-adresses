@@ -67,7 +67,7 @@ function RecoverBALMail({
         title: "An email has already been sent, please wait.",
         intent: "warning",
       });
-      throw new Error("Un email a déjà été envoyé, merci de patienter.");
+      throw new Error("An email has already been sent, please wait.");
     }
 
     try {
@@ -105,17 +105,17 @@ function RecoverBALMail({
           <EnvelopeIcon size={66} color="gray800" />
         </Pane>
         <Heading is="h2" marginBottom={8}>
-          Avec votre adresse de courrier électronique
+          With your email address
         </Heading>
         <Paragraph marginBottom={20}>
-          Un courrier électronique va être envoyé à l’adresse que vous avez
-          renseignée.
+          An email will be sent to the address you
+          provided.
         </Paragraph>
         <TextInput
           display="block"
           type="email"
           width="100%"
-          placeholder="adresse@courriel.fr"
+          placeholder="address@email.com"
           maxWidth={400}
           value={email}
           onChange={onEmailChange}
@@ -129,8 +129,8 @@ function RecoverBALMail({
         <Alert marginTop={24} marginBottom={8} intent="info" hasIcon={false}>
           <Paragraph color="blue600">
             {baseLocaleId
-              ? "Vous y retrouverez un lien d’administration de votre Base Adresse Locale. Il vous suffira alors de cliquer sur le lien afin de pouvoir la retrouver sur votre espace."
-              : "Vous y retrouverez la liste de toutes les Bases Adresses Locales associées à celle-ci. Il vous suffira alors de cliquer sur les liens qui y sont associés afin de pouvoir les retrouver sur votre espace."}
+              ? "You will find an administration link for your Local Address Base. Simply click the link to access it in your workspace."
+              : "You will find a list of all Local Address Bases associated with it. Simply click the associated links to access them in your workspace."}
           </Paragraph>
         </Alert>
       </Pane>
@@ -141,7 +141,7 @@ function RecoverBALMail({
         disabled={!validateEmail(email) || isLoading}
         alignSelf="flex-end"
       >
-        {isLoading ? "Chargement..." : "Recevoir le courriel"}
+        {isLoading ? "Loading..." : "Receive the email"}
       </Button>
     </Pane>
   );

@@ -50,7 +50,7 @@ function Voies() {
               appearance="primary"
               intent="success"
             >
-              Add une voie
+              Add a street
             </Button>
           </ListItem>
           <ListItem>
@@ -60,9 +60,9 @@ function Voies() {
             </Strong>
           </ListItem>
           <ListItem>
-            Pour terminer, cliquez sur le bouton{" "}
+            To finish, click on the button{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Ajouter
+              Add
             </Button>
           </ListItem>
         </OrderedList>
@@ -75,7 +75,7 @@ function Voies() {
           <ListItem>Click on the street name</ListItem>
           <ListItem>Edit the street name</ListItem>
           <ListItem>
-            Pour terminer, cliquez sur{" "}
+            To finish, click on{" "}
             <Button marginX={4} appearance="primary" intent="success">
               Save
             </Button>
@@ -89,7 +89,7 @@ function Voies() {
         <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Cliquez sur le bouton{" "}
+              Click on the button{" "}
               <Button
                 background="tint1"
                 iconBefore={MoreIcon}
@@ -126,17 +126,17 @@ function Voies() {
 
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton{" "}
+            Click on the button{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            se situant à droite du nom de la voie
+            located to the right of the street name
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Dans le menu qui vient d’apparaître, choisissez
+              In the menu that just appeared, choose
               <Menu.Item
                 background="tint1"
                 marginLeft={8}
@@ -164,22 +164,22 @@ function Voies() {
         </Paragraph>
         <OrderedList margin={8}>
           <ListItem>
-            Cliquez sur le bouton
+            Click on the button
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />
-            se situant à droite du nom de la voie
+            located to the right of the street name
           </ListItem>
           <ListItem>
-            Dans le menu qui vient d’apparaître, choisissez
+            In the menu that just appeared, choose
             <Button iconBefore={KeyTabIcon} marginX={4}>
               Convert to place name
             </Button>
           </ListItem>
           <ListItem>
-            Pour terminer, confirmez votre choix en cliquant sur
+            To finish, confirm your choice by clicking on
             <Button marginX={4} appearance="primary">
               Confirm
             </Button>

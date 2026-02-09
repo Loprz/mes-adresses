@@ -5,25 +5,25 @@ import {
   ExistingLocation,
   NumeroChangesRequestedDTO,
   Signalement,
-} from "@/lib/openapi-signalement";
+} from "@/lib/openapi-report";
 import { ExtendedVoieDTO, Numero, Toponyme, Voie } from "@/lib/openapi-api-bal";
 import Form from "../../form";
-import SignalementCreateNumero from "./numero/signalement-create-numero";
-import SignalementUpdateNumero from "./numero/signalement-update-numero";
-import SignalementUpdateVoie from "./voie/signalement-update-voie";
-import SignalementUpdateToponyme from "./toponyme/signalement-update-toponyme";
-import SignalementDeleteNumero from "./numero/signalement-delete-numero";
+import SignalementCreateNumero from "./numero/report-create-numero";
+import SignalementUpdateNumero from "./numero/report-update-numero";
+import SignalementUpdateVoie from "./voie/report-update-voie";
+import SignalementUpdateToponyme from "./toponyme/report-update-toponyme";
+import SignalementDeleteNumero from "./numero/report-delete-numero";
 import MapContext from "@/contexts/map";
-import { SignalementHeader } from "../signalement-header";
-import SignalementContext from "@/contexts/signalement";
+import { SignalementHeader } from "../report-header";
+import SignalementContext from "@/contexts/report";
 import { Paragraph } from "evergreen-ui";
-import SignalementCreateToponyme from "./toponyme/signalement-create-toponyme";
-import { isToponymeChangesRequested } from "@/lib/utils/signalement";
-import SignalementDeleteToponyme from "./toponyme/signalement-delete-toponyme";
-import SignalementDeleteVoie from "./voie/signalement-delete-voie";
+import SignalementCreateToponyme from "./toponyme/report-create-toponyme";
+import { isToponymeChangesRequested } from "@/lib/utils/report";
+import SignalementDeleteToponyme from "./toponyme/report-delete-toponyme";
+import SignalementDeleteVoie from "./voie/report-delete-voie";
 
 interface SignalementFormProps {
-  signalement: Signalement;
+  report: Signalement;
   author?: Signalement["author"];
   existingLocation: Voie | Toponyme | Numero | null;
   requestedLocations: { toponyme?: Toponyme; voie?: Voie };
@@ -32,7 +32,7 @@ interface SignalementFormProps {
 }
 
 function SignalementForm({
-  signalement,
+  report,
   author,
   existingLocation,
   requestedLocations,
@@ -43,7 +43,7 @@ function SignalementForm({
   const { map } = useContext(MapContext);
   const { pendingSignalementsCount } = useContext(SignalementContext);
 
-  // Point the map to the location of the signalement
+  // Point the map to the location of the report
   useEffect(() => {
     if (!map) {
       return;
@@ -52,11 +52,11 @@ function SignalementForm({
     let pointTo = null;
 
     if (
-      (signalement.changesRequested as NumeroChangesRequestedDTO).positions
+      (report.changesRequested as NumeroChangesRequestedDTO).positions
         ?.length > 0
     ) {
       const position = (
-        signalement.changesRequested as NumeroChangesRequestedDTO
+        report.changesRequested as NumeroChangesRequestedDTO
       ).positions[0];
       pointTo = {
         latitude: position.point.coordinates[1],
@@ -80,14 +80,14 @@ function SignalementForm({
         center: [pointTo.longitude, pointTo.latitude],
         offset: [0, 0],
         zoom:
-          signalement.type === Signalement.type.LOCATION_TO_CREATE ||
-          signalement.existingLocation.type === ExistingLocation.type.NUMERO
+          report.type === Signalement.type.LOCATION_TO_CREATE ||
+          report.existingLocation.type === ExistingLocation.type.NUMERO
             ? 20
             : 16.5,
         screenSpeed: 2,
       });
     }
-  }, [existingLocation, signalement, map]);
+  }, [existingLocation, report, map]);
 
   const handleSubmit = async (status: Signalement.status, reason?: string) => {
     try {
@@ -118,12 +118,12 @@ function SignalementForm({
         return Promise.resolve();
       }}
     >
-      <SignalementHeader signalement={signalement} author={author} />
+      <SignalementHeader report={report} author={author} />
 
-      {signalement.type === Signalement.type.LOCATION_TO_CREATE &&
-        (isToponymeChangesRequested(signalement.changesRequested) ? (
+      {report.type === Signalement.type.LOCATION_TO_CREATE &&
+        (isToponymeChangesRequested(report.changesRequested) ? (
           <SignalementCreateToponyme
-            signalement={signalement}
+            report={report}
             author={author}
             handleAccept={handleAccept}
             handleReject={handleReject}
@@ -132,7 +132,7 @@ function SignalementForm({
           />
         ) : (
           <SignalementCreateNumero
-            signalement={signalement}
+            report={report}
             author={author}
             handleClose={onClose}
             handleAccept={handleAccept}
@@ -143,10 +143,10 @@ function SignalementForm({
           />
         ))}
 
-      {signalement.type === Signalement.type.LOCATION_TO_UPDATE &&
-        (signalement.existingLocation.type === ExistingLocation.type.NUMERO ? (
+      {report.type === Signalement.type.LOCATION_TO_UPDATE &&
+        (report.existingLocation.type === ExistingLocation.type.NUMERO ? (
           <SignalementUpdateNumero
-            signalement={signalement}
+            report={report}
             author={author}
             existingLocation={existingLocation as Numero}
             handleAccept={handleAccept}
@@ -156,9 +156,9 @@ function SignalementForm({
             requestedToponyme={requestedLocations.toponyme}
             requestedVoie={requestedLocations.voie}
           />
-        ) : signalement.existingLocation.type === ExistingLocation.type.VOIE ? (
+        ) : report.existingLocation.type === ExistingLocation.type.VOIE ? (
           <SignalementUpdateVoie
-            signalement={signalement}
+            report={report}
             author={author}
             existingLocation={existingLocation as Voie}
             handleAccept={handleAccept}
@@ -168,7 +168,7 @@ function SignalementForm({
           />
         ) : (
           <SignalementUpdateToponyme
-            signalement={signalement}
+            report={report}
             author={author}
             existingLocation={existingLocation as Toponyme}
             handleAccept={handleAccept}
@@ -178,8 +178,8 @@ function SignalementForm({
           />
         ))}
 
-      {signalement.type === Signalement.type.LOCATION_TO_DELETE &&
-        (signalement.existingLocation.type ===
+      {report.type === Signalement.type.LOCATION_TO_DELETE &&
+        (report.existingLocation.type ===
         ExistingLocation.type.TOPONYME ? (
           <SignalementDeleteToponyme
             author={author}
@@ -189,7 +189,7 @@ function SignalementForm({
             handleReject={handleReject}
             isLoading={isLoading}
           />
-        ) : signalement.existingLocation.type === ExistingLocation.type.VOIE ? (
+        ) : report.existingLocation.type === ExistingLocation.type.VOIE ? (
           <SignalementDeleteVoie
             author={author}
             existingLocation={existingLocation as ExtendedVoieDTO}
@@ -209,8 +209,8 @@ function SignalementForm({
           />
         ))}
       <Paragraph textAlign="center">
-        Il reste {pendingSignalementsCount} signalement
-        {pendingSignalementsCount === 1 ? "" : "s"} à traiter
+        Il reste {pendingSignalementsCount} report
+        {pendingSignalementsCount === 1 ? "" : "s"} remaining to process
       </Paragraph>
     </Form>
   );

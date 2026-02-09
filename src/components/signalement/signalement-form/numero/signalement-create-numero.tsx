@@ -116,7 +116,7 @@ function SignalementCreateNumero({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Erreur lors de l'acceptation du signalement.",
+        title: "Error while accepting'the report.",
         intent: "danger",
       });
     }
@@ -148,7 +148,7 @@ function SignalementCreateNumero({
       {!existingVoie && similarVoies.length === 0 && (
         <Alert flexShrink={0}>
           <Text>
-            La nouvelle voie <b>{nomVoie}</b> will be created by accepting this
+            The new street <b>{nomVoie}</b> will be created by accepting this
             signalement.
           </Text>
         </Alert>
@@ -161,8 +161,8 @@ function SignalementCreateNumero({
           intent="warning"
         >
           <Paragraph>
-            La Base Adresse Locale comporte{" "}
-            {similarVoies.length === 1 ? `une voie` : `plusieurs voies`} dont le
+            The Local Address Base contains{" "}
+            {similarVoies.length === 1 ? `a street` : `several streets`} dont le
             nom est similaire :
           </Paragraph>
 
@@ -179,7 +179,7 @@ function SignalementCreateNumero({
                 onClick={() => setExistingVoie(voie)}
                 marginLeft={20}
               >
-                Ajouter l&apos;adresse sur cette voie
+                Add the&apos;address to this street
               </Button>
             </Pane>
           ))}
@@ -188,13 +188,13 @@ function SignalementCreateNumero({
 
       {!isLoading && numeroAlreadyExists && (
         <Alert
-          title="Accepter ce signalement pourrait créer un doublon"
+          title="Accepting this report may create a duplicate"
           flexShrink={0}
           intent="warning"
         >
           <Paragraph>
-            La voie <b>{existingVoie.nom}</b> comporte déjà une adresse au
-            numéro <b>{computeCompletNumero(numero, suffixe)}</b>.
+            The street <b>{existingVoie.nom}</b> already has an address at
+            number <b>{computeCompletNumero(numero, suffixe)}</b>.
           </Paragraph>
         </Alert>
       )}

@@ -14,19 +14,16 @@ function AuthenticationRejectedStep({
 }: AuthenticationRejectedStepProps) {
   return (
     <Pane display="flex" flexDirection="column" gap={16}>
-      <Alert intent="danger" title="Votre demande d’habilitation a été rejetée">
+      <Alert intent="danger" title="Your authorization request has been rejected">
         <Text>
           {strategyType === StrategyDTO.type.EMAIL &&
-            "Vous avez dépassé le nombre maximum de tentatives autorisé."}
-
-          {strategyType === StrategyDTO.type.FRANCECONNECT &&
-            `Vous n’avez pas été identifié comme un élu de la commune de ${communeName}.`}
+            "You have exceeded the maximum number of allowed attempts."}
         </Text>
       </Alert>
 
       <Pane display="flex" flexDirection="row" justifyContent="end" gap={16}>
         <Button intent="primary" onClick={handleClose}>
-          Fermer
+          Close
         </Button>
       </Pane>
     </Pane>

@@ -23,7 +23,7 @@ function RulerControl({ disabled }: RulerControlProps) {
       onClick={() => {
         setDrawMode(null);
       }}
-      title="Fermer l’outil de mesure"
+      title="Close measurement tool"
     />
   ) : (
     <IconButton
@@ -46,7 +46,7 @@ function RulerControl({ disabled }: RulerControlProps) {
           style={{ opacity: disabled ? 0.4 : 1 }}
         />
       }
-      title="Mesurer une distance"
+      title="Measure a distance"
     />
   );
 }

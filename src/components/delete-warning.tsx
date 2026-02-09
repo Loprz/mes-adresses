@@ -21,8 +21,8 @@ function DeleteWarning({
         isShown={isShown}
         title="Attention"
         intent="danger"
-        cancelLabel="Annuler"
-        confirmLabel="Supprimer"
+        cancelLabel="Cancel"
+        confirmLabel="Delete"
         onCloseComplete={onCancel}
         onCancel={onCancel}
         onConfirm={onConfirm}

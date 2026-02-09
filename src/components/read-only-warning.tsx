@@ -26,8 +26,8 @@ function ReadonlyWarning() {
         style={{ verticalAlign: "sub" }}
       />
       <Text fontSize={isMobile ? 10 : 14}>
-        Vous êtes en mode consultation, vous ne pouvez pas modifier cette Base
-        Adresse Locale
+        You are in read-only mode and cannot modify this Local Address
+        Base
       </Text>
       <Button
         height={24}
@@ -37,7 +37,7 @@ function ReadonlyWarning() {
           setIsRecoveryDisplayed(true);
         }}
       >
-        Récupérer mes accès
+        Recover my access
       </Button>
     </Pane>
   );

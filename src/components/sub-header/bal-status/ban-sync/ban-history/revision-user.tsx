@@ -19,21 +19,15 @@ function RevisionUser({
   let userName = context.nomComplet || context.organisation;
   if (!userName) {
     if (
-      [StrategyDTO.type.EMAIL, StrategyDTO.type.PROCONNECT].includes(
-        habilitation?.strategy?.type
-      )
+      habilitation?.strategy?.type === StrategyDTO.type.EMAIL
     ) {
-      userName = `city hall of ${communeName}`;
-    }
-
-    if (habilitation?.strategy?.type === StrategyDTO.type.FRANCECONNECT) {
-      userName = `elected official of ${communeName}`;
+      userName = `jurisdiction of ${communeName}`;
     }
   }
 
   return (
     <Pane display="flex" gap={4}>
-      <Text>Par</Text>
+      <Text>By</Text>
       {userName ? (
         <Strong>{userName}</Strong>
       ) : (

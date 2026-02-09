@@ -9,24 +9,25 @@ function PublishBalRejectedStep({ handleClose }: PublishBalRejectedStepProps) {
     <Pane display="flex" flexDirection="column" gap={16}>
       <Alert
         intent="danger"
-        title="Votre Base Adresse Locale n'a pas pu être publiée"
+        title="Your Local Address Base could not be published"
         marginTop={16}
         width="100%"
       >
         <Text is="div" color="muted" marginTop={8}>
-          Nous vous recommandons{" "}
+          We recommend{" "}
           <Strong>
-            d’entrer en contact avec les administrateurs de l’autre Base
-            Adresses Locale
+            contacting the administrators of the other Local Address Base
           </Strong>{" "}
-          ou notre support:{" "}
-          <Link href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</Link>
+          or our support team:{" "}
+          <Link href="mailto:support@nationaladdressplatform.us">
+            support@nationaladdressplatform.us
+          </Link>
         </Text>
       </Alert>
 
       <Pane display="flex" flexDirection="row" justifyContent="end" gap={16}>
         <Button intent="primary" onClick={handleClose}>
-          Fermer
+          Close
         </Button>
       </Pane>
     </Pane>

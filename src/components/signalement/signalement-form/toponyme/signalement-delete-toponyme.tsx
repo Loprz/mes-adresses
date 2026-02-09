@@ -39,7 +39,7 @@ function SignalementDeleteToponyme({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Erreur lors de l'acceptation du signalement.",
+        title: "Error while accepting the report.",
         intent: "danger",
       });
     }
@@ -50,7 +50,7 @@ function SignalementDeleteToponyme({
       <SignalementToponymeDiffCard
         isActive
         signalementType={Signalement.type.LOCATION_TO_DELETE}
-        title="Demande de suppression d'un toponyme"
+        title="Place name deletion request"
         nom={{
           to: nom,
         }}
@@ -63,8 +63,8 @@ function SignalementDeleteToponyme({
       />
       <Alert flexShrink={0}>
         <Text>
-          En acceptant ce signalement, le toponyme {nom} sera placé dans la
-          corbeille
+          By accepting this report, the place name {nom} will be moved to the
+          trash
         </Text>
       </Alert>
       <SignalementFormButtons

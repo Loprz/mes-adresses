@@ -198,7 +198,7 @@ export default function ToponymeNumerosPage() {
             alignItems="center"
             minHeight={64}
           >
-            <Heading>Liste des numéros</Heading>
+            <Heading>List of numbers</Heading>
             <Pane marginLeft="auto">
               <Button
                 iconBefore={token ? AddIcon : LockIcon}
@@ -220,7 +220,7 @@ export default function ToponymeNumerosPage() {
         )}
 
         {error && (
-          <Alert marginY={5} intent="danger" title="Erreur">
+          <Alert marginY={5} intent="danger" title="Error">
             {error}
           </Alert>
         )}

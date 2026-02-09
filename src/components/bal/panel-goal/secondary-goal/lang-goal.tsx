@@ -70,17 +70,17 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
               <Pane display="flex" alignItems="center" gap={16}>
                 <AchievementBadge
                   icone="/static/images/achievements/regional-language.svg"
-                  title="Logo Langue Régionale"
+                  title="Regional Language Badge"
                   completed={isCompleted}
                 />
                 <Heading color={isCompleted && defaultTheme.colors.green700}>
-                  Langue Régionale
+                  Regional Language
                 </Heading>
               </Pane>
               {!hasLangRegional && (
                 <IconButton
                   icon={TrashIcon}
-                  title="Supprimer objectif"
+                  title="Remove goal"
                   appearance="minimal"
                   intent="danger"
                   onClick={onIgnoreGoal}
@@ -90,9 +90,9 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
             {hasLangRegional ? (
               <Pane display="flex" justifyContent="center">
                 <Counter
-                  label={`voie${nbWithLang > 1 ? "s" : ""}, place${
+                  label={`street${nbWithLang > 1 ? "s" : ""}, place${
                     nbWithLang > 1 ? "s" : ""
-                  } ou lieux-dit${nbWithLang > 1 ? "s" : ""} multilingue${
+                  } or place name${nbWithLang > 1 ? "s" : ""} multilingual${
                     nbWithLang > 1 ? "s" : ""
                   }`}
                   value={nbWithLang}
@@ -102,18 +102,18 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
             ) : (
               <Pane marginTop={16}>
                 <Paragraph>
-                  Pour un adressage multilingue, commencez par renseigner le nom
-                  de la commune en langue régionale
+                  For multilingual addressing, start by entering the name
+                  of the jurisdiction in the regional language
                 </Paragraph>
                 <Button
                   marginTop={16}
-                  title="Modifiez langue régionale a la commune"
+                  title="Edit the jurisdiction regional language name"
                   appearance="primary"
                   intent="success"
                   width="100%"
                   onClick={onEditNomsAlt}
                 >
-                  Modifiez le nom de la commune <EditIcon marginLeft={8} />
+                  Edit the jurisdiction name <EditIcon marginLeft={8} />
                 </Button>
               </Pane>
             )}
@@ -129,8 +129,8 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
         {hasLangRegional && (
           <Pane padding={8}>
             <Paragraph marginBottom={8}>
-              Mettez en valeur votre patrimoine linguistique en renseignant vos
-              libellés de voies, places et lieux-dits
+              Showcase your linguistic heritage by entering your
+              street, place, and place name labels
               {langueRegional && ` en ${langueRegional}`}
             </Paragraph>
           </Pane>

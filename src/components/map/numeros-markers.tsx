@@ -84,8 +84,8 @@ function NumerosMarkers({
     async (numeroId: string) => {
       const softDeleteNumero = toaster(
         () => NumerosService.softDeleteNumero(numeroId),
-        "Le numéro a bien été archivé",
-        "Le numéro n’a pas pu être archivé"
+        "The number has been successfully archived",
+        "The number could n’ot be archived"
       );
 
       await softDeleteNumero();

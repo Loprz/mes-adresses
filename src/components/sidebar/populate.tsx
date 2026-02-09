@@ -26,8 +26,8 @@ function PopulateSideBar({ baseLocale }: PopulateSideBarProps) {
   return (
     <Pane borderTop marginTop="auto" padding={16}>
       <Paragraph size={300} color="muted">
-        Vous souhaitez importer les voies de la commune de{" "}
-        {baseLocale.communeNom} depuis la Base Adresse Nationale ?
+        Do you want to import the streets of the jurisdiction{" "}
+        {baseLocale.communeNom} from the National Address Platform?
       </Paragraph>
       <Button
         marginTop={10}

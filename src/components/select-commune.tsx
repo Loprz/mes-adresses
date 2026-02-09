@@ -26,7 +26,7 @@ function SelectCommune({
         onChange={(event) => setSelectedCodeCommune(event.target.value)}
         marginBottom={0}
       >
-        {withOptionNull && <option key="null" value={null}></option>}
+        {withOptionNull && <option key="null" value=""></option>}
         {communes.map(({ code, nom }) => (
           <option key={code} value={code}>
             {nom} ({code})

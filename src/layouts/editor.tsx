@@ -53,7 +53,7 @@ function Editor({ children }: EditorProps) {
             <BalDataContext.Consumer>
               {({ habilitationIsLoading }) =>
                 (tokenIsChecking || habilitationIsLoading) && (
-                  <Overlay text="Chargement de la Base Adresse Locale" />
+                  <Overlay text="Loading the Local Address Base" />
                 )
               }
             </BalDataContext.Consumer>

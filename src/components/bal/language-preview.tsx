@@ -10,7 +10,7 @@ import {
 
 import languesRegionales from "@ban-team/shared-data/langues-regionales.json";
 
-import availableFlags from "../../../available-flags.json";
+import availableFlags from "@/available-flags.json";
 
 interface LanguagePreviewProps {
   nomsAlt: Record<string, string>;
@@ -65,7 +65,7 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
                     width={22}
                     alt={
                       foundLangueRegionale
-                        ? `Nom de la voie en ${foundLangueRegionale.label}`
+                        ? `Street name in ${foundLangueRegionale.label}`
                         : "Regional language name not supported"
                     }
                   />
@@ -79,7 +79,7 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
       >
         <HelpIcon size={16} />
       </Tooltip>
-      Alternatives régionales
+      Regional alternatives
     </Pane>
   ) : (
     <Pane
@@ -99,7 +99,7 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
         width={18}
         alt={
           foundLangueRegionale
-            ? `Nom de la voie en ${foundLangueRegionale.label}`
+            ? `Street name in ${foundLangueRegionale.label}`
             : "The regional language name could not be detected"
         }
       />

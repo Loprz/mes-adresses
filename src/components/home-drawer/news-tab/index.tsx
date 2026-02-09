@@ -43,7 +43,7 @@ function NewsTab({ news, updateLastNewsSeen }: NewsTabProps) {
           flex={1}
           padding={10}
         >
-          <Text>Pas de d&apos;actualité</Text>
+          <Text>No news available</Text>
         </Pane>
       )}
       {news.length > 0 &&

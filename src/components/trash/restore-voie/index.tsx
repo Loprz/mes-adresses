@@ -62,7 +62,7 @@ function RestoreVoie({ voie, onRestoreVoie, onClose }: RestoreVoieProps) {
             onClick={() => onClose()}
             marginLeft={10}
           >
-            Annuler
+            Cancel
           </Button>
         </Pane>
       </Pane>

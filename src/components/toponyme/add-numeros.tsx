@@ -43,11 +43,11 @@ function AddNumeros({ onSubmit, onCancel, isLoading }: AddNumerosProps) {
             intent="success"
             disabled={numerosIds.length <= 0}
           >
-            {isLoading ? "Enregistrement…" : "Enregistrer"}
+            {isLoading ? "Saving…" : "Save"}
           </Button>
 
           <Button disabled={isLoading} marginLeft={8} onClick={onCancel}>
-            Annuler
+            Cancel
           </Button>
         </Pane>
       </Form>

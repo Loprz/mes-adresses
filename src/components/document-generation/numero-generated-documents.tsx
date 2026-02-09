@@ -50,20 +50,20 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
         } as Parameters<typeof setDocumentGenerationData>[0])
       }
     >
-      Arrêté de numérotation
+      Arrêté de numbering
     </Menu.Item>
   );
 
   if (!numero.certifie || numero.parcelles.length === 0) {
     generateCertificatAdressageItem = (
-      <Tooltip content="Le certificat d'adressage ne peut être généré que pour un numéro certifié et lié à au moins une parcelle">
+      <Tooltip content="The addressing certificate can only be generated for a certified number linked to at least one parcel">
         {generateCertificatAdressageItem}
       </Tooltip>
     );
   }
   if (!numero.certifie) {
     generateArreteDeNumerotationItem = (
-      <Tooltip content="L'arrêté de numérotation ne peut être généré que pour un numéro certifié">
+      <Tooltip content="The numbering certificate can only be generated for a certified number">
         {generateArreteDeNumerotationItem}
       </Tooltip>
     );
@@ -72,7 +72,7 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
   return (
     <>
       <Menu.Divider />
-      <Menu.Group title="Générer un modèle">
+      <Menu.Group title="Generate a template">
         {generateCertificatAdressageItem}
         {generateArreteDeNumerotationItem}
       </Menu.Group>
