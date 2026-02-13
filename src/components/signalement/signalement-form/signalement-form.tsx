@@ -123,7 +123,7 @@ function SignalementForm({
       {report.type === Signalement.type.LOCATION_TO_CREATE &&
         (isToponymeChangesRequested(report.changesRequested) ? (
           <SignalementCreateToponyme
-            report={report}
+            signalement={report}
             author={author}
             handleAccept={handleAccept}
             handleReject={handleReject}
@@ -132,7 +132,7 @@ function SignalementForm({
           />
         ) : (
           <SignalementCreateNumero
-            report={report}
+            signalement={report}
             author={author}
             handleClose={onClose}
             handleAccept={handleAccept}
@@ -146,7 +146,7 @@ function SignalementForm({
       {report.type === Signalement.type.LOCATION_TO_UPDATE &&
         (report.existingLocation.type === ExistingLocation.type.NUMERO ? (
           <SignalementUpdateNumero
-            report={report}
+            signalement={report}
             author={author}
             existingLocation={existingLocation as Numero}
             handleAccept={handleAccept}
@@ -158,7 +158,7 @@ function SignalementForm({
           />
         ) : report.existingLocation.type === ExistingLocation.type.VOIE ? (
           <SignalementUpdateVoie
-            report={report}
+            signalement={report}
             author={author}
             existingLocation={existingLocation as Voie}
             handleAccept={handleAccept}
@@ -168,7 +168,7 @@ function SignalementForm({
           />
         ) : (
           <SignalementUpdateToponyme
-            report={report}
+            signalement={report}
             author={author}
             existingLocation={existingLocation as Toponyme}
             handleAccept={handleAccept}
