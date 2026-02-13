@@ -5,22 +5,22 @@ import {
   ExistingLocation,
   NumeroChangesRequestedDTO,
   Signalement,
-} from "@/lib/openapi-report";
+} from "@/lib/openapi-signalement";
 import { ExtendedVoieDTO, Numero, Toponyme, Voie } from "@/lib/openapi-api-bal";
 import Form from "../../form";
-import SignalementCreateNumero from "./numero/report-create-numero";
-import SignalementUpdateNumero from "./numero/report-update-numero";
-import SignalementUpdateVoie from "./voie/report-update-voie";
-import SignalementUpdateToponyme from "./toponyme/report-update-toponyme";
-import SignalementDeleteNumero from "./numero/report-delete-numero";
+import SignalementCreateNumero from "./numero/signalement-create-numero";
+import SignalementUpdateNumero from "./numero/signalement-update-numero";
+import SignalementUpdateVoie from "./voie/signalement-update-voie";
+import SignalementUpdateToponyme from "./toponyme/signalement-update-toponyme";
+import SignalementDeleteNumero from "./numero/signalement-delete-numero";
 import MapContext from "@/contexts/map";
 import { SignalementHeader } from "../signalement-header";
-import SignalementContext from "@/contexts/report";
+import SignalementContext from "@/contexts/signalement";
 import { Paragraph } from "evergreen-ui";
-import SignalementCreateToponyme from "./toponyme/report-create-toponyme";
+import SignalementCreateToponyme from "./toponyme/signalement-create-toponyme";
 import { isToponymeChangesRequested } from "@/lib/utils/signalement";
-import SignalementDeleteToponyme from "./toponyme/report-delete-toponyme";
-import SignalementDeleteVoie from "./voie/report-delete-voie";
+import SignalementDeleteToponyme from "./toponyme/signalement-delete-toponyme";
+import SignalementDeleteVoie from "./voie/signalement-delete-voie";
 
 interface SignalementFormProps {
   report: Signalement;

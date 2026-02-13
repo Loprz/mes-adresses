@@ -11,7 +11,7 @@ function main() {
   const data = readdirSync(flagsFolder).map((file) => file.split(".")[0]);
 
   writeFileSync(
-    join(dirname(__filename), "..", "available-flags.json"),
+    join(dirname(__filename), "..", "src", "available-flags.json"),
     JSON.stringify(data)
   );
 }
