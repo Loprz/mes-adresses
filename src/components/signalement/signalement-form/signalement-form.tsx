@@ -14,7 +14,7 @@ import SignalementUpdateVoie from "./voie/report-update-voie";
 import SignalementUpdateToponyme from "./toponyme/report-update-toponyme";
 import SignalementDeleteNumero from "./numero/report-delete-numero";
 import MapContext from "@/contexts/map";
-import { SignalementHeader } from "../report-header";
+import { SignalementHeader } from "../signalement-header";
 import SignalementContext from "@/contexts/report";
 import { Paragraph } from "evergreen-ui";
 import SignalementCreateToponyme from "./toponyme/report-create-toponyme";
@@ -118,7 +118,7 @@ function SignalementForm({
         return Promise.resolve();
       }}
     >
-      <SignalementHeader report={report} author={author} />
+      <SignalementHeader signalement={report} author={author} />
 
       {report.type === Signalement.type.LOCATION_TO_CREATE &&
         (isToponymeChangesRequested(report.changesRequested) ? (
