@@ -17,7 +17,7 @@ If these variables are not set, the app uses the default sources (Mattermost for
 
 | File | Description |
 |------|-------------|
-| `home-drawer-news.json` | Array of `{ id, message, date }`. Placeholder items for NAD, Census Bureau, and Overture. |
-| `home-drawer-events.json` | Array of events (same shape as bal-admin events). Placeholder workshops/calls for Census, Overture, and NAD. |
+| `home-drawer-news.json` | Array of `{ id, message, date }`. Includes the [NAD StoryMap](https://storymaps.arcgis.com/stories/9490f773f65d4c6aa8b79facc528a661), [Census Academy webinars](https://www.census.gov/data/academy/webinars/upcoming.html), Census API, and Overture. |
+| `home-drawer-events.json` | Array of events (same shape as bal-admin events). Real [Census Academy upcoming webinars](https://www.census.gov/data/academy/webinars/upcoming.html) (NAICS/QWI, ACS PUMS, margins of error, QWI in small states). |
 
 You can edit these files or point the env vars at your own JSON endpoints (e.g. APIs or proxies for Census, Overture, or NAD).

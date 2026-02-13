@@ -1,17 +1,22 @@
 [
   {
-    "id": "nad-2025-q1",
-    "message": "**National Address Database (NAD)** – New quarterly release available. Address coverage updates for 12 states. [Learn more](https://www.transportation.gov/grants/nad).",
-    "date": "2025-02-01T12:00:00.000Z"
+    "id": "nad-storymap",
+    "message": "**Getting to know the National Address Database (NAD)** – Explore the NAD program, data quality, and how state and local agencies use it in this [interactive StoryMap](https://storymaps.arcgis.com/stories/9490f773f65d4c6aa8b79facc528a661).",
+    "date": "2026-01-27T12:00:00.000Z"
+  },
+  {
+    "id": "census-academy-webinars",
+    "message": "**Census Academy – Upcoming webinars** – Live classes on NAICS & QWI, ACS PUMS, margins of error, and more. [View upcoming webinars](https://www.census.gov/data/academy/webinars/upcoming.html) and register.",
+    "date": "2026-01-27T09:00:00.000Z"
   },
   {
     "id": "census-api-update",
-    "message": "**Census Bureau** – API discovery and data releases updated. Request a [free API key](https://api.census.gov/data/key_signup.html) for higher limits.",
-    "date": "2025-01-15T09:00:00.000Z"
+    "message": "**Census Bureau API** – Request a [free API key](https://api.census.gov/data/key_signup.html) for higher limits. Discovery and data releases at [api.census.gov](https://api.census.gov/data.html).",
+    "date": "2026-01-15T09:00:00.000Z"
   },
   {
     "id": "overture-maps",
-    "message": "**Overture Maps Foundation** – Places and buildings APIs in production. Open, community-built base map data for the Americas and worldwide.",
-    "date": "2025-01-10T14:00:00.000Z"
+    "message": "**Overture Maps Foundation** – Places and buildings APIs in production. Open, community-built base map data for the Americas and worldwide. [overturemaps.org](https://overturemaps.org/).",
+    "date": "2026-01-10T14:00:00.000Z"
   }
 ]
