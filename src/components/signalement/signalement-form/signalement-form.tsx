@@ -18,7 +18,7 @@ import { SignalementHeader } from "../report-header";
 import SignalementContext from "@/contexts/report";
 import { Paragraph } from "evergreen-ui";
 import SignalementCreateToponyme from "./toponyme/report-create-toponyme";
-import { isToponymeChangesRequested } from "@/lib/utils/report";
+import { isToponymeChangesRequested } from "@/lib/utils/signalement";
 import SignalementDeleteToponyme from "./toponyme/report-delete-toponyme";
 import SignalementDeleteVoie from "./voie/report-delete-voie";
 
