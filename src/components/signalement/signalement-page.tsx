@@ -168,7 +168,7 @@ export default function SignalementPage({
         requestedLocations.voie !== null ? (
         <Pane overflow="scroll" height="100%">
           <SignalementForm
-            signalement={signalement}
+            report={signalement}
             author={author}
             existingLocation={existingLocation}
             requestedLocations={requestedLocations}
