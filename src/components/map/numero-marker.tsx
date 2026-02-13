@@ -12,7 +12,7 @@ import {
 import { Tooltip } from "evergreen-ui";
 
 import { computeCompletNumero } from "@/lib/utils/numero";
-import { Numero } from "@/lib/openapi-api-bal";
+import { Numero, Position } from "@/lib/openapi-api-bal";
 
 interface NumeroMarkerProps {
   numero: Numero;
@@ -32,7 +32,7 @@ function NumeroMarker({
   removeAddress,
 }: NumeroMarkerProps) {
   const position =
-    numero.positions.find((position) => position.type === "entrance") ||
+    numero.positions.find((p) => p.type === Position.type.ENTR_E) ||
     numero.positions[0];
 
   if (!position) {
