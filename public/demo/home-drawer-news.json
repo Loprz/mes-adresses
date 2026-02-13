@@ -1,0 +1,17 @@
+[
+  {
+    "id": "nad-2025-q1",
+    "message": "**National Address Database (NAD)** – New quarterly release available. Address coverage updates for 12 states. [Learn more](https://www.transportation.gov/grants/nad).",
+    "date": "2025-02-01T12:00:00.000Z"
+  },
+  {
+    "id": "census-api-update",
+    "message": "**Census Bureau** – API discovery and data releases updated. Request a [free API key](https://api.census.gov/data/key_signup.html) for higher limits.",
+    "date": "2025-01-15T09:00:00.000Z"
+  },
+  {
+    "id": "overture-maps",
+    "message": "**Overture Maps Foundation** – Places and buildings APIs in production. Open, community-built base map data for the Americas and worldwide.",
+    "date": "2025-01-10T14:00:00.000Z"
+  }
+]

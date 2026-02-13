@@ -1,0 +1,53 @@
+[
+  {
+    "id": "census-workshop-2025",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "title": "Census Bureau API & Geography Workshop",
+    "subtitle": "Virtual",
+    "description": "Introduction to the Census Data API and geographic products. Covers data discovery, API keys, and address-related geography.",
+    "type": "formation",
+    "target": "Developers and data users",
+    "date": "2025-03-15",
+    "tags": ["Technique"],
+    "isOnlineOnly": true,
+    "isSubscriptionClosed": false,
+    "startHour": "14:00",
+    "endHour": "16:00",
+    "href": "https://www.census.gov/data/developers/updates.html"
+  },
+  {
+    "id": "overture-community-call",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "title": "Overture Maps – Community call",
+    "subtitle": "Online",
+    "description": "Monthly community call: places, buildings, and address data. Roadmap and how to contribute.",
+    "type": "formation",
+    "target": "Mappers and developers",
+    "date": "2025-03-01",
+    "tags": ["Technique"],
+    "isOnlineOnly": true,
+    "isSubscriptionClosed": false,
+    "startHour": "11:00",
+    "endHour": "12:00",
+    "href": "https://overturemaps.org/"
+  },
+  {
+    "id": "nad-stakeholder-update",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "title": "NAD stakeholder update",
+    "subtitle": "Virtual",
+    "description": "National Address Database program update: data quality, coverage, and integration with state and local systems.",
+    "type": "formation",
+    "target": "State and local agencies",
+    "date": "2025-02-28",
+    "tags": ["Technique"],
+    "isOnlineOnly": true,
+    "isSubscriptionClosed": false,
+    "startHour": "13:00",
+    "endHour": "14:30",
+    "href": "https://www.transportation.gov/grants/nad"
+  }
+]

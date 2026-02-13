@@ -40,7 +40,13 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
       <Pane is="ul" listStyle="none" padding={0} margin={0}>
         {nextTrainings.length > 0 &&
           nextTrainings.map(
-            ({ id, type, date, startHour, endHour, description }, index) => (
+            ({ id, type, date, startHour, endHour, description, href }, index) => {
+              const typeInfo =
+                trainingTypeMap[type] ?? ({
+                  color: "neutral" as const,
+                  label: type ?? "Event",
+                });
+              return (
               <Pane
                 key={id}
                 is="li"
@@ -53,8 +59,8 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
                   index === nextTrainings.length - 1 ? "none" : "1px solid #ccc"
                 }
               >
-                <Badge color={trainingTypeMap[type].color} width="fit-content">
-                  {trainingTypeMap[type].label}
+                <Badge color={typeInfo.color} width="fit-content">
+                  {typeInfo.label}
                 </Badge>
                 <Heading display="flex" alignItems="center" size={400}>
                   <Icon icon={CalendarIcon} marginRight={5} />
@@ -68,7 +74,10 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
                 <Button
                   is="a"
                   iconAfter={ArrowRightIcon}
-                  href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/formation-en-ligne#open-event-modal-${id}`}
+                  href={
+                    href ??
+                    `${process.env.NEXT_PUBLIC_ADRESSE_URL}/formation-en-ligne#open-event-modal-${id}`
+                  }
                   onClick={() => {
                     matomoTrackEvent(
                       MatomoEventCategory.HOME_PAGE,
@@ -81,10 +90,11 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
                   alignSelf="flex-end"
                   width="fit-content"
                 >
-                  S&apos;inscrire
+                  Register
                 </Button>
               </Pane>
-            )
+            );
+            }
           )}
       </Pane>
       <Button

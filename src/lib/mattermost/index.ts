@@ -1,27 +1,30 @@
 const mapPostsToNews = ({
-  order,
-  posts,
+  order = [],
+  posts = {},
 }: {
-  order: string[];
-  posts: any[];
-}) => {
+  order?: string[];
+  posts?: Record<string, any>;
+} = {}) => {
   return order
     .map((postId) => posts[postId])
-    .filter(({ delete_at, type }) => !delete_at && !type)
-    .map(({ id, message, create_at }) => {
-      return {
-        id,
-        message,
-        date: create_at,
-      };
-    });
+    .filter((post) => post && !post.delete_at && !post.type)
+    .map(({ id, message, create_at }) => ({
+      id: id ?? "",
+      message: message ?? "",
+      date: create_at != null ? String(create_at) : "",
+    }));
 };
 
 export const fetchNews = async () => {
-  const response = await fetch(process.env.MATTERMOST_CHANNEL_URL, {
+  const url = process.env.MATTERMOST_CHANNEL_URL;
+  if (!url) {
+    return [];
+  }
+
+  const response = await fetch(url, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${process.env.MATTERMOST_TOKEN}`,
+      Authorization: `Bearer ${process.env.MATTERMOST_TOKEN ?? ""}`,
       "Content-Type": "application/json",
     },
   });
