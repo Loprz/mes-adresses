@@ -35,15 +35,23 @@ async function fetchEventsFromUrl(url: string): Promise<EventType[]> {
   return Array.isArray(raw) ? raw : [];
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const now = Date.now();
 
   if (cachedData && now - cachedData.timestamp < CACHE_TIME) {
     return NextResponse.json(cachedData);
   }
 
-  const newsUrl = process.env.HOME_DRAWER_NEWS_URL;
-  const eventsUrl = process.env.HOME_DRAWER_EVENTS_URL;
+  const appOrigin =
+    process.env.NEXT_PUBLIC_EDITEUR_URL ||
+    (typeof request.url === "string" ? new URL(request.url).origin : "");
+  const defaultNewsUrl = appOrigin ? `${appOrigin}/demo/home-drawer-news.json` : "";
+  const defaultEventsUrl = appOrigin ? `${appOrigin}/demo/home-drawer-events.json` : "";
+
+  const newsUrl =
+    process.env.HOME_DRAWER_NEWS_URL || defaultNewsUrl;
+  const eventsUrl =
+    process.env.HOME_DRAWER_EVENTS_URL || defaultEventsUrl;
 
   let news: NewsType[] = [];
   let nextTrainings: EventType[] = [];
