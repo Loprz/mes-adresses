@@ -3,6 +3,7 @@ import { EventType } from "@/lib/bal-admin/type";
 import { NewsType } from "@/lib/mattermost/type";
 import { ApiBalAdminService } from "@/lib/bal-admin";
 import { fetchNews } from "@/lib/mattermost";
+import { demoNews, demoEvents } from "./demo-data";
 
 const CACHE_TIME = 60 * 60 * 1000; // 1 hour
 
@@ -48,32 +49,38 @@ export async function GET(request: Request) {
   const defaultNewsUrl = appOrigin ? `${appOrigin}/demo/home-drawer-news.json` : "";
   const defaultEventsUrl = appOrigin ? `${appOrigin}/demo/home-drawer-events.json` : "";
 
-  const newsUrl =
-    process.env.HOME_DRAWER_NEWS_URL || defaultNewsUrl;
-  const eventsUrl =
-    process.env.HOME_DRAWER_EVENTS_URL || defaultEventsUrl;
+  const useExplicitNewsUrl = Boolean(process.env.HOME_DRAWER_NEWS_URL);
+  const useExplicitEventsUrl = Boolean(process.env.HOME_DRAWER_EVENTS_URL);
+  const newsUrl = process.env.HOME_DRAWER_NEWS_URL || defaultNewsUrl;
+  const eventsUrl = process.env.HOME_DRAWER_EVENTS_URL || defaultEventsUrl;
 
   let news: NewsType[] = [];
   let nextTrainings: EventType[] = [];
 
   try {
-    if (newsUrl) {
+    if (useExplicitNewsUrl && newsUrl) {
       news = await fetchNewsFromUrl(newsUrl);
+    } else if (defaultNewsUrl && !useExplicitNewsUrl) {
+      news = demoNews;
     } else {
       news = await fetchNews();
     }
   } catch (error) {
     console.error("Error fetching news:", error);
+    if (defaultNewsUrl && !useExplicitNewsUrl) news = demoNews;
   }
 
   try {
-    if (eventsUrl) {
+    if (useExplicitEventsUrl && eventsUrl) {
       nextTrainings = await fetchEventsFromUrl(eventsUrl);
+    } else if (defaultEventsUrl && !useExplicitEventsUrl) {
+      nextTrainings = demoEvents;
     } else {
       nextTrainings = await ApiBalAdminService.fetchNextTrainings();
     }
   } catch (error) {
     console.error("Error fetching next trainings:", error);
+    if (defaultEventsUrl && !useExplicitEventsUrl) nextTrainings = demoEvents;
   }
 
   cachedData = {
