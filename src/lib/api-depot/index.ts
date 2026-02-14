@@ -1,33 +1,59 @@
 /* eslint no-restricted-imports: off */
 import { Revision } from "./types";
 
-const BAN_API_DEPOT: string =
-  process.env.NEXT_PUBLIC_BAN_API_DEPOT ||
-  "https://plateforme-bal.adresse.data.gouv.fr/api-depot";
+function getDepotBase(): string {
+  const explicit = process.env.NEXT_PUBLIC_BAN_API_DEPOT;
+  if (explicit) return explicit;
+  const balUrl = process.env.NEXT_PUBLIC_BAL_API_URL;
+  if (balUrl) {
+    try {
+      const origin = new URL(balUrl).origin;
+      return `${origin}/api-depot`;
+    } catch {
+      // ignore invalid URL
+    }
+  }
+  return "https://plateforme-bal.adresse.data.gouv.fr/api-depot";
+}
+
+const BAN_API_DEPOT = getDepotBase();
 
 export class ApiDepotService {
-  private static async request(url: string) {
-    const res = await fetch(`${BAN_API_DEPOT}${url}`);
-
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.message);
+  private static async request<T>(url: string): Promise<T | null> {
+    try {
+      const res = await fetch(`${BAN_API_DEPOT}${url}`);
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        const msg = (body as { message?: string })?.message ?? res.statusText;
+        console.warn(`API Depot ${res.status}: ${msg}`);
+        return null;
+      }
+      return (await res.json()) as T;
+    } catch (err) {
+      console.warn("API Depot request failed:", err);
+      return null;
     }
-
-    return res.json();
   }
 
   public static async getRevisions(codeCommune: string): Promise<Revision[]> {
-    return this.request(`/communes/${codeCommune}/revisions`);
+    const data = await this.request<Revision[]>(
+      `/communes/${codeCommune}/revisions`
+    );
+    return Array.isArray(data) ? data : [];
   }
 
   public static async getCurrentRevision(
     codeCommune: string
-  ): Promise<Revision> {
-    return this.request(`/communes/${codeCommune}/current-revision`);
+  ): Promise<Revision | null> {
+    return this.request<Revision>(
+      `/communes/${codeCommune}/current-revision`
+    );
   }
 
   public static async getEmailsCommune(codeCommune: string): Promise<string[]> {
-    return this.request(`/communes/${codeCommune}/emails`);
+    const data = await this.request<string[]>(
+      `/communes/${codeCommune}/emails`
+    );
+    return Array.isArray(data) ? data : [];
   }
 }

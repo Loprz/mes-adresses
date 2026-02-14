@@ -26,9 +26,10 @@ function CommuneSearch({
       fields: "departement",
       limit: 20,
     });
-    const bestResults = results.filter((c) => c._score > 0.1);
+    const list = Array.isArray(results) ? results : [];
+    const bestResults = list.filter((c) => c && c._score > 0.1);
 
-    setCommunes(bestResults.length > 5 ? bestResults : results);
+    setCommunes(bestResults.length > 5 ? bestResults : list);
   }, 300);
 
   const initRef = (ref, getRef) => {

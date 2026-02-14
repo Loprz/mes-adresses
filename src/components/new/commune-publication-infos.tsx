@@ -68,10 +68,8 @@ function CommunePublicationInfos({
         console.error("Error fetching existing BAL count:", error);
       }
       try {
-        const revision: Revision = await ApiDepotService.getCurrentRevision(
-          commune.code
-        );
-        setApiDepotLastRevision(revision);
+        const revision = await ApiDepotService.getCurrentRevision(commune.code);
+        setApiDepotLastRevision(revision ?? null);
       } catch (error) {
         console.error("Error fetching API Depot last revision:", error);
       } finally {

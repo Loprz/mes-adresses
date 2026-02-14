@@ -18,16 +18,16 @@ const BAL_API_URL =
 const API_BASE = BAL_API_URL.replace(/\/+$/, "");
 
 export class ApiGeoService {
-  private static async request(url: string) {
+  private static async request<T = unknown>(url: string): Promise<T | null> {
     try {
       const res = await fetch(`${API_BASE}${url}`);
-      return res.json();
+      if (!res.ok) return null;
+      return (await res.json()) as T;
     } catch (error) {
       toaster.danger("Unexpected error", {
-        description: error.message,
+        description: (error as Error).message,
       });
     }
-
     return null;
   }
 
@@ -39,15 +39,14 @@ export class ApiGeoService {
       nom: search,
     };
 
-    // Include limit if specified
     if (options.limit) {
       query.limit = options.limit;
     }
 
-    const res = await this.request(
+    const res = await this.request<CommuneApiGeoType[]>(
       `/commune/search?${qs.stringify(query)}`
     );
-    return res || [];
+    return Array.isArray(res) ? res : [];
   }
 
   public static async getCommune(

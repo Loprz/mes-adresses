@@ -31,13 +31,17 @@ function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
 
   useEffect(() => {
     async function fetchRevision() {
-      const revisions = await ApiDepotService.getRevisions(commune.code);
-      const publishedRevisions = revisions
-        .filter((r) => r.status === "published")
-        .reverse(); // Sort by date
-
-      setRevisions(publishedRevisions);
-      setIsLoading(false);
+      try {
+        const revisions = await ApiDepotService.getRevisions(commune.code);
+        const publishedRevisions = revisions
+          .filter((r) => r.status === "published")
+          .reverse();
+        setRevisions(publishedRevisions);
+      } catch {
+        setRevisions([]);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     setIsLoading(true);
@@ -58,15 +62,15 @@ function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
       ) : (
         <>
           <Pane overflowY="scroll" maxHeight={500}>
-            {revisions.length > 0 ? (
+            {(revisions ?? []).length > 0 ? (
               <Pane
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
                 gap={4}
               >
-                {revisions
-                  .slice(0, isLimited ? 3 : revisions.length)
+                {(revisions ?? [])
+                  .slice(0, isLimited ? 3 : (revisions ?? []).length)
                   .map((revision) => (
                     <RevisionComponent
                       key={revision.id}
@@ -81,7 +85,7 @@ function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
             )}
           </Pane>
 
-          {revisions.length > 3 && (
+          {(revisions ?? []).length > 3 && (
             <Pane display="flex" justifyContent="center">
               <Button
                 appearance="minimal"
