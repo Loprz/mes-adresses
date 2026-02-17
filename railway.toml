@@ -6,3 +6,5 @@ buildCommand = "yarn install --frozen-lockfile && yarn build-available-flags && 
 
 [deploy]
 startCommand = "yarn start"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
