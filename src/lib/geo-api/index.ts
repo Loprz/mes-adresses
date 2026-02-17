@@ -1,7 +1,4 @@
-"use client";
-
 import qs from "querystring";
-import { toaster } from "evergreen-ui";
 import { CommuneApiGeoType } from "./type";
 
 /**
@@ -24,9 +21,7 @@ export class ApiGeoService {
       if (!res.ok) return null;
       return (await res.json()) as T;
     } catch (error) {
-      toaster.danger("Unexpected error", {
-        description: (error as Error).message,
-      });
+      console.error("ApiGeoService request failed:", (error as Error).message);
     }
     return null;
   }
