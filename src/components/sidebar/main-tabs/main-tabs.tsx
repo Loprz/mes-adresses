@@ -21,8 +21,8 @@ export enum TabsEnum {
 }
 
 const textExamples = {
-  [TabsEnum.VOIES]: ["Rue Chaptal", "Rue du Bac", "Quai de Lot", "Le Voisinet"],
-  [TabsEnum.TOPONYMES]: ["La Butte", "Les Loges", "Lambert", "Tartifume"],
+  [TabsEnum.VOIES]: ["Main St", "Oak Ave", "River Rd", "Sunset Blvd"],
+  [TabsEnum.TOPONYMES]: ["Old Mill", "Pine Grove", "North Ridge", "Lakeside"],
 };
 
 interface MainTabsProps {
@@ -51,6 +51,12 @@ function MainTabs({ balId }: MainTabsProps) {
     [TabsEnum.VOIES]: 0,
     [TabsEnum.TOPONYMES]: 0,
   });
+  const tabTitles: Record<TabsEnum, string> = {
+    [TabsEnum.COMMUNE]: "Jurisdiction",
+    [TabsEnum.VOIES]: "Streets",
+    [TabsEnum.TOPONYMES]: "Place names",
+    [TabsEnum.SIGNALEMENTS]: "Reports",
+  };
 
   const isTabSelected = (tabKey: TabsEnum, index: number) => {
     return selectedTab ? selectedTab === tabKey : index === 0;
@@ -66,7 +72,7 @@ function MainTabs({ balId }: MainTabsProps) {
               <div className={styles.tabImage}>
                 <ResponsiveImage
                   src="/static/images/icone-commune.png"
-                  alt={`Illustration de l'onglet commune`}
+                  alt="Jurisdiction tab illustration"
                   draggable={false}
                   orientation="portrait"
                 />
@@ -84,7 +90,7 @@ function MainTabs({ balId }: MainTabsProps) {
               >
                 <ResponsiveImage
                   src="/static/images/icone-voies.png"
-                  alt={`Illustration de l'onglet voies`}
+                  alt="Streets tab illustration"
                   draggable={false}
                   orientation="portrait"
                 />
@@ -105,7 +111,7 @@ function MainTabs({ balId }: MainTabsProps) {
               >
                 <ResponsiveImage
                   src="/static/images/icone-toponymes.png"
-                  alt={`Illustration de l'onglet toponymes`}
+                  alt="Place names tab illustration"
                   draggable={false}
                   orientation="portrait"
                 />
@@ -123,7 +129,7 @@ function MainTabs({ balId }: MainTabsProps) {
                 <ResponsiveImage
                   className={styles.tabImage}
                   src="/static/images/icone-signalements.png"
-                  alt={`Illustration de l'onglet signalements`}
+                  alt="Reports tab illustration"
                   draggable={false}
                   orientation="portrait"
                 />
@@ -140,7 +146,7 @@ function MainTabs({ balId }: MainTabsProps) {
             const tab = (
               <Link
                 key={key}
-                title={`Onglet ${key}`}
+                title={`Tab: ${tabTitles[key]}`}
                 className={styles.tabLink}
                 role="tab"
                 href={href}

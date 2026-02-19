@@ -22,14 +22,14 @@ function AddressEditor({ commune, closeForm }: AddressEditorProps) {
   return (
     <Pane display="flex" flexDirection="column" height="100%">
       <Pane padding={12} zIndex={1} background="tint2">
-        <Heading is="h4">Nouvelle adresse</Heading>
+        <Heading is="h4">New address</Heading>
         <SelectField
           label="Create a new"
           value={isToponyme ? "toponyme" : "numero"}
           onChange={(e) => setIsToponyme(e.target.value === "toponyme")}
         >
-          <option value="numero">Numéro</option>
-          <option value="toponyme">Toponyme</option>
+          <option value="numero">Address number</option>
+          <option value="toponyme">Place name</option>
         </SelectField>
       </Pane>
 

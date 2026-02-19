@@ -29,7 +29,7 @@ function Trash() {
   const propsDeletedList = useMemo(() => {
     if (selectedTabIndex === 0) {
       return {
-        model: "voie",
+        model: "street",
         itemsDeleted: voiesDeleted,
         onRestore: setRestoreVoie,
         onRemove: onRemoveVoie,
@@ -38,7 +38,7 @@ function Trash() {
     }
 
     return {
-      model: "toponyme",
+      model: "placeName",
       itemsDeleted: toponymesDeleted,
       onRestore: onRestoreToponyme,
       onRemove: onRemoveToponyme,
@@ -67,7 +67,7 @@ function Trash() {
       >
         <Pane display="flex" alignItems="center">
           <TrashIcon />
-          <Heading paddingLeft={5}>Corbeille</Heading>
+          <Heading paddingLeft={5}>Trash</Heading>
         </Pane>
       </Pane>
       <Pane

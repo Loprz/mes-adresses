@@ -41,7 +41,7 @@ export default function ToponymePage() {
             savedSearchPagination[TabsEnum.TOPONYMES]
           )}
         >
-          Toponymes
+          Place names
         </Link>
         <Text color="muted">{" > "}</Text>
         <Text aria-current="page">{toponyme.nom}</Text>

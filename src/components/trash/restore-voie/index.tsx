@@ -14,13 +14,13 @@ interface RestoreVoieProps {
 function RestoreVoie({ voie, onRestoreVoie, onClose }: RestoreVoieProps) {
   const [selectedNumerosIds, setSelectedNumerosIds] = useState([]);
 
-  const restaurerText = () => {
+  const restoreText = () => {
     return (
-      "Restaurer " +
+      "Restore " +
       (voie.deletedAt
-        ? "voie" +
+        ? "street" +
           (selectedNumerosIds.length > 0
-            ? " avec " + selectedNumerosIds.length + " numero(s)"
+            ? " with " + selectedNumerosIds.length + " number(s)"
             : "")
         : selectedNumerosIds.length + " number(s)")
     );
@@ -53,7 +53,7 @@ function RestoreVoie({ voie, onRestoreVoie, onClose }: RestoreVoieProps) {
             onClick={() => handleRestoreVoie()}
             disabled={!voie.deletedAt && selectedNumerosIds.length <= 0}
           >
-            {restaurerText()}
+            {restoreText()}
           </Button>
           <Button
             iconBefore={CrossIcon}

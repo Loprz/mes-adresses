@@ -29,10 +29,10 @@ export default function NewToponymePage() {
           is={NextLink}
           href={`/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}`}
         >
-          Toponymes
+          Place names
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">Nouveau toponyme</Text>
+        <Text aria-current="page">New place name</Text>
       </>
     );
 

@@ -138,7 +138,7 @@ export default function ToponymeNumerosPage() {
             savedSearchPagination[TabsEnum.TOPONYMES]
           )}
         >
-          Toponymes
+          Place names
         </Link>
         <Text color="muted">{" > "}</Text>
         <Link

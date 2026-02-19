@@ -78,7 +78,7 @@ function BALSummary({
         )}
         {toponymes && (
           <Text>
-            <b>{toponymes.length}</b> toponyme{toponymes.length > 1 && "s"}
+            <b>{toponymes.length}</b> place name{toponymes.length > 1 && "s"}
           </Text>
         )}
         <Text>

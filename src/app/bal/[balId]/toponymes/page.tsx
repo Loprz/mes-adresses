@@ -73,7 +73,7 @@ export default function ToponymesPage() {
   }, [setTileLayersMode]);
 
   useEffect(() => {
-    setBreadcrumbs(<Text aria-current="page">Toponymes</Text>);
+    setBreadcrumbs(<Text aria-current="page">Place names</Text>);
     scrollAndHighlightLastSelectedItem(TabsEnum.TOPONYMES);
 
     return () => {
@@ -233,9 +233,7 @@ export default function ToponymesPage() {
                     : null
                 }
                 certification={
-                  toponyme.isAllCertified
-                    ? "The addresses are certified"
-                    : null
+                  toponyme.isAllCertified ? "The addresses are certified" : null
                 }
                 comment={
                   toponyme.commentedNumeros.length > 0 ? (
@@ -256,7 +254,7 @@ export default function ToponymesPage() {
                       browseToNumerosList(toponyme.id);
                     }}
                   >
-                    Consulter
+                    View
                   </Menu.Item>
                   <Menu.Item
                     icon={EditIcon}

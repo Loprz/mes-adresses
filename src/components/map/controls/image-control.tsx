@@ -166,7 +166,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
 
           {tileLayerEnabled && tileLayersMode !== TilesLayerMode.VOIE && (
             <LayerShowHideControl
-              title="Toponymes"
+              title="Place names"
               isDiplayed={toponymeLayerIsDisplayed}
               setIsDiplayed={setToponymeLayerIsDisplayed}
             />

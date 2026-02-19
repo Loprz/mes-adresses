@@ -27,6 +27,7 @@ function ItemsListDelete({
   onRemoveNumeros,
 }: ItemsListDeleteProps) {
   const [filtered, setFilter] = useFuse(itemsDeleted, 200, fuseOptions);
+  const modelLabel = model === "street" ? "street" : "place name";
 
   const scrollableItems = useMemo(
     () => sortBy(filtered, (v) => normalizeSort(v.nom)),
@@ -41,7 +42,7 @@ function ItemsListDelete({
             ? item.deletedAt
               ? "Restore street"
               : "View number(s)"
-            : "Restaurer toponyme",
+            : "Restore place name",
         callback: () => onRestore(item),
         icon: AddIcon,
         intent: "none",
@@ -63,13 +64,13 @@ function ItemsListDelete({
         return (
           "street" +
           (item.numeros.length > 0
-            ? " et " + item.numeros.length + " number(s) deleted"
+            ? " and " + item.numeros.length + " number(s) deleted"
             : "")
         );
       }
 
       return item.numeros.length > 0
-        ? item.numeros.length + " numero(s) deleted"
+        ? item.numeros.length + " number(s) deleted"
         : "";
     }
 
@@ -80,7 +81,7 @@ function ItemsListDelete({
     <Table display="flex" flex={1} flexDirection="column" overflowY="auto">
       <Table.Head>
         <Table.SearchHeaderCell
-          placeholder={`Search for a ${model}`}
+          placeholder={`Search for a ${modelLabel}`}
           onChange={setFilter}
         />
       </Table.Head>

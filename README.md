@@ -12,6 +12,8 @@ https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v4.0.pdf
 
 Une documentation plus complète et des guides d’utilisation sont disponibles dans le [Wiki](https://github.com/BaseAdresseNationale/mes-adresses/wiki).
 
+Pour le portage US, voir le guide de terminologie et conventions de nommage : `docs/US_TERMINOLOGY_AND_NAMING.md`.
+
 ## Pré-requis
 
 - [Node.js](https://nodejs.org) 22
