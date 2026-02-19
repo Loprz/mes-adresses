@@ -7,6 +7,28 @@ import {
 import { ApiGeoService } from "./geo-api";
 import bbox from "@turf/bbox";
 
+function getBBoxFromVoies(voies: ExtendedVoieDTO[]): number[] | undefined {
+  const bboxs = voies
+    .map(({ bbox }) => bbox)
+    .filter(
+      (bbox): bbox is number[] =>
+        Array.isArray(bbox) &&
+        bbox.length === 4 &&
+        bbox.every((value) => Number.isFinite(value))
+    );
+
+  if (!bboxs.length) {
+    return;
+  }
+
+  return [
+    Math.min(...bboxs.map((currentBBox) => currentBBox[0])),
+    Math.min(...bboxs.map((currentBBox) => currentBBox[1])),
+    Math.max(...bboxs.map((currentBBox) => currentBBox[2])),
+    Math.max(...bboxs.map((currentBBox) => currentBBox[3])),
+  ];
+}
+
 export async function getCommuneWithBBox(
   baseLocale: ExtendedBaseLocaleDTO,
   voies: ExtendedVoieDTO[]
@@ -14,6 +36,8 @@ export async function getCommuneWithBBox(
   const commune: CommuneType = await CommuneService.findCommune(
     baseLocale.commune
   );
+  const fallbackBBox = getBBoxFromVoies(voies);
+
   try {
     const communeApiGeo = await ApiGeoService.getCommune(baseLocale.commune, {
       fields: "contour",
@@ -22,16 +46,12 @@ export async function getCommuneWithBBox(
       commune.bbox = bbox(communeApiGeo.contour);
       commune.contour = communeApiGeo.contour;
     }
-  } catch (e) {
-    if (voies.length > 0) {
-      const bboxs = voies.map(({ bbox }) => bbox);
-      commune.bbox = [
-        Math.min(...bboxs.map((b) => b[0])),
-        Math.min(...bboxs.map((b) => b[1])),
-        Math.max(...bboxs.map((b) => b[2])),
-        Math.max(...bboxs.map((b) => b[3])),
-      ];
-    }
+  } catch {
+    // Fallback below
+  }
+
+  if (!commune.bbox && fallbackBBox) {
+    commune.bbox = fallbackBBox;
   }
 
   return commune;
