@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import {
   Card,
   Pane,
@@ -88,7 +88,9 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
     }
   }, [baseLocale]);
 
-  const majDate = formatDistanceToNow(new Date(updatedAt), { locale: fr });
+  const lastUpdatedDistance = formatDistanceToNow(new Date(updatedAt), {
+    locale: enUS,
+  });
 
   const canHardDelete =
     status === BaseLocaleWithHabilitationDTO.status.DRAFT ||
@@ -135,7 +137,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           </Heading>
           <Text fontSize={12} fontStyle="italic">
             {updatedAt
-              ? "Last updated " + majDate
+              ? "Last updated " + lastUpdatedDistance
               : "Never updated"}{" "}
           </Text>
           {communeNom && (
@@ -165,7 +167,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           {pendingSignalementsCount > 0 && (
             <Pane marginTop={5} display="flex">
               <Text display="block" marginRight={5}>
-                Signalements en attente :
+                Pending reports:
               </Text>
               <Text fontWeight="bold" whiteSpace="nowrap">
                 {pendingSignalementsCount}

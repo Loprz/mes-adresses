@@ -60,7 +60,7 @@ function BALSummary({
             icon={EditIcon}
             marginTop={-4}
             onClick={onEditNomsAlt}
-            title="Edit the alternate names for the jurisdiction in regional language"
+            title="Edit alternate jurisdiction names"
           />
         )}
       </Heading>
@@ -81,8 +81,8 @@ function BALSummary({
           </Text>
         )}
         <Text>
-          <b>{localAddressBase.numberOfAddresses}</b> number
-          {localAddressBase.numberOfAddresses > 1 && "s"}
+          <b>{localAddressBase.numberOfAddresses}</b> address
+          {localAddressBase.numberOfAddresses > 1 && "es"}
         </Text>
       </Pane>
     </Pane>

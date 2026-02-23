@@ -6,9 +6,15 @@ export type CommuneApiGeoType = {
     nom: string;
   };
   contour?: {
-    type: "Polygon";
-    coordinates: number[][][];
+    type: "Polygon" | "MultiPolygon";
+    coordinates: number[][][] | number[][][][];
   };
+  boundary?: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: number[][][] | number[][][][];
+  };
+  bbox?: number[];
+  bounds?: number[];
   /** Whether this is a place (city/town) or county */
   level?: 'place' | 'county';
   /** Place type: city, town, village, borough, or county */

@@ -117,7 +117,11 @@ export function BalDataContextProvider({
         const toponymes = await BasesLocalesService.findBaseLocaleToponymes(
           initialBaseLocale.id
         );
-        const commune = await getCommuneWithBBox(initialBaseLocale, voies);
+        const commune = await getCommuneWithBBox(
+          initialBaseLocale,
+          voies,
+          toponymes
+        );
         setVoies(voies);
         setToponymes(toponymes);
         setCommune(commune);
