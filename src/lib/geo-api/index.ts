@@ -39,7 +39,7 @@ export class ApiGeoService {
     }
 
     const res = await this.request<CommuneApiGeoType[]>(
-      `/commune/search?${qs.stringify(query)}`
+      `/jurisdictions/search?${qs.stringify(query)}`
     );
     return Array.isArray(res) ? res : [];
   }
@@ -49,7 +49,7 @@ export class ApiGeoService {
     options = {}
   ): Promise<CommuneApiGeoType> {
     return this.request(
-      `/commune/${code.toUpperCase()}?${qs.stringify(options)}`
+      `/jurisdictions/${code.toUpperCase()}?${qs.stringify(options)}`
     );
   }
 }

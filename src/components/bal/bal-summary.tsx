@@ -1,35 +1,34 @@
 import React, { useContext } from "react";
 import { Heading, Pane, Text, IconButton, EditIcon } from "evergreen-ui";
-import {
-  ExtendedBaseLocaleDTO,
-  ExtendedVoieDTO,
-  ExtentedToponymeDTO,
-} from "@/lib/openapi-api-bal";
 import LanguagePreview from "../bal/language-preview";
 import TokenContext from "@/contexts/token";
 import BalDataContext from "@/contexts/bal-data";
-import { CommuneType } from "@/types/commune";
+import {
+  CanonicalJurisdiction,
+  CanonicalLocalAddressBase,
+  CanonicalPlaceName,
+  CanonicalStreet,
+} from "@/lib/domain/us-address-domain";
 
 interface BALSummaryProps {
-  baseLocale: ExtendedBaseLocaleDTO;
-  commune: CommuneType;
-  voies: ExtendedVoieDTO[];
-  toponymes: ExtentedToponymeDTO[];
-  communeFlag: string;
+  localAddressBase: CanonicalLocalAddressBase;
+  jurisdiction: CanonicalJurisdiction;
+  streets: CanonicalStreet[];
+  placeNames: CanonicalPlaceName[];
+  jurisdictionFlag: string;
   onEditNomsAlt: () => void;
 }
 
 function BALSummary({
-  baseLocale,
-  commune,
-  voies,
-  toponymes,
-  communeFlag,
+  localAddressBase,
+  jurisdiction,
+  streets,
+  placeNames,
+  jurisdictionFlag,
   onEditNomsAlt,
 }: BALSummaryProps) {
   const { token } = useContext(TokenContext);
   const { isEditing } = useContext(BalDataContext);
-  const { nbNumeros } = baseLocale;
 
   return (
     <Pane
@@ -48,13 +47,13 @@ function BALSummary({
             height={40}
             width={40}
             flexShrink={0}
-            backgroundImage={`url(${communeFlag})`}
+            backgroundImage={`url(${jurisdictionFlag})`}
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="contain"
             marginRight={8}
           />
-          {commune.nom} - {commune.code}
+          {jurisdiction.jurisdictionName} - {jurisdiction.jurisdictionCode}
         </Pane>
         {!isEditing && token && (
           <IconButton
@@ -66,23 +65,24 @@ function BALSummary({
         )}
       </Heading>
       <Pane marginLeft={40} marginY={8}>
-        {baseLocale.communeNomsAlt && (
-          <LanguagePreview nomsAlt={baseLocale.communeNomsAlt} />
+        {localAddressBase.jurisdictionNamesAlt && (
+          <LanguagePreview nomsAlt={localAddressBase.jurisdictionNamesAlt} />
         )}
       </Pane>
       <Pane display="flex" alignItems="center" gap={8}>
-        {voies && (
+        {streets && (
           <Text>
-            <b>{voies.length}</b> street{voies.length > 1 && "s"}
+            <b>{streets.length}</b> street{streets.length > 1 && "s"}
           </Text>
         )}
-        {toponymes && (
+        {placeNames && (
           <Text>
-            <b>{toponymes.length}</b> place name{toponymes.length > 1 && "s"}
+            <b>{placeNames.length}</b> place name{placeNames.length > 1 && "s"}
           </Text>
         )}
         <Text>
-          <b>{nbNumeros}</b> number{nbNumeros > 1 && "s"}
+          <b>{localAddressBase.numberOfAddresses}</b> number
+          {localAddressBase.numberOfAddresses > 1 && "s"}
         </Text>
       </Pane>
     </Pane>

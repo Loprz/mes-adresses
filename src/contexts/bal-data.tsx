@@ -28,6 +28,18 @@ import LayoutContext from "./layout";
 import { CommuneType } from "@/types/commune";
 import { getCommuneWithBBox } from "@/lib/commune";
 import { Pane, Paragraph, Spinner } from "evergreen-ui";
+import {
+  CanonicalAddress,
+  CanonicalJurisdiction,
+  CanonicalLocalAddressBase,
+  CanonicalPlaceName,
+  CanonicalStreet,
+  toCanonicalAddress,
+  toCanonicalJurisdiction,
+  toCanonicalLocalAddressBase,
+  toCanonicalPlaceName,
+  toCanonicalStreet,
+} from "@/lib/domain/us-address-domain";
 
 interface BALDataContextType {
   isEditing: boolean;
@@ -36,6 +48,7 @@ interface BALDataContextType {
   setEditingId: (isEditing: string | null) => void;
   editingItem: Voie | Toponyme | Numero;
   baseLocale: ExtendedBaseLocaleDTO;
+  localAddressBase: CanonicalLocalAddressBase;
   reloadBaseLocale: () => void;
   habilitation: HabilitationDTO;
   reloadHabilitation: () => Promise<void>;
@@ -47,10 +60,13 @@ interface BALDataContextType {
   toponyme: Toponyme;
   setToponyme: (Toponyme: Toponyme) => void;
   numeros: Array<Numero>;
+  addresses: CanonicalAddress[];
   reloadNumeros: () => Promise<void>;
   voies: ExtendedVoieDTO[];
+  streets: CanonicalStreet[];
   reloadVoies: () => Promise<void>;
   toponymes: ExtentedToponymeDTO[];
+  placeNames: CanonicalPlaceName[];
   reloadToponymes: () => Promise<void>;
   isRefrehSyncStat: boolean;
   refreshBALSync: () => Promise<void>;
@@ -61,6 +77,7 @@ interface BALDataContextType {
   ) => void;
   reloadVoieNumeros: (voieId: string) => Promise<void>;
   commune: CommuneType | null;
+  jurisdiction: CanonicalJurisdiction | null;
   setNumeros: React.Dispatch<React.SetStateAction<Numero[]>>;
 }
 
@@ -237,6 +254,21 @@ export function BalDataContextProvider({
     reloadBaseLocale,
   ]);
 
+  const localAddressBase = useMemo(
+    () => toCanonicalLocalAddressBase(baseLocale),
+    [baseLocale]
+  );
+  const jurisdiction = useMemo(
+    () => (commune ? toCanonicalJurisdiction(commune) : null),
+    [commune]
+  );
+  const streets = useMemo(() => voies.map(toCanonicalStreet), [voies]);
+  const placeNames = useMemo(
+    () => toponymes.map(toCanonicalPlaceName),
+    [toponymes]
+  );
+  const addresses = useMemo(() => numeros.map(toCanonicalAddress), [numeros]);
+
   const value = useMemo(
     () => ({
       isEditing,
@@ -244,13 +276,17 @@ export function BalDataContextProvider({
       editingId,
       editingItem,
       baseLocale,
+      localAddressBase,
       habilitation,
       parcelles,
       voie,
       toponyme,
       numeros,
+      addresses,
       voies: voies,
+      streets,
       toponymes: toponymes,
+      placeNames,
       isRefrehSyncStat,
       setEditingId,
       refreshBALSync,
@@ -269,6 +305,7 @@ export function BalDataContextProvider({
       setIsHabilitationProcessDisplayed,
       reloadVoieNumeros,
       commune,
+      jurisdiction,
     }),
     [
       isEditing,
@@ -278,13 +315,17 @@ export function BalDataContextProvider({
       parcelles,
       reloadParcelles,
       baseLocale,
+      localAddressBase,
       reloadBaseLocale,
       habilitation,
       reloadHabilitation,
       voie,
       numeros,
+      addresses,
       voies,
+      streets,
       toponymes,
+      placeNames,
       setVoies,
       reloadNumeros,
       reloadVoies,
@@ -297,6 +338,7 @@ export function BalDataContextProvider({
       setIsHabilitationProcessDisplayed,
       reloadVoieNumeros,
       commune,
+      jurisdiction,
       setNumeros,
     ]
   );

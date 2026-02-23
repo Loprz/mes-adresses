@@ -21,8 +21,15 @@ interface CommunePageProps {
 }
 
 export default function CommunePage({ communeFlag }: CommunePageProps) {
-  const { baseLocale, commune, voies, toponymes, reloadBaseLocale } =
-    useContext(BalDataContext);
+  const {
+    baseLocale,
+    commune,
+    localAddressBase,
+    jurisdiction,
+    streets,
+    placeNames,
+    reloadBaseLocale,
+  } = useContext(BalDataContext);
   const { token } = useContext(TokenContext);
   const isAdmin = Boolean(token);
   const [isCommuneFormOpen, setIsCommuneFormOpen] = useState<boolean>(false);
@@ -38,6 +45,10 @@ export default function CommunePage({ communeFlag }: CommunePageProps) {
     setTileLayersMode(TilesLayerMode.VOIE);
   }, [reloadBaseLocale, setTileLayersMode]);
 
+  if (!jurisdiction) {
+    return null;
+  }
+
   return (
     <Pane overflowY="auto">
       {isCommuneFormOpen && (
@@ -49,11 +60,11 @@ export default function CommunePage({ communeFlag }: CommunePageProps) {
         />
       )}
       <BALSummary
-        baseLocale={baseLocale}
-        commune={commune}
-        voies={voies}
-        toponymes={toponymes}
-        communeFlag={communeFlag}
+        localAddressBase={localAddressBase}
+        jurisdiction={jurisdiction}
+        streets={streets}
+        placeNames={placeNames}
+        jurisdictionFlag={communeFlag}
         onEditNomsAlt={() => {
           setIsCommuneFormOpen(true);
         }}
