@@ -17,7 +17,7 @@ function isValidBBox(candidate: unknown): candidate is number[] {
 }
 
 function getBBoxFromFeatures(
-  features: Array<{ bbox?: number[] }>
+  features: Array<{ bbox?: unknown }>
 ): number[] | undefined {
   const bboxs = features
     .map(({ bbox }) => bbox)
