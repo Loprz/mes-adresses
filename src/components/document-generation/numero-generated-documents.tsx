@@ -34,7 +34,7 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
         } as Parameters<typeof setDocumentGenerationData>[0])
       }
     >
-      Certificat d&apos;adressage
+      Address certificate
     </Menu.Item>
   );
 
@@ -50,7 +50,7 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
         } as Parameters<typeof setDocumentGenerationData>[0])
       }
     >
-      Arrêté de numbering
+      Numbering order
     </Menu.Item>
   );
 

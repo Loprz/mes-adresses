@@ -209,7 +209,7 @@ function SignalementForm({
           />
         ))}
       <Paragraph textAlign="center">
-        Il reste {pendingSignalementsCount} report
+        {pendingSignalementsCount} report
         {pendingSignalementsCount === 1 ? "" : "s"} remaining to process
       </Paragraph>
     </Form>

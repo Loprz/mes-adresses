@@ -65,13 +65,13 @@ export function SignalementNumeroDiffCard({
       >
         <Pane padding={8} borderRadius={8} className="glass-pane">
           <Text is="div" fontWeight="bold" marginBottom={5}>
-            Numéro
+            Number
           </Text>
           <TextDiff from={numero.from} to={numero.to} />
         </Pane>
         <Pane padding={8} borderRadius={8} className="glass-pane">
           <Text is="div" fontWeight="bold" marginBottom={5}>
-            Voie
+            Street
           </Text>
           <TextChange from={voie.from} to={voie.to} />
         </Pane>
@@ -79,7 +79,7 @@ export function SignalementNumeroDiffCard({
       {complement.to && (
         <Pane marginTop={8} padding={8} borderRadius={8} className="glass-pane">
           <Text is="div" fontWeight="bold" marginBottom={5}>
-            Complément
+            Address complement
           </Text>
           <TextChange from={complement.from} to={complement.to} />
         </Pane>

@@ -28,7 +28,7 @@ export function VoieGeneratedDocuments<type extends GeneratedDocumentType>({
             } as Parameters<typeof setDocumentGenerationData>[0])
           }
         >
-          Arrêté de numérotation
+          Numbering order
         </Menu.Item>
       </Menu.Group>
     </>

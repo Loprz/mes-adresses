@@ -64,10 +64,10 @@ function Help() {
             Check the addressing guides
           </Link>
         </Paragraph>
-        <Paragraph>ou</Paragraph>
+        <Paragraph>or</Paragraph>
         <Paragraph>
           Contact us at{" "}
-          <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>
+          <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
         </Paragraph>
       </Pane>
       {isMobile && (

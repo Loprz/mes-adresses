@@ -7,19 +7,19 @@ interface SignalementTypeBadgeProps {
 
 export const signalementTypeMap = {
   [Signalement.type.LOCATION_TO_CREATE]: {
-    label: "Creation",
+    label: "Create",
     color: "teal",
     backgroundColor: "#D3F5F7",
     foregroundColor: "#0F5156",
   },
   [Signalement.type.LOCATION_TO_UPDATE]: {
-    label: "Modification",
+    label: "Update",
     color: "purple",
     backgroundColor: "#E7E4F9",
     foregroundColor: "#6E62B6",
   },
   [Signalement.type.LOCATION_TO_DELETE]: {
-    label: "Suppression",
+    label: "Delete",
     color: "orange",
     backgroundColor: "#F8E3DA",
     foregroundColor: "#FFB020",

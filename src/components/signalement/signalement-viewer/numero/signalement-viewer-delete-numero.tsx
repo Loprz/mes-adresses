@@ -30,7 +30,7 @@ function SignalementViewerDeleteNumero({
         signalementType={Signalement.type.LOCATION_TO_DELETE}
         title={
           <>
-            Demande de suppression d&apos;adresse{" "}
+            Address deletion request{" "}
             {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />

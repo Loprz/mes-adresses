@@ -66,7 +66,7 @@ function Toponymes() {
             </Text>
           </ListItem>
           <ListItem>
-            Un <MapMarkerIcon color="info" /> has appeared on the map. You
+            A <MapMarkerIcon color="info" /> has appeared on the map. You
             can move it to assign one or more positions to your
             place name.
             <br />
@@ -106,7 +106,7 @@ function Toponymes() {
           <ListItem>
             To finish, click on the button{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Enregistrer
+              Save
             </Button>
           </ListItem>
         </OrderedList>
@@ -137,7 +137,7 @@ function Toponymes() {
           <ListItem>
             To finish, click on{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Enregistrer
+              Save
             </Button>
           </ListItem>
         </OrderedList>
@@ -205,7 +205,7 @@ function Toponymes() {
           <ListItem>
             To save the parcels, click the button{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Enregistrer
+              Save
             </Button>
           </ListItem>
         </OrderedList>

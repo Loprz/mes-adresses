@@ -42,14 +42,14 @@ function QualityGoal() {
         caretPosition="start"
       >
         <Pane padding={8}>
-          <Heading size={400}>Qualité</Heading>
+          <Heading size={400}>Quality</Heading>
           <Text>
             To ensure the quality of your Local Address Base, it is{" "}
             <u>important to correct the alerts</u>.
             <br />
             <br />
-            Alerts are quality indicators for your Base Adresse
-            Locale. They are classified as errors and warnings.
+            Alerts are quality indicators for your Local Address Base.
+            They are classified as errors and warnings.
             <br />
             To ensure the quality of your Local Address Base, it is
             important to correct the alerts.

@@ -38,7 +38,7 @@ function COMDialog({ baseLocaleId, handleClose }: COMDialogProps) {
             In the meantime, in order to publish your addresses in the{" "}
             <Strong>National Address Database</Strong>, you must contact us at
             the following address:{" "}
-            <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>.
+            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>.
           </Paragraph>
           <Paragraph>
             In your email, please include the identifier of your

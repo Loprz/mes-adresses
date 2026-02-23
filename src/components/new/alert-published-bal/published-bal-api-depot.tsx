@@ -24,7 +24,7 @@ function PublishedBALApiDepot({
         <Strong>
           {client.chefDeFile ? client.chefDeFile : client.mandataire}
         </Strong>{" "}
-        pour {commune.nom}.
+        for {commune.nom}.
         {isOutdatedClient ? (
           <>
             The published Local Address Base is outdated and no longer
@@ -39,9 +39,8 @@ function PublishedBALApiDepot({
         ) : null}
       </Paragraph>
       <Paragraph marginTop={16}>
-        However, the jurisdiction remains the’competent authority in’adressage,
-        et vous pouvez décider à tout moment de reprendre la main sur la
-        publication of your LAB.
+        However, the jurisdiction remains the competent addressing authority,
+        and you can decide at any time to take back control of LAB publication.
       </Paragraph>
     </>
   );

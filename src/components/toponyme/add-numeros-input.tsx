@@ -41,7 +41,7 @@ function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
           >
             With a street
           </Button>
-          <Text>ou</Text>
+          <Text>or</Text>
           <Button
             marginTop={0}
             type="button"

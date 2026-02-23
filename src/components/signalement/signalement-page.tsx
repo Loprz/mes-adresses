@@ -48,7 +48,7 @@ export default function SignalementPage({
     setBreadcrumbs(
       <>
         <Link is={NextLink} href={`/bal/${baseLocale.id}/signalements`}>
-          Signalements
+          Reports
         </Link>
         <Text color="muted">{" > "}</Text>
         <Text aria-current="page">{getSignalementLabel(signalement)}</Text>

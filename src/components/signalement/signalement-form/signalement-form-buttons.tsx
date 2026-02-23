@@ -71,8 +71,7 @@ export function SignalementFormButtons({
               <Text fontWeight="bold">Reason</Text>
               {author?.email && (
                 <Text marginLeft={4} size={300} color="muted">
-                  (L&apos;auteur du signalement recevra cette information par
-                  email)
+                  (The report author will receive this information by email)
                 </Text>
               )}
             </Label>
@@ -120,10 +119,10 @@ export function SignalementFormButtons({
                   intent="danger"
                   iconAfter={BanCircleIcon}
                 >
-                  Refuser et{" "}
+                  Reject and{" "}
                   {pendingSignalementsCount > 1
                     ? "move to next"
-                    : "terminer"}
+                    : "finish"}
                 </Button>
               </Pane>
               <Pane
@@ -173,7 +172,7 @@ export function SignalementFormButtons({
               onClick={() => setShowRejectionForm(true)}
               iconAfter={BanCircleIcon}
             >
-              Refuser
+              Reject
             </Button>
           </Pane>
 

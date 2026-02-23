@@ -71,7 +71,7 @@ function Numeros() {
               </Button>
             </ListItem>
             <ListItem>
-              Un <MapMarkerIcon color="info" /> has appeared at the center of the
+              A <MapMarkerIcon color="info" /> has appeared at the center of the
               map, move it to the desired location using your mouse
             </ListItem>
             <ListItem>
@@ -129,22 +129,22 @@ function Numeros() {
               </Pane>
             </ListItem>
             <ListItem>
-              Un <MapMarkerIcon color="info" /> has appeared at the center of the
+              A <MapMarkerIcon color="info" /> has appeared at the center of the
               map, move it to the desired location using your mouse
             </ListItem>
             <ListItem>
               In the new menu that appeared, enter the number in the
-              field <Strong size={500}>Numéro</Strong>
+              field <Strong size={500}>Number</Strong>
             </ListItem>
             <ListItem>
               Enter the suffix (example: bis) in the field{" "}
-              <Strong size={500}>Suffixe</Strong>
+              <Strong size={500}>Suffix</Strong>
             </ListItem>
             <ListItem>
               Search for the street to which the number belongs and select
-              la. Note que si une voie est déjà sélectionnée alors elle vous
-              sera proposée par défaut. Vous pouvez également créer une nouvelle
-              street directly by clicking on{" "}
+              it. Note that if a street is already selected, it will be
+              suggested by default. You can also create a new
+              street directly by clicking{" "}
               <Button marginX={4} iconBefore={PlusIcon}>
                 Create a street
               </Button>
@@ -162,13 +162,13 @@ function Numeros() {
                 intent="success"
                 iconAfter={EndorsedIcon}
               >
-                Certifier et enregister
+                Certify and save
               </Button>{" "}
-              si vous validez cette adresse ou{" "}
+              if you validate this address, or{" "}
               <Button marginX={4} intent="success">
-                Enregister
+                Save
               </Button>{" "}
-              to give you time to verify before certifying.
+              to give yourself time to verify before certifying.
             </ListItem>
           </OrderedList>
         </SubTuto>
@@ -212,7 +212,7 @@ function Numeros() {
               You can now modify the number, suffix,
               address type or position by moving the{" "}
               <MapMarkerIcon color="info" /> on the map and certify your
-              adresse.
+              address.
             </ListItem>
           </OrderedList>
         </SubTuto>
@@ -248,7 +248,7 @@ function Numeros() {
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="Depuis la carte" icon={MapIcon}>
+        <SubTuto title="From the map" icon={MapIcon}>
           <OrderedList margin={8}>
             <ListItem>Right-click on the number</ListItem>
             <ListItem>
@@ -319,11 +319,11 @@ function Numeros() {
               intent="success"
               iconAfter={EndorsedIcon}
             >
-              Certifier et enregister
+              Certify and save
             </Button>{" "}
-            ou{" "}
+            or{" "}
             <Button marginX={4} intent="success">
-              Enregister
+              Save
             </Button>{" "}
             if you do not want to certify this address at this time.
           </ListItem>
@@ -378,11 +378,11 @@ function Numeros() {
               intent="success"
               iconAfter={EndorsedIcon}
             >
-              Certifier et enregister
+              Certify and save
             </Button>{" "}
-            ou{" "}
+            or{" "}
             <Button marginX={4} intent="success">
-              Enregister
+              Save
             </Button>{" "}
             if you do not wish to certify this address at the moment.
           </ListItem>

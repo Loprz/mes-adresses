@@ -45,7 +45,7 @@ function SignalementDeleteNumero({
       <SignalementNumeroDiffCard
         isActive
         signalementType={Signalement.type.LOCATION_TO_DELETE}
-        title="Demande de suppression d'adresse"
+        title="Address deletion request"
         numero={{
           to: `${numero}${suffixe ? ` ${suffixe}` : ""}`,
         }}

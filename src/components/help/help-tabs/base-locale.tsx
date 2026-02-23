@@ -35,7 +35,7 @@ function BaseLocale() {
           <ListItem>
             Enter the name of your Local Address Base in the field{" "}
             <Strong size={500} fontStyle="italic">
-              Nom
+              Name
             </Strong>
             . This will help you identify your Local Address Base.
           </ListItem>
@@ -71,7 +71,7 @@ function BaseLocale() {
 
       <Tuto title="Import a Local Address Base">
         <Paragraph marginTop="default">
-          Sur la page <b>New Local Address Base</b>, select the tab{" "}
+          On the <b>New Local Address Base</b> page, select the tab{" "}
           <Tab isSelected>Import a CSV file</Tab>
         </Paragraph>
         <OrderedList margin={8}>
@@ -82,7 +82,7 @@ function BaseLocale() {
           <ListItem>
             Enter the name of your Local Address Base in the field{" "}
             <Strong size={500} fontStyle="italic">
-              Nom
+              Name
             </Strong>
             . This will help you identify your Local Address Base.
           </ListItem>
@@ -137,7 +137,7 @@ function BaseLocale() {
             If your jurisdiction is a new one resulting from a merger, it may
             not appear in the list of suggestions. If this is the case,
             you can contact us at{" "}
-            <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>
+            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
           </Paragraph>
         </Tuto>
 

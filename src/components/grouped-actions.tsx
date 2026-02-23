@@ -192,7 +192,7 @@ function GroupedActions({
   return (
     <Pane padding={16}>
       <Pane marginBottom={5}>
-        <Heading>Actions groupées</Heading>
+        <Heading>Bulk actions</Heading>
       </Pane>
       <Pane>
         <Dialog

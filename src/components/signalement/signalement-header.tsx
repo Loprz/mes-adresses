@@ -55,7 +55,7 @@ export function SignalementHeader({
         )}
         {author && (
           <Paragraph>
-            par{" "}
+            by{" "}
             <b>
               {author.firstName} {author.lastName}
             </b>{" "}
@@ -67,11 +67,11 @@ export function SignalementHeader({
         <Paragraph>
           via <b>{source.nom}</b>
           {source.type === Source.type.PRIVATE ? (
-            <Tooltip content="Ce signalement provient d'un acteur de confiance">
+            <Tooltip content="This report comes from a trusted partner">
               <LockIcon marginLeft={5} color="success" />
             </Tooltip>
           ) : (
-            <Tooltip content="Ce signalement provient d'une source grand public">
+            <Tooltip content="This report comes from a public source">
               <UnlockIcon marginLeft={5} color="muted" />
             </Tooltip>
           )}

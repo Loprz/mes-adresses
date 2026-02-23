@@ -82,7 +82,7 @@ export default function SignalementsPage({
   ];
 
   useEffect(() => {
-    setBreadcrumbs(<Text aria-current="page">Signalements</Text>);
+    setBreadcrumbs(<Text aria-current="page">Reports</Text>);
     setTileLayersMode(TilesLayerMode.HIDDEN);
 
     return () => {

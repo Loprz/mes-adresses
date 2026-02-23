@@ -34,12 +34,12 @@ function MassDeletionDialog({
     >
       <Pane>
         <Paragraph>
-          Vous avez <Strong>deleted at least 50% of the addresses</Strong> connues
+          You have <Strong>deleted at least 50% of the known addresses</Strong>{" "}
           currently in the National Address Platform.
         </Paragraph>
         <Paragraph marginTop={8}>
-          Please remember that your addresses should be published
-          sur <Strong>the entire jurisdiction</Strong>.
+          Please remember that your addresses should be published for{" "}
+          <Strong>the entire jurisdiction</Strong>.
         </Paragraph>
 
         <Paragraph marginTop={8}>
@@ -47,11 +47,10 @@ function MassDeletionDialog({
           assistance,{" "}
           <Strong>
             you can contact us at{" "}
-            <a href="mailto:support@nap.us.gov">adresse@data.gouv.fr</a>
+            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
           </Strong>
         </Paragraph>
         <Paragraph marginTop={8}>
-          Des{" "}
           <a href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}>
             <VideoIcon size={12} /> video tutorials
           </a>{" "}
