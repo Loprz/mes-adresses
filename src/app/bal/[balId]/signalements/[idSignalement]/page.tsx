@@ -13,6 +13,7 @@ import {
   matchExistingToponyme,
 } from "@/lib/utils/signalement";
 import { ObjectId } from "bson";
+import { redirect } from "next/navigation";
 
 export default async function SignalementPageSSR({
   params,
@@ -24,11 +25,20 @@ export default async function SignalementPageSSR({
 }) {
   const { balId, idSignalement } = await params;
 
+  if (!process.env.NEXT_PUBLIC_API_SIGNALEMENT) {
+    redirect(`/bal/${balId}`);
+  }
+
   const voies = await BasesLocalesService.findBaseLocaleVoies(balId);
   const toponymes = await BasesLocalesService.findBaseLocaleToponymes(balId);
 
-  const signalement =
-    await SignalementsService.getSignalementById(idSignalement);
+  let signalement: Signalement;
+  try {
+    signalement = await SignalementsService.getSignalementById(idSignalement);
+  } catch (error) {
+    console.error(`Unable to load report ${idSignalement}:`, error);
+    redirect(`/bal/${balId}/signalements`);
+  }
 
   if ((signalement.changesRequested as NumeroChangesRequestedDTO).positions) {
     (signalement.changesRequested as NumeroChangesRequestedDTO).positions = (
