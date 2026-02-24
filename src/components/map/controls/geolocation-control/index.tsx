@@ -38,8 +38,7 @@ function GeolocationControl({ map }: GeolocationControlProps) {
       (err) => {
         pushToast({
           title: "Error",
-          message:
-            "We cannot'geolocate you. Check your browser settings.",
+          message: "We cannot geolocate you. Check your browser settings.",
           intent: "danger",
         });
         console.error(

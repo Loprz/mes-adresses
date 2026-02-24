@@ -92,7 +92,7 @@ export function PurgeExpiredSignalementsDialog({
       pushToast({
         title: "Error",
         message:
-          "An error occurred while updating'the reports. Please try again later.",
+          "An error occurred while updating the reports. Please try again later.",
         intent: "danger",
       });
     } finally {

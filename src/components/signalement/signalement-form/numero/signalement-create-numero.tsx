@@ -116,7 +116,7 @@ function SignalementCreateNumero({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting'the report.",
+        title: "Error while accepting the report.",
         intent: "danger",
       });
     }
@@ -149,7 +149,7 @@ function SignalementCreateNumero({
         <Alert flexShrink={0}>
           <Text>
             The new street <b>{nomVoie}</b> will be created by accepting this
-            signalement.
+            report.
           </Text>
         </Alert>
       )}
@@ -162,8 +162,8 @@ function SignalementCreateNumero({
         >
           <Paragraph>
             The Local Address Base contains{" "}
-            {similarVoies.length === 1 ? `a street` : `several streets`} dont le
-            nom est similaire :
+            {similarVoies.length === 1 ? `a street` : `several streets`} with a
+            similar name:
           </Paragraph>
 
           {similarVoies.map((voie) => (
@@ -179,7 +179,7 @@ function SignalementCreateNumero({
                 onClick={() => setExistingVoie(voie)}
                 marginLeft={20}
               >
-                Add the&apos;address to this street
+                Add the address to this street
               </Button>
             </Pane>
           ))}

@@ -85,7 +85,7 @@ function NumerosMarkers({
       const softDeleteNumero = toaster(
         () => NumerosService.softDeleteNumero(numeroId),
         "The number has been successfully archived",
-        "The number could n’ot be archived"
+        "The number could not be archived"
       );
 
       await softDeleteNumero();

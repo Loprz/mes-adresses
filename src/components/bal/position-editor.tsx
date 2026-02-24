@@ -88,7 +88,7 @@ function PositionEditor({
         </Pane>
       ) : (
         <Pane paddingBottom=".5em" textAlign="center">
-          <Heading size={400}>This place name has n’o position</Heading>
+          <Heading size={400}>This place name has no position</Heading>
         </Pane>
       )}
 

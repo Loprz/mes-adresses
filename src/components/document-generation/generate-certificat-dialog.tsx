@@ -62,7 +62,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
       <Pane is="form" onSubmit={(e) => e.preventDefault()}>
         <TextInputField
           label="Issuer (optional)"
-          description="L' will be mentioned in the addressing certificate'"
+          description="The issuer will be mentioned in the addressing certificate"
           value={data?.emetteur || ""}
           onChange={(e) =>
             setData((data) => ({
@@ -73,10 +73,10 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
               },
             }))
           }
-          placeholder="Sylvie Loiseau, Adjointe au Maire"
+          placeholder="Jane Smith, Deputy Mayor"
         />
         <Checkbox
-          label="Remember the issuer'"
+          label="Remember the issuer"
           checked={data?.rememberEmetteur || false}
           onChange={(e) =>
             setData((data) => ({
@@ -90,7 +90,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
           marginBottom={16}
         />
         <TextInputField
-          label="Destinataire (optionnel)"
+          label="Recipient (optional)"
           description="Enter the recipient name for a named certificate"
           value={data?.destinataire || ""}
           onChange={(e) =>

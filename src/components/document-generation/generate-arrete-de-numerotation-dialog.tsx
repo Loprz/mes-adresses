@@ -150,7 +150,7 @@ export function GenerateArreteDeNumerotationDialog<
       await prepareMapBeforeScreenshot(map);
       const imageBase64: string = await getImageBase64(map, "image/jpeg", 0.8);
       const blob = dataURItoBlob(imageBase64);
-      const file = new File([blob], `plan-de-situation.jpeg`, {
+      const file = new File([blob], `site-plan.jpeg`, {
         type: "image/jpeg",
       });
       const dataTransfer = new DataTransfer();
@@ -195,7 +195,7 @@ export function GenerateArreteDeNumerotationDialog<
     >
       <Pane is="form" onSubmit={(e) => e.preventDefault()}>
         <FileUploader
-          label="Plan de situation (optionnel)"
+          label="Site plan (optional)"
           description="The site plan provided will be inserted into the numbering certificate"
           browseOrDragText={() => (
             <Pane

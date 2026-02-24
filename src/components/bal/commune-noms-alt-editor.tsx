@@ -51,7 +51,7 @@ function CommuneNomsAltEditor({
           async () =>
             BasesLocalesService.updateBaseLocale(initialValue.id, body),
           "The jurisdiction's regional language name has been updated",
-          "The jurisdiction's regional language name could n’ot be updated",
+          "The jurisdiction's regional language name could not be updated",
           (err) => {
             setValidationMessages(err.body.message);
           }

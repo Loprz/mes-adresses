@@ -54,7 +54,7 @@ export function SignalementListItem({
           <Tooltip
             content={`Rejected on ${new Date(
               signalement.updatedAt
-            ).toLocaleDateString("fr-FR")}`}
+            ).toLocaleDateString("en-US")}`}
           >
             <Icon icon={BanCircleIcon} color="red500" />
           </Tooltip>
@@ -62,7 +62,7 @@ export function SignalementListItem({
           <Tooltip
             content={`Accepted on ${new Date(
               signalement.updatedAt
-            ).toLocaleDateString("fr-FR")}`}
+            ).toLocaleDateString("en-US")}`}
           >
             <Icon icon={TickCircleIcon} color="green500" />
           </Tooltip>
@@ -89,14 +89,14 @@ export function SignalementListItem({
                     icon={SendToMapIcon}
                     onSelect={() => onSelect(signalement.id)}
                   >
-                    Traiter
+                    Review
                   </Menu.Item>
                   <Menu.Item
                     icon={TrashIcon}
                     intent="danger"
                     onSelect={() => onIgnore(signalement.id)}
                   >
-                    Ignorer
+                    Dismiss
                   </Menu.Item>
                 </Menu.Group>
               </Menu>

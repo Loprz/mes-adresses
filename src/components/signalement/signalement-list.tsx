@@ -123,7 +123,7 @@ function SignalementList({
               iconBefore={hasActiveFilters ? FilterRemoveIcon : FilterIcon}
               onClick={() => setShowFilters((prev) => !prev)}
             >
-              Filtres
+              Filters
             </Button>
           </Tooltip>
           {showFilters && (
@@ -153,7 +153,7 @@ function SignalementList({
       {signalements.length === 0 && (
         <Table.Row>
           <Table.TextCell marginLeft={40} color="muted" fontStyle="italic">
-            Vous n&apos;avez aucune proposition actuellement
+            There are currently no reports
           </Table.TextCell>
         </Table.Row>
       )}

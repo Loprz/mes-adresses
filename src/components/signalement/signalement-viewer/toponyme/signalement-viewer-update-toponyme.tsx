@@ -58,7 +58,7 @@ function SignalementViewerUpdateToponyme({
       <SignalementToponymeDiffCard
         title={
           <>
-            Modification{" "}
+            Update request{" "}
             {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />

@@ -172,7 +172,7 @@ export default function VoiesPage() {
         );
       },
       "The street has been successfully converted to a place name",
-      "The street could n’ot be converted to a place name"
+      "The street could not be converted to a place name"
     );
 
     await convertToponyme();

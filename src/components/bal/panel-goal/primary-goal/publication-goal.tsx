@@ -126,8 +126,8 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
                 Platform.
               </Paragraph>
               <Paragraph>
-                Veuillez entrer en contact les administrateurs de l’autre Base
-                Address Base or our support: support@nap.us.gov
+                Please contact the administrators of the Local Address Base
+                that replaced this one, or contact support: support@nap.us.gov
               </Paragraph>
             </Pane>
           )}

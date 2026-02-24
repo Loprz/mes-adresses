@@ -71,7 +71,7 @@ function BANSync({
         position={Position.BOTTOM_RIGHT}
       >
         <Button height={28} appearance="primary" iconAfter={CaretDownIcon}>
-          {isMobile ? "Statut" : "Statut de synchronisation"}
+          {isMobile ? "Status" : "Sync status"}
         </Button>
       </Popover>
     </Pane>

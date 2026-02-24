@@ -40,7 +40,7 @@ function SignalementUpdateVoie({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting'the report.",
+        title: "Error while accepting the report.",
         intent: "danger",
       });
     }

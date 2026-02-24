@@ -75,7 +75,7 @@ export default function SignalementsPage({
   const tabs = [
     { label: "In progress", key: "pending", count: pendingSignalementsCount },
     {
-      label: `Archived${archivedSignalementsCount > 1 ? "s" : ""}`,
+      label: "Archived",
       key: "archived",
       count: archivedSignalementsCount,
     },
@@ -221,7 +221,7 @@ export default function SignalementsPage({
         borderBottom="muted"
         textAlign="center"
       >
-        <Text>Improvement requests</Text>
+        <Text>Reports</Text>
       </Pane>
       <Tablist background="white" padding={8}>
         {tabs.map(({ label, key, count }, index) => (
@@ -261,7 +261,7 @@ export default function SignalementsPage({
               >
                 <Pane marginX="-32px" marginBottom="-8px">
                   <Paragraph marginBottom={8} marginLeft={32} color="muted">
-                    Are you sure you want to dismiss these reports ?
+                    Are you sure you want to dismiss these reports?
                   </Paragraph>
                 </Pane>
 

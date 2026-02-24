@@ -23,7 +23,7 @@ export function MobileHelpMenu() {
         <Menu>
           <Menu.Group>
             <Menu.Item icon={HelpIcon} onClick={() => setShowHelp(!showHelp)}>
-              Besoin d’aide
+              Need help
             </Menu.Item>
             <Menu.Item
               is="a"
@@ -39,7 +39,7 @@ export function MobileHelpMenu() {
               href="#"
               icon={BookIcon}
             >
-              Guides de l’adressage
+              Addressing guides
             </Menu.Item>
           </Menu.Group>
         </Menu>

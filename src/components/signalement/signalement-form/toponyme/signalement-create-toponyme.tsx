@@ -61,7 +61,7 @@ function SignalementCreateToponyme({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting'the report.",
+        title: "Error while accepting the report.",
         intent: "danger",
       });
     }
@@ -70,7 +70,7 @@ function SignalementCreateToponyme({
   return (
     <>
       <SignalementToponymeDiffCard
-        title="Place name creation request'a place name"
+        title="Place name creation request"
         signalementType={Signalement.type.LOCATION_TO_CREATE}
         isActive
         nom={{
