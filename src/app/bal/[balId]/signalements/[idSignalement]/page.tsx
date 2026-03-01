@@ -6,6 +6,7 @@ import {
   Signalement,
   SignalementsService,
 } from "@/lib/openapi-signalement";
+import { isReportsFeatureEnabled } from "@/lib/features";
 import {
   getAlreadyExistingLocation,
   getExistingLocation,
@@ -25,7 +26,10 @@ export default async function SignalementPageSSR({
 }) {
   const { balId, idSignalement } = await params;
 
-  if (!process.env.NEXT_PUBLIC_API_SIGNALEMENT) {
+  if (
+    !isReportsFeatureEnabled() ||
+    !process.env.NEXT_PUBLIC_API_SIGNALEMENT
+  ) {
     redirect(`/bal/${balId}`);
   }
 

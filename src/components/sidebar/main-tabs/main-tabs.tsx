@@ -12,6 +12,7 @@ import { getLinkWithPagination } from "@/hooks/search-pagination";
 import DynamicTextIcon from "./dynamic-text-icon/dynamic-text-icon";
 import ResponsiveImage from "@/components/responsive-image";
 import { usePathname } from "next/navigation";
+import { isReportsFeatureEnabled } from "@/lib/features";
 
 export enum TabsEnum {
   COMMUNE = "commune",
@@ -51,6 +52,7 @@ function MainTabs({ balId }: MainTabsProps) {
     [TabsEnum.VOIES]: 0,
     [TabsEnum.TOPONYMES]: 0,
   });
+  const reportsEnabled = isReportsFeatureEnabled();
   const tabTitles: Record<TabsEnum, string> = {
     [TabsEnum.COMMUNE]: "Jurisdiction",
     [TabsEnum.VOIES]: "Streets",
@@ -137,7 +139,7 @@ function MainTabs({ balId }: MainTabsProps) {
             ),
             notif: pendingSignalementsCount,
             href: `/bal/${balId}/${TabsEnum.SIGNALEMENTS}`,
-            isHidden: !isAdmin || !communeHasSignalements,
+            isHidden: !reportsEnabled || !isAdmin || !communeHasSignalements,
           },
         ]
           .filter(({ isHidden }) => !isHidden)

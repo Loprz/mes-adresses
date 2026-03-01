@@ -16,6 +16,7 @@ import {
   SignalementsService,
   ToponymeChangesRequestedDTO,
 } from "../openapi-signalement";
+import { isReportsFeatureEnabled } from "@/lib/features";
 
 export enum SignalementDiff {
   NEW = "new",
@@ -240,6 +241,7 @@ export const detectChanges = (
 
 export const canFetchSignalements = (baseLocale: BaseLocale, token: string) => {
   return (
+    isReportsFeatureEnabled() &&
     baseLocale.status === BaseLocale.status.PUBLISHED &&
     Boolean(token) &&
     process.env.NEXT_PUBLIC_API_SIGNALEMENT !== undefined

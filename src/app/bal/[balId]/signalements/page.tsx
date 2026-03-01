@@ -1,6 +1,7 @@
 import SignalementsPage from "@/components/signalement/signalements-page";
 import { BasesLocalesService } from "@/lib/openapi-api-bal";
 import { Signalement, SignalementsService } from "@/lib/openapi-signalement";
+import { isReportsFeatureEnabled } from "@/lib/features";
 import { redirect } from "next/navigation";
 
 export default async function SignalementsPageSSR({
@@ -12,7 +13,10 @@ export default async function SignalementsPageSSR({
 }) {
   const { balId } = await params;
 
-  if (!process.env.NEXT_PUBLIC_API_SIGNALEMENT) {
+  if (
+    !isReportsFeatureEnabled() ||
+    !process.env.NEXT_PUBLIC_API_SIGNALEMENT
+  ) {
     redirect(`/bal/${balId}`);
   }
 
