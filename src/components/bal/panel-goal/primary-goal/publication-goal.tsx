@@ -117,17 +117,18 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
                   </Button>
                 </Pane>
               </Paragraph>
-            )}
+          )}
           {baseLocale.status === ExtendedBaseLocaleDTO.status.REPLACED && (
             <Pane>
               <Paragraph color={defaultTheme.colors.red700}>
-                The Local Address Base has been replaced by another; another
-                Local Address Base is synchronized with the National Address
-                Platform.
+                A different Local Address Base is currently published for this
+                jurisdiction, so this LAB is no longer syncing with the
+                National Address Platform.
               </Paragraph>
               <Paragraph>
-                Please contact the administrators of the Local Address Base
-                that replaced this one, or contact support: support@nap.us.gov
+                If you need to take over publication, contact the
+                administrators of the published LAB or email
+                support@nap.us.gov.
               </Paragraph>
             </Pane>
           )}

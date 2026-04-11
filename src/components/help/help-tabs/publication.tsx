@@ -63,9 +63,13 @@ function Publication() {
         </OrderedList>
         <Alert title="In case of conflict">
           <Text display="block" color="muted">
-            It may happen that another Local Address Base is already
-            synchronized with the National Address Platform. In this case, your
-            Local Address Base will conflict with it.
+            If another Local Address Base is already published for this
+            jurisdiction, your LAB will not become the current published LAB
+            until you replace it.
+          </Text>
+          <Text display="block" marginTop={8} color="muted">
+            If you already manage the published LAB, it is usually better to
+            continue from that one instead of replacing it.
           </Text>
           <Text display="block" marginTop={8} color="muted">
             By clicking
@@ -77,8 +81,8 @@ function Publication() {
             >
               Force publication
             </Button>
-            your Local Address Base will be published and will replace the one
-            currently in place.
+            your Local Address Base will become the current published LAB and
+            replace the one currently in place.
           </Text>
         </Alert>
       </Tuto>
@@ -143,9 +147,9 @@ function Publication() {
               />
             </Pane>
             <Text>
-              Another Local Address Base has replaced yours. Automatic address
-              updates are not possible. You can force an update to replace the
-              Local Address Base currently in place.
+              A different Local Address Base is currently published for this
+              jurisdiction. Automatic updates from this LAB are blocked until
+              you take over publication.
             </Text>
           </Pane>
 
