@@ -22,8 +22,8 @@ function PublishedBALMesAdresses({
         A Local Address Base is already published for {commune.nom}.
       </Paragraph>
       <Paragraph marginTop={8}>
-        If you are the administrator, we recommend
-        continuing the addressing from the existing one.
+        If you manage this jurisdiction, it is usually better to continue from
+        the published LAB rather than replace it with a separate draft.
       </Paragraph>
       <Pane
         display="flex"
@@ -37,7 +37,7 @@ function PublishedBALMesAdresses({
           target="_blank"
           href={`${process.env.NEXT_PUBLIC_EDITEUR_URL}/bal/${publishedBALId}`}
         >
-          Access the published Local Address Base
+          Open the published Local Address Base
         </Button>
       </Pane>
     </Pane>

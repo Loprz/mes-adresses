@@ -1,4 +1,4 @@
-import { Alert, Paragraph, Strong } from "evergreen-ui";
+import { Paragraph, Strong } from "evergreen-ui";
 
 import { PublicClient, Revision } from "@/lib/api-depot/types";
 import { CommuneType } from "@/types/commune";
@@ -20,27 +20,26 @@ function PublishedBALApiDepot({
   return (
     <>
       <Paragraph marginTop={16}>
-        A Local Address Base has already been published by{" "}
+        A Local Address Base is already published for {commune.nom} by{" "}
         <Strong>
           {client.chefDeFile ? client.chefDeFile : client.mandataire}
-        </Strong>{" "}
-        for {commune.nom}.
-        {isOutdatedClient ? (
-          <>
-            The published Local Address Base is outdated and no longer
-            maintained. You may proceed with creating your LAB.
-          </>
-        ) : client.chefDeFileEmail ? (
-          <>
-            We recommend contacting{" "}
-            <Strong>{client.chefDeFileEmail}</Strong> before proceeding with the
-            creation of your LAB.
-          </>
-        ) : null}
+        </Strong>.
       </Paragraph>
+      {isOutdatedClient ? (
+        <Paragraph marginTop={16}>
+          That published LAB appears outdated and is no longer maintained. You
+          may continue creating this LAB if you need to replace it.
+        </Paragraph>
+      ) : client.chefDeFileEmail ? (
+        <Paragraph marginTop={16}>
+          We recommend contacting <Strong>{client.chefDeFileEmail}</Strong>{" "}
+          before replacing it so there is no overlap between two competing
+          LABs.
+        </Paragraph>
+      ) : null}
       <Paragraph marginTop={16}>
-        However, the jurisdiction remains the competent addressing authority,
-        and you can decide at any time to take back control of LAB publication.
+        Your jurisdiction remains the official local addressing authority, so
+        you can decide at any time to take over publication directly.
       </Paragraph>
     </>
   );

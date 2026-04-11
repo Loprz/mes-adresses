@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Paragraph, Spinner } from "evergreen-ui";
+import { Button, Paragraph, Spinner, Strong } from "evergreen-ui";
 import { DataGouvService } from "@/lib/data-gouv/data-gouv";
 import {
   Dataset,
@@ -63,14 +63,14 @@ function PublishedBALMoissoneur({
       {organizationDataGouv && (
         <>
           <Paragraph marginTop={16}>
-            A Local Address Base is already published by{" "}
-            {organizationDataGouv.name} pour {commune.nom}.
+            A Local Address Base is already published for {commune.nom} by{" "}
+            {organizationDataGouv.name}.
           </Paragraph>
           {!isOutdatedSource && (
             <Paragraph marginTop={16}>
-              We recommend contacting this organization:{" "}
+              We recommend contacting this organization before replacing it:{" "}
               {organizationMoissonneur?.email ? (
-                <b>{organizationMoissonneur.email}</b>
+                <Strong>{organizationMoissonneur.email}</Strong>
               ) : (
                 <Button
                   is="a"
@@ -78,7 +78,7 @@ function PublishedBALMoissoneur({
                   href={organizationDataGouv.page}
                   target="_blank"
                 >
-                  Page data.gouv {organizationDataGouv.name}
+                  View {organizationDataGouv.name} on data.gouv
                 </Button>
               )}
             </Paragraph>
@@ -88,14 +88,15 @@ function PublishedBALMoissoneur({
 
       {isOutdatedSource && (
         <Paragraph marginTop={16}>
-          The published Local Address Base is outdated. You may continue to
-          the next step to replace it with yours.
+          The published Local Address Base appears outdated. You may continue
+          to the next step if you need to replace it with your jurisdiction's
+          LAB.
         </Paragraph>
       )}
 
       <Paragraph marginTop={16}>
-        The jurisdiction is the competent authority in addressing, and you can take
-        control directly by proceeding to the next step.
+        Your jurisdiction remains the official local addressing authority, and
+        you can take over publication directly by continuing to the next step.
       </Paragraph>
     </>
   );
