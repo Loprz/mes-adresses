@@ -45,8 +45,12 @@ function BaseLocale() {
             to access and edit your Local Address Base.
           </ListItem>
           <ListItem>
-            Search for your jurisdiction and select it from the list of
-            suggestions.
+            Select the state, then the county, then the city, township, or
+            county-wide option for the jurisdiction you want to manage.
+          </ListItem>
+          <ListItem>
+            If you are creating a county-wide LAB, keep the county selected in
+            the final list instead of choosing a city or township.
           </ListItem>
           <ListItem>
             If you want to start from scratch, uncheck the box{" "}
@@ -92,6 +96,14 @@ function BaseLocale() {
             to access and edit your Local Address Base.
           </ListItem>
           <ListItem>
+            Select the same state, county, and city, township, or county-wide
+            jurisdiction that is represented in your CSV file.
+          </ListItem>
+          <ListItem>
+            The uploaded file must contain addresses for only that one
+            jurisdiction.
+          </ListItem>
+          <ListItem>
             To finish, click on the button{" "}
             <Button
               marginX={4}
@@ -135,7 +147,9 @@ function BaseLocale() {
         <Tuto title="I can't find my jurisdiction">
           <Paragraph marginTop="default">
             If your jurisdiction is a new one resulting from a merger, it may
-            not appear in the list of suggestions. If this is the case,
+            not appear in the selector yet. First, make sure you have chosen
+            the correct state and county, and use the county-wide option if you
+            are managing unincorporated areas. If it still does not appear,
             you can contact us at{" "}
             <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
           </Paragraph>

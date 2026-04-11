@@ -10,15 +10,14 @@ function BALRecovery() {
   return (
     <Alert>
       <Text>
-        Can't find your Local Address Bases? Recover them by
-        email
+        Can't find one of your Local Address Bases? Recover access by email.
       </Text>
       <Button
         appearance="primary"
         marginLeft="1em"
         onClick={() => setIsRecoveryDisplayed(true)}
       >
-        Click here
+        Recover access
       </Button>
     </Alert>
   );
