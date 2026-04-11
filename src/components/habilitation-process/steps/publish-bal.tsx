@@ -255,29 +255,42 @@ function PublicationConflictDiagram() {
               </marker>
             </defs>
             <path
-              d="M 40 27 C 47 27 50 35 54 40 S 60 44 63 44"
+              d="M 40 27 C 47 27 50 34 54 39 S 57 44 59 46"
               fill="none"
               stroke={defaultTheme.colors.green500}
-              strokeWidth="0.7"
+              strokeWidth="0.85"
               strokeLinecap="round"
               markerEnd="url(#future-panel-green-arrow)"
             />
             <path
-              d="M 40 72 C 46 72 49 60 52 53 S 54 46 56.5 44"
+              d="M 40 72 C 46 72 49 65 52 60 S 54 57 55.8 56"
               fill="none"
               stroke={defaultTheme.colors.red500}
-              strokeWidth="0.7"
+              strokeWidth="0.85"
               strokeLinecap="round"
             />
-            <text
-              x="52"
-              y="58"
-              fill={defaultTheme.colors.red500}
-              fontSize="6.5"
-              fontWeight="600"
-            >
-              x
-            </text>
+            <circle
+              cx="56.8"
+              cy="56.2"
+              r="3.8"
+              fill="white"
+              stroke={defaultTheme.colors.red500}
+              strokeWidth="0.75"
+            />
+            <path
+              d="M 55.1 54.5 L 58.5 57.9"
+              fill="none"
+              stroke={defaultTheme.colors.red500}
+              strokeWidth="0.95"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 58.5 54.5 L 55.1 57.9"
+              fill="none"
+              stroke={defaultTheme.colors.red500}
+              strokeWidth="0.95"
+              strokeLinecap="round"
+            />
           </svg>
           <Pane position="relative" width="100%" height="100%">
             <ConflictDiagramNode
