@@ -82,7 +82,7 @@ const STATUSES: { [key: string]: StatusType } = {
     title:
       "This Local Address Base is no longer syncing with the National Address Platform",
     content:
-      "Another Local Address Base is also synchronized with the National Address Platform. Please contact the administrators of the other Local Address Base or our support: support@addressplatform.gov",
+      "A different Local Address Base is currently published for this jurisdiction. Automatic updates from this LAB are blocked. Contact the administrators of the published LAB, or email support@nap.us.gov if you need to take over publication.",
     color: "red",
     intent: "danger",
     icon: ErrorIcon,
