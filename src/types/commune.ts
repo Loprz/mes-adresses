@@ -6,6 +6,8 @@ export type CommuneBoundary = {
 };
 
 export type CommuneType = CommuneDTO & {
+  stateFips?: string;
+  countyFips?: string | null;
   bbox?: number[];
   contour?: CommuneBoundary;
 };

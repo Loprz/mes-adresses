@@ -6,10 +6,12 @@ import { Dialog, Heading, Pane } from "evergreen-ui";
 import RecoverBALCommune from "./recover-bal-commune";
 import RecoverBALMail from "./recover-bal-mail";
 import { BaseLocale } from "@/lib/openapi-api-bal";
+import { CommuneType } from "@/types/commune";
 
 interface RecoverBALAlertProps {
   isShown: boolean;
   defaultEmail?: string;
+  defaultCommune?: CommuneType | null;
   baseLocale?: BaseLocale;
   onClose: () => void;
 }
@@ -17,6 +19,7 @@ interface RecoverBALAlertProps {
 function RecoverBALAlert({
   isShown,
   defaultEmail,
+  defaultCommune,
   baseLocale,
   onClose,
 }: RecoverBALAlertProps) {
@@ -70,6 +73,7 @@ function RecoverBALAlert({
           {isDisplayCommuneRecovery && (
             <RecoverBALCommune
               baseLocale={baseLocale}
+              defaultCommune={defaultCommune}
               error={errorCommune}
               isLoading={isLoading}
               setError={setErrorCommune}

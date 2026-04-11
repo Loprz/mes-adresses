@@ -16,13 +16,14 @@ import LocalStorageContext from "@/contexts/local-storage";
 
 import { BaseLocale, BasesLocalesService } from "@/lib/openapi-api-bal";
 import LayoutContext from "@/contexts/layout";
-import { CommuneSearchField } from "@/components/commune-search";
+import JurisdictionSelector from "@/components/jurisdiction-selector";
 import { CommuneType } from "@/types/commune";
 import { hasBeenSentRecently } from "@/lib/utils/date";
 import { ApiDepotService } from "@/lib/api-depot";
 
 interface RecoverBALCommuneProps {
   baseLocale?: BaseLocale;
+  defaultCommune?: CommuneType | null;
   error?: string;
   isLoading?: boolean;
   setError: (error: string) => void;
@@ -32,6 +33,7 @@ interface RecoverBALCommuneProps {
 
 function RecoverBALCommune({
   baseLocale,
+  defaultCommune,
   error,
   isLoading,
   setError,
@@ -41,9 +43,12 @@ function RecoverBALCommune({
   const { recoveryEmailCommuneSent, setRecoveryEmailCommuneSent } =
     useContext(LocalStorageContext);
   const { pushToast } = useContext(LayoutContext);
-  const [commune, setCommune] = useState<CommuneType | null>(null);
+  const [commune, setCommune] = useState<CommuneType | null>(
+    defaultCommune || null
+  );
   const [emailsCommune, setEmailsCommune] = useState<string[]>([]);
   const [isLoadingEmails, setIsLoadingEmails] = useState<boolean>(false);
+  const selectedCommuneCode = commune?.code || baseLocale?.commune;
 
   const fetchEmailsCommune = useCallback(async (codeCommune: string) => {
     setIsLoadingEmails(true);
@@ -56,18 +61,43 @@ function RecoverBALCommune({
   }, []);
 
   const selectCommune = useCallback(
-    (commune: CommuneType) => {
-      setCommune(commune);
-      fetchEmailsCommune(commune?.code);
+    (nextCommune: CommuneType | null) => {
+      setCommune(nextCommune);
+
+      if (!nextCommune?.code) {
+        setEmailsCommune([]);
+        return;
+      }
+
+      fetchEmailsCommune(nextCommune.code);
     },
     [fetchEmailsCommune]
   );
 
   useEffect(() => {
-    if (baseLocale?.id) {
-      fetchEmailsCommune(baseLocale.commune);
+    if (baseLocale?.id || !defaultCommune?.code) {
+      return;
     }
+
+    setCommune(defaultCommune);
+    void fetchEmailsCommune(defaultCommune.code);
+  }, [baseLocale?.id, defaultCommune, fetchEmailsCommune]);
+
+  useEffect(() => {
+    if (!baseLocale?.id) {
+      return;
+    }
+
+    void fetchEmailsCommune(baseLocale.commune);
   }, [baseLocale?.id, baseLocale?.commune, fetchEmailsCommune]);
+
+  useEffect(() => {
+    if (!commune?.code) {
+      return;
+    }
+
+    setError(null);
+  }, [commune?.code, setError]);
 
   const recoveryCommune = useCallback(async () => {
     const codeCommune = commune?.code || baseLocale?.commune;
@@ -135,7 +165,7 @@ function RecoverBALCommune({
             width={66}
             height={66}
             src={"/static/images/mairie.svg"}
-            alt="logo mairie"
+            alt="jurisdiction logo"
             style={{ filter: "grayscale(100%)" }}
           />
         </Pane>
@@ -144,21 +174,15 @@ function RecoverBALCommune({
         </Heading>
         {!baseLocale?.id && (
           <Paragraph marginBottom={8}>
-            Enter the jurisdiction for which you want to recover the Local Address
-            Bases.
+            Choose the jurisdiction for which you want to recover the Local
+            Address Bases.
           </Paragraph>
         )}
         {!baseLocale && (
-          <CommuneSearchField
-            id="commune"
-            required={false}
-            innerRef={() => {}}
-            initialSelectedItem={commune}
-            label=""
-            placeholder="Roche 42"
-            appearance="default"
-            maxWidth={500}
-            onSelect={selectCommune}
+          <JurisdictionSelector
+            commune={commune}
+            setCommune={selectCommune}
+            showSelectionHint={false}
           />
         )}
         {error && (
@@ -169,18 +193,22 @@ function RecoverBALCommune({
         {isLoadingEmails && (
           <Pane marginTop={16} display="flex" alignItems="center" gap={8}>
             <Spinner />
-            <Paragraph>
-              Loading jurisdiction email addresses...
-            </Paragraph>
+            <Paragraph>Loading jurisdiction email addresses...</Paragraph>
           </Pane>
         )}
         {!isLoadingEmails && emailsCommune.length > 0 && (
           <Alert marginTop={16} intent="info" hasIcon={false}>
             <Paragraph color="blue600">
-              An email with the recovery link will be
-              sent to the address of your jurisdiction:{" "}
-              <Strong>{emailsCommune.join(", ")}</Strong>
+              An email with the recovery link will be sent to the address of
+              your jurisdiction: <Strong>{emailsCommune.join(", ")}</Strong>
             </Paragraph>
+          </Alert>
+        )}
+        {!isLoadingEmails && selectedCommuneCode && emailsCommune.length === 0 && (
+          <Alert marginTop={16} intent="warning">
+            We couldn't preview an official jurisdiction email here. You can
+            still continue, and the recovery request will use the backend
+            directory lookup.
           </Alert>
         )}
       </Pane>

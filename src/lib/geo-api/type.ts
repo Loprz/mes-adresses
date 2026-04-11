@@ -1,6 +1,8 @@
 export type CommuneApiGeoType = {
   nom: string;
   code: string;
+  stateFips?: string;
+  countyFips?: string | null;
   departement?: {
     code: string;
     nom: string;
@@ -28,6 +30,29 @@ export type CommuneApiGeoType = {
   population?: number;
   siren?: string;
   _score: number;
+};
+
+export type JurisdictionStateApiGeoType = {
+  code: string;
+  abbr: string;
+  nom: string;
+};
+
+export type JurisdictionCountyApiGeoType = {
+  code: string;
+  nom: string;
+  stateFips: string;
+  stateAbbr: string;
+};
+
+export type JurisdictionPlaceApiGeoType = {
+  code: string;
+  nom: string;
+  stateFips: string;
+  stateAbbr: string;
+  countyFips?: string | null;
+  countyName?: string;
+  type?: string;
 };
 
 export type CommuneDelegueeApiGeoType = {

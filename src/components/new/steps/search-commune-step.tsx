@@ -1,12 +1,16 @@
-import { CommuneSearchField } from "@/components/commune-search";
+import JurisdictionSelector from "@/components/jurisdiction-selector";
 import { CommuneType } from "@/types/commune";
-import { Pane } from "evergreen-ui";
-import { useEffect, useState } from "react";
+import { Pane, Paragraph } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import CommunePublicationInfos from "../commune-publication-infos";
 
 interface SearchCommuneStepProps {
   commune: CommuneType | null;
   setCommune: (commune: CommuneType | null) => void;
+  initialStateFips?: string;
+  initialCountyCode?: string;
+  initialJurisdictionCode?: string;
+  allowAutomaticProceed: boolean;
   outdatedApiDepotClients: string[];
   outdatedHarvestSources: string[];
   onCreateNewBAL: () => void;
@@ -15,38 +19,38 @@ interface SearchCommuneStepProps {
 function SearchCommuneStep({
   commune,
   setCommune,
+  initialStateFips,
+  initialCountyCode,
+  initialJurisdictionCode,
+  allowAutomaticProceed,
   outdatedApiDepotClients,
   outdatedHarvestSources,
   onCreateNewBAL,
 }: SearchCommuneStepProps) {
-  const [ref, setRef] = useState<HTMLInputElement>();
-
-  useEffect(() => {
-    if (ref) {
-      ref.focus();
-    }
-  }, [ref]);
+  const tNewBase = useTranslations("newBase");
 
   return (
-    <Pane>
-      <CommuneSearchField
-        required
-        innerRef={setRef}
-        id="commune"
-        initialSelectedItem={commune}
-        label="Search for a city, town, or county"
-        placeholder="Fresno County CA"
-        appearance="default"
-        maxWidth={500}
-        onSelect={setCommune}
+    <Pane maxWidth={760}>
+      <Paragraph marginBottom={24}>{tNewBase("step1Description")}</Paragraph>
+
+      <JurisdictionSelector
+        commune={commune}
+        setCommune={setCommune}
+        initialStateFips={initialStateFips}
+        initialCountyCode={initialCountyCode}
+        initialJurisdictionCode={initialJurisdictionCode}
       />
+
       {commune && (
-        <CommunePublicationInfos
-          onCreateNewBAL={onCreateNewBAL}
-          commune={commune}
-          outdatedApiDepotClients={outdatedApiDepotClients}
-          outdatedHarvestSources={outdatedHarvestSources}
-        />
+        <Pane marginTop={16}>
+          <CommunePublicationInfos
+            onCreateNewBAL={onCreateNewBAL}
+            commune={commune}
+            allowAutomaticProceed={allowAutomaticProceed}
+            outdatedApiDepotClients={outdatedApiDepotClients}
+            outdatedHarvestSources={outdatedHarvestSources}
+          />
+        </Pane>
       )}
     </Pane>
   );

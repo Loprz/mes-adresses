@@ -12,7 +12,7 @@ function AlertExistingBALMesAdresses({
   existingBALCount,
   commune,
 }: AlertExistingBALMesAdressesProps) {
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
 
   return (
     <Alert
@@ -27,7 +27,10 @@ function AlertExistingBALMesAdresses({
         recover it?
       </Paragraph>
       <Pane marginTop={8} display="flex" gap={8}>
-        <Button onClick={() => setIsRecoveryDisplayed(true)} type="button">
+        <Button
+          onClick={() => openRecovery({ commune })}
+          type="button"
+        >
           Recover a LAB with an email
         </Button>
       </Pane>

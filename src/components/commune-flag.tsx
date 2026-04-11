@@ -26,7 +26,7 @@ function CommuneFlag({ codeCommune }: { codeCommune: string }) {
       width={100}
       height={100}
       src={flag || "/static/images/mairie.svg"}
-      alt="logo mairie"
+      alt="jurisdiction logo"
       style={{
         width: "auto",
         height: "100px",

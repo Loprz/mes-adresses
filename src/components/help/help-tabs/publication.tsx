@@ -44,7 +44,7 @@ function Publication() {
           <ListItem>
             <Paragraph>
               Authenticate via your local government's official email or your
-              Proconnect account
+              ProConnect account
             </Paragraph>
           </ListItem>
 
@@ -57,15 +57,15 @@ function Publication() {
               appearance="primary"
               intent="success"
             >
-              Publier
+              Publish
             </Button>
           </ListItem>
         </OrderedList>
         <Alert title="In case of conflict">
           <Text display="block" color="muted">
             It may happen that another Local Address Base is already
-            synchronized with the National Address Platform. In this case, your Local
-            Address Base will conflict with it.
+            synchronized with the National Address Platform. In this case, your
+            Local Address Base will conflict with it.
           </Text>
           <Text display="block" marginTop={8} color="muted">
             By clicking
@@ -75,7 +75,7 @@ function Publication() {
               height={24}
               marginX={4}
             >
-              Force publish
+              Force publication
             </Button>
             your Local Address Base will be published and will replace the one
             currently in place.
@@ -111,9 +111,8 @@ function Publication() {
               />
             </Pane>
             <Text>
-              Changes have been detected and will be automatically
-              reflected in the National Address Platform within the next
-              few hours.
+              Changes have been detected and will be automatically reflected in
+              the National Address Platform within the next few hours.
             </Text>
           </Pane>
 
@@ -126,9 +125,9 @@ function Publication() {
               />
             </Pane>
             <Text>
-              You have paused updates for your Local Address Base.
-              No changes will be sent to the National Address Platform.
-              You can resume updates at any time.
+              You have paused updates for your Local Address Base. No changes
+              will be sent to the National Address Platform. You can resume
+              updates at any time.
             </Text>
           </Pane>
 
@@ -145,9 +144,8 @@ function Publication() {
             </Pane>
             <Text>
               Another Local Address Base has replaced yours. Automatic address
-              updates are not possible. You can force an update to replace
-              the Local Address Base currently
-              in place.
+              updates are not possible. You can force an update to replace the
+              Local Address Base currently in place.
             </Text>
           </Pane>
 
@@ -163,9 +161,9 @@ function Publication() {
               />
             </Pane>
             <Text>
-              The Local Address Base authorization is not
-              valid. You need to renew it so that new
-              changes are reflected in the National Address Platform.
+              The Local Address Base authorization is not valid. You need to
+              renew it so that new changes are reflected in the National Address
+              Platform.
             </Text>
           </Pane>
         </Pane>

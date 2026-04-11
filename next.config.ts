@@ -7,13 +7,17 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const ADRESSE_URL =
   process.env.NEXT_PUBLIC_ADRESSE_URL || "https://adresse.data.gouv.fr";
+const isProduction = process.env.NODE_ENV === "production";
 
 const withBundleAnalyzer = _withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
 const nextConfig: NextConfig = withBundleAnalyzer({
-  reactCompiler: true,
+  reactCompiler: isProduction,
+  experimental: {
+    optimizePackageImports: ["evergreen-ui"],
+  },
   redirects: async () => {
     return [
       {

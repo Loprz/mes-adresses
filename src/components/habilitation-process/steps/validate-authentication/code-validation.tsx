@@ -60,7 +60,7 @@ function CodeValidation({
           width={66}
           height={66}
           src={flagURL || "/static/images/mairie.svg"}
-          alt="logo mairie"
+          alt="jurisdiction logo"
         />
         <Heading is="h2" marginTop={16}>
           Jurisdiction Authentication
@@ -115,8 +115,8 @@ function CodeValidation({
 
           <ListItem icon={EnvelopeIcon}>
             <Text>
-              Add the sender address to your email whitelist
-              in your spam filter settings
+              Add the sender address to your email whitelist in your spam filter
+              settings
             </Text>
           </ListItem>
 

@@ -99,18 +99,15 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
       >
         <Pane padding={8}>
           <Paragraph>
-            La{" "}
             <a
-              href="https://guide.mes-adresses.data.gouv.fr/publier-une-base-adresse-locale-1/certifier-ses-adresses"
+              href="https://nationaladdressplatform.us/guide/certification"
               target="_blank"
               rel="noreferrer"
             >
               certification
             </a>{" "}
-            vous permet de{" "}
-            <Strong>track the reliability progress</Strong> des
-            adresses et de <Strong>mettre en valeur votre travail</Strong>{" "}
-            among data consumers.
+            helps you <Strong>track address reliability progress</Strong> and{" "}
+            <Strong>highlight your work</Strong> for data consumers.
           </Paragraph>
         </Pane>
       </AccordionCard>

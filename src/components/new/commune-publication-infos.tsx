@@ -15,6 +15,7 @@ import AlertExistingBALMesAdresses from "./alert-published-bal/alert-existing-ba
 
 interface CommunePublicationInfosProps {
   commune: CommuneType;
+  allowAutomaticProceed: boolean;
   outdatedApiDepotClients: string[];
   outdatedHarvestSources: string[];
   onCreateNewBAL: () => void;
@@ -22,6 +23,7 @@ interface CommunePublicationInfosProps {
 
 function CommunePublicationInfos({
   commune,
+  allowAutomaticProceed,
   outdatedHarvestSources,
   outdatedApiDepotClients,
   onCreateNewBAL,
@@ -32,10 +34,21 @@ function CommunePublicationInfos({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!isLoading && !apiDepotLastRevision && existingBALCount === 0) {
+    if (
+      allowAutomaticProceed &&
+      !isLoading &&
+      !apiDepotLastRevision &&
+      existingBALCount === 0
+    ) {
       onCreateNewBAL();
     }
-  }, [apiDepotLastRevision, existingBALCount, isLoading, onCreateNewBAL]);
+  }, [
+    allowAutomaticProceed,
+    apiDepotLastRevision,
+    existingBALCount,
+    isLoading,
+    onCreateNewBAL,
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {

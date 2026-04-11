@@ -7,10 +7,8 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import dynamic from "next/dynamic";
 import Stepper from "@/components/stepper";
-import SearchCommuneStep from "@/components/new/steps/search-commune-step";
-import ImportDataStep from "@/components/new/steps/import-data-step";
-import BALInfosStep from "@/components/new/steps/bal-infos-step";
 import { Button, Pane } from "evergreen-ui";
 import { BaseLocale, BasesLocalesService } from "@/lib/openapi-api-bal";
 import LocalStorageContext from "@/contexts/local-storage";
@@ -18,10 +16,22 @@ import { useRouter } from "next/navigation";
 import { useBALDataImport } from "@/hooks/bal-data-import";
 import LayoutContext from "@/contexts/layout";
 import { CommuneType } from "@/types/commune";
+import { useTranslations } from "next-intl";
 import styles from "./new.module.css";
+
+const SearchCommuneStep = dynamic(
+  () => import("@/components/new/steps/search-commune-step")
+);
+const ImportDataStep = dynamic(
+  () => import("@/components/new/steps/import-data-step")
+);
+const BALInfosStep = dynamic(() => import("@/components/new/steps/bal-infos-step"));
 
 interface NewPageProps {
   defaultCommune?: CommuneType;
+  initialStateFips?: string;
+  initialCountyCode?: string;
+  initialJurisdictionCode?: string;
   outdatedApiDepotClients: string[];
   outdatedHarvestSources: string[];
 }
@@ -32,9 +42,13 @@ const getSuggestedBALName = (commune?: CommuneType) => {
 
 export default function NewPageComponent({
   defaultCommune,
+  initialStateFips,
+  initialCountyCode,
+  initialJurisdictionCode,
   outdatedApiDepotClients,
   outdatedHarvestSources,
 }: NewPageProps) {
+  const tNewBase = useTranslations("newBase");
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { addBalAccess } = useContext(LocalStorageContext);
@@ -44,6 +58,7 @@ export default function NewPageComponent({
   const [csvImportFile, setCsvImportFile] = useState<File | null>(null);
   const [balName, setBalName] = useState<string | null>(null);
   const [adminEmails, setAdminEmails] = useState<string[]>([]);
+  const [allowAutomaticProceed, setAllowAutomaticProceed] = useState(true);
   const { importFromCSVFile, importFromBAN } = useBALDataImport();
   const router = useRouter();
 
@@ -55,15 +70,21 @@ export default function NewPageComponent({
     }
   }, [commune]);
 
+  useEffect(() => {
+    if (commune?.code) {
+      setAllowAutomaticProceed(true);
+    }
+  }, [commune?.code]);
+
   const steps = useMemo(() => {
     return [
       {
-        label: "Choose your jurisdiction",
+        label: tNewBase("step1Title"),
         canBrowseNext: Boolean(commune),
         canBrowseBack: false,
       },
       {
-        label: "Data import",
+        label: tNewBase("step2Title"),
         canBrowseNext:
           importValue === "file"
             ? Boolean(csvImportFile)
@@ -71,20 +92,20 @@ export default function NewPageComponent({
         canBrowseBack: !isLoading,
       },
       {
-        label: "LAB information",
+        label: tNewBase("step3Title"),
         canBrowseNext:
           !isLoading && Boolean(balName) && Boolean(adminEmails.length),
         canBrowseBack: !isLoading,
       },
     ];
-  }, [commune, importValue, csvImportFile, isLoading, balName, adminEmails]);
+  }, [commune, importValue, csvImportFile, isLoading, balName, adminEmails, tNewBase]);
 
   const onPreviousStep = useCallback(() => {
     if (currentStepIndex > 0) {
       setCurrentStepIndex(currentStepIndex - 1);
     }
     if (currentStepIndex === 1) {
-      setCommune(null);
+      setAllowAutomaticProceed(false);
     }
   }, [currentStepIndex]);
 
@@ -164,6 +185,10 @@ export default function NewPageComponent({
                   onCreateNewBAL={onNextStep}
                   commune={commune}
                   setCommune={setCommune}
+                  initialStateFips={initialStateFips}
+                  initialCountyCode={initialCountyCode}
+                  initialJurisdictionCode={initialJurisdictionCode}
+                  allowAutomaticProceed={allowAutomaticProceed}
                   outdatedApiDepotClients={outdatedApiDepotClients}
                   outdatedHarvestSources={outdatedHarvestSources}
                 />

@@ -1,5 +1,10 @@
 import qs from "querystring";
-import { CommuneApiGeoType } from "./type";
+import {
+  CommuneApiGeoType,
+  JurisdictionCountyApiGeoType,
+  JurisdictionPlaceApiGeoType,
+  JurisdictionStateApiGeoType,
+} from "./type";
 
 /**
  * US Jurisdiction Search Service
@@ -26,6 +31,16 @@ export class ApiGeoService {
     return null;
   }
 
+  private static async requestArray<T = unknown>(url: string): Promise<T[]> {
+    const res = await this.request<unknown>(url);
+
+    if (res === null) {
+      throw new Error(`ApiGeoService request failed for ${url}`);
+    }
+
+    return Array.isArray(res) ? (res as T[]) : [];
+  }
+
   public static async searchCommunes(
     search: string,
     options: Record<string, any> = {}
@@ -50,6 +65,28 @@ export class ApiGeoService {
   ): Promise<CommuneApiGeoType> {
     return this.request(
       `/jurisdictions/${code.toUpperCase()}?${qs.stringify(options)}`
+    );
+  }
+
+  public static async getStates(): Promise<JurisdictionStateApiGeoType[]> {
+    return this.requestArray<JurisdictionStateApiGeoType>(
+      "/jurisdictions/states"
+    );
+  }
+
+  public static async getCounties(
+    stateFips: string
+  ): Promise<JurisdictionCountyApiGeoType[]> {
+    return this.requestArray<JurisdictionCountyApiGeoType>(
+      `/jurisdictions/states/${stateFips}/counties`
+    );
+  }
+
+  public static async getPlaces(
+    countyFips: string
+  ): Promise<JurisdictionPlaceApiGeoType[]> {
+    return this.requestArray<JurisdictionPlaceApiGeoType>(
+      `/jurisdictions/counties/${countyFips}/places`
     );
   }
 }

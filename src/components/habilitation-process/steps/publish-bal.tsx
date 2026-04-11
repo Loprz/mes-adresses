@@ -8,7 +8,6 @@ import {
   Text,
   Link,
   Button,
-  Image,
   Heading,
   defaultTheme,
   Icon,
@@ -31,6 +30,287 @@ interface PublishBalStepProps {
   handlePublication: () => void;
   isLoadingPublish: boolean;
   handleClose: () => void;
+}
+
+interface ConflictDiagramNodeProps {
+  title: string;
+  description?: string;
+  borderColor: string;
+  textColor?: string;
+  top: string;
+  left: string;
+  width: string;
+  height: string;
+}
+
+function ConflictDiagramNode({
+  title,
+  description,
+  borderColor,
+  textColor = defaultTheme.colors.gray900,
+  top,
+  left,
+  width,
+  height,
+}: ConflictDiagramNodeProps) {
+  return (
+    <Pane
+      position="absolute"
+      top={top}
+      left={left}
+      width={width}
+      height={height}
+      background="white"
+      border={`2px solid ${borderColor}`}
+      borderRadius={10}
+      paddingX={16}
+      paddingY={14}
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="flex-start"
+      gap={4}
+    >
+      <Text size={600} fontWeight={700} color={textColor} whiteSpace="pre-line">
+        {title}
+      </Text>
+      {description && (
+        <Text color={defaultTheme.colors.gray700}>{description}</Text>
+      )}
+    </Pane>
+  );
+}
+
+function PublicationConflictDiagram() {
+  return (
+    <Pane
+      display="flex"
+      flexWrap="wrap"
+      gap={16}
+      marginTop={20}
+      marginBottom={16}
+      alignItems="center"
+    >
+      <Pane
+        position="relative"
+        flex="1 1 420px"
+        border={`1px solid ${defaultTheme.colors.gray300}`}
+        borderRadius={8}
+        padding={20}
+        backgroundColor={defaultTheme.colors.gray50}
+        minHeight={304}
+      >
+        <Pane
+          position="absolute"
+          top={-14}
+          left={18}
+          background="white"
+          paddingX={8}
+        >
+          <Text size={500} color={defaultTheme.colors.gray700}>
+            Current situation
+          </Text>
+        </Pane>
+        <Pane position="relative" height={260}>
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              pointerEvents: "none",
+            }}
+          >
+            <defs>
+              <marker
+                id="current-panel-green-arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="3"
+                orient="auto"
+              >
+                <path
+                  d="M 0 0 L 6 3 L 0 6"
+                  fill={defaultTheme.colors.green500}
+                />
+              </marker>
+            </defs>
+            <path
+              d="M 40 72 C 48 72 50 57 59 57"
+              fill="none"
+              stroke={defaultTheme.colors.green500}
+              strokeWidth="0.7"
+              markerEnd="url(#current-panel-green-arrow)"
+            />
+          </svg>
+          <Pane position="relative" width="100%" height="100%">
+            <ConflictDiagramNode
+              title="New LAB"
+              description="in draft"
+              borderColor={defaultTheme.colors.gray400}
+              textColor={defaultTheme.colors.gray700}
+              top="10%"
+              left="4%"
+              width="35%"
+              height="38%"
+            />
+            <ConflictDiagramNode
+              title="Current LAB"
+              description="published"
+              borderColor={defaultTheme.colors.green500}
+              top="56%"
+              left="4%"
+              width="35%"
+              height="38%"
+            />
+            <ConflictDiagramNode
+              title={"National Address\nPlatform"}
+              borderColor={defaultTheme.colors.blue400}
+              top="10%"
+              left="59%"
+              width="37%"
+              height="80%"
+            />
+          </Pane>
+        </Pane>
+      </Pane>
+
+      <Pane
+        flex="0 0 28px"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <svg width="24" height="18" viewBox="0 0 24 18">
+          <defs>
+            <marker
+              id="diagram-between-arrow"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M 0 0 L 6 3 L 0 6" fill={defaultTheme.colors.gray400} />
+            </marker>
+          </defs>
+          <path
+            d="M 2 9 L 20 9"
+            fill="none"
+            stroke={defaultTheme.colors.gray400}
+            strokeWidth="1.3"
+            markerEnd="url(#diagram-between-arrow)"
+          />
+        </svg>
+      </Pane>
+
+      <Pane
+        position="relative"
+        flex="1 1 420px"
+        border={`1px solid ${defaultTheme.colors.gray300}`}
+        borderRadius={8}
+        padding={20}
+        backgroundColor={defaultTheme.colors.gray50}
+        minHeight={304}
+      >
+        <Pane
+          position="absolute"
+          top={-14}
+          left={18}
+          background="white"
+          paddingX={8}
+        >
+          <Text size={500} color={defaultTheme.colors.gray700}>
+            After force publication
+          </Text>
+        </Pane>
+        <Pane position="relative" height={260}>
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              pointerEvents: "none",
+            }}
+          >
+            <defs>
+              <marker
+                id="future-panel-green-arrow"
+                markerWidth="7"
+                markerHeight="7"
+                refX="5.5"
+                refY="3"
+                orient="auto"
+              >
+                <path
+                  d="M 0 0 L 6 3 L 0 6"
+                  fill={defaultTheme.colors.green500}
+                />
+              </marker>
+            </defs>
+            <path
+              d="M 40 27 C 47 27 50 35 54 40 S 60 44 63 44"
+              fill="none"
+              stroke={defaultTheme.colors.green500}
+              strokeWidth="0.7"
+              strokeLinecap="round"
+              markerEnd="url(#future-panel-green-arrow)"
+            />
+            <path
+              d="M 40 72 C 46 72 49 60 52 53 S 54 46 56.5 44"
+              fill="none"
+              stroke={defaultTheme.colors.red500}
+              strokeWidth="0.7"
+              strokeLinecap="round"
+            />
+            <text
+              x="52"
+              y="58"
+              fill={defaultTheme.colors.red500}
+              fontSize="6.5"
+              fontWeight="600"
+            >
+              x
+            </text>
+          </svg>
+          <Pane position="relative" width="100%" height="100%">
+            <ConflictDiagramNode
+              title="New LAB"
+              description="published"
+              borderColor={defaultTheme.colors.green500}
+              top="10%"
+              left="4%"
+              width="35%"
+              height="38%"
+            />
+            <ConflictDiagramNode
+              title="Current LAB"
+              description="replaced"
+              borderColor={defaultTheme.colors.red500}
+              top="56%"
+              left="4%"
+              width="35%"
+              height="38%"
+            />
+            <ConflictDiagramNode
+              title={"National Address\nPlatform"}
+              borderColor={defaultTheme.colors.blue400}
+              top="10%"
+              left="59%"
+              width="37%"
+              height="80%"
+            />
+          </Pane>
+        </Pane>
+      </Pane>
+    </Pane>
+  );
 }
 
 function PublishBalStep({
@@ -167,19 +447,7 @@ function PublishBalStep({
               By forcing publication, this Local Address Base{" "}
               <Strong>will replace the one currently in place</Strong>.
             </Text>
-            <Pane
-              width="100%"
-              textAlign="center"
-              borderRadius={8}
-              backgroundColor="white"
-            >
-              <Image
-                src="/static/images/schema_bals_conflict.png"
-                maxHeight={200}
-                overflow="hidden"
-                alt="Diagram of conflict between the Local Address Base and the National Address Platform"
-              />
-            </Pane>
+            <PublicationConflictDiagram />
 
             <Pane display="flex" justifyContent="end">
               <Button

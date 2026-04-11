@@ -6,15 +6,32 @@ import { BALWidgetConfig } from "@/lib/bal-admin/type";
 export default async function NewPage({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  let defaultCommune = null;
   const query = await searchParams;
-  if (query.commune) {
-    defaultCommune = await ApiGeoService.getCommune(query.commune, {
-      fields: "departement",
-    });
+  const getQueryValue = (value: string | string[] | undefined) =>
+    Array.isArray(value) ? value[0] : value;
+  const stateFips = getQueryValue(query.state);
+  const legacyCommuneCode = getQueryValue(query.commune);
+  const countyCode = getQueryValue(query.county);
+  const placeCode = getQueryValue(query.place);
+  const jurisdictionCode = placeCode || countyCode || legacyCommuneCode;
+
+  let defaultCommune = null;
+  if (jurisdictionCode) {
+    defaultCommune = await ApiGeoService.getCommune(jurisdictionCode);
   }
+
+  const initialStateFips =
+    stateFips || defaultCommune?.stateFips || countyCode?.slice(0, 2);
+  const initialCountyCode =
+    countyCode ||
+    (defaultCommune?.level === "county"
+      ? defaultCommune.code
+      : defaultCommune?.countyFips || undefined);
+  const initialJurisdictionCode =
+    placeCode || countyCode || legacyCommuneCode || defaultCommune?.code;
+
   let outdatedApiDepotClients: string[] = [];
   let outdatedHarvestSources: string[] = [];
   try {
@@ -31,6 +48,9 @@ export default async function NewPage({
   return (
     <NewPageComponent
       defaultCommune={defaultCommune}
+      initialStateFips={initialStateFips}
+      initialCountyCode={initialCountyCode}
+      initialJurisdictionCode={initialJurisdictionCode}
       outdatedApiDepotClients={outdatedApiDepotClients}
       outdatedHarvestSources={outdatedHarvestSources}
     />

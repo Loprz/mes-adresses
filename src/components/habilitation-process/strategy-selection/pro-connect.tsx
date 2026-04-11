@@ -10,7 +10,7 @@ function ProConnect({ handleStrategy }: ProConnectProps) {
     <>
       <Pane>
         <Heading is="h5" height={60} textAlign="center">
-          Via votre compte ProConnect
+          Use your ProConnect account
         </Heading>
       </Pane>
       <Pane
@@ -26,7 +26,7 @@ function ProConnect({ handleStrategy }: ProConnectProps) {
           onClick={handleStrategy}
         >
           <span className={styles["proconnect-sr-only"]}>
-            S&apos;identifier avec ProConnect
+            Sign in with ProConnect
           </span>
         </button>
       </Pane>
@@ -37,8 +37,7 @@ function ProConnect({ handleStrategy }: ProConnectProps) {
       >
         <Text textDecoration="underline">
           <Strong>
-            Qu&apos;est-ce que Proconnect et comment l&apos;utiliser? Consulter
-            le tutoriel
+            What is ProConnect and how do I use it? Open the tutorial
           </Strong>
         </Text>
       </Link>

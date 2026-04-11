@@ -66,11 +66,11 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           </Pane>
           <Pane>
             <Heading>
-              Start with <b>publication</b> !
+              Start by <b>publishing</b>
             </Heading>
             <Paragraph marginY={16}>
-              The LAB will then become the sole official source of
-              addresses for {commune.nom}
+              Once published, this LAB becomes the official source of addresses
+              for {commune.nom}.
             </Paragraph>
           </Pane>
         </Pane>
@@ -79,8 +79,8 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           <Pane>
             <Heading>Address at your own pace.</Heading>
             <Paragraph marginY={16}>
-              Once published, addresses are synchronized with the
-              National Address Platform.
+              Once published, addresses are synchronized with the National
+              Address Platform.
               <br />
               All your changes will be synced automatically.
             </Paragraph>
