@@ -56,11 +56,11 @@ function SyncButton({
           onClick={onSync}
           disabled={!isManualActionConfirmed || isLoading}
         >
-          Force update
+          Take over publication
         </Button>
         <Checkbox
           checked={isManualActionConfirmed}
-          label="I understand that my Local Address Base will replace the one currently synchronized with the National Address Platform"
+          label="I understand that this Local Address Base will become the current published LAB for this jurisdiction and replace the one currently in place"
           onChange={() => setIsManuelActionConfirmed(!isManualActionConfirmed)}
         />
       </Pane>

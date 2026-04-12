@@ -34,17 +34,18 @@ function MassDeletionDialog({
     >
       <Pane>
         <Paragraph>
-          You have <Strong>deleted at least 50% of the known addresses</Strong>{" "}
-          currently in the National Address Platform.
+          You have <Strong>deleted at least 50% of the addresses</Strong>{" "}
+          currently known for this jurisdiction in the National Address
+          Platform.
         </Paragraph>
         <Paragraph marginTop={8}>
-          Please remember that your addresses should be published for{" "}
-          <Strong>the entire jurisdiction</Strong>.
+          Before continuing, make sure this Local Address Base still represents{" "}
+          <Strong>the full jurisdiction you are responsible for publishing</Strong>.
         </Paragraph>
 
         <Paragraph marginTop={8}>
-          If you are having difficulty using our tool and would like
-          assistance,{" "}
+          If you are unsure whether this deletion is expected or need help
+          reviewing it,{" "}
           <Strong>
             you can contact us at{" "}
             <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
