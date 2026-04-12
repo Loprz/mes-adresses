@@ -50,11 +50,11 @@ const STATUSES: { [key: string]: StatusType } = {
     icon: PauseIcon,
   },
   "no-habilitation": {
-    label: "No authorization",
+    label: "Authorization needed",
     title:
-      "This Local Address Base needs authorization to sync with the National Address Platform",
+      "This Local Address Base needs a valid authorization to sync with the National Address Platform",
     content:
-      "Changes will not be reflected in the National Address Platform.",
+      "Renew authorization before new changes from this Local Address Base can be reflected in the National Address Platform.",
     color: "yellow",
     intent: "none",
     icon: TimeIcon,

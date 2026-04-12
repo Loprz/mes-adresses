@@ -125,7 +125,7 @@ function BALStatus({
                   appearance="primary"
                   onClick={handleShowHabilitationProcess}
                 >
-                  Authorize the LAB
+                  Renew authorization
                 </Button>
               )}
             {baseLocale.status === ExtendedBaseLocaleDTO.status.DRAFT && (

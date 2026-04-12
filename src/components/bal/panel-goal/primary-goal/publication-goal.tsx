@@ -104,8 +104,8 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
           {baseLocale.status === ExtendedBaseLocaleDTO.status.PUBLISHED &&
             habilitation?.status !== HabilitationDTO.status.ACCEPTED && (
               <Paragraph display="flex" flexDirection="column" gap={8} is="div">
-                Your authorization is no longer valid, please
-                renew it
+                Your authorization is no longer valid. Renew it to resume
+                automatic updates to the National Address Platform.
                 <Pane display="flex" justifyContent="right">
                   <Button
                     marginRight={8}
@@ -113,11 +113,11 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
                     appearance="primary"
                     onClick={handleShowHabilitationProcess}
                   >
-                    Authorize the LAB
+                    Renew authorization
                   </Button>
                 </Pane>
               </Paragraph>
-          )}
+            )}
           {baseLocale.status === ExtendedBaseLocaleDTO.status.REPLACED && (
             <Pane>
               <Paragraph color={defaultTheme.colors.red700}>

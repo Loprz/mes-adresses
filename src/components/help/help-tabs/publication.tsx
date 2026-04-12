@@ -165,9 +165,9 @@ function Publication() {
               />
             </Pane>
             <Text>
-              The Local Address Base authorization is not valid. You need to
-              renew it so that new changes are reflected in the National Address
-              Platform.
+              The authorization for this Local Address Base is no longer valid.
+              Renew it so new changes can sync to the National Address
+              Platform again.
             </Text>
           </Pane>
         </Pane>
