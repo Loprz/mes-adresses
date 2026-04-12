@@ -31,8 +31,8 @@ function ReadonlyWarning({ commune }: ReadonlyWarningProps) {
         style={{ verticalAlign: "sub" }}
       />
       <Text fontSize={isMobile ? 10 : 14}>
-        You are in read-only mode and cannot modify this Local Address
-        Base
+        This Local Address Base is read-only because you are not signed in as
+        an administrator.
       </Text>
       <Button
         height={24}
@@ -42,7 +42,7 @@ function ReadonlyWarning({ commune }: ReadonlyWarningProps) {
           openRecovery({ commune });
         }}
       >
-        Recover my access
+        Recover admin access
       </Button>
     </Pane>
   );

@@ -444,7 +444,7 @@ function NumerosList({
                     onClick={() => {
                       openRecovery({ commune });
                     }}
-                    title="Recover LAB admin access"
+                    title="Recover admin access"
                     type="button"
                     height={24}
                     icon={LockIcon}
