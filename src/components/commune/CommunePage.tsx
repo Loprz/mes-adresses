@@ -33,11 +33,11 @@ export default function CommunePage({ communeFlag }: CommunePageProps) {
   const { token } = useContext(TokenContext);
   const isAdmin = Boolean(token);
   const [isCommuneFormOpen, setIsCommuneFormOpen] = useState<boolean>(false);
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
   const { setTileLayersMode } = useContext(MapContext);
 
   const openRecoveryDialog = () => {
-    setIsRecoveryDisplayed(true);
+    openRecovery({ commune });
   };
 
   useEffect(() => {

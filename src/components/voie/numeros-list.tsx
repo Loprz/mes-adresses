@@ -88,7 +88,7 @@ function NumerosList({
     refreshBALSync,
   } = useContext(BalDataContext);
   const { reloadTiles } = useContext(MapContext);
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
 
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -288,7 +288,7 @@ function NumerosList({
                     handleEditing();
                   }
                 : () => {
-                    setIsRecoveryDisplayed(true);
+                    openRecovery({ commune });
                   }
             }
           >
@@ -442,7 +442,7 @@ function NumerosList({
                 <Table.TextCell flex="0 1 1">
                   <IconButton
                     onClick={() => {
-                      setIsRecoveryDisplayed(true);
+                      openRecovery({ commune });
                     }}
                     title="Recover LAB admin access"
                     type="button"

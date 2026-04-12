@@ -30,7 +30,7 @@ export default function BALHomePage() {
   const { token } = useContext(TokenContext);
   const isAdmin = Boolean(token);
   const [isCommuneFormOpen, setIsCommuneFormOpen] = useState<boolean>(false);
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
   const { setTileLayersMode } = useContext(MapContext);
   const [communeFlag, setCommuneFlag] = useState<string | null>(null);
 
@@ -49,7 +49,7 @@ export default function BALHomePage() {
   }, [baseLocale.commune]);
 
   const openRecoveryDialog = () => {
-    setIsRecoveryDisplayed(true);
+    openRecovery({ commune });
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { Alert, Button, Text } from "evergreen-ui";
 import BALRecoveryContext from "@/contexts/bal-recovery";
 
 function BALRecovery() {
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
 
   return (
     <Alert>
@@ -15,7 +15,7 @@ function BALRecovery() {
       <Button
         appearance="primary"
         marginLeft="1em"
-        onClick={() => setIsRecoveryDisplayed(true)}
+        onClick={() => openRecovery()}
       >
         Recover access
       </Button>

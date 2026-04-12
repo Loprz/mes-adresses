@@ -87,7 +87,7 @@ export default function VoiesPage() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [showUncertify, setShowUncertify] = useState(false);
   const router = useRouter();
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
   const [page, changePage, search, changeFilter, filtered] =
     useSearchPagination(TabsEnum.VOIES, voies);
   const { scrollAndHighlightLastSelectedItem } = useContext(
@@ -274,9 +274,7 @@ export default function VoiesPage() {
 
       {!token && (
         <Pane flexShrink={0} elevation={0} backgroundColor="white">
-          <ReadOnlyInfos
-            openRecoveryDialog={() => setIsRecoveryDisplayed(true)}
-          />
+          <ReadOnlyInfos openRecoveryDialog={() => openRecovery({ commune })} />
         </Pane>
       )}
       {token && voies && voies.length === 0 && (
@@ -447,7 +445,7 @@ export default function VoiesPage() {
               {!Boolean(token) && (
                 <Table.TextCell flex="0 1 1">
                   <IconButton
-                    onClick={() => setIsRecoveryDisplayed(true)}
+                    onClick={() => openRecovery({ commune })}
                     type="button"
                     height={24}
                     icon={LockIcon}

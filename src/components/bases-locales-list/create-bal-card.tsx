@@ -6,7 +6,7 @@ import ButtonCircleEffect from "../button-circle-effect";
 import { useRouter } from "next/navigation";
 
 function CreateBaseLocaleCard() {
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
   const router = useRouter();
   const t = useTranslations("home");
 
@@ -29,7 +29,7 @@ function CreateBaseLocaleCard() {
       <Pane borderTop="1px solid #E6E8F0" />
       <ButtonCircleEffect
         label={t("recoverBase")}
-        onClick={() => setIsRecoveryDisplayed(true)}
+        onClick={() => openRecovery()}
         icon={UndoIcon}
       />
     </Card>

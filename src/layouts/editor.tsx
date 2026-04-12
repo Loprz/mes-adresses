@@ -110,7 +110,7 @@ function Editor({ children }: EditorProps) {
                 isMapFullscreen={isMapFullscreen}
               />
             )}
-            {isReadonly && <ReadonlyWarning />}
+            {isReadonly && <ReadonlyWarning commune={commune} />}
             {!isReadonly && isDemo && (
               <DemoWarning
                 baseLocale={baseLocale}

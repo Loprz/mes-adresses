@@ -3,9 +3,14 @@ import { Pane, Text, WarningSignIcon, Button } from "evergreen-ui";
 
 import LayoutContext from "@/contexts/layout";
 import BALRecoveryContext from "@/contexts/bal-recovery";
+import { CommuneType } from "@/types/commune";
 
-function ReadonlyWarning() {
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+interface ReadonlyWarningProps {
+  commune: CommuneType;
+}
+
+function ReadonlyWarning({ commune }: ReadonlyWarningProps) {
+  const { openRecovery } = useContext(BALRecoveryContext);
   const { isMobile } = useContext(LayoutContext);
 
   return (
@@ -34,7 +39,7 @@ function ReadonlyWarning() {
         marginX=".5em"
         width="fit-content"
         onClick={() => {
-          setIsRecoveryDisplayed(true);
+          openRecovery({ commune });
         }}
       >
         Recover my access

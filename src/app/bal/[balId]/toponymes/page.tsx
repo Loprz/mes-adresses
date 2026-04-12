@@ -61,7 +61,7 @@ export default function ToponymesPage() {
   const router = useRouter();
   const [page, changePage, search, changeFilter, filtered] =
     useSearchPagination(TabsEnum.TOPONYMES, toponymes);
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
   const { reloadTiles } = useContext(MapContext);
   const { scrollAndHighlightLastSelectedItem } = useContext(
     SearchPaginationContext
@@ -146,9 +146,7 @@ export default function ToponymesPage() {
       />
       {!token && (
         <Pane flexShrink={0} elevation={0} backgroundColor="white">
-          <ReadOnlyInfos
-            openRecoveryDialog={() => setIsRecoveryDisplayed(true)}
-          />
+          <ReadOnlyInfos openRecoveryDialog={() => openRecovery({ commune })} />
         </Pane>
       )}
       <Table
@@ -279,7 +277,7 @@ export default function ToponymesPage() {
               {!Boolean(token) && (
                 <Table.TextCell flex="0 1 1">
                   <IconButton
-                    onClick={() => setIsRecoveryDisplayed(true)}
+                    onClick={() => openRecovery({ commune })}
                     type="button"
                     height={24}
                     icon={LockIcon}

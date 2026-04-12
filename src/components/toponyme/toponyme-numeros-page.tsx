@@ -47,7 +47,7 @@ export default function ToponymeNumerosPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { token } = useContext(TokenContext);
-  const { setIsRecoveryDisplayed } = useContext(BALRecoveryContext);
+  const { openRecovery } = useContext(BALRecoveryContext);
   const { pushToast, setBreadcrumbs } = useContext(LayoutContext);
   const { savedSearchPagination, setLastSelectedItem } = useContext(
     SearchPaginationContext
@@ -209,7 +209,7 @@ export default function ToponymeNumerosPage() {
                   token
                     ? onEnableAdding
                     : () => {
-                        setIsRecoveryDisplayed(true);
+                        openRecovery({ commune });
                       }
                 }
               >
