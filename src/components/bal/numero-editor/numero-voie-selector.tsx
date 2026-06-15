@@ -8,6 +8,7 @@ import {
   PropertyIcon,
   SelectField,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { normalizeSort } from "@/lib/normalize";
 
@@ -34,6 +35,7 @@ function NumeroVoieSelector({
   handleVoie,
   handleNomVoie,
 }: NumeroVoieSelectorProps) {
+  const t = useTranslations("editorForm");
   const [isCreateMode, setIsCreateMode] = useState(
     mode === "creation" || !voieId
   );
@@ -65,8 +67,8 @@ function NumeroVoieSelector({
           <AssistedTextField
             forwadedRef={ref}
             exitFocus={() => setIsFocus(false)}
-            label="New street"
-            placeholder="Street name"
+            label={t("newStreet")}
+            placeholder={t("streetName")}
             value={nomVoie}
             validationMessage={validationMessage}
             onChange={handleNomVoieChange}
@@ -74,13 +76,13 @@ function NumeroVoieSelector({
         ) : (
           <SelectField
             required
-            label="Street"
+            label={t("street")}
             flex={1}
             value={voieId}
             margin={0}
             onChange={handleVoieChange}
           >
-            {!voieId && <option value="">- Select a street -</option>}
+            {!voieId && <option value="">{t("selectStreet")}</option>}
             {sortBy(voies, (v) => normalizeSort(v.nom)).map(({ id, nom }) => (
               <option key={id} value={id}>
                 {nom}
@@ -90,14 +92,14 @@ function NumeroVoieSelector({
         )}
       </Pane>
 
-      <Text marginX={16}>OR</Text>
+      <Text marginX={16}>{t("or")}</Text>
 
       <Button
         type="button"
         iconBefore={isCreateMode ? PropertyIcon : PlusIcon}
         onClick={toggleMode}
       >
-        {isCreateMode ? "Choose" : "Create"} a street
+        {isCreateMode ? t("chooseStreet") : t("createStreet")}
       </Button>
     </Pane>
   );

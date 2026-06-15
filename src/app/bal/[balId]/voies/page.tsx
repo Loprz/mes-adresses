@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { sortBy } from "lodash";
 import {
   Table,
@@ -62,9 +63,12 @@ import MatomoTrackingContext, {
 } from "@/contexts/matomo-tracking";
 
 export default function VoiesPage() {
+  const t = useTranslations("lists");
+  const tc = useTranslations("common");
   const { token } = useContext(TokenContext);
   const [toRemove, setToRemove] = useState(null);
   const {
+    commune,
     baseLocale,
     voies,
     isEditing,
@@ -99,20 +103,20 @@ export default function VoiesPage() {
   }, [setTileLayersMode]);
 
   useEffect(() => {
-    setBreadcrumbs(<Text aria-current="page">Streets</Text>);
+    setBreadcrumbs(<Text aria-current="page">{t("breadcrumbStreets")}</Text>);
     scrollAndHighlightLastSelectedItem(TabsEnum.VOIES);
 
     return () => {
       setBreadcrumbs(null);
     };
-  }, [setBreadcrumbs, scrollAndHighlightLastSelectedItem]);
+  }, [setBreadcrumbs, scrollAndHighlightLastSelectedItem, t]);
 
   const handleRemove = async () => {
     setIsDisabled(true);
     const softDeleteVoie = toaster(
       () => VoiesService.softDeleteVoie(toRemove),
-      "The street has been archived",
-      "The street could not be archived"
+      t("streetArchived"),
+      t("streetArchiveError")
     );
     await softDeleteVoie();
     await reloadVoies();
@@ -143,8 +147,8 @@ export default function VoiesPage() {
           );
           window.open(url, "_blank");
         },
-        "The numbering certificate has been downloaded",
-        "The numbering certificate could not be downloaded"
+        t("certDownloaded"),
+        t("certDownloadError")
       );
       await downloadArreteDeNumerotation();
       matomoTrackEvent(
@@ -153,7 +157,7 @@ export default function VoiesPage() {
           .GENERATE_ARRETE_NUMEROTATION_VOIE
       );
     },
-    [toaster, matomoTrackEvent]
+    [toaster, matomoTrackEvent, t]
   );
 
   const onConvert = useCallback(async () => {
@@ -171,8 +175,8 @@ export default function VoiesPage() {
           `/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/${toponyme.id}`
         );
       },
-      "The street has been successfully converted to a place name",
-      "The street could not be converted to a place name"
+      t("streetConverted"),
+      t("streetConvertError")
     );
 
     await convertToponyme();
@@ -194,6 +198,7 @@ export default function VoiesPage() {
     toConvert,
     toaster,
     matomoTrackEvent,
+    t,
   ]);
 
   const browseToVoie = (idVoie: string) => {
@@ -221,14 +226,9 @@ export default function VoiesPage() {
   return (
     <>
       <DialogWarningAction
-        confirmLabel="Certify the numbers of the street"
+        confirmLabel={t("certifyStreetNumbers")}
         isShown={Boolean(toCertify)}
-        content={
-          <Paragraph>
-            Are you sure you want to certify all addresses on this
-            street?
-          </Paragraph>
-        }
+        content={<Paragraph>{t("certifyConfirm")}</Paragraph>}
         isLoading={onCertifyLoading}
         onCancel={() => {
           setToCertify(null);
@@ -237,13 +237,9 @@ export default function VoiesPage() {
       />
 
       <DialogWarningAction
-        confirmLabel="Convert to place name"
+        confirmLabel={t("convertToPlaceName")}
         isShown={Boolean(toConvert)}
-        content={
-          <Paragraph>
-            Are you sure you want to convert this street to a place name?
-          </Paragraph>
-        }
+        content={<Paragraph>{t("convertConfirm")}</Paragraph>}
         isLoading={onConvertLoading}
         onCancel={() => {
           setToConvert(null);
@@ -253,12 +249,7 @@ export default function VoiesPage() {
 
       <DeleteWarning
         isShown={Boolean(toRemove)}
-        content={
-          <Paragraph>
-            Are you sure you want to delete this street and all
-            its numbers?
-          </Paragraph>
-        }
+        content={<Paragraph>{t("deleteStreetConfirm")}</Paragraph>}
         onCancel={() => {
           setToRemove(null);
         }}
@@ -293,33 +284,33 @@ export default function VoiesPage() {
           borderBottom="muted"
           textAlign="center"
         >
-          <Text>Streets, places, and numbered place names</Text>
+          <Text>{t("streetsPlacesNumbered")}</Text>
         </Pane>
         <Table.Head background="white">
           <Table.SearchHeaderCell
-            placeholder="Search for a street, a place, a location..."
+            placeholder={t("searchStreetPlaceholder")}
             onChange={changeFilter}
             value={search}
           />
           <Table.HeaderCell flex="unset">
             <ButtonIconExpandHover
               icon={showUncertify ? FilterRemoveIcon : FilterIcon}
-              title="View only streets with uncertified addresses"
+              title={t("viewUncertifiedOnly")}
               size="small"
               marginRight={16}
               onClick={() => setShowUncertify(!showUncertify)}
-              message="Filter uncertified addresses"
+              message={t("filterUncertified")}
             />
             <ButtonIconExpandHover
               icon={AddIcon}
-              title="Add a street"
+              title={t("addStreet")}
               is={NextLink}
               size="medium"
               appearance="primary"
               intent="success"
               disabled={!token || (token && isEditing)}
               href={`/bal/${baseLocale.id}/${TabsEnum.VOIES}/new`}
-              message="Add a street"
+              message={t("addStreet")}
             />
           </Table.HeaderCell>
         </Table.Head>
@@ -327,7 +318,7 @@ export default function VoiesPage() {
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              No results
+              {t("noResults")}
             </Table.TextCell>
           </Table.Row>
         )}
@@ -365,7 +356,7 @@ export default function VoiesPage() {
 
               <TableRowNotifications
                 certification={
-                  voie.isAllCertified ? "The addresses are certified" : null
+                  voie.isAllCertified ? t("addressesCertified") : null
                 }
                 comment={
                   voie.comment?.length || voie.commentedNumeros?.length > 0 ? (
@@ -379,16 +370,14 @@ export default function VoiesPage() {
                   voie.nbNumeros === 0 ? (
                     <>
                       <Pane marginBottom={8}>
-                        <Text color="white">
-                          This street contains no numbers
-                        </Text>
+                        <Text color="white">{t("streetNoNumbers")}</Text>
                       </Pane>
                       <Button
                         onClick={() => setToConvert(voie.id)}
                         size="small"
-                        title="Convert the street to a place name"
+                        title={t("convertStreetToPlaceName")}
                       >
-                        Convert to place name
+                        {t("convertToPlaceName")}
                       </Button>
                     </>
                   ) : null
@@ -403,7 +392,7 @@ export default function VoiesPage() {
                       browseToNumerosList(voie.id);
                     }}
                   >
-                    Consulter
+                    {t("view")}
                   </Menu.Item>
                   <Menu.Item
                     icon={EditIcon}
@@ -411,7 +400,7 @@ export default function VoiesPage() {
                       browseToVoie(voie.id);
                     }}
                   >
-                    Edit
+                    {tc("edit")}
                   </Menu.Item>
                   {!voie.isAllCertified && (
                     <Menu.Item
@@ -420,7 +409,7 @@ export default function VoiesPage() {
                         setToCertify(voie.id);
                       }}
                     >
-                      Certify
+                      {t("certify")}
                     </Menu.Item>
                   )}
                   <Menu.Item
@@ -430,7 +419,7 @@ export default function VoiesPage() {
                       setToRemove(voie.id);
                     }}
                   >
-                    Delete…
+                    {t("deleteMenu")}
                   </Menu.Item>
                   {Boolean(token) &&
                     baseLocale.status === BaseLocale.status.PUBLISHED && (

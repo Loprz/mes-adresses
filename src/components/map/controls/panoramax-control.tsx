@@ -9,6 +9,7 @@ import {
   Button,
 } from "evergreen-ui";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import { useContext, useEffect, useState } from "react";
 import { CommuneType } from "@/types/commune";
@@ -34,6 +35,7 @@ function PanoramaxControl({
   showPanoramax,
   commune,
 }: PanoramaxControlProps) {
+  const t = useTranslations("mapControls");
   const [disabled, setDisabled] = useState(true);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
 
@@ -82,13 +84,13 @@ function PanoramaxControl({
       icon={
         <Image
           src="/static/images/panoramax.svg"
-          alt="Panoramax logo"
+          alt={t("panoramaxLogoAlt")}
           width={20}
           height={20}
           style={{ filter: disabled ? "grayscale(1) opacity(0.5)" : "none" }}
         />
       }
-      title="Open Street View"
+      title={t("openStreetView")}
     />
   );
 
@@ -100,16 +102,14 @@ function PanoramaxControl({
       onClick={() => {
         setShowPanoramax(false);
       }}
-      title="Close Street View"
+      title={t("closeStreetView")}
     />
   ) : disabled ? (
     <Tooltip
       content={
         <>
           <Pane marginBottom={8}>
-            <Text color="white">
-              No territory photography is&apos;available.
-            </Text>
+            <Text color="white">{t("noPhotography")}</Text>
           </Pane>
           <Button
             is="a"
@@ -118,7 +118,7 @@ function PanoramaxControl({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Contribute to Street View
+            {t("contributeStreetView")}
           </Button>
         </>
       }

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Pane, Text, WarningSignIcon, Button } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import LayoutContext from "@/contexts/layout";
 import BALRecoveryContext from "@/contexts/bal-recovery";
@@ -10,6 +11,7 @@ interface ReadonlyWarningProps {
 }
 
 function ReadonlyWarning({ commune }: ReadonlyWarningProps) {
+  const t = useTranslations("readOnlyWarning");
   const { openRecovery } = useContext(BALRecoveryContext);
   const { isMobile } = useContext(LayoutContext);
 
@@ -30,10 +32,7 @@ function ReadonlyWarning({ commune }: ReadonlyWarningProps) {
         marginX=".5em"
         style={{ verticalAlign: "sub" }}
       />
-      <Text fontSize={isMobile ? 10 : 14}>
-        This Local Address Base is read-only because you are not signed in as
-        an administrator.
-      </Text>
+      <Text fontSize={isMobile ? 10 : 14}>{t("message")}</Text>
       <Button
         height={24}
         marginX=".5em"
@@ -42,7 +41,7 @@ function ReadonlyWarning({ commune }: ReadonlyWarningProps) {
           openRecovery({ commune });
         }}
       >
-        Recover admin access
+        {t("recoverAdminAccess")}
       </Button>
     </Pane>
   );

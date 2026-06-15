@@ -2,6 +2,7 @@
 
 import { useState, useContext, useCallback, useEffect } from "react";
 import { Pane, Button, Label } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 
@@ -26,6 +27,9 @@ function CommuneNomsAltEditor({
   initialValue,
   closeForm,
 }: CommuneNomsAltEditorProps) {
+  const t = useTranslations("panels");
+  const te = useTranslations("editorForm");
+  const tc = useTranslations("common");
   const [isLoading, setIsLoading] = useState(false);
   const [communeNomsAlt, setCommuneNomsAlt] = useState(
     initialValue?.communeNomsAlt
@@ -50,8 +54,8 @@ function CommuneNomsAltEditor({
         const submit = toaster(
           async () =>
             BasesLocalesService.updateBaseLocale(initialValue.id, body),
-          "The jurisdiction's regional language name has been updated",
-          "The jurisdiction's regional language name could not be updated",
+          t("regionalNameUpdated"),
+          t("regionalNameUpdateError"),
           (err) => {
             setValidationMessages(err.body.message);
           }
@@ -73,6 +77,7 @@ function CommuneNomsAltEditor({
       setValidationMessages,
       toaster,
       reloadBaseLocale,
+      t,
     ]
   );
 
@@ -97,7 +102,7 @@ function CommuneNomsAltEditor({
     >
       <Pane>
         <FormInput>
-          <Label>Jurisdiction name in regional language</Label>
+          <Label>{t("jurisdictionNameRegional")}</Label>
           <LanguesRegionalesForm
             initialValue={initialValue?.communeNomsAlt}
             validationMessage={getValidationMessage("lang_alt")}
@@ -114,7 +119,7 @@ function CommuneNomsAltEditor({
           appearance="primary"
           intent="success"
         >
-          {isLoading ? "In progress…" : "Save"}
+          {isLoading ? te("inProgress") : tc("save")}
         </Button>
 
         {closeForm && (
@@ -125,7 +130,7 @@ function CommuneNomsAltEditor({
             display="inline-flex"
             onClick={onFormCancel}
           >
-            Cancel
+            {tc("cancel")}
           </Button>
         )}
       </Pane>

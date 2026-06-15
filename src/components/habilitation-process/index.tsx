@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useContext, useEffect, useRef } from "react";
 import { Dialog, Pane, Text, Spinner } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 
@@ -64,6 +65,8 @@ function HabilitationProcess({
   resetHabilitationProcess,
   handleClose,
 }: HabilitationProcessProps) {
+  const t = useTranslations("habilitationProcess");
+  const tc = useTranslations("common");
   const [flagURL, setFlagURL] = useState<string | null>(null);
   const [step, setStep] = useState(getStep(habilitation));
   const [isLoading, setIsLoading] = useState(false);
@@ -84,7 +87,7 @@ function HabilitationProcess({
     } catch (error) {
       pushToast({
         intent: "danger",
-        title: "The email could not be sent",
+        title: t("emailSendError"),
         message: error.body?.message,
       });
     }
@@ -116,7 +119,7 @@ function HabilitationProcess({
     } catch (error) {
       pushToast({
         intent: "danger",
-        title: "The code is not valid",
+        title: t("codeInvalid"),
         message: error.body?.message,
       });
     }
@@ -244,7 +247,7 @@ function HabilitationProcess({
             alignItems="center"
           >
             <Spinner size={42} />
-            <Text fontStyle="italic">Loading...</Text>
+            <Text fontStyle="italic">{tc("loading")}</Text>
           </Pane>
         )}
       </Pane>

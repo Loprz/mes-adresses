@@ -13,6 +13,7 @@ import {
 } from "evergreen-ui";
 import FormInput from "@/components/form-input";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { validateEmail } from "@/lib/utils/email";
 
 interface BALInfosStepProps {
@@ -32,6 +33,7 @@ function BALInfosStep({
   createDemoBAL,
   isLoading,
 }: BALInfosStepProps) {
+  const t = useTranslations("balInfosStep");
   const [newEmailInput, setNewEmailInput] = useState("");
 
   const canAddEmail = useMemo(() => {
@@ -63,13 +65,13 @@ function BALInfosStep({
           name="nom"
           id="nom"
           value={balName}
-          label="Local Address Base name"
+          label={t("nameLabel")}
           onChange={(e) => setBalName(e.target.value)}
           disabled={isLoading}
         />
         <FormInput padding={0}>
           <Pane marginBottom={8}>
-            <Label>Administrator email addresses *</Label>
+            <Label>{t("adminEmailsLabel")}</Label>
           </Pane>
           {adminEmails.map((email, index) => (
             <Pane
@@ -94,14 +96,14 @@ function BALInfosStep({
               display="block"
               type="email"
               width="100%"
-              placeholder="Add an email address..."
+              placeholder={t("addEmailPlaceholder")}
               maxWidth={400}
               value={newEmailInput}
               onChange={(e) => setNewEmailInput(e.target.value)}
             />
             <IconButton
               type="button"
-              title="Add"
+              title={t("add")}
               icon={AddIcon}
               marginLeft={4}
               appearance="primary"
@@ -113,22 +115,15 @@ function BALInfosStep({
         </FormInput>
       </Pane>
       <Pane display="flex" flexWrap="wrap" alignItems="center" gap={10}>
-        <Text>OR</Text>
+        <Text>{t("or")}</Text>
         <Button onClick={createDemoBAL} type="button" disabled={isLoading}>
-          Create a demo Local Address Base
+          {t("createDemo")}
         </Button>
       </Pane>
       {isLoading && (
         <>
-          <Alert
-            title={`Creating Local Address Base...`}
-            intent="info"
-            marginTop={16}
-          >
-            <Text marginTop={8}>
-              Your Local Address Base is being created. This
-              operation may take several minutes.
-            </Text>
+          <Alert title={t("creatingTitle")} intent="info" marginTop={16}>
+            <Text marginTop={8}>{t("creatingDescription")}</Text>
           </Alert>
           <Pane
             display="flex"

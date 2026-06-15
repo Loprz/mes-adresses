@@ -11,6 +11,7 @@ import {
 import BalDataContext from "@/contexts/bal-data";
 import LayoutContext from "@/contexts/layout";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface SidebarProps extends PaneProps {
   isHidden: boolean;
@@ -32,6 +33,7 @@ function Sidebar({
     useContext(BalDataContext);
   const router = useRouter();
   const { isMobile } = useContext(LayoutContext);
+  const t = useTranslations("sidebar");
 
   const handleClick = () => {
     if (isEditing) {
@@ -78,10 +80,10 @@ function Sidebar({
             onClick={handleClick}
             title={
               isHidden
-                ? "Open sidebar"
+                ? t("openSidebar")
                 : isEditing || voie || toponyme
-                  ? "Close form"
-                  : "Hide sidebar"
+                  ? t("closeForm")
+                  : t("hideSidebar")
             }
           >
             {isHidden ? (

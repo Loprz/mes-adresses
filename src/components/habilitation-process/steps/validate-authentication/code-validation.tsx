@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import NextImage from "next/legacy/image";
 import {
   Pane,
@@ -28,6 +29,7 @@ function CodeValidation({
   resendCode,
   flagURL,
 }: CodeValidationProps) {
+  const t = useTranslations("codeValidation");
   const handler = usePinField();
 
   const handleCodeComplete = (code: string) => {
@@ -60,10 +62,10 @@ function CodeValidation({
           width={66}
           height={66}
           src={flagURL || "/static/images/mairie.svg"}
-          alt="jurisdiction logo"
+          alt={t("logoAlt")}
         />
         <Heading is="h2" marginTop={16}>
-          Jurisdiction Authentication
+          {t("title")}
         </Heading>
       </Pane>
 
@@ -76,7 +78,7 @@ function CodeValidation({
         marginBottom={16}
       >
         <Heading is="h3" textAlign="center">
-          Enter the code that was sent to your email address: {email}
+          {t("enterCode", { email })}
         </Heading>
         <Pane display="flex" justifyContent="center" gap={8} marginY={32}>
           <PinField
@@ -94,7 +96,7 @@ function CodeValidation({
           />
         </Pane>
         <Alert
-          title="The code will no longer be valid if you close the window"
+          title={t("codeExpiresWarning")}
           marginBottom={16}
           textAlign="left"
         />
@@ -107,22 +109,19 @@ function CodeValidation({
         borderRadius={8}
         marginBottom={16}
       >
-        <Heading>Didn&apos;t receive your code?</Heading>
+        <Heading>{t("didntReceive")}</Heading>
         <UnorderedList>
           <ListItem icon={EyeOpenIcon}>
-            <Text size={400}>Check your spam folder</Text>
+            <Text size={400}>{t("checkSpam")}</Text>
           </ListItem>
 
           <ListItem icon={EnvelopeIcon}>
-            <Text>
-              Add the sender address to your email whitelist in your spam filter
-              settings
-            </Text>
+            <Text>{t("addWhitelist")}</Text>
           </ListItem>
 
           <ListItem icon={SendMessageIcon}>
             <Pane cursor="pointer" onClick={resendCode}>
-              <Link>Resend the code</Link>
+              <Link>{t("resendCode")}</Link>
             </Pane>
           </ListItem>
         </UnorderedList>

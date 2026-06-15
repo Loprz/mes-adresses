@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import { css } from "glamor";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 import MapContext from "@/contexts/map";
@@ -21,6 +22,7 @@ function NumerosMarkers({
   setIsContextMenuDisplayed,
   color,
 }: NumerosMarkersProps) {
+  const t = useTranslations("mapMarker");
   const { toaster } = useContext(LayoutContext);
 
   const {
@@ -84,8 +86,8 @@ function NumerosMarkers({
     async (numeroId: string) => {
       const softDeleteNumero = toaster(
         () => NumerosService.softDeleteNumero(numeroId),
-        "The number has been successfully archived",
-        "The number could not be archived"
+        t("archiveSuccess"),
+        t("archiveError")
       );
 
       await softDeleteNumero();
@@ -103,6 +105,7 @@ function NumerosMarkers({
       refreshBALSync,
       reloadTiles,
       toaster,
+      t,
     ]
   );
 

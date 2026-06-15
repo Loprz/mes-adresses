@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   Alert,
@@ -82,6 +83,7 @@ function ConflictDiagramNode({
 }
 
 function PublicationConflictDiagram() {
+  const t = useTranslations("publishConflict");
   return (
     <Pane
       display="flex"
@@ -108,7 +110,7 @@ function PublicationConflictDiagram() {
           paddingX={8}
         >
           <Text size={500} color={defaultTheme.colors.gray700}>
-            Current situation
+            {t("diagramCurrentSituation")}
           </Text>
         </Pane>
         <Pane position="relative" height={260}>
@@ -148,8 +150,8 @@ function PublicationConflictDiagram() {
           </svg>
           <Pane position="relative" width="100%" height="100%">
             <ConflictDiagramNode
-              title="New LAB"
-              description="in draft"
+              title={t("diagramNewLab")}
+              description={t("diagramInDraft")}
               borderColor={defaultTheme.colors.gray400}
               textColor={defaultTheme.colors.gray700}
               top="10%"
@@ -158,8 +160,8 @@ function PublicationConflictDiagram() {
               height="38%"
             />
             <ConflictDiagramNode
-              title="Current LAB"
-              description="published"
+              title={t("diagramCurrentLab")}
+              description={t("diagramPublished")}
               borderColor={defaultTheme.colors.green500}
               top="56%"
               left="4%"
@@ -167,7 +169,7 @@ function PublicationConflictDiagram() {
               height="38%"
             />
             <ConflictDiagramNode
-              title={"National Address\nPlatform"}
+              title={t("diagramNap")}
               borderColor={defaultTheme.colors.blue400}
               top="10%"
               left="59%"
@@ -224,7 +226,7 @@ function PublicationConflictDiagram() {
           paddingX={8}
         >
           <Text size={500} color={defaultTheme.colors.gray700}>
-            After force publication
+            {t("diagramAfterForce")}
           </Text>
         </Pane>
         <Pane position="relative" height={260}>
@@ -294,8 +296,8 @@ function PublicationConflictDiagram() {
           </svg>
           <Pane position="relative" width="100%" height="100%">
             <ConflictDiagramNode
-              title="New LAB"
-              description="published"
+              title={t("diagramNewLab")}
+              description={t("diagramPublished")}
               borderColor={defaultTheme.colors.green500}
               top="10%"
               left="4%"
@@ -303,8 +305,8 @@ function PublicationConflictDiagram() {
               height="38%"
             />
             <ConflictDiagramNode
-              title="Current LAB"
-              description="replaced"
+              title={t("diagramCurrentLab")}
+              description={t("diagramReplaced")}
               borderColor={defaultTheme.colors.red500}
               top="56%"
               left="4%"
@@ -312,7 +314,7 @@ function PublicationConflictDiagram() {
               height="38%"
             />
             <ConflictDiagramNode
-              title={"National Address\nPlatform"}
+              title={t("diagramNap")}
               borderColor={defaultTheme.colors.blue400}
               top="10%"
               left="59%"
@@ -333,6 +335,8 @@ function PublishBalStep({
   isLoadingPublish,
   handleClose,
 }: PublishBalStepProps) {
+  const t = useTranslations("publishConflict");
+  const tc = useTranslations("common");
   const [isConflicted, setIsConflicted] = useState(false);
   const [isLoadingConflicted, setIsLoadingConflicted] = useState(false);
   const [lastRevision, setLastRevision] = useState<Revision | null>(null);
@@ -409,7 +413,7 @@ function PublishBalStep({
           borderRadius={8}
         >
           <Spinner size={42} />
-          <Text>Checking the National Address Platform...</Text>
+          <Text>{t("checkingNap")}</Text>
         </Pane>
       )}
       {isLoadingPublish && (
@@ -422,7 +426,7 @@ function PublishBalStep({
           borderRadius={8}
         >
           <Spinner size={42} />
-          <Text>Publishing in progress...</Text>
+          <Text>{t("publishingInProgress")}</Text>
         </Pane>
       )}
       {isConflicted && (
@@ -435,7 +439,7 @@ function PublishBalStep({
             padding={16}
           >
             <Heading size={600} textAlign="center">
-              This jurisdiction already has a published Local Address Base.
+              {t("alreadyHasPublished")}
             </Heading>
           </Pane>
           <Pane
@@ -454,11 +458,12 @@ function PublishBalStep({
               gap={8}
             >
               <Icon icon={ErrorIcon} />
-              Are you sure you want to replace it?
+              {t("sureReplace")}
             </Heading>
             <Text is="p" marginTop={8}>
-              By forcing publication, this Local Address Base{" "}
-              <Strong>will replace the one currently in place</Strong>.
+              {t.rich("forcingWillReplace", {
+                s: (chunks) => <Strong>{chunks}</Strong>,
+              })}
             </Text>
             <PublicationConflictDiagram />
 
@@ -468,7 +473,7 @@ function PublishBalStep({
                 appearance="primary"
                 onClick={forcePublication}
               >
-                Force publication
+                {t("forcePublication")}
               </Button>
             </Pane>
           </Pane>
@@ -491,12 +496,12 @@ function PublishBalStep({
                 <Pane position="relative" width={24} height={24}>
                   <NextImage
                     src="/static/images/published-bal-icon.svg"
-                    alt="Published Local Address Base icon"
+                    alt={t("alreadyPublishedIconAlt")}
                     width={24}
                     height={24}
                   />
                 </Pane>
-                Or would you like to continue with the already published LAB?
+                {t("orContinuePublished")}
               </Heading>
               {lastRevision.context.extras?.balId ? (
                 <PublishedBALMesAdresses
@@ -527,7 +532,7 @@ function PublishBalStep({
             gap={16}
           >
             <Button intent="primary" onClick={handleClose}>
-              Close
+              {tc("close")}
             </Button>
           </Pane>
         </Pane>

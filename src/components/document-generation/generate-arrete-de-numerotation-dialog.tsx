@@ -8,6 +8,7 @@ import {
   CameraIcon,
   Text,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import {
   Dispatch,
   SetStateAction,
@@ -53,6 +54,8 @@ export function GenerateArreteDeNumerotationDialog<
   setData,
   onDownload,
 }: GenerateArreteDeNumerotationDialogProps<type>) {
+  const t = useTranslations("docGen");
+  const tc = useTranslations("common");
   const { map, setViewport } = useContext(MapContext);
   const [files, setFiles] = useState<File[]>([]);
   const [fileRejections, setFileRejections] = useState([]);
@@ -178,9 +181,9 @@ export function GenerateArreteDeNumerotationDialog<
   return (
     <Dialog
       isShown={data?.type === GeneratedDocumentType.ARRETE_DE_NUMEROTATION}
-      title="Download a numbering certificate template"
-      cancelLabel="Cancel"
-      confirmLabel="Generate"
+      title={t("arreteTitle")}
+      cancelLabel={tc("cancel")}
+      confirmLabel={t("generate")}
       onCloseComplete={() => setData(null)}
       onCancel={() => setData(null)}
       isConfirmLoading={isLoading}
@@ -195,8 +198,8 @@ export function GenerateArreteDeNumerotationDialog<
     >
       <Pane is="form" onSubmit={(e) => e.preventDefault()}>
         <FileUploader
-          label="Site plan (optional)"
-          description="The site plan provided will be inserted into the numbering certificate"
+          label={t("sitePlanLabel")}
+          description={t("sitePlanDescription")}
           browseOrDragText={() => (
             <Pane
               display="flex"
@@ -204,9 +207,7 @@ export function GenerateArreteDeNumerotationDialog<
               alignItems="center"
               gap={10}
             >
-              <Text>
-                Select a file (PNG or JPEG format, maximum 5 MB)
-              </Text>
+              <Text>{t("selectFile")}</Text>
             </Pane>
           )}
           maxSizeInBytes={5 * 1024 ** 2}
@@ -237,17 +238,17 @@ export function GenerateArreteDeNumerotationDialog<
         />
         <Pane>
           <Text>
-            Or click on
+            {t("orClickOn")}
             <IconButton
               marginLeft={8}
               marginRight={8}
               height={29}
               width={29}
               icon={CameraIcon}
-              title="Take a screenshot of the map"
+              title={t("takeScreenshotOfMap")}
               onClick={handleTakeScreenshot}
             />
-            to automatically generate the site plan
+            {t("toGenerateSitePlan")}
           </Text>
         </Pane>
       </Pane>

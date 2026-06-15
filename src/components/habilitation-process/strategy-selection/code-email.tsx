@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Heading,
@@ -11,6 +12,8 @@ import {
 } from "evergreen-ui";
 
 import { HabilitationService } from "@/lib/openapi-api-bal";
+
+const SUPPORT_EMAIL = "support@nationaladdressplatform.us";
 
 function isEmail(email: string) {
   const regexp =
@@ -33,6 +36,7 @@ function CodeEmail({
   setEmailSelected,
   handleStrategy,
 }: CodeEmailProps) {
+  const t = useTranslations("codeEmail");
   const [emailsCommune, setEmailsCommune] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,9 +54,7 @@ function CodeEmail({
         }
       } catch (err: any) {
         console.error("Failed to fetch registered emails:", err);
-        setError(
-          "Unable to retrieve registered emails for this jurisdiction. Please try again."
-        );
+        setError(t("loadError"));
       }
       setIsLoading(false);
     }
@@ -60,7 +62,7 @@ function CodeEmail({
     if (baseLocaleId) {
       fetchRegisteredEmails();
     }
-  }, [baseLocaleId, codeCommune, setEmailSelected]);
+  }, [baseLocaleId, codeCommune, setEmailSelected, t]);
 
   const isValidEmailSelected = useMemo(() => {
     return emailSelected ? isEmail(emailSelected) : false;
@@ -82,7 +84,7 @@ function CodeEmail({
 
   if (error) {
     return (
-      <Alert intent="danger" title="Error loading emails" marginTop={16}>
+      <Alert intent="danger" title={t("errorTitle")} marginTop={16}>
         <Text>{error}</Text>
       </Alert>
     );
@@ -91,35 +93,36 @@ function CodeEmail({
   return (
     <>
       <Pane display="flex" flexDirection="column" alignItems="center">
-        <Heading is="h5">Verify via official jurisdiction email</Heading>
+        <Heading is="h5">{t("heading")}</Heading>
 
         {emailsCommune.length === 0 && (
           <Alert
             intent="warning"
-            title="No registered emails found"
+            title={t("noEmailsTitle")}
             marginTop={16}
             width="100%"
           >
             <Text>
-              No official email addresses are registered for this jurisdiction
-              yet. Please contact{" "}
-              <a href="mailto:support@nationaladdressplatform.us">
-                support@nationaladdressplatform.us
-              </a>{" "}
-              to get your jurisdiction set up.
+              {t.rich("noEmailsBody", {
+                link: (chunks) => (
+                  <a href={`mailto:${SUPPORT_EMAIL}`}>{chunks}</a>
+                ),
+              })}
             </Text>
           </Alert>
         )}
 
         {emailsCommune.length === 1 && (
           <Text height={40} verticalAlign="middle" paddingTop={8}>
-            A verification code will be sent to:{" "}
-            <strong>{emailSelected}</strong>
+            {t.rich("codeSentTo", {
+              email: emailSelected,
+              b: (chunks) => <strong>{chunks}</strong>,
+            })}
           </Text>
         )}
         {emailsCommune.length > 1 && (
           <SelectField
-            label="Select the email address to receive the verification code"
+            label={t("selectEmail")}
             marginTop={8}
             marginBottom={0}
             value={emailSelected}
@@ -159,25 +162,23 @@ function CodeEmail({
             fontSize={16}
             textAlign="left"
           >
-            Send verification code
+            {t("sendCode")}
           </Text>
         </Button>
       </Pane>
 
       {emailsCommune.length > 0 && (
         <Alert
-          title="Is this email incorrect or outdated?"
+          title={t("incorrectTitle")}
           width="100%"
           marginTop={16}
           textAlign="left"
           overflow="auto"
         >
           <Text>
-            Contact{" "}
-            <a href="mailto:support@nationaladdressplatform.us">
-              support@nationaladdressplatform.us
-            </a>{" "}
-            to update the registered email for your jurisdiction.
+            {t.rich("incorrectBody", {
+              link: (chunks) => <a href={`mailto:${SUPPORT_EMAIL}`}>{chunks}</a>,
+            })}
           </Text>
         </Alert>
       )}

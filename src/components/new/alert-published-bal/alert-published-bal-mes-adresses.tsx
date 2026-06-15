@@ -1,6 +1,7 @@
 import { Revision } from "@/lib/api-depot/types";
 import { CommuneType } from "@/types/commune";
 import { Alert, Button, Pane, Paragraph } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import NextLink from "next/link";
 import NextImage from "next/image";
 import PublishedBALMesAdresses from "./published-bal-mes-adresses";
@@ -14,6 +15,7 @@ function AlertPublishedBALMesAdresses({
   revision,
   commune,
 }: AlertPublishedBALMesAdressesProps) {
+  const t = useTranslations("publishConflict");
   return (
     <Alert
       intent="success"
@@ -23,14 +25,12 @@ function AlertPublishedBALMesAdresses({
           <Pane position="relative" width={24} height={24}>
             <NextImage
               src="/static/images/published-bal-icon.svg"
-              alt="Published Local Address Base icon"
+              alt={t("alreadyPublishedIconAlt")}
               width={24}
               height={24}
             />
           </Pane>
-          <span style={{ marginLeft: 10 }}>
-            Local Address Base already published
-          </span>
+          <span style={{ marginLeft: 10 }}>{t("alreadyPublishedShort")}</span>
         </Pane>
       }
     >

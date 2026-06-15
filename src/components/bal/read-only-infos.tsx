@@ -1,24 +1,20 @@
 import React from "react";
 import { Pane, Alert, Text, Button } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface BALReadOnlyProps {
   openRecoveryDialog: () => void;
 }
 
 function BALReadOnly({ openRecoveryDialog }: BALReadOnlyProps) {
+  const t = useTranslations("panels");
   return (
     <Pane backgroundColor="white" padding={8}>
-      <Alert intent="warning" title="You are in read-only mode">
-        <Text is="p">
-          This Local Address Base is read-only because you are not signed in as
-          an administrator.
-        </Text>
-        <Text is="p">
-          If you are an administrator of this Local Address Base, you can
-          recover your access by clicking the button below.
-        </Text>
+      <Alert intent="warning" title={t("readOnlyTitle")}>
+        <Text is="p">{t("readOnlyBody1")}</Text>
+        <Text is="p">{t("readOnlyBody2")}</Text>
         <Button appearance="primary" onClick={openRecoveryDialog}>
-          Recover admin access
+          {t("recoverAdminAccess")}
         </Button>
       </Alert>
     </Pane>

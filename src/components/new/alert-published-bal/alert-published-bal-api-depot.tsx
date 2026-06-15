@@ -1,4 +1,5 @@
 import { Alert } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { PublicClient, Revision } from "@/lib/api-depot/types";
 import { CommuneType } from "@/types/commune";
@@ -15,12 +16,13 @@ function AlertPublishedBALApiDepot({
   outdatedApiDepotClients,
   commune,
 }: AlertPublishedBALApiDepotProps) {
+  const t = useTranslations("publishConflict");
   const client: PublicClient = revision.client;
   const isOutdatedClient = outdatedApiDepotClients.includes(client.id);
 
   return (
     <Alert
-      title={`A Local Address Base has already been published for ${commune.nom}`}
+      title={t("alreadyPublishedTitle", { communeName: commune.nom })}
       intent={isOutdatedClient ? "info" : "warning"}
       marginTop={16}
     >

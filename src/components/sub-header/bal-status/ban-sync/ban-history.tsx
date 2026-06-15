@@ -10,6 +10,7 @@ import {
   HistoryIcon,
   Spinner,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { ApiDepotService } from "@/lib/api-depot";
 
@@ -25,6 +26,7 @@ interface BANHistoryProps {
 }
 
 function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
+  const t = useTranslations("balStatus");
   const [revisions, setRevisions] = useState<Revision[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [isLimited, setIsLimited] = useState(true);
@@ -51,13 +53,13 @@ function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
   return (
     <Pane marginY={8}>
       <Heading is="h3" display="flex" alignItems="center" marginY={8}>
-        Update history <Icon icon={HistoryIcon} marginLeft={4} />
+        {t("updateHistory")} <Icon icon={HistoryIcon} marginLeft={4} />
       </Heading>
 
       {isLoading ? (
         <Pane display="flex">
           <Spinner marginRight={8} size={22} />
-          <Text fontStyle="italic">Loading history</Text>
+          <Text fontStyle="italic">{t("loadingHistory")}</Text>
         </Pane>
       ) : (
         <>
@@ -81,7 +83,7 @@ function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
                   ))}
               </Pane>
             ) : (
-              <Text color="muted">No Local Address Bases found</Text>
+              <Text color="muted">{t("noBalFound")}</Text>
             )}
           </Pane>
 
@@ -92,7 +94,7 @@ function BANHistory({ baseLocaleId, syncStatus, commune }: BANHistoryProps) {
                 marginTop={8}
                 onClick={() => setIsLimited((isLimited) => !isLimited)}
               >
-                {isLimited ? "Show full history" : "Collapse"}
+                {isLimited ? t("showFullHistory") : t("collapse")}
               </Button>
             </Pane>
           )}

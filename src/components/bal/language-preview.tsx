@@ -7,6 +7,7 @@ import {
   Position,
   HelpIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import languesRegionales from "@ban-team/shared-data/langues-regionales.json";
 
@@ -17,6 +18,7 @@ interface LanguagePreviewProps {
 }
 
 function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
+  const t = useTranslations("panels");
   const isFlagExist = availableFlags.includes(Object.keys(nomsAlt)[0]);
   const foundLangueRegionale = languesRegionales.find(
     (lr) => lr.code === Object.keys(nomsAlt)[0]
@@ -65,8 +67,10 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
                     width={22}
                     alt={
                       foundLangueRegionale
-                        ? `Street name in ${foundLangueRegionale.label}`
-                        : "Regional language name not supported"
+                        ? t("streetNameIn", {
+                            language: foundLangueRegionale.label,
+                          })
+                        : t("langNotSupported")
                     }
                   />
                   {nomsAlt[language]}
@@ -79,7 +83,7 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
       >
         <HelpIcon size={16} />
       </Tooltip>
-      Regional alternatives
+      {t("regionalAlternatives")}
     </Pane>
   ) : (
     <Pane
@@ -99,8 +103,8 @@ function LanguagePreview({ nomsAlt }: LanguagePreviewProps) {
         width={18}
         alt={
           foundLangueRegionale
-            ? `Street name in ${foundLangueRegionale.label}`
-            : "The regional language name could not be detected"
+            ? t("streetNameIn", { language: foundLangueRegionale.label })
+            : t("langNotDetected")
         }
       />
       <Pane fontWeight="lighter" fontSize={14}>

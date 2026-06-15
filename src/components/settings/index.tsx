@@ -1,5 +1,6 @@
 import { BaseLocale } from "@/lib/openapi-api-bal";
 import React, { useContext, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   TextInputField,
   Button,
@@ -28,6 +29,8 @@ interface SettingsProps {
 }
 
 function Settings({ baseLocale, token }: SettingsProps) {
+  const t = useTranslations("settings");
+  const tc = useTranslations("common");
   const [showBALAccessDialog, setShowBALAccessDialog] = useState(false);
   const [showFondDeCarteDialog, setShowFondDeCarteDialog] = useState(false);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
@@ -68,7 +71,7 @@ function Settings({ baseLocale, token }: SettingsProps) {
       >
         <Pane display="flex" alignItems="center">
           <CogIcon />
-          <Heading paddingLeft={5}>Settings</Heading>
+          <Heading paddingLeft={5}>{t("title")}</Heading>
         </Pane>
       </Pane>
       <Pane
@@ -88,8 +91,8 @@ function Settings({ baseLocale, token }: SettingsProps) {
           maxWidth={600}
           marginTop={8}
           disabled={isLoading}
-          label="Name"
-          placeholder="Name"
+          label={t("nameLabel")}
+          placeholder={t("nameLabel")}
           onChange={(e) => setNomInput(e.target.value)}
         />
 
@@ -104,17 +107,17 @@ function Settings({ baseLocale, token }: SettingsProps) {
             alignSelf="flex-end"
           >
             <EyeOpenIcon marginRight={8} />
-            Share access
+            {t("shareAccess")}
           </Button>
         </Pane>
         {error && (
-          <Alert marginBottom={16} intent="danger" title="Error">
+          <Alert marginBottom={16} intent="danger" title={tc("error")}>
             {error}
           </Alert>
         )}
         <Pane marginBottom={16}>
           <Label display="block" marginBottom={8}>
-            Map backgrounds
+            {t("mapBackgroundsLabel")}
           </Label>
           <Pane display="flex" gap={16} marginBottom={16}>
             {baseLocale.settings?.fondsDeCartes?.length > 0 && (
@@ -127,7 +130,7 @@ function Settings({ baseLocale, token }: SettingsProps) {
               alignSelf="flex-end"
             >
               <MapCreateIcon marginRight={8} />
-              Add map background
+              {t("addMapBackground")}
             </Button>
           </Pane>
         </Pane>
@@ -139,7 +142,7 @@ function Settings({ baseLocale, token }: SettingsProps) {
           isLoading={isLoading}
           width="fit-content"
         >
-          {isLoading ? "Saving..." : "Save changes"}
+          {isLoading ? t("saving") : t("saveChanges")}
         </Button>
       </Pane>
       <RenewTokenDialog

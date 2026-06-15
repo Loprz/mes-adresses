@@ -7,6 +7,7 @@ import {
   defaultTheme,
   Paragraph,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { ExtendedBaseLocaleDTO } from "@/lib/openapi-api-bal";
 import Counter from "../counter";
 import ProgressBar from "../progress-bar";
@@ -16,6 +17,7 @@ interface CertificationInfosProps {
 }
 
 function CertificationInfos({ baseLocale }: CertificationInfosProps) {
+  const t = useTranslations("panels");
   const {
     nbNumeros,
     nbNumerosCertifies,
@@ -27,7 +29,7 @@ function CertificationInfos({ baseLocale }: CertificationInfosProps) {
     <Pane backgroundColor="white" padding={8}>
       <Alert
         intent="info"
-        title="Certification"
+        title={t("certification")}
         marginBottom={15}
         hasIcon={false}
       >
@@ -35,21 +37,18 @@ function CertificationInfos({ baseLocale }: CertificationInfosProps) {
           <ProgressBar percent={percentCertified} />
           <Pane display="flex" justifyContent="center">
             <Counter
-              label="Certified addresses"
+              label={t("certifiedAddresses")}
               value={nbNumerosCertifies}
               color={defaultTheme.colors.green500}
             />
             <Counter
-              label="Uncertified addresses"
+              label={t("uncertifiedAddresses")}
               value={nbNumeros - nbNumerosCertifies}
               color={defaultTheme.colors.gray500}
             />
           </Pane>
         </Pane>
-        <Paragraph>
-          Addresses certified by the jurisdiction are marked as reliable and
-          ready to be used by data consumers.
-        </Paragraph>
+        <Paragraph>{t("certInfoProse")}</Paragraph>
       </Alert>
     </Pane>
   );

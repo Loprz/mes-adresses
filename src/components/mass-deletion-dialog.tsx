@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { Dialog, Pane, Paragraph, Strong, VideoIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { PEERTUBE_LINK } from "@/components/help/video-container";
 
@@ -16,6 +17,8 @@ function MassDeletionDialog({
   handleCancel,
   onClose,
 }: MassDeletionDialogProps) {
+  const t = useTranslations("dialogs");
+  const tc = useTranslations("common");
   const onConfirm = useCallback(() => {
     handleConfirm();
     handleCancel(); // Pass isShown to false
@@ -25,38 +28,41 @@ function MassDeletionDialog({
     <Dialog
       isShown={isShown}
       intent="danger"
-      title="⚠️ A very large number of addresses have been deleted"
-      cancelLabel="Cancel"
-      confirmLabel="Continue"
+      title={t("massDeleteTitle")}
+      cancelLabel={tc("cancel")}
+      confirmLabel={t("continue")}
       onConfirm={onConfirm}
       onCancel={handleCancel}
       onCloseComplete={onClose}
     >
       <Pane>
         <Paragraph>
-          You have <Strong>deleted at least 50% of the addresses</Strong>{" "}
-          currently known for this jurisdiction in the National Address
-          Platform.
+          {t.rich("massDeleteBody1", {
+            s: (chunks) => <Strong>{chunks}</Strong>,
+          })}
         </Paragraph>
         <Paragraph marginTop={8}>
-          Before continuing, make sure this Local Address Base still represents{" "}
-          <Strong>the full jurisdiction you are responsible for publishing</Strong>.
+          {t.rich("massDeleteBody2", {
+            s: (chunks) => <Strong>{chunks}</Strong>,
+          })}
         </Paragraph>
 
         <Paragraph marginTop={8}>
-          If you are unsure whether this deletion is expected or need help
-          reviewing it,{" "}
-          <Strong>
-            you can contact us at{" "}
-            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
-          </Strong>
+          {t.rich("massDeleteBody3", {
+            s: (chunks) => <Strong>{chunks}</Strong>,
+            link: (chunks) => (
+              <a href="mailto:support@nap.us.gov">{chunks}</a>
+            ),
+          })}
         </Paragraph>
         <Paragraph marginTop={8}>
-          <a href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}>
-            <VideoIcon size={12} /> video tutorials
-          </a>{" "}
-          are also available to assist you during your
-          addressing work.
+          {t.rich("massDeleteVideos", {
+            link: (chunks) => (
+              <a href={`${PEERTUBE_LINK}/c/base_adresse_locale/videos`}>
+                <VideoIcon size={12} /> {chunks}
+              </a>
+            ),
+          })}
         </Paragraph>
       </Pane>
     </Dialog>

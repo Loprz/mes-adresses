@@ -1,5 +1,6 @@
 import React from "react";
 import { Pane, Text, Strong } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { HabilitationDTO, StrategyDTO } from "@/lib/openapi-api-bal";
 
 interface RevisionUserProps {
@@ -16,22 +17,21 @@ function RevisionUser({
   habilitation,
   communeName,
 }: RevisionUserProps) {
+  const t = useTranslations("balStatus");
   let userName = context.nomComplet || context.organisation;
   if (!userName) {
-    if (
-      habilitation?.strategy?.type === StrategyDTO.type.EMAIL
-    ) {
-      userName = `jurisdiction of ${communeName}`;
+    if (habilitation?.strategy?.type === StrategyDTO.type.EMAIL) {
+      userName = t("jurisdictionOf", { communeName });
     }
   }
 
   return (
     <Pane display="flex" gap={4}>
-      <Text>By</Text>
+      <Text>{t("by")}</Text>
       {userName ? (
         <Strong>{userName}</Strong>
       ) : (
-        <Text fontStyle="italic">Not specified</Text>
+        <Text fontStyle="italic">{t("notSpecified")}</Text>
       )}
     </Pane>
   );

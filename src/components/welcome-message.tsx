@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useContext } from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Dialog,
@@ -17,6 +18,7 @@ import MiniCard from "./mini-card";
 import LocalStorageContext from "@/contexts/local-storage";
 
 function WelcomeMessage({ commune }: { commune: CommuneType }) {
+  const t = useTranslations("welcome");
   const { wasWelcomed, setWasWelcomed } = useContext(LocalStorageContext);
   const [isShown, setIsShown] = useState(false);
 
@@ -34,9 +36,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
             <Heading textAlign="center">
               <CommuneFlag codeCommune={commune.code} />
             </Heading>
-            <Heading>
-              Welcome to the new Local Address Base for {commune.nom}
-            </Heading>
+            <Heading>{t("title", { communeName: commune.nom })}</Heading>
           </Pane>
           <Icon
             icon={CrossIcon}
@@ -48,7 +48,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           />
         </Pane>
       }
-      confirmLabel="Start addressing"
+      confirmLabel={t("startAddressing")}
       hasCancel={false}
       onConfirm={() => setWasWelcomed(true)}
       onCloseComplete={() => setWasWelcomed(true)}
@@ -58,7 +58,7 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           <Pane marginRight={32}>
             <AchievementBadge
               icone="/static/images/achievements/published-bal.svg"
-              title="Publication"
+              title={t("publication")}
               completed={true}
               width={64}
               height={64}
@@ -66,29 +66,25 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           </Pane>
           <Pane>
             <Heading>
-              Start by <b>publishing</b>
+              {t.rich("startByPublishing", { b: (chunks) => <b>{chunks}</b> })}
             </Heading>
             <Paragraph marginY={16}>
-              Once published, this LAB becomes the official source of addresses
-              for {commune.nom}.
+              {t("publishDescription", { communeName: commune.nom })}
             </Paragraph>
           </Pane>
         </Pane>
         <br />
         <Pane display="flex" flexDirection="row">
           <Pane>
-            <Heading>Address at your own pace.</Heading>
+            <Heading>{t("addressAtPace")}</Heading>
             <Paragraph marginY={16}>
-              Once published, addresses are synchronized with the National
-              Address Platform.
-              <br />
-              All your changes will be synced automatically.
+              {t.rich("syncDescription", { br: () => <br /> })}
             </Paragraph>
           </Pane>
         </Pane>
 
         <Pane marginY={16}>
-          <Heading marginBottom={16}>Need help?</Heading>
+          <Heading marginBottom={16}>{t("needHelp")}</Heading>
           <Pane
             display="flex"
             flexDirection="row"
@@ -96,17 +92,17 @@ function WelcomeMessage({ commune }: { commune: CommuneType }) {
           >
             <MiniCard
               img="/static/images/education.png"
-              message="Take a training"
+              message={t("takeTraining")}
               href="#"
             />
             <MiniCard
               img="/static/images/video-call.png"
-              message="Watch the tutorials"
+              message={t("watchTutorials")}
               href="https://tube.numerique.gouv.fr/w/p/cm6YcSnDdztzRjKTH3vNFn?playlistPosition=1"
             />
             <MiniCard
               img="/static/images/manual.png"
-              message="Read the guides"
+              message={t("readGuides")}
               href="#"
             />
           </Pane>

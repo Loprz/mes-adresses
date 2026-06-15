@@ -2,6 +2,7 @@
 
 import { useEffect, useContext } from "react";
 import { Pane, Text, Link } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import NextLink from "next/link";
 import TokenContext from "@/contexts/token";
 import BalDataContext from "@/contexts/bal-data";
@@ -21,6 +22,7 @@ import MapContext from "@/contexts/map";
 import { TilesLayerMode } from "@/components/map/layers/tiles";
 
 export function VoieNumerosPage() {
+  const t = useTranslations("lists");
   const { isFormOpen, handleEditing, editedNumero, reset } = useFormState();
 
   useHelp(3);
@@ -52,7 +54,7 @@ export function VoieNumerosPage() {
             savedSearchPagination[TabsEnum.VOIES]
           )}
         >
-          Streets
+          {t("breadcrumbStreets")}
         </Link>
         <Text color="muted">{" > "}</Text>
         <Link
@@ -62,7 +64,7 @@ export function VoieNumerosPage() {
           {voie.nom}{" "}
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">Address list</Text>
+        <Text aria-current="page">{t("addressList")}</Text>
       </>
     );
 
@@ -75,6 +77,7 @@ export function VoieNumerosPage() {
     voie,
     setLastSelectedItem,
     savedSearchPagination,
+    t,
   ]);
 
   useEffect(() => {

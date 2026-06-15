@@ -5,6 +5,7 @@ import ProtectedPage from "@/layouts/protected-page";
 import { TabsEnum } from "@/components/sidebar/main-tabs/main-tabs";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import LayoutContext from "@/contexts/layout";
 import NextLink from "next/link";
 import { Text, Link } from "evergreen-ui";
@@ -13,6 +14,7 @@ import { TilesLayerMode } from "@/components/map/layers/tiles";
 import BalDataContext from "@/contexts/bal-data";
 
 export default function NewVoiePage() {
+  const t = useTranslations("lists");
   const router = useRouter();
   const { baseLocale } = useContext(BalDataContext);
   const { setBreadcrumbs } = useContext(LayoutContext);
@@ -26,17 +28,17 @@ export default function NewVoiePage() {
     setBreadcrumbs(
       <>
         <Link is={NextLink} href={`/bal/${baseLocale.id}/${TabsEnum.VOIES}`}>
-          Streets
+          {t("breadcrumbStreets")}
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">New street</Text>
+        <Text aria-current="page">{t("newStreet")}</Text>
       </>
     );
 
     return () => {
       setBreadcrumbs(null);
     };
-  }, [setBreadcrumbs, baseLocale.id]);
+  }, [setBreadcrumbs, baseLocale.id, t]);
 
   return (
     <ProtectedPage>

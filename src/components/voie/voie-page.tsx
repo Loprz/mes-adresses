@@ -6,6 +6,7 @@ import ProtectedPage from "@/layouts/protected-page";
 import { TabsEnum } from "@/components/sidebar/main-tabs/main-tabs";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import LayoutContext from "@/contexts/layout";
 import NextLink from "next/link";
 import { Text, Link, Spinner } from "evergreen-ui";
@@ -17,6 +18,7 @@ import MapContext from "@/contexts/map";
 import { TilesLayerMode } from "@/components/map/layers/tiles";
 
 export default function VoiePage() {
+  const t = useTranslations("lists");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { setBreadcrumbs } = useContext(LayoutContext);
@@ -62,7 +64,7 @@ export default function VoiePage() {
             savedSearchPagination[TabsEnum.VOIES]
           )}
         >
-          Voies
+          {t("breadcrumbStreets")}
         </Link>
         <Text color="muted">{" > "}</Text>
         <Text aria-current="page">{voie.nom}</Text>
@@ -78,6 +80,7 @@ export default function VoiePage() {
     voie,
     setLastSelectedItem,
     savedSearchPagination,
+    t,
   ]);
 
   return (

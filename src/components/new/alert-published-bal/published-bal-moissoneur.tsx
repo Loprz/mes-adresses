@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Paragraph, Spinner, Strong } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { DataGouvService } from "@/lib/data-gouv/data-gouv";
 import {
   Dataset,
@@ -21,6 +22,7 @@ function PublishedBALMoissoneur({
   outdatedHarvestSources,
   commune,
 }: PublishedBALMoissoneurProps) {
+  const t = useTranslations("publishConflict");
   const [organizationMoissonneur, setOrganizationMoissonneur] =
     useState<OrganizationMoissonneur | null>(null);
   const [organizationDataGouv, setOrganizationDataGouv] =
@@ -63,12 +65,14 @@ function PublishedBALMoissoneur({
       {organizationDataGouv && (
         <>
           <Paragraph marginTop={16}>
-            A Local Address Base is already published for {commune.nom} by{" "}
-            {organizationDataGouv.name}.
+            {t("publishedByOrg", {
+              communeName: commune.nom,
+              orgName: organizationDataGouv.name,
+            })}
           </Paragraph>
           {!isOutdatedSource && (
             <Paragraph marginTop={16}>
-              We recommend contacting this organization before replacing it:{" "}
+              {t("recommendContactingOrg")}{" "}
               {organizationMoissonneur?.email ? (
                 <Strong>{organizationMoissonneur.email}</Strong>
               ) : (
@@ -78,7 +82,7 @@ function PublishedBALMoissoneur({
                   href={organizationDataGouv.page}
                   target="_blank"
                 >
-                  View {organizationDataGouv.name} on data.gouv
+                  {t("viewOnDataGouv", { orgName: organizationDataGouv.name })}
                 </Button>
               )}
             </Paragraph>
@@ -87,16 +91,11 @@ function PublishedBALMoissoneur({
       )}
 
       {isOutdatedSource && (
-        <Paragraph marginTop={16}>
-          The published Local Address Base appears outdated. You may continue
-          to the next step if you need to replace it with your jurisdiction's
-          LAB.
-        </Paragraph>
+        <Paragraph marginTop={16}>{t("outdatedMayContinue")}</Paragraph>
       )}
 
       <Paragraph marginTop={16}>
-        Your jurisdiction remains the official local addressing authority, and
-        you can take over publication directly by continuing to the next step.
+        {t("jurisdictionAuthorityTakeover")}
       </Paragraph>
     </>
   );

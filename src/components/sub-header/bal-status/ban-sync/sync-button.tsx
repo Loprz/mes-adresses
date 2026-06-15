@@ -10,13 +10,15 @@ import {
   PauseIcon,
   AutomaticUpdatesIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import RefreshIconRotate from "../refresh-icon-rotate/refresh-icon-rotate";
 
 function SyncButtonIsLoading() {
+  const t = useTranslations("balStatus");
   return (
     <Pane display="flex" alignItems="center">
-      Synchronization in progress <RefreshIconRotate />
+      {t("syncInProgress")} <RefreshIconRotate />
     </Pane>
   );
 }
@@ -36,6 +38,7 @@ function SyncButton({
   handleSync,
   togglePause,
 }: SyncButtonProps) {
+  const t = useTranslations("balStatus");
   const [isActionHovered, setIsActionHovered] = useState(false);
   const [isManualActionConfirmed, setIsManuelActionConfirmed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,11 +59,11 @@ function SyncButton({
           onClick={onSync}
           disabled={!isManualActionConfirmed || isLoading}
         >
-          Take over publication
+          {t("takeOverPublication")}
         </Button>
         <Checkbox
           checked={isManualActionConfirmed}
-          label="I understand that this Local Address Base will become the current published LAB for this jurisdiction and replace the one currently in place"
+          label={t("takeOverConfirm")}
           onChange={() => setIsManuelActionConfirmed(!isManualActionConfirmed)}
         />
       </Pane>
@@ -76,7 +79,7 @@ function SyncButton({
         iconAfter={PlayIcon}
         onClick={togglePause}
       >
-        Restart automatic updates
+        {t("restartUpdates")}
       </Button>
     );
   }
@@ -101,13 +104,13 @@ function SyncButton({
         {isLoading ? (
           <SyncButtonIsLoading />
         ) : isActionHovered ? (
-          "Update"
+          t("update")
         ) : (
-          "Automatic update"
+          t("automaticUpdate")
         )}
       </Button>
       <Button appearance="minimal" iconAfter={PauseIcon} onClick={togglePause}>
-        Pause automatic updates
+        {t("pauseUpdates")}
       </Button>
     </Pane>
   );

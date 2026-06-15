@@ -1,6 +1,7 @@
 import { useCallback, useContext, useState, useMemo } from "react";
 import { cloneDeep, differenceWith, isEqual } from "lodash";
 import { Button, AddIcon, Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { validateSourceWithTempMap } from "@/lib/utils/map";
 import RefreshIconRotate from "@/components/sub-header/bal-status/refresh-icon-rotate/refresh-icon-rotate";
@@ -17,6 +18,7 @@ import MatomoTrackingContext, {
 import LayoutContext from "@/contexts/layout";
 
 function FondDeCarteForm() {
+  const t = useTranslations("settings");
   const [isLoading, setIsLoading] = useState(false);
   const { baseLocale, reloadBaseLocale } = useContext(BalDataContext);
   const { toaster } = useContext(LayoutContext);
@@ -38,8 +40,8 @@ function FondDeCarteForm() {
               fondsDeCartes,
             },
           }),
-        "Map backgrounds have been updated successfully",
-        "Map backgrounds could not be updated"
+        t("updateSuccess"),
+        t("updateError")
       );
       await saveFondsDeCarte();
       await reloadBaseLocale();
@@ -54,6 +56,7 @@ function FondDeCarteForm() {
       reloadBaseLocale,
       toaster,
       matomoTrackEvent,
+      t,
     ]
   );
 
@@ -134,7 +137,7 @@ function FondDeCarteForm() {
         iconBefore={AddIcon}
         onClick={onAddForm}
       >
-        Add a map background
+        {t("addAMapBackground")}
       </Button>
       {(fondsDeCartesForm.length > 0 ||
         baseLocale.settings?.fondsDeCartes?.length > 0) && (
@@ -155,7 +158,7 @@ function FondDeCarteForm() {
               appearance="primary"
               onClick={saveFondDeCartes}
             >
-              Save changes {isLoading && <RefreshIconRotate />}
+              {t("saveChanges")} {isLoading && <RefreshIconRotate />}
             </Button>
           </Pane>
         </Pane>

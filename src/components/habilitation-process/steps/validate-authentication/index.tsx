@@ -1,4 +1,5 @@
 import { Pane, Button, ChevronLeftIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import CodeValidation from "./code-validation";
 
@@ -17,6 +18,7 @@ function AuthenticationValidateStep({
   onCancel,
   flagURL,
 }: AuthenticationValidateStepProps) {
+  const tc = useTranslations("common");
   return (
     <Pane>
       <CodeValidation
@@ -27,7 +29,7 @@ function AuthenticationValidateStep({
       />
 
       <Button iconBefore={ChevronLeftIcon} onClick={onCancel}>
-        Cancel
+        {tc("cancel")}
       </Button>
     </Pane>
   );

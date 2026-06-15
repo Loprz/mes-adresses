@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Alert, Spinner } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { DataGouvService } from "@/lib/data-gouv/data-gouv";
 import { Dataset, Organization } from "@/lib/data-gouv/types";
 import { Revision } from "@/lib/api-depot/types";
@@ -17,13 +18,14 @@ function AlertPublishedBALMoissoneur({
   outdatedHarvestSources,
   commune,
 }: AlertPublishedBALMoissoneurProps) {
+  const t = useTranslations("publishConflict");
   const isOutdatedSource = outdatedHarvestSources.includes(
     revision.context.extras.sourceId
   );
 
   return (
     <Alert
-      title={`A Local Address Base has already been published for ${commune.nom}`}
+      title={t("alreadyPublishedTitle", { communeName: commune.nom })}
       intent={isOutdatedSource ? "info" : "warning"}
       marginTop={16}
     >

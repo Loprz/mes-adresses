@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "evergreen-ui";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import styles from "@/components/bal/panel-goal/secondary-goal/accordion-simple.module.css";
 
 interface FondDeCarteFieldProps {
@@ -22,6 +23,7 @@ function FondDeCarteField({
   onDelete,
   errors,
 }: FondDeCarteFieldProps) {
+  const t = useTranslations("settings");
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ function FondDeCarteField({
       backgroundColor="white"
     >
       <IconButton
-        title="Delete map background"
+        title={t("deleteMapBackground")}
         onClick={() => onAnimationEnd()}
         intent="danger"
         icon={CrossIcon}
@@ -57,33 +59,33 @@ function FondDeCarteField({
         appearance="minimal"
       />
       <TextInputField
-        label="Name"
-        title="Map background name"
+        label={t("nameLabel")}
+        title={t("mapBackgroundNameTitle")}
         value={initialValue.name}
         onChange={(e) => onChange("name", e.target.value)}
         width="80%"
         marginBottom={0}
-        placeholder="My map background"
+        placeholder={t("myMapBackgroundPlaceholder")}
         required
         validationMessage={
           errors?.["name"] == false &&
           (initialValue.name === ""
-            ? "Name is required"
-            : "Name is invalid")
+            ? t("nameRequired")
+            : t("nameInvalid"))
         }
         isInvalid={errors?.["name"] == false}
       />
       <TextareaField
-        label="Url"
+        label={t("urlLabel")}
         required
-        title="Map background URL"
+        title={t("mapBackgroundUrlTitle")}
         value={initialValue.url}
         onChange={(e) => onChange("url", e.target.value)}
         marginBottom={8}
         marginTop={8}
         placeholder="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         validationMessage={
-          errors?.["url"] == false && "The map background URL is invalid"
+          errors?.["url"] == false && t("urlInvalid")
         }
         isInvalid={errors?.["url"] == false}
       />

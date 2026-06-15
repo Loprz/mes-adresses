@@ -1,8 +1,10 @@
 import React from "react";
 import { Pane, Badge } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import RefreshIconRotate from "./refresh-icon-rotate/refresh-icon-rotate";
 
 function RefreshSyncBadge() {
+  const t = useTranslations("balStatus");
   return (
     <Badge
       display="flex"
@@ -12,7 +14,7 @@ function RefreshSyncBadge() {
       width="100%"
     >
       <Pane display="flex" alignItems="center">
-        Synchronisation en cours <RefreshIconRotate />
+        {t("syncInProgress")} <RefreshIconRotate />
       </Pane>
     </Badge>
   );

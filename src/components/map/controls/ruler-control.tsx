@@ -4,6 +4,7 @@ import MatomoTrackingContext, {
   MatomoEventCategory,
 } from "@/contexts/matomo-tracking";
 import { CrossIcon, IconButton } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useContext } from "react";
 
@@ -12,6 +13,7 @@ interface RulerControlProps {
 }
 
 function RulerControl({ disabled }: RulerControlProps) {
+  const t = useTranslations("mapControls");
   const { drawMode, setDrawMode } = useContext(DrawContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
 
@@ -23,7 +25,7 @@ function RulerControl({ disabled }: RulerControlProps) {
       onClick={() => {
         setDrawMode(null);
       }}
-      title="Close measurement tool"
+      title={t("closeMeasurement")}
     />
   ) : (
     <IconButton
@@ -40,13 +42,13 @@ function RulerControl({ disabled }: RulerControlProps) {
       icon={
         <Image
           src="/static/images/ruler.svg"
-          alt="Ruler icon"
+          alt={t("rulerIconAlt")}
           width={20}
           height={20}
           style={{ opacity: disabled ? 0.4 : 1 }}
         />
       }
-      title="Measure a distance"
+      title={t("measureDistance")}
     />
   );
 }

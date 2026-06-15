@@ -2,6 +2,7 @@
 
 import LayoutContext from "@/contexts/layout";
 import { GeolocationIcon, IconButton } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 import styles from "./geolocation-control.module.css";
 import type { Map as MaplibreMap } from "maplibre-gl";
@@ -15,6 +16,8 @@ interface GeolocationControlProps {
 }
 
 function GeolocationControl({ map }: GeolocationControlProps) {
+  const t = useTranslations("mapControls");
+  const tc = useTranslations("common");
   const [isFlying, setIsFlying] = useState(false);
   const { pushToast } = useContext(LayoutContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
@@ -37,8 +40,8 @@ function GeolocationControl({ map }: GeolocationControlProps) {
       },
       (err) => {
         pushToast({
-          title: "Error",
-          message: "We cannot geolocate you. Check your browser settings.",
+          title: tc("error"),
+          message: t("geolocError"),
           intent: "danger",
         });
         console.error(
@@ -52,7 +55,7 @@ function GeolocationControl({ map }: GeolocationControlProps) {
   return (
     <IconButton
       className={styles.geolocationControl}
-      title="Find my location"
+      title={t("findMyLocation")}
       onClick={flyToCurrentPosition}
       height={29}
       width={29}

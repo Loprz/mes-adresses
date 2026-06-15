@@ -4,7 +4,7 @@ import MatomoTrackingContext, {
 } from "@/contexts/matomo-tracking";
 import { trainingTypeMap } from "@/lib/bal-admin";
 import { EventType } from "@/lib/bal-admin/type";
-import { getFullDate } from "@/lib/utils/date";
+import { getDateFnsLocale, getFullDate } from "@/lib/utils/date";
 import {
   ArrowRightIcon,
   Badge,
@@ -16,12 +16,15 @@ import {
   Text,
 } from "evergreen-ui";
 import { useContext } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 interface TrainingTabProps {
   nextTrainings: EventType[];
 }
 
 function TrainingTab({ nextTrainings }: TrainingTabProps) {
+  const t = useTranslations("homeDrawer");
+  const locale = useLocale();
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
 
   return (
@@ -34,7 +37,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
           flex={1}
           padding={10}
         >
-          <Text>No upcoming events</Text>
+          <Text>{t("noEvents")}</Text>
         </Pane>
       )}
       <Pane is="ul" listStyle="none" padding={0} margin={0}>
@@ -44,7 +47,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
               const typeInfo =
                 trainingTypeMap[type] ?? ({
                   color: "neutral" as const,
-                  label: type ?? "Event",
+                  label: type ?? t("eventFallback"),
                 });
               return (
               <Pane
@@ -64,7 +67,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
                 </Badge>
                 <Heading display="flex" alignItems="center" size={400}>
                   <Icon icon={CalendarIcon} marginRight={5} />
-                  <span>{getFullDate(new Date(date))}</span>
+                  <span>{getFullDate(new Date(date), getDateFnsLocale(locale))}</span>
                   <Pane marginX={5}>|</Pane>
                   <span>
                     {startHour} - {endHour}
@@ -90,7 +93,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
                   alignSelf="flex-end"
                   width="fit-content"
                 >
-                  Register
+                  {t("register")}
                 </Button>
               </Pane>
             );
@@ -107,7 +110,7 @@ function TrainingTab({ nextTrainings }: TrainingTabProps) {
         width="fit-content"
         margin={10}
       >
-        See all our events
+        {t("seeAllEvents")}
       </Button>
     </Pane>
   );

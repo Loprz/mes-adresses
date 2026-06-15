@@ -13,10 +13,10 @@ import { BaseLocale } from "@/lib/openapi-api-bal";
 export enum MatomoEventCategory {
   DOWNLOAD = "Download",
   DOCUMENT = "Document",
-  MAP = "Carte",
+  MAP = "Map",
   GAMIFICATION = "Gamification",
   BAL_EDITOR = "LAB Editor",
-  HOME_PAGE = "Page d'accueil",
+  HOME_PAGE = "Home Page",
   SETTINGS = "Settings",
 }
 

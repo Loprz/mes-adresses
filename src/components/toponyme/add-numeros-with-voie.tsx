@@ -8,6 +8,7 @@ import {
 } from "react";
 import { sortBy } from "lodash";
 import { SelectField, SelectMenu, Pane, Button, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { normalizeSort } from "@/lib/normalize";
 
@@ -25,6 +26,7 @@ function AddNumerosWithVoie({
   numerosIds,
   setNumerosIds,
 }: AddNumerosWithVoieProps) {
+  const t = useTranslations("lists");
   const [selectedVoieId, setSelectedVoieId] = useState();
   const [voieNumeros, setVoieNumeros] = useState([]);
 
@@ -56,20 +58,15 @@ function AddNumerosWithVoie({
   };
 
   const selectedVoiesCount = useMemo(() => {
-    if (numerosIds.length === voieNumeros.length) {
-      return "All numbers are selected";
+    if (
+      voieNumeros.length > 0 &&
+      numerosIds.length === voieNumeros.length
+    ) {
+      return t("allNumbersSelected");
     }
 
-    if (numerosIds.length === 0) {
-      return "No numbers selected";
-    }
-
-    if (numerosIds.length === 1) {
-      return "1 number is selected";
-    }
-
-    return `${numerosIds.length} numbers are selected`;
-  }, [numerosIds.length, voieNumeros.length]);
+    return t("numbersSelected", { count: numerosIds.length });
+  }, [numerosIds.length, voieNumeros.length, t]);
 
   const numeroOptions = useMemo(() => {
     let options = [];
@@ -77,9 +74,7 @@ function AddNumerosWithVoie({
     if (voieNumeros.length > 0) {
       const toggleFullSelect = {
         label:
-          numerosIds.length > 0
-            ? "Deselect all numbers"
-            : "Select all numbers",
+          numerosIds.length > 0 ? t("deselectAll") : t("selectAll"),
         value: "toggle",
       };
       const numeros = voieNumeros.map(({ id, numero, suffixe }) => ({
@@ -91,7 +86,7 @@ function AddNumerosWithVoie({
     }
 
     return options;
-  }, [numerosIds, voieNumeros]);
+  }, [numerosIds, voieNumeros, t]);
 
   return (
     <Pane>
@@ -99,12 +94,12 @@ function AddNumerosWithVoie({
         <FormInput>
           <SelectField
             value={selectedVoieId}
-            label="Voie"
+            label={t("street")}
             marginBottom={0}
             flex={1}
             onChange={(e) => handleSelectVoie(e.target.value)}
           >
-            {!selectedVoieId && <option>- Select a street -</option>}
+            {!selectedVoieId && <option>{t("selectStreetOption")}</option>}
             {sortBy(voies, (v) => normalizeSort(v.nom)).map(({ id, nom }) => (
               <option key={id} value={id}>
                 {nom}
@@ -122,7 +117,7 @@ function AddNumerosWithVoie({
               <SelectMenu
                 isMultiSelect
                 hasFilter={false}
-                title="Number selection"
+                title={t("numberSelection")}
                 options={numeroOptions}
                 selected={numerosIds}
                 emptyView={
@@ -134,16 +129,14 @@ function AddNumerosWithVoie({
                     justifyContent="center"
                     textAlign="center"
                   >
-                    <Text size={300}>
-                      No numbers are available for this street
-                    </Text>
+                    <Text size={300}>{t("noNumbersForStreet")}</Text>
                   </Pane>
                 }
                 onSelect={handleSelectNumero}
                 onDeselect={handleSelectNumero}
               >
                 <Button marginTop={0} type="button">
-                  Select numbers
+                  {t("selectNumbers")}
                 </Button>
               </SelectMenu>
 

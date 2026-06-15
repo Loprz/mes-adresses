@@ -1,4 +1,5 @@
 import { Paragraph, Button, EditIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import Tuto from "@/components/help/tuto";
 
@@ -7,10 +8,11 @@ interface UnauthorizedProps {
 }
 
 function Unauthorized({ title }: UnauthorizedProps) {
+  const t = useTranslations("helpCommon");
   return (
     <Tuto title={title}>
       <Paragraph marginTop="default">
-        Make sure that
+        {t("unauthorizedMakeSurePre")}
         <Button
           height={24}
           margin={8}
@@ -18,18 +20,12 @@ function Unauthorized({ title }: UnauthorizedProps) {
           intent="danger"
           iconBefore={EditIcon}
         >
-          Editing disabled
+          {t("editingDisabled")}
         </Button>
-        does not appear in the upper right of your screen.
+        {t("unauthorizedMakeSurePost")}
       </Paragraph>
-      <Paragraph marginTop="default">
-        This indicates that you are not authenticated or do not have
-        permission to edit this LAB.
-      </Paragraph>
-      <Paragraph marginTop="default">
-        However, if you are the owner, simply click on the link that was
-        sent to you by email when your LAB was created.
-      </Paragraph>
+      <Paragraph marginTop="default">{t("unauthorizedIndicates")}</Paragraph>
+      <Paragraph marginTop="default">{t("unauthorizedOwner")}</Paragraph>
     </Tuto>
   );
 }

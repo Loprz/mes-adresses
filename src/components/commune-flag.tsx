@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { getCommuneFlagProxy } from "@/lib/api-blason-commune";
 import Image from "next/image";
 
 function CommuneFlag({ codeCommune }: { codeCommune: string }) {
+  const t = useTranslations("dialogs");
   const [flag, setFlag] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function CommuneFlag({ codeCommune }: { codeCommune: string }) {
       width={100}
       height={100}
       src={flag || "/static/images/mairie.svg"}
-      alt="jurisdiction logo"
+      alt={t("jurisdictionLogo")}
       style={{
         width: "auto",
         height: "100px",

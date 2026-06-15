@@ -7,6 +7,7 @@ import {
   InlineAlert,
   Alert,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface COMDialogProps {
   baseLocaleId: string;
@@ -14,6 +15,7 @@ interface COMDialogProps {
 }
 
 function COMDialog({ baseLocaleId, handleClose }: COMDialogProps) {
+  const t = useTranslations("comDialog");
   return (
     <Dialog
       isShown
@@ -25,24 +27,26 @@ function COMDialog({ baseLocaleId, handleClose }: COMDialogProps) {
     >
       <Pane display="flex" flexDirection="column" marginY={16}>
         <Heading size={700} textAlign="center" marginBottom={8}>
-          Publishing your Local Address Base
+          {t("title")}
         </Heading>
         <InlineAlert intent="warning" marginY={16}>
-          Your jurisdiction is part of an overseas territory for
-          which automatic authentication is currently under
-          development.
+          {t("overseasWarning")}
         </InlineAlert>
 
-        <Alert intent="none" title="Please contact us">
+        <Alert intent="none" title={t("pleaseContact")}>
           <Paragraph marginTop={8}>
-            In the meantime, in order to publish your addresses in the{" "}
-            <Strong>National Address Database</Strong>, you must contact us at
-            the following address:{" "}
-            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>.
+            {t.rich("contactBody", {
+              s: (chunks) => <Strong>{chunks}</Strong>,
+              link: (chunks) => (
+                <a href="mailto:support@nap.us.gov">{chunks}</a>
+              ),
+            })}
           </Paragraph>
           <Paragraph>
-            In your email, please include the identifier of your
-            Local Address Base <Strong>({baseLocaleId})</Strong>.
+            {t.rich("includeId", {
+              id: baseLocaleId,
+              s: (chunks) => <Strong>{chunks}</Strong>,
+            })}
           </Paragraph>
         </Alert>
       </Pane>

@@ -7,6 +7,7 @@ import {
   defaultTheme,
   Strong,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import usePublishProcess from "@/hooks/publish-process";
 import { CommuneType } from "@/types/commune";
@@ -21,6 +22,8 @@ interface PublicationGoalProps {
 }
 
 function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
+  const t = useTranslations("panels");
+  const tc = useTranslations("common");
   const { handleShowHabilitationProcess } = usePublishProcess(commune);
   const { habilitation } = useContext(BalDataContext);
   const [isActive, setIsActive] = useState(
@@ -58,11 +61,11 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
           <Pane display="flex" alignItems="center" gap={16} paddingLeft={8}>
             <AchievementBadge
               icone="/static/images/achievements/published-bal.svg"
-              title="Publication"
+              title={t("badgeTitle")}
               completed={isCompleted}
             />
             <Heading color={isCompleted && defaultTheme.colors.green700}>
-              Publication
+              {t("publication")}
             </Heading>
           </Pane>
         }
@@ -74,38 +77,30 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
         <Pane padding={8}>
           {baseLocale.status === ExtendedBaseLocaleDTO.status.DRAFT && (
             <Paragraph is="div">
-              To be synchronized with the National Address Platform,
-              this Local Address Base must be published by the jurisdiction of{" "}
-              {commune.nom}.
-              <br />
-              Note that once published,{" "}
-              <Strong>
-                all changes will automatically be uploaded
-              </Strong>{" "}
-              to the National Address Platform.
+              {t.rich("pubDraftIntro", {
+                communeName: commune.nom,
+                s: (chunks) => <Strong>{chunks}</Strong>,
+                br: () => <br />,
+              })}
               <Pane display="flex" justifyContent="right">
                 <Button
                   appearance="primary"
                   onClick={(e) => handlePublication(e)}
                   textAlign="center"
                 >
-                  Publish
+                  {tc("publish")}
                 </Button>
               </Pane>
             </Paragraph>
           )}
           {baseLocale.status === ExtendedBaseLocaleDTO.status.PUBLISHED &&
             habilitation?.status === HabilitationDTO.status.ACCEPTED && (
-              <Paragraph>
-                All changes will automatically be uploaded to the
-                National Address Platform
-              </Paragraph>
+              <Paragraph>{t("pubPublishedInfo")}</Paragraph>
             )}
           {baseLocale.status === ExtendedBaseLocaleDTO.status.PUBLISHED &&
             habilitation?.status !== HabilitationDTO.status.ACCEPTED && (
               <Paragraph display="flex" flexDirection="column" gap={8} is="div">
-                Your authorization is no longer valid. Renew it to resume
-                automatic updates to the National Address Platform.
+                {t("pubAuthInvalid")}
                 <Pane display="flex" justifyContent="right">
                   <Button
                     marginRight={8}
@@ -113,7 +108,7 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
                     appearance="primary"
                     onClick={handleShowHabilitationProcess}
                   >
-                    Renew authorization
+                    {t("renewAuthorization")}
                   </Button>
                 </Pane>
               </Paragraph>
@@ -121,15 +116,9 @@ function PublicationGoal({ commune, baseLocale }: PublicationGoalProps) {
           {baseLocale.status === ExtendedBaseLocaleDTO.status.REPLACED && (
             <Pane>
               <Paragraph color={defaultTheme.colors.red700}>
-                A different Local Address Base is currently published for this
-                jurisdiction, so this LAB is no longer syncing with the
-                National Address Platform.
+                {t("pubReplaced1")}
               </Paragraph>
-              <Paragraph>
-                If you need to take over publication, contact the
-                administrators of the published LAB or email
-                support@nap.us.gov.
-              </Paragraph>
+              <Paragraph>{t("pubReplaced2")}</Paragraph>
             </Pane>
           )}
         </Pane>

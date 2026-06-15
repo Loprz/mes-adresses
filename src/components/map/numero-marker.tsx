@@ -10,6 +10,7 @@ import {
   EndorsedIcon,
 } from "evergreen-ui";
 import { Tooltip } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { computeCompletNumero } from "@/lib/utils/numero";
 import { Numero, Position as ApiPosition } from "@/lib/openapi-api-bal";
@@ -31,6 +32,8 @@ function NumeroMarker({
   onEnableMenu,
   removeAddress,
 }: NumeroMarkerProps) {
+  const t = useTranslations("mapMarker");
+  const tc = useTranslations("common");
   const position =
     numero.positions.find((p) => p.type === ApiPosition.type.ENTR_E) ||
     numero.positions[0];
@@ -63,7 +66,7 @@ function NumeroMarker({
 
         {numero.certifie && (
           <Tooltip
-            content="Cette adresse est certifiede"
+            content={t("certifiedTooltip")}
             position={Position.BOTTOM_RIGHT}
           >
             <EndorsedIcon
@@ -86,7 +89,7 @@ function NumeroMarker({
                 intent="danger"
                 onSelect={() => removeAddress(numero.id)}
               >
-                Delete
+                {tc("delete")}
               </Menu.Item>
             </Menu.Group>
           </Menu>

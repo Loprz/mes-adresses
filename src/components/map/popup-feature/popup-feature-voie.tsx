@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Pane, Badge, Text, Strong } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import BalDataContext from "@/contexts/bal-data";
 import { CommuneType } from "@/types/commune";
 
@@ -17,6 +18,7 @@ interface PopupFeatureNumeroProps {
 }
 
 function PopupFeatureVoie({ feature, commune }: PopupFeatureNumeroProps) {
+  const t = useTranslations("mapPopup");
   const { voies } = useContext(BalDataContext);
 
   const voie = voies.find((v) => v.id === feature.properties?.id);
@@ -28,12 +30,15 @@ function PopupFeatureVoie({ feature, commune }: PopupFeatureNumeroProps) {
         {commune.code} - {commune.nom}
       </Text>
       {voie.nbNumeros <= 0 ? (
-        <Badge color="red">No number</Badge>
+        <Badge color="red">{t("noNumber")}</Badge>
       ) : voie.isAllCertified ? (
-        <Badge color="green">All numbers certified</Badge>
+        <Badge color="green">{t("allCertified")}</Badge>
       ) : (
         <Badge color="yellow">
-          {voie.nbNumerosCertifies}/{voie.nbNumeros} certified
+          {t("someCertified", {
+            certified: voie.nbNumerosCertifies,
+            total: voie.nbNumeros,
+          })}
         </Badge>
       )}
     </Pane>

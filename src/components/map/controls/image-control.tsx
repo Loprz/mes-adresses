@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useContext } from "react";
+import { useTranslations } from "next-intl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import {
   Position,
@@ -34,6 +35,7 @@ interface ImageControlProps {
 }
 
 function ImageControl({ map, communeNom }: ImageControlProps) {
+  const t = useTranslations("mapControls");
   const { tileLayersMode } = useContext(MapContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
 
@@ -150,7 +152,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
         >
           {tileLayerEnabled && (
             <LayerShowHideControl
-              title="Numbers"
+              title={t("layerNumbers")}
               isDiplayed={adresseLayerIsDisplayed}
               setIsDiplayed={setAdresseLayerIsDisplayed}
             />
@@ -158,7 +160,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
 
           {tileLayerEnabled && tileLayersMode !== TilesLayerMode.TOPONYME && (
             <LayerShowHideControl
-              title="Streets"
+              title={t("layerStreets")}
               isDiplayed={voieLayerIsDisplayed}
               setIsDiplayed={setVoieLayerIsDisplayed}
             />
@@ -166,21 +168,21 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
 
           {tileLayerEnabled && tileLayersMode !== TilesLayerMode.VOIE && (
             <LayerShowHideControl
-              title="Place names"
+              title={t("layerPlaceNames")}
               isDiplayed={toponymeLayerIsDisplayed}
               setIsDiplayed={setToponymeLayerIsDisplayed}
             />
           )}
 
           <LayerShowHideControl
-            title="Points of interest"
+            title={t("layerPOI")}
             isDiplayed={poiLayerIsDisplayed}
             setIsDiplayed={setPoiLayerIsDisplayed}
           />
 
           <Button onClick={takeScreenshot}>
             <CameraIcon marginRight={4} />
-            Take a screenshot
+            {t("takeScreenshot")}
           </Button>
         </Pane>
       }
@@ -189,7 +191,7 @@ function ImageControl({ map, communeNom }: ImageControlProps) {
         height={29}
         width={29}
         icon={CameraIcon}
-        title="Take a map screenshot"
+        title={t("takeMapScreenshot")}
       />
     </Popover>
   );

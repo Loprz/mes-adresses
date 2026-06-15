@@ -9,6 +9,7 @@ import {
   CogIcon,
   PlusIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import BALRecovery from "@/components/bal-recovery/bal-recovery";
 import Tuto from "@/components/help/tuto";
@@ -20,138 +21,104 @@ import {
 } from "@/components/help/video-container";
 
 function BaseLocale() {
+  const t = useTranslations("helpBaseLocale");
+  const tc = useTranslations("helpCommon");
+  const strong = (chunks: React.ReactNode) => (
+    <Strong size={500} fontStyle="italic">
+      {chunks}
+    </Strong>
+  );
+  const bold = (chunks: React.ReactNode) => <b>{chunks}</b>;
+
   return (
     <Pane>
       <VideoContainer
-        title="Creating a Local Address Base:"
+        title={t("videoTitle")}
         link={`${PEERTUBE_LINK}/w/f2b6yiXosmfoKkmyF4YLtE`}
       />
-      <Tuto title="Create a new Local Address Base">
+      <Tuto title={t("createTuto")}>
         <Paragraph marginTop="default">
-          On the <b>New Local Address Base</b> page, select the tab{" "}
-          <Tab isSelected>Create</Tab>
+          {t.rich("createIntroPre", { b: bold })}{" "}
+          <Tab isSelected>{t("tabCreate")}</Tab>
         </Paragraph>
         <OrderedList margin={8}>
+          <ListItem>{t.rich("createStep1", { s: strong })}</ListItem>
+          <ListItem>{t("createStep2")}</ListItem>
+          <ListItem>{t("createStep3")}</ListItem>
+          <ListItem>{t("createStep4")}</ListItem>
+          <ListItem>{t.rich("createStep5", { s: strong })}</ListItem>
           <ListItem>
-            Enter the name of your Local Address Base in the field{" "}
-            <Strong size={500} fontStyle="italic">
-              Name
-            </Strong>
-            . This will help you identify your Local Address Base.
-          </ListItem>
-          <ListItem>
-            Enter the email address of your local government or the administrator of
-            the Local Address Base. This address will receive the link
-            to access and edit your Local Address Base.
-          </ListItem>
-          <ListItem>
-            Select the state, then the county, then the city, township, or
-            county-wide option for the jurisdiction you want to manage.
-          </ListItem>
-          <ListItem>
-            If you are creating a county-wide LAB, keep the county selected in
-            the final list instead of choosing a city or township.
-          </ListItem>
-          <ListItem>
-            If you want to start from scratch, uncheck the box{" "}
-            <Strong size={500} fontStyle="italic">
-              Import streets and numbers from the NAP
-            </Strong>
-            .
-          </ListItem>
-          <ListItem>
-            To finish, click the button{" "}
+            {t("createStep6Pre")}{" "}
             <Button
               marginX={4}
               appearance="primary"
               intent="success"
               iconAfter={PlusIcon}
             >
-              Create the Local Address Base
+              {tc("createLabButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Import a Local Address Base">
+      <Tuto title={t("importTuto")}>
         <Paragraph marginTop="default">
-          On the <b>New Local Address Base</b> page, select the tab{" "}
-          <Tab isSelected>Import a CSV file</Tab>
+          {t.rich("createIntroPre", { b: bold })}{" "}
+          <Tab isSelected>{t("tabImport")}</Tab>
         </Paragraph>
         <OrderedList margin={8}>
+          <ListItem>{t.rich("importStep1", { b: bold })}</ListItem>
+          <ListItem>{t.rich("importStep2", { s: strong })}</ListItem>
+          <ListItem>{t("importStep3")}</ListItem>
+          <ListItem>{t("importStep4")}</ListItem>
+          <ListItem>{t("importStep5")}</ListItem>
           <ListItem>
-            Select or drop your file in <b>csv</b> format.
-            Note that this file must not exceed 10 MB.
-          </ListItem>
-          <ListItem>
-            Enter the name of your Local Address Base in the field{" "}
-            <Strong size={500} fontStyle="italic">
-              Name
-            </Strong>
-            . This will help you identify your Local Address Base.
-          </ListItem>
-          <ListItem>
-            Enter the email address of your jurisdiction or the administrator of
-            the Local Address Base. This address will receive the link
-            to access and edit your Local Address Base.
-          </ListItem>
-          <ListItem>
-            Select the same state, county, and city, township, or county-wide
-            jurisdiction that is represented in your CSV file.
-          </ListItem>
-          <ListItem>
-            The uploaded file must contain addresses for only that one
-            jurisdiction.
-          </ListItem>
-          <ListItem>
-            To finish, click on the button{" "}
+            {t("importStep6Pre")}{" "}
             <Button
               marginX={4}
               appearance="primary"
               intent="success"
               iconAfter={PlusIcon}
             >
-              Create the Local Address Base
+              {tc("createLabButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Manage your Local Address Base">
+      <Tuto title={t("manageTuto")}>
         <Paragraph marginTop="default">
-          Access your Local Address Base settings by clicking on
-          the icon{" "}
+          {t("manageIntroPre")}{" "}
           <span>
             <CogIcon marginX={4} />
           </span>{" "}
-          located in the upper right of your screen. Then choose "Settings".
+          {t("manageIntroPost")}
         </Paragraph>
-        <Paragraph marginTop="default">You will be able to:</Paragraph>
+        <Paragraph marginTop="default">{t("youWillBeAble")}</Paragraph>
         <OrderedList margin={8}>
-          <ListItem>Change the name of your Local Address Base</ListItem>
-          <ListItem>Add or remove collaborators</ListItem>
-          <ListItem>Download your addresses in .csv format</ListItem>
+          <ListItem>{t("manageItem1")}</ListItem>
+          <ListItem>{t("manageItem2")}</ListItem>
+          <ListItem>{t("manageItem3")}</ListItem>
         </OrderedList>
 
         <Paragraph marginTop="default">
-          Once your settings are done, click{" "}
+          {t("manageSavePre")}{" "}
           <Button marginX={4} appearance="primary">
-            Save changes
+            {tc("saveChanges")}
           </Button>
         </Paragraph>
       </Tuto>
 
       <Problems>
-        <Unauthorized title="I can't edit my LAB" />
+        <Unauthorized title={tc("cantEditTitle")} />
 
-        <Tuto title="I can't find my jurisdiction">
+        <Tuto title={tc("cantFindJurisdictionTitle")}>
           <Paragraph marginTop="default">
-            If your jurisdiction is a new one resulting from a merger, it may
-            not appear in the selector yet. First, make sure you have chosen
-            the correct state and county, and use the county-wide option if you
-            are managing unincorporated areas. If it still does not appear,
-            you can contact us at{" "}
-            <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
+            {tc.rich("cantFindJurisdiction", {
+              link: (chunks) => (
+                <a href="mailto:support@nap.us.gov">{chunks}</a>
+              ),
+            })}
           </Paragraph>
         </Tuto>
 

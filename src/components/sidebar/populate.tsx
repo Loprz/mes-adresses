@@ -1,5 +1,6 @@
 import React, { useContext, useCallback } from "react";
 import { Button, Pane, Paragraph } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import {
   BasesLocalesService,
@@ -12,6 +13,7 @@ interface PopulateSideBarProps {
 }
 
 function PopulateSideBar({ baseLocale }: PopulateSideBarProps) {
+  const t = useTranslations("sidebar");
   const { reloadVoies, setIsEditing, isEditing } = useContext(BalDataContext);
 
   const onPopulate = useCallback(async () => {
@@ -26,8 +28,7 @@ function PopulateSideBar({ baseLocale }: PopulateSideBarProps) {
   return (
     <Pane borderTop marginTop="auto" padding={16}>
       <Paragraph size={300} color="muted">
-        Do you want to import the streets of the jurisdiction{" "}
-        {baseLocale.communeNom} from the National Address Platform?
+        {t("importStreetsQuestion", { communeName: baseLocale.communeNom })}
       </Paragraph>
       <Button
         marginTop={10}
@@ -36,9 +37,7 @@ function PopulateSideBar({ baseLocale }: PopulateSideBarProps) {
         isLoading={isEditing}
         onClick={onPopulate}
       >
-        {isEditing
-          ? "Retrieving addresses..."
-          : "Retrieve addresses from the NAP"}
+        {isEditing ? t("retrievingAddresses") : t("retrieveFromNap")}
       </Button>
     </Pane>
   );

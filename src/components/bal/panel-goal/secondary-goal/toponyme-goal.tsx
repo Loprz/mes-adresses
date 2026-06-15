@@ -10,6 +10,7 @@ import {
 } from "evergreen-ui";
 import NextLink from "next/link";
 import { useContext, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 import { ExtendedBaseLocaleDTO } from "@/lib/openapi-api-bal";
@@ -28,6 +29,7 @@ interface LangGoalProps {
 }
 
 function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
+  const t = useTranslations("panels");
   const [isActive, setIsActive] = useState(false);
   const { toponymes } = useContext(BalDataContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
@@ -64,17 +66,17 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
               <Pane display="flex" alignItems="center" gap={16}>
                 <AchievementBadge
                   icone="/static/images/achievements/panneau-directionnel.png"
-                  title="Publication"
+                  title={t("badgeTitle")}
                   completed={isCompleted}
                 />
                 <Heading color={isCompleted && defaultTheme.colors.green700}>
-                  Place Names / Supplements
+                  {t("placeNamesSupplements")}
                 </Heading>
               </Pane>
               {!hasToponymes && (
                 <IconButton
                   icon={TrashIcon}
-                  title="Remove goal"
+                  title={t("removeGoal")}
                   appearance="minimal"
                   intent="danger"
                   onClick={onIgnoreGoal}
@@ -84,36 +86,31 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
             {hasToponymes ? (
               <Pane display="flex" justifyContent="start">
                 <Counter
-                  label={`place name${
-                    toponymes.length > 1 ? "s" : ""
-                  } / supplement${toponymes.length > 1 ? "s" : ""}`}
+                  label={t("placeNameCount", { count: toponymes.length })}
                   value={toponymes.length}
                   color={defaultTheme.colors.orange700}
                 />
                 <Counter
-                  label={`number${
-                    nbNumerosWithToponymes > 1 ? "s" : ""
-                  } associated`}
+                  label={t("numbersAssociated", {
+                    count: nbNumerosWithToponymes,
+                  })}
                   value={nbNumerosWithToponymes}
                   color={defaultTheme.colors.orange700}
                 />
               </Pane>
             ) : (
               <Pane marginTop={16}>
-                <Paragraph>
-                  Enhance the addressing of your jurisdiction by entering
-                  your supplementary place names and streets without addresses.
-                </Paragraph>
+                <Paragraph>{t("toponymeIntro")}</Paragraph>
                 <Button
                   marginTop={16}
-                  title="Add a place name"
+                  title={t("addPlaceName")}
                   is={NextLink}
                   appearance="primary"
                   intent="success"
                   href={`/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/new`}
                   width="100%"
                 >
-                  Create a supplementary place name or a street without addresses
+                  {t("createSupplementary")}
                   <AddIcon marginLeft={8} />
                 </Button>
               </Pane>
@@ -129,10 +126,7 @@ function LangGoal({ baseLocale, onIgnoreGoal }: LangGoalProps) {
       >
         {hasToponymes && (
           <Pane padding={8}>
-            <Paragraph>
-              Preserve your hamlet and historical place names.
-              Associate them with numbers as address supplements.
-            </Paragraph>
+            <Paragraph>{t("toponymePreserve")}</Paragraph>
           </Pane>
         )}
       </AccordionCard>

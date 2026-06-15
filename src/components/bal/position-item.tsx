@@ -8,11 +8,9 @@ import {
   MapMarkerIcon,
   IconButton,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
-import {
-  getPositionName,
-  positionsTypesList,
-} from "@/lib/positions-types-list";
+import { positionsTypesList } from "@/lib/positions-types-list";
 import { Marker } from "@/contexts/markers";
 
 interface PositionItemProps {
@@ -28,6 +26,7 @@ function PositionItem({
   handleChange,
   onRemove,
 }: PositionItemProps) {
+  const tp = useTranslations("positionTypes");
   const onSelect = useCallback(
     (e) => {
       const type = e.target.value;
@@ -55,13 +54,13 @@ function PositionItem({
         >
           {positionsTypesList.map((positionType) => (
             <option key={positionType.value} value={positionType.value}>
-              {positionType.name}
+              {tp(positionType.value)}
             </option>
           ))}
         </Select>
       ) : (
         <Heading size={100} marginY="auto">
-          <Small>{getPositionName(marker.type)}</Small>
+          <Small>{tp(marker.type)}</Small>
         </Heading>
       )}
       <Icon icon={MapMarkerIcon} size={22} margin="auto" color={marker.color} />

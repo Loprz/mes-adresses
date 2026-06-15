@@ -9,6 +9,7 @@ import {
   Alert,
   Text,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 import {
   BaseLocale,
@@ -26,6 +27,7 @@ interface DownloadsProps {
 }
 
 function Downloads({ baseLocale }: DownloadsProps) {
+  const t = useTranslations("dialogs");
   const { token } = useContext(TokenContext);
   const [withComment, setWithComment] = useState(false);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
@@ -86,7 +88,7 @@ function Downloads({ baseLocale }: DownloadsProps) {
       >
         <Pane display="flex" alignItems="center">
           <DownloadIcon />
-          <Heading paddingLeft={5}>Downloads</Heading>
+          <Heading paddingLeft={5}>{t("downloads")}</Heading>
         </Pane>
       </Pane>
       <Pane
@@ -104,7 +106,7 @@ function Downloads({ baseLocale }: DownloadsProps) {
               onClick={downloadBalCsv}
               marginRight={12}
             >
-              Local Address Base (CSV format)
+              {t("balCsv")}
             </Link>
             {token && (
               <>
@@ -113,37 +115,31 @@ function Downloads({ baseLocale }: DownloadsProps) {
                   onChange={(e) => setWithComment(e.target.checked)}
                   margin={0}
                 />
-                <Text marginLeft={6}>With comments</Text>
+                <Text marginLeft={6}>{t("withComments")}</Text>
               </>
             )}
           </Pane>
           {withComment && (
             <Alert marginLeft={-30} marginRight={10} hasIcon={false}>
               <Text is="p" textAlign="center">
-                Warning: if you have entered personal information
-                in your comments, it will be included in
-                the export of your Local Address Base.
+                {t("commentsWarning")}
               </Text>
             </Alert>
           )}
         </Pane>
         <Pane is="li" marginBottom={16}>
           <Link style={{ cursor: "pointer" }} onClick={downloadVoieCsv}>
-            Street list (CSV format)
+            {t("streetListCsv")}
           </Link>
         </Pane>
         <Pane is="li" marginBottom={16}>
           <Link style={{ cursor: "pointer" }} onClick={downloadVoieGeoJSON}>
-            Street centerlines (GeoJSON format)
+            {t("streetCenterlines")}
           </Link>
         </Pane>
         {token && baseLocale.status === BaseLocale.status.PUBLISHED && (
           <Pane is="li" marginBottom={16}>
-            <Text>
-              To download an addressing certificate, go to
-              the number list for a street and open the
-              actions menu for the number in question.
-            </Text>
+            <Text>{t("certHint")}</Text>
           </Pane>
         )}
       </Pane>

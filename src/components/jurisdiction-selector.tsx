@@ -284,7 +284,18 @@ function JurisdictionSelector({
           selectedJurisdictionCode
         );
         if (!isCancelled && nextCommune) {
-          setCommune(nextCommune as CommuneType);
+          // ApiGeo returns geographic data only; fill the BAL capability
+          // flags and delegated-commune list with safe defaults so the value
+          // satisfies CommuneType without an unsafe cast.
+          setCommune({
+            isCOM: false,
+            hasParcels: false,
+            hasOpenMapTiles: false,
+            hasOrtho: false,
+            hasPlanIGN: false,
+            communesDeleguees: [],
+            ...nextCommune,
+          });
         } else if (!isCancelled) {
           setJurisdictionError(true);
         }

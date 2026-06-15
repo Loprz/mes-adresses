@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext, useState, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Button,
@@ -61,6 +62,10 @@ function GroupedActions({
   isAllSelectedCertifie,
   onSubmit,
 }: GroupedActionsProps) {
+  const t = useTranslations("groupedActions");
+  const tc = useTranslations("common");
+  const ta = useTranslations("address");
+  const tp = useTranslations("positionTypes");
   const selectedNumeros = numeros.filter(({ id }) =>
     selectedNumerosIds.includes(id)
   );
@@ -192,23 +197,21 @@ function GroupedActions({
   return (
     <Pane padding={16}>
       <Pane marginBottom={5}>
-        <Heading>Bulk actions</Heading>
+        <Heading>{t("bulkActions")}</Heading>
       </Pane>
       <Pane>
         <Dialog
           isShown={isShown}
           intent="success"
-          title="Multiple modification"
+          title={t("multipleModification")}
           isConfirmLoading={isLoading}
           hasFooter={false}
           onCloseComplete={() => onFormCancel()}
         >
           <Pane marginX="-32px" marginBottom="-8px">
-            <Paragraph
-              marginBottom={8}
-              marginLeft={32}
-              color="muted"
-            >{`${selectedNumerosIds.length} selected numbers`}</Paragraph>
+            <Paragraph marginBottom={8} marginLeft={32} color="muted">
+              {t("selectedNumbers", { count: selectedNumerosIds.length })}
+            </Paragraph>
             <Pane
               is="form"
               background="gray300"
@@ -220,7 +223,7 @@ function GroupedActions({
               <FormInput>
                 <SelectField
                   value={selectedVoieId}
-                  label="Street"
+                  label={ta("street")}
                   margin={0}
                   flex={1}
                   disabled={selectedNumerosUniqVoie.length > 1}
@@ -238,9 +241,7 @@ function GroupedActions({
 
               {selectedNumerosUniqVoie.length > 1 && (
                 <Alert intent="none" marginBottom={8}>
-                  The selected numbers are not located on the same street.
-                  Bulk modification of the street is not possible. They must
-                  be modified separately.
+                  {t("differentStreets")}
                 </Alert>
               )}
 
@@ -248,7 +249,7 @@ function GroupedActions({
                 <FormInput>
                   <SelectField
                     value={selectedToponymeId || ""}
-                    label="Place name"
+                    label={ta("placeName")}
                     margin={0}
                     flex={1}
                     disabled={selectedNumerosUniqToponyme.length > 1}
@@ -258,8 +259,8 @@ function GroupedActions({
                   >
                     <option value="">
                       {selectedToponymeId || selectedToponymeId === ""
-                        ? "Do not associate a place name"
-                        : "- Choose a place name -"}
+                        ? t("doNotAssociatePlaceName")
+                        : t("choosePlaceName")}
                     </option>
                     {sortBy(toponymes, (t) => normalizeSort(t.nom)).map(
                       ({ id, nom }) => (
@@ -274,9 +275,7 @@ function GroupedActions({
 
               {selectedNumerosUniqToponyme.length > 1 && (
                 <Alert intent="none" marginBottom={8}>
-                  The selected numbers do not have the same place name.
-                  Bulk modification of the place name is not possible. They
-                  must be modified separately.
+                  {t("differentPlaceNames")}
                 </Alert>
               )}
 
@@ -287,7 +286,7 @@ function GroupedActions({
                     selectedCodeCommune={communeDeleguee}
                     setSelectedCodeCommune={setCommuneDeleguee}
                     withOptionNull={true}
-                    label="Sub-jurisdiction"
+                    label={t("subJurisdiction")}
                   />
                 </FormInput>
               )}
@@ -297,20 +296,18 @@ function GroupedActions({
                   value={positionType}
                   disabled={hasMultiposition}
                   flex={1}
-                  label="Position type"
+                  label={ta("positionType")}
                   margin={0}
                   display="block"
                   onChange={onPositionTypeChange}
                 >
                   {(selectedNumerosUniqType.length !== 1 ||
                     hasMultiposition) && (
-                    <option value="">
-                      -- Please choose a position type --
-                    </option>
+                    <option value="">{t("choosePositionType")}</option>
                   )}
                   {positionsTypesList.map((positionType) => (
                     <option key={positionType.value} value={positionType.value}>
-                      {positionType.name}
+                      {tp(positionType.value)}
                     </option>
                   ))}
                 </SelectField>
@@ -318,9 +315,7 @@ function GroupedActions({
 
               {hasMultiposition && (
                 <Alert intent="none" marginBottom={8}>
-                  Some selected numbers have multiple positions.
-                  Bulk modification of the position type is not possible.
-                  They must be modified separately.
+                  {t("multiPositionWarning")}
                 </Alert>
               )}
 
@@ -331,18 +326,18 @@ function GroupedActions({
               />
 
               {hasComment && (comment.length > 0 || removeAllComments) && (
-                <Alert intent="warning" title="Warning" marginBottom={8}>
+                <Alert intent="warning" title={tc("warning")} marginBottom={8}>
                   <Text>
-                    some selected numbers have a comment. In case of {removeAllComments ? "deletion" : "modification"},
-                    their comments will be{" "}
-                    {removeAllComments ? "deleted" : "replaced"}.
+                    {t("commentWarning", {
+                      action: removeAllComments ? "delete" : "modify",
+                    })}
                   </Text>
                 </Alert>
               )}
 
               {hasComment && (
                 <Checkbox
-                  label="Clear all comments"
+                  label={t("clearAllComments")}
                   checked={removeAllComments}
                   onChange={onRemoveAllCommentsChange}
                 />
@@ -363,7 +358,7 @@ function GroupedActions({
           appearance="primary"
           onClick={() => handleClick()}
         >
-          Modify the numbers
+          {t("modifyNumbers")}
         </Button>
         <Button
           marginLeft={16}
@@ -371,7 +366,7 @@ function GroupedActions({
           intent="danger"
           onClick={() => setIsRemoveWarningShown(true)}
         >
-          Delete the numbers
+          {t("deleteNumbers")}
         </Button>
       </Pane>
     </Pane>

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Dialog, Heading, Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import RecoverBALCommune from "./recover-bal-commune";
 import RecoverBALMail from "./recover-bal-mail";
@@ -23,6 +24,7 @@ function RecoverBALAlert({
   baseLocale,
   onClose,
 }: RecoverBALAlertProps) {
+  const t = useTranslations("dialogs");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMail, setErrorMail] = useState<string | null>(null);
   const [errorCommune, setErrorCommune] = useState<string | null>(null);
@@ -55,9 +57,7 @@ function RecoverBALAlert({
       >
         <Pane background="white" borderRadius={8} padding={16}>
           <Heading is="h2" textAlign="center">
-            {baseLocale
-              ? "Recover your Local Address Base"
-              : "Recover my Local Address Bases"}
+            {baseLocale ? t("recoverYourBal") : t("recoverMyBals")}
           </Heading>
         </Pane>
         <Pane display="flex" gap={16}>

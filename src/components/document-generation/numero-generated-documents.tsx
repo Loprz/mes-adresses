@@ -1,6 +1,7 @@
 import LocalStorageContext from "@/contexts/local-storage";
 import { Numero } from "@/lib/openapi-api-bal";
 import { DownloadIcon, Menu, Tooltip } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { useContext } from "react";
 import {
   DocumentGenerationData,
@@ -16,6 +17,7 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
   setDocumentGenerationData,
   numero,
 }: NumeroGeneratedDocumentsProps<type>) {
+  const t = useTranslations("docGen");
   const { certificatEmetteur } = useContext(LocalStorageContext);
 
   let generateCertificatAdressageItem = (
@@ -34,7 +36,7 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
         } as Parameters<typeof setDocumentGenerationData>[0])
       }
     >
-      Address certificate
+      {t("addressCertificate")}
     </Menu.Item>
   );
 
@@ -50,20 +52,20 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
         } as Parameters<typeof setDocumentGenerationData>[0])
       }
     >
-      Numbering order
+      {t("numberingOrder")}
     </Menu.Item>
   );
 
   if (!numero.certifie || numero.parcelles.length === 0) {
     generateCertificatAdressageItem = (
-      <Tooltip content="The addressing certificate can only be generated for a certified number linked to at least one parcel">
+      <Tooltip content={t("certOnlyCertifiedParcel")}>
         {generateCertificatAdressageItem}
       </Tooltip>
     );
   }
   if (!numero.certifie) {
     generateArreteDeNumerotationItem = (
-      <Tooltip content="The numbering certificate can only be generated for a certified number">
+      <Tooltip content={t("numberingOnlyCertified")}>
         {generateArreteDeNumerotationItem}
       </Tooltip>
     );
@@ -72,7 +74,7 @@ export function NumeroGeneratedDocuments<type extends GeneratedDocumentType>({
   return (
     <>
       <Menu.Divider />
-      <Menu.Group title="Generate a template">
+      <Menu.Group title={t("generateTemplate")}>
         {generateCertificatAdressageItem}
         {generateArreteDeNumerotationItem}
       </Menu.Group>

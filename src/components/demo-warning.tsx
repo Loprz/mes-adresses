@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useContext } from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Text,
@@ -30,9 +31,11 @@ function DemoWarning({
   communeName,
   isReadonly,
 }: DemoWarningProps) {
+  const t = useTranslations("demoWarning");
+  const tc = useTranslations("common");
   const [isShown, setIsShown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [nom, setNom] = useState(`Adresses de ${communeName}`);
+  const [nom, setNom] = useState(t("defaultName", { communeName }));
   const [email, onEmailChange] = useInput();
   const [ref, setIsFocus] = useFocus();
   const { isMobile, pushToast } = useContext(LayoutContext);
@@ -53,8 +56,8 @@ function DemoWarning({
         await reloadBaseLocale();
       } catch (error: unknown) {
         pushToast({
-          title: "Error",
-          message: "Unable to save this Local Address Base",
+          title: tc("error"),
+          message: t("saveError"),
           intent: "danger",
         });
       }
@@ -82,18 +85,15 @@ function DemoWarning({
         marginX=".5em"
         style={{ verticalAlign: "sub" }}
       />
-      <Text fontSize={isMobile ? 10 : 14}>
-        This demonstration Local Address Base will be deleted within 24
-        hours without modifications
-      </Text>
+      <Text fontSize={isMobile ? 10 : 14}>{t("banner")}</Text>
 
       <Dialog
         isShown={isShown}
-        title="Save my modifications"
-        cancelLabel="Cancel"
+        title={t("saveTitle")}
+        cancelLabel={tc("cancel")}
         intent="success"
         isConfirmLoading={isLoading}
-        confirmLabel="Keep"
+        confirmLabel={t("keep")}
         hasFooter={false}
         onCloseComplete={() => {
           setIsShown(false);
@@ -111,7 +111,7 @@ function DemoWarning({
             id="nom"
             disabled={isLoading}
             value={nom}
-            label="Name of the Local Address Base"
+            label={t("nameLabel")}
             placeholder={communeName}
             onChange={(e) => {
               setNom(e.target.value as string);
@@ -125,8 +125,8 @@ function DemoWarning({
             id="email"
             disabled={isLoading}
             value={email}
-            label="Your email address"
-            placeholder="nom@example.com"
+            label={t("emailLabel")}
+            placeholder="name@example.com"
             onChange={onEmailChange}
           />
           <Button
@@ -135,7 +135,7 @@ function DemoWarning({
             isLoading={isLoading}
             type="submit"
           >
-            Sauvegarder
+            {t("save")}
           </Button>
         </form>
       </Dialog>
@@ -148,7 +148,7 @@ function DemoWarning({
           setIsShown(true);
         }}
       >
-        I wish to keep it
+        {t("keep")}
       </Button>
     </Pane>
   );

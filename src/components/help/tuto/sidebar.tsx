@@ -1,17 +1,17 @@
 import { Paragraph, IconButton, ChevronRightIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import Tuto from "@/components/help/tuto";
 
 function Sidebar() {
+  const t = useTranslations("helpCommon");
   return (
-    <Tuto title="I can't see the sidebar">
+    <Tuto title={t("cantSeeSidebarTitle")}>
+      <Paragraph marginTop="default">{t("sidebarHidden")}</Paragraph>
       <Paragraph marginTop="default">
-        This menu may be hidden to leave more space for the map.
-      </Paragraph>
-      <Paragraph marginTop="default">
-        To make it reappear, click the button{" "}
+        {t("sidebarReappearPre")}{" "}
         <IconButton display="inline-block" margin={8} icon={ChevronRightIcon} />
-        in the upper left of your screen.
+        {t("sidebarReappearPost")}
       </Paragraph>
     </Tuto>
   );

@@ -1,5 +1,16 @@
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { enUS, es } from "date-fns/locale";
+
+// date-fns Locale object type (the `Locale` type isn't re-exported from
+// "date-fns/locale" in v4, so derive it from a known locale object).
+type DateFnsLocale = typeof enUS;
+
+// Map a next-intl locale code ("en" | "es") to its date-fns Locale object.
+// Falls back to English for any unknown locale.
+const dateFnsLocales: Record<string, DateFnsLocale> = { en: enUS, es };
+
+export const getDateFnsLocale = (locale: string): DateFnsLocale =>
+  dateFnsLocales[locale] ?? enUS;
 
 export const getDuration = (start: Date, end: Date = new Date()) => {
   const duration = end.getTime() - start.getTime();
@@ -29,10 +40,10 @@ export const getLongFormattedDate = (date: Date) => {
   });
 };
 
-// Ex: "mercredi 1er janvier 2023"
-export const getFullDate = (date: Date) => {
+// Ex: "Wednesday, January 1, 2023" (locale-aware; defaults to English)
+export const getFullDate = (date: Date, locale: DateFnsLocale = enUS) => {
   return format(date, "PPPP", {
-    locale: fr,
+    locale,
   });
 };
 

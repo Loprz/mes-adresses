@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { Pane, Button } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import Form from "@/components/form";
 import AddNumerosInput from "./add-numeros-input";
@@ -11,6 +12,8 @@ interface AddNumerosProps {
 }
 
 function AddNumeros({ onSubmit, onCancel, isLoading }: AddNumerosProps) {
+  const t = useTranslations("lists");
+  const tc = useTranslations("common");
   const [numerosIds, setNumerosIds] = useState<string[]>([]);
 
   const handleSubmit = useCallback(
@@ -43,11 +46,11 @@ function AddNumeros({ onSubmit, onCancel, isLoading }: AddNumerosProps) {
             intent="success"
             disabled={numerosIds.length <= 0}
           >
-            {isLoading ? "Saving…" : "Save"}
+            {isLoading ? t("saving") : tc("save")}
           </Button>
 
           <Button disabled={isLoading} marginLeft={8} onClick={onCancel}>
-            Cancel
+            {tc("cancel")}
           </Button>
         </Pane>
       </Form>

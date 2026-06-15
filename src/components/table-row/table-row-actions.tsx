@@ -7,6 +7,7 @@ import {
   IconButton,
   MoreIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface TableRowActionsProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ interface TableRowActionsProps {
 const TableRowActions = React.memo(function TableRowActions({
   children,
 }: TableRowActionsProps) {
+  const t = useTranslations("common");
   return (
     <Table.TextCell flex="0 1 1">
       <Popover
@@ -30,7 +32,7 @@ const TableRowActions = React.memo(function TableRowActions({
           height={24}
           icon={MoreIcon}
           appearance="minimal"
-          title="Actions"
+          title={t("actions")}
         />
       </Popover>
     </Table.TextCell>

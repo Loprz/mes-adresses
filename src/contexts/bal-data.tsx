@@ -22,6 +22,7 @@ import {
   ExtentedToponymeDTO,
   ExtendedVoieDTO,
 } from "@/lib/openapi-api-bal";
+import { useTranslations } from "next-intl";
 import TokenContext from "@/contexts/token";
 import useHabilitation from "@/hooks/habilitation";
 import LayoutContext from "./layout";
@@ -104,6 +105,7 @@ export function BalDataContextProvider({
   const [baseLocale, setBaseLocale] =
     useState<ExtendedBaseLocaleDTO>(initialBaseLocale);
   const [isRefrehSyncStat, setIsRefrehSyncStat] = useState<boolean>(false);
+  const t = useTranslations("balData");
   const { pushToast } = useContext(LayoutContext);
   const { token } = useContext(TokenContext);
   const [isBALDataLoaded, setIsBALDataLoaded] = useState<boolean>(false);
@@ -198,15 +200,14 @@ export function BalDataContextProvider({
         await reloadBaseLocale();
         setIsRefrehSyncStat(false);
         pushToast({
-          title: "New changes have been detected",
-          message:
-            "They will be automatically transmitted to the National Address Platform within a few hours.",
+          title: t("changesDetectedTitle"),
+          message: t("changesDetectedContent"),
           intent: "info",
           duration: 5000,
         });
       }, 30000); // Maximum interval between CRON job
     }
-  }, [baseLocale, isRefrehSyncStat, reloadBaseLocale, pushToast]);
+  }, [baseLocale, isRefrehSyncStat, reloadBaseLocale, pushToast, t]);
 
   const setEditingId = useCallback(
     (editingId: string) => {
@@ -362,9 +363,7 @@ export function BalDataContextProvider({
           justifyContent="center"
         >
           <Spinner />
-          <Paragraph marginTop={10}>
-            Loading the Local Address Base...
-          </Paragraph>
+          <Paragraph marginTop={10}>{t("loading")}</Paragraph>
         </Pane>
       )}
     </BalDataContext.Provider>

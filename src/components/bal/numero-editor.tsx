@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
 import { xor, sortBy } from "lodash";
 import { Pane, SelectField, TextInputField } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { normalizeSort } from "@/lib/normalize";
 import { computeCompletNumero } from "@/lib/utils/numero";
@@ -36,8 +37,6 @@ import SelectCommune from "../select-commune";
 import { CommuneType } from "@/types/commune";
 import DrawContext from "@/contexts/draw";
 
-const REMOVE_TOPONYME_LABEL = "No place name";
-
 interface NumeroEditorProps {
   initialVoieId?: string;
   initialValue?: Numero;
@@ -59,6 +58,7 @@ function NumeroEditor({
   certificationBtnProps,
   onVoieChanged,
 }: NumeroEditorProps) {
+  const t = useTranslations("editorForm");
   const [voieId, setVoieId] = useState(initialVoieId || initialValue?.voieId);
   const [selectedNomToponyme, setSelectedNomToponyme] = useState("");
   const [toponymeId, setToponymeId] = useState<string | null>(initialValue?.toponymeId ?? null);
@@ -178,8 +178,8 @@ function NumeroEditor({
                 voieId: voie.id,
                 ...body,
               }),
-            "The number has been updated",
-            "The number could not be updated",
+            t("numberUpdated"),
+            t("numberUpdateError"),
             (err) => {
               setValidationMessages(err.body.message);
             }
@@ -188,8 +188,8 @@ function NumeroEditor({
         } else {
           const createNumero = toaster(
             () => VoiesService.createNumero(voie.id, body),
-            "The number has been added",
-            "The number could not be added",
+            t("numberAdded"),
+            t("numberAddError"),
             (err) => {
               setValidationMessages(err.body.message);
             }
@@ -232,6 +232,7 @@ function NumeroEditor({
       onSubmitted,
       toaster,
       numero,
+      t,
     ]
   );
 
@@ -304,17 +305,15 @@ function NumeroEditor({
 
   useEffect(() => {
     if (markers.length > 1) {
-      setHint(
-        "Drag the markers on the map to modify positions"
-      );
+      setHint(t("dragMarkers"));
     } else {
-      setHint("Drag the marker on the map to position the number");
+      setHint(t("dragMarkerNumero"));
     }
 
     return () => {
       setHint(null);
     };
-  }, [markers, setHint]);
+  }, [markers, setHint, t]);
 
   return (
     <Form
@@ -346,24 +345,18 @@ function NumeroEditor({
         <Pane display="flex">
           <FormInput>
             <SelectField
-              label="Place name"
+              label={t("placeName")}
               flex={1}
               marginBottom={0}
               value={toponymeId || ""}
               onChange={({ target }) => {
-                setToponymeId(
-                  target.value === REMOVE_TOPONYME_LABEL ||
-                    target.value === "- Choose a place name -" ||
-                    target.value === ""
-                    ? null
-                    : target.value
-                );
+                setToponymeId(target.value === "" ? null : target.value);
               }}
             >
               <option value="">
                 {initialValue?.toponymeId
-                  ? REMOVE_TOPONYME_LABEL
-                  : "- Choose a place name -"}
+                  ? t("noPlaceName")
+                  : t("choosePlaceName")}
               </option>
               {sortBy(toponymes, (t) => normalizeSort(t.nom)).map(
                 ({ id, nom }) => (
@@ -383,7 +376,7 @@ function NumeroEditor({
               selectedCodeCommune={communeDeleguee}
               setSelectedCodeCommune={setCommuneDeleguee}
               withOptionNull={true}
-              label="Sub-jurisdiction"
+              label={t("subJurisdiction")}
             />
           </FormInput>
         )}
@@ -393,7 +386,7 @@ function NumeroEditor({
             <TextInputField
               ref={ref}
               required
-              label="Number"
+              label={t("number")}
               display="block"
               type="number"
               disabled={isLoading}
@@ -403,9 +396,11 @@ function NumeroEditor({
               value={numero}
               marginBottom={0}
               onWheel={(e) => e.target.blur()}
-              placeholder={`Number${
-                suggestedNumero ? ` recommended: ${suggestedNumero}` : ""
-              }`}
+              placeholder={
+                suggestedNumero
+                  ? t("numberSuggested", { numero: suggestedNumero })
+                  : t("number")
+              }
               onChange={handleChangeNumero}
               validationMessage={getValidationMessage("numero")}
             />
@@ -422,7 +417,7 @@ function NumeroEditor({
               minWidth={59}
               value={suffixe}
               marginBottom={0}
-              placeholder="Suffixe"
+              placeholder={t("suffix")}
               onChange={handleChangeSuffixe}
               validationMessage={getValidationMessage("suffixe")}
             />
@@ -441,7 +436,7 @@ function NumeroEditor({
             <SelectParcelles initialParcelles={initialValue?.parcelles || []} />
           </FormInput>
         ) : (
-          <DisabledFormInput label="Parcels" />
+          <DisabledFormInput label={t("parcels")} />
         )}
 
         <Comment

@@ -11,6 +11,8 @@ import {
   TextInput,
 } from "evergreen-ui";
 
+import { useTranslations } from "next-intl";
+
 import { validateEmail } from "@/lib/utils/email";
 
 import LocalStorageContext from "@/contexts/local-storage";
@@ -39,6 +41,8 @@ function RecoverBALMail({
   baseLocaleId,
   onClose,
 }: RecoverBALMailProps) {
+  const t = useTranslations("dialogs");
+  const tc = useTranslations("common");
   const { recoveryEmailSent, setRecoveryEmailSent } =
     useContext(LocalStorageContext);
   const { pushToast } = useContext(LayoutContext);
@@ -51,11 +55,11 @@ function RecoverBALMail({
     });
     setRecoveryEmailSent(new Date());
     pushToast({
-      title: `An email has been sent to the address ${email}`,
+      title: t("emailSentTo", { email }),
       intent: "success",
     });
     setError(null);
-  }, [email, baseLocaleId, setRecoveryEmailSent, pushToast, setError]);
+  }, [email, baseLocaleId, setRecoveryEmailSent, pushToast, setError, t]);
 
   const handleConfirmEmail = useCallback(async () => {
     setIsLoading(true);
@@ -64,10 +68,10 @@ function RecoverBALMail({
       setIsLoading(false);
       onClose();
       pushToast({
-        title: "An email has already been sent, please wait.",
+        title: t("emailAlreadySent"),
         intent: "warning",
       });
-      throw new Error("An email has already been sent, please wait.");
+      throw new Error(t("emailAlreadySent"));
     }
 
     try {
@@ -87,6 +91,7 @@ function RecoverBALMail({
     recoveryBasesLocales,
     resetEmail,
     setError,
+    t,
   ]);
 
   return (
@@ -105,17 +110,14 @@ function RecoverBALMail({
           <EnvelopeIcon size={66} color="gray800" />
         </Pane>
         <Heading is="h2" marginBottom={8}>
-          With your email address
+          {t("withYourEmail")}
         </Heading>
-        <Paragraph marginBottom={20}>
-          An email will be sent to the address you
-          provided.
-        </Paragraph>
+        <Paragraph marginBottom={20}>{t("emailWillBeSent")}</Paragraph>
         <TextInput
           display="block"
           type="email"
           width="100%"
-          placeholder="address@email.com"
+          placeholder={t("emailPlaceholder")}
           maxWidth={400}
           value={email}
           onChange={onEmailChange}
@@ -128,9 +130,7 @@ function RecoverBALMail({
 
         <Alert marginTop={24} marginBottom={8} intent="info" hasIcon={false}>
           <Paragraph color="blue600">
-            {baseLocaleId
-              ? "You will find an administration link for your Local Address Base. Simply click the link to access it in your workspace."
-              : "You will find a list of all Local Address Bases associated with it. Simply click the associated links to access them in your workspace."}
+            {baseLocaleId ? t("recoverInfoBal") : t("recoverInfoList")}
           </Paragraph>
         </Alert>
       </Pane>
@@ -141,7 +141,7 @@ function RecoverBALMail({
         disabled={!validateEmail(email) || isLoading}
         alignSelf="flex-end"
       >
-        {isLoading ? "Loading..." : "Receive the email"}
+        {isLoading ? tc("loading") : t("receiveEmail")}
       </Button>
     </Pane>
   );

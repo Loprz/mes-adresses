@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/legacy/image";
+import { useTranslations } from "next-intl";
 
 import {
   Pane,
@@ -18,6 +19,8 @@ import {
 
 export default function Accessibility() {
   const router = useRouter();
+  const t = useTranslations("accessibility");
+  const b = (chunks: React.ReactNode) => <Strong>{chunks}</Strong>;
 
   return (
     <>
@@ -42,29 +45,15 @@ export default function Accessibility() {
 
         <Pane gap="1em" display="flex" flexDirection="column">
           <Heading is="h2" size={900} color="#2952CC">
-            Accessibility Statement
+            {t("title")}
           </Heading>
           <Pane display="flex" flexDirection="column" justifyContent="center">
             <Pane>
-              <Paragraph lineHeight="200%">
-                The <Strong>National Address Platform</Strong> is committed to
-                ensuring digital accessibility for people with disabilities. We
-                strive to meet the requirements of{" "}
-                <Strong>Section 508 of the Rehabilitation Act</Strong> and the{" "}
-                <Strong>
-                  Web Content Accessibility Guidelines (WCAG) 2.1 Level AA
-                </Strong>
-                . To this end, we are implementing the following actions:
-              </Paragraph>
+              <Paragraph lineHeight="200%">{t.rich("intro", { b })}</Paragraph>
               <UnorderedList>
-                <ListItem>Provide an accessible web experience.</ListItem>
-                <ListItem>
-                  Pay attention to accessibility of address data and
-                  documentation.
-                </ListItem>
-                <ListItem>
-                  Continuously test and improve platform accessibility.
-                </ListItem>
+                <ListItem>{t("action1")}</ListItem>
+                <ListItem>{t("action2")}</ListItem>
+                <ListItem>{t("action3")}</ListItem>
               </UnorderedList>
             </Pane>
 
@@ -76,18 +65,14 @@ export default function Accessibility() {
               borderRadius={5}
               marginTop={20}
             >
-              <Text fontSize={16}>
-                This accessibility statement was established on{" "}
-                <Strong>02/01/2026</Strong> and applies to the{" "}
-                <Strong>National Address Platform editor</Strong>.
-              </Text>
+              <Text fontSize={16}>{t.rich("established", { b })}</Text>
             </Pane>
           </Pane>
         </Pane>
 
         <Pane display="flex" flexDirection="column" gap="1em">
           <Heading is="h3" size={800} color="#2952CC">
-            Conformance Status
+            {t("conformanceTitle")}
           </Heading>
           <Pane
             padding="2em"
@@ -98,25 +83,20 @@ export default function Accessibility() {
             width="fit-content"
           >
             <Text color="#F57F17" fontSize={22} fontWeight={600}>
-              Partially Conformant
+              {t("partiallyConformant")}
             </Text>
           </Pane>
           <Paragraph lineHeight="200%">
-            The <Strong>National Address Platform</Strong> is partially
-            conformant with WCAG 2.1 Level AA. A comprehensive accessibility
-            audit is planned. We are actively working to identify and address
-            any accessibility gaps.
+            {t.rich("conformanceBody", { b })}
           </Paragraph>
         </Pane>
 
         <Pane width="100%" display="flex" flexDirection="column" gap="1em">
           <Heading is="h3" size={800} color="#2952CC">
-            Feedback &amp; Contact
+            {t("feedbackTitle")}
           </Heading>
           <Paragraph width="100%" lineHeight="200%">
-            If you are unable to access any content or service on this platform,
-            please contact our team so we can direct you to an accessible
-            alternative or provide the content in another format.
+            {t("feedbackBody")}
           </Paragraph>
           <Button
             onClick={async () => {
@@ -126,7 +106,7 @@ export default function Accessibility() {
             iconBefore={EnvelopeIcon}
             width="fit-content"
           >
-            Contact Us
+            {t("contactUs")}
           </Button>
         </Pane>
 
@@ -138,16 +118,10 @@ export default function Accessibility() {
           marginBottom="2em"
         >
           <Heading is="h3" size={800} color="#2952CC">
-            Remedies
+            {t("remediesTitle")}
           </Heading>
           <Pane>
-            <Paragraph>
-              If you encounter an{" "}
-              <Strong>accessibility barrier</Strong> preventing you from
-              accessing content or functionality on this platform, and you have
-              contacted us without receiving a satisfactory response, you have
-              the right to file a complaint.
-            </Paragraph>
+            <Paragraph>{t.rich("remediesBody", { b })}</Paragraph>
             <UnorderedList>
               <ListItem>
                 <Link
@@ -156,8 +130,7 @@ export default function Accessibility() {
                   color="neutral"
                   target="_blank"
                 >
-                  File a complaint with the{" "}
-                  <Strong>U.S. Department of Justice</Strong> (ADA).
+                  {t.rich("complaintDoj", { b })}
                 </Link>
               </ListItem>
               <ListItem>
@@ -167,7 +140,7 @@ export default function Accessibility() {
                   color="neutral"
                   target="_blank"
                 >
-                  Learn more about <Strong>Section 508</Strong> requirements.
+                  {t.rich("learnSection508", { b })}
                 </Link>
               </ListItem>
               <ListItem>
@@ -177,7 +150,7 @@ export default function Accessibility() {
                   color="neutral"
                   target="_blank"
                 >
-                  Review <Strong>WCAG 2.1</Strong> guidelines.
+                  {t.rich("reviewWcag", { b })}
                 </Link>
               </ListItem>
             </UnorderedList>

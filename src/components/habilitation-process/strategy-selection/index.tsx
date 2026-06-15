@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Strong,
@@ -28,6 +29,7 @@ export function StrategySelectionStep({
   setEmailSelected,
   handleStrategy,
 }: StrategySelectionStepProps) {
+  const t = useTranslations("strategySelection");
   return (
     <Pane>
       <Pane
@@ -40,12 +42,12 @@ export function StrategySelectionStep({
         borderRadius={8}
       >
         <Heading is="h2" textAlign="center">
-          Authorize your <Strong size={400}>Local Address Base</Strong> to
-          publish it in the <Strong size={400}>National Address Platform</Strong>.
+          {t.rich("title", {
+            s: (chunks) => <Strong size={400}>{chunks}</Strong>,
+          })}
         </Heading>
         <Text marginTop={8} color="muted">
-          Verify your jurisdiction authority by receiving a PIN code at your
-          official email address.
+          {t("subtitle")}
         </Text>
       </Pane>
 
@@ -67,22 +69,23 @@ export function StrategySelectionStep({
         borderRadius={8}
         marginTop={16}
       >
-        <Heading>Understanding authorization</Heading>
+        <Heading>{t("understanding")}</Heading>
         <UnorderedList>
           <ListItem icon={PeopleIcon}>
             <Text size={400}>
-              Authorization ensures that the publication is{" "}
-              <Strong size={400}>carried out by a competent person</Strong>{" "}
-              with authority over addressing matters in this jurisdiction.
+              {t.rich("understandingItem", {
+                s: (chunks) => <Strong size={400}>{chunks}</Strong>,
+              })}
             </Text>
           </ListItem>
         </UnorderedList>
-        <Alert title="Need help getting authorized?" marginTop={16}>
+        <Alert title={t("needHelpTitle")} marginTop={16}>
           <Text is="div" marginTop={8}>
-            Contact us at{" "}
-            <a href="mailto:support@nationaladdressplatform.us">
-              support@nationaladdressplatform.us
-            </a>
+            {t.rich("contactUs", {
+              link: (chunks) => (
+                <a href="mailto:support@nationaladdressplatform.us">{chunks}</a>
+              ),
+            })}
           </Text>
         </Alert>
       </Pane>

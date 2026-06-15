@@ -17,6 +17,7 @@ import {
   TrashIcon,
   Select,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import Tuto from "@/components/help/tuto";
 import Unauthorized from "@/components/help/tuto/unauthorized";
@@ -27,207 +28,194 @@ import {
   PEERTUBE_LINK,
 } from "@/components/help/video-container";
 
-const before = (
-  <Paragraph marginTop="default">
-    Display the list of place names for a jurisdiction by clicking on its name
-    in the upper left of your screen
-  </Paragraph>
-);
-
 function Toponymes() {
+  const t = useTranslations("helpToponymes");
+  const before = (
+    <Paragraph marginTop="default">{t("beforeIntro")}</Paragraph>
+  );
+
   return (
     <Pane>
       <VideoContainer
-        title="Creating / Editing a place name:"
+        title={t("videoTitle")}
         link={`${PEERTUBE_LINK}/w/7AeS1b84kmwjbL3A19Wphw`}
       />
-      <Tuto title="Add a place name">
+      <Tuto title={t("addTuto")}>
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Select the tab{" "}
+            {t("addStep1Pre")}{" "}
             <Tab>
-              <Heading size={300}>Place Name List</Heading>
+              <Heading size={300}>{t("tabPlaceNameList")}</Heading>
             </Tab>
-            , then click{" "}
+            {t("addStep1Mid")}{" "}
             <Button
               iconBefore={AddIcon}
               marginX={4}
               appearance="primary"
               intent="success"
             >
-              Add a place name
+              {t("addPlaceNameButton")}
             </Button>
           </ListItem>
           <ListItem>
-            Enter the place name in the field{" "}
+            {t("addStep2Pre")}{" "}
             <Text color="muted">
-              <i>Place name...</i>
+              <i>{t("placeNameField")}</i>
             </Text>
           </ListItem>
           <ListItem>
-            A <MapMarkerIcon color="info" /> has appeared on the map. You
-            can move it to assign one or more positions to your
-            place name.
+            {t("addStep3Part1Pre")}{" "}
+            <MapMarkerIcon color="info" /> {t("addStep3Part1Post")}
             <br />
-            You can specify the position type using the dropdown{" "}
+            {t("addStep3Part2Pre")}{" "}
             <Select>
-              <option>Segment</option>
+              <option>{t("segmentOption")}</option>
             </Select>
-            If you do not want to define a position for the place name,
-            simply click on{" "}
+            {t("addStep3Part3")}{" "}
             <TrashIcon marginX={6} color="danger" verticalAlign="middle" />
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Assign a number to a place name">
+      <Tuto title={t("assignTuto")}>
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button
+            {t("assignStep1Pre")}
             <Button
               iconBefore={AddIcon}
               marginX={4}
               appearance="primary"
               intent="success"
             >
-              Add a number
+              {t("addNumberButton")}
             </Button>
           </ListItem>
+          <ListItem>{t("assignStep2")}</ListItem>
+          <ListItem>{t("assignStep3")}</ListItem>
           <ListItem>
-            Select the street of the number you want to assign
-          </ListItem>
-          <ListItem>
-            A dropdown will appear. You can select one or more
-            numbers from the list. All numbers in the list will be
-            assigned to the place name if no number is selected.
-          </ListItem>
-          <ListItem>
-            To finish, click on the button{" "}
+            {t("assignStep4Pre")}{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Save
+              {t("saveButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Edit a place name">
+      <Tuto title={t("editTuto")}>
         {before}
         <OrderedList margin={8}>
-          <ListItem>Click on the place name</ListItem>
-          <ListItem>Edit the place name</ListItem>
+          <ListItem>{t("editStep1")}</ListItem>
+          <ListItem>{t("editStep2")}</ListItem>
           <ListItem>
-            You can also modify the place name position by moving
-            the <MapMarkerIcon color="info" /> on the map
+            {t("editStep3Pre")} <MapMarkerIcon color="info" />{" "}
+            {t("editStep3Post")}
           </ListItem>
           <ListItem>
-            You can add positions with the button{" "}
+            {t("editStep4Pre")}{" "}
             <Button
               iconBefore={AddIcon}
               marginX={4}
               appearance="primary"
               intent="success"
             >
-              Add a position to the place name
+              {t("addPositionButton")}
             </Button>
-            or remove them with the button{" "}
+            {t("editStep4Mid")}{" "}
             <TrashIcon marginX={6} color="danger" verticalAlign="middle" />
           </ListItem>
           <ListItem>
-            To finish, click on{" "}
+            {t("editStep5Pre")}{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Save
+              {t("saveButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Delete a place name">
+      <Tuto title={t("deleteTuto")}>
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button{" "}
+            {t("deleteStep1Pre")}{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            to the right of the place name
+            {t("deleteStep1Post")}
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              In the menu that appeared, choose
+              {t("deleteStep2Pre")}
               <Menu.Item
                 background="tint1"
                 marginLeft={8}
                 icon={TrashIcon}
                 intent="danger"
               >
-                Delete...
+                {t("deleteMenuItem")}
               </Menu.Item>
             </Pane>
           </ListItem>
           <ListItem>
-            To finish, confirm your choice by clicking{" "}
+            {t("deleteStep3Pre")}{" "}
             <Button marginX={4} intent="danger" appearance="primary">
-              Delete
+              {t("deleteButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Associate parcels">
+      <Tuto title={t("parcelsTuto")}>
         {before}
 
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button{" "}
+            {t("parcelsStep1Pre")}{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            to the right of the place name
+            {t("parcelsStep1Post")}
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              In the menu that just appeared, choose
+              {t("parcelsStep2Pre")}
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                Edit
+                {t("editMenuItem")}
               </Menu.Item>
             </Pane>
           </ListItem>
+          <ListItem>{t("parcelsStep3")}</ListItem>
           <ListItem>
-            From the map, click on the parcel(s) you want to
-            associate with the place name
-          </ListItem>
-          <ListItem>
-            To save the parcels, click the button{" "}
+            {t("parcelsStep4Pre")}{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Save
+              {t("saveButton")}
             </Button>
           </ListItem>
         </OrderedList>
 
         <Pane>
-          <Strong>Parcel color code:</Strong>
+          <Strong>{t("parcelColorTitle")}</Strong>
           <Paragraph display="flex">
             <Badge margin={4} height="100%" color="green">
-              associated parcel
+              {t("parcelAssociated")}
             </Badge>
             <Badge margin={4} height="100%" color="yellow">
-              parcel that can be associated
+              {t("parcelCanAssociate")}
             </Badge>
             <Badge margin={4} height="100%" color="red">
-              parcel that can be dissociated
+              {t("parcelCanDissociate")}
             </Badge>
           </Paragraph>
         </Pane>
       </Tuto>
 
       <Problems>
-        <Unauthorized title="I can't add/delete a place name" />
+        <Unauthorized title={t("unauthorizedTitle")} />
         <Sidebar />
       </Problems>
     </Pane>

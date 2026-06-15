@@ -2,6 +2,7 @@
 
 import { useContext, useMemo, useState, useEffect } from "react";
 import { Pane, SelectMenu, Button, Position, LayersIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import ParcelControl from "@/components/map/controls/cadastre-control";
 import { CommuneType } from "@/types/commune";
@@ -26,6 +27,7 @@ function StyleControl({
   isParcelsDisplayed,
   handleParcelsToggle,
 }: StyleControlProps) {
+  const t = useTranslations("mapControls");
   const [showPopover, setShowPopover] = useState(false);
   const { registeredMapStyle, setRegisteredMapStyle } =
     useContext(LocalStorageContext);
@@ -34,23 +36,23 @@ function StyleControl({
     const { hasOrtho, hasOpenMapTiles, hasPlanIGN } = commune;
     return [
       {
-        label: "Aerial photography",
+        label: t("styleAerial"),
         value: MapStyle.ORTHO,
         isAvailable: hasOrtho,
       },
       {
-        label: "OpenStreetMap",
+        label: t("styleOSM"),
         value: MapStyle.VECTOR,
         isAvailable: hasOpenMapTiles,
       },
-      { label: "US Topo", value: MapStyle.PLAN_IGN, isAvailable: hasPlanIGN },
+      { label: t("styleTopo"), value: MapStyle.PLAN_IGN, isAvailable: hasPlanIGN },
       ...(baseLocale.settings?.fondsDeCartes?.map((styleMap) => ({
         label: styleMap.name,
         value: styleMap.name,
         isAvailable: true,
       })) || []),
     ].filter(({ isAvailable }) => isAvailable);
-  }, [commune, baseLocale.settings.fondsDeCartes]);
+  }, [commune, baseLocale.settings.fondsDeCartes, t]);
 
   const onSelect = (style: MapStyle | string) => {
     const updatedRegisteredMapStyle = registeredMapStyle
@@ -83,7 +85,7 @@ function StyleControl({
         <SelectMenu
           closeOnSelect
           position={Position.TOP_LEFT}
-          title="Choose map style"
+          title={t("chooseMapStyle")}
           hasFilter={false}
           height={40 + 33 * availableStyles.length}
           options={availableStyles}

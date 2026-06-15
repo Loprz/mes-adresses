@@ -1,4 +1,5 @@
 import { IconButton, AddIcon, CrossIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface AddressEditorControlProps {
   isAddressFormOpen?: boolean;
@@ -11,6 +12,7 @@ function AddressEditorControl({
   isDisabled,
   handleAddressForm,
 }: AddressEditorControlProps) {
+  const t = useTranslations("mapControls");
   return (
     <>
       {isAddressFormOpen ? (
@@ -19,7 +21,7 @@ function AddressEditorControl({
           width={29}
           icon={CrossIcon}
           onClick={() => handleAddressForm(false)}
-          title="Cancel address creation"
+          title={t("cancelAddressCreation")}
         />
       ) : (
         <IconButton
@@ -30,7 +32,7 @@ function AddressEditorControl({
           intent="success"
           appearance="primary"
           onClick={() => handleAddressForm(true)}
-          title="Create an address"
+          title={t("createAddress")}
         />
       )}
     </>

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Heading, Pane, Text, IconButton, EditIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import LanguagePreview from "../bal/language-preview";
 import TokenContext from "@/contexts/token";
 import BalDataContext from "@/contexts/bal-data";
@@ -27,6 +28,7 @@ function BALSummary({
   jurisdictionFlag,
   onEditNomsAlt,
 }: BALSummaryProps) {
+  const t = useTranslations("panels");
   const { token } = useContext(TokenContext);
   const { isEditing } = useContext(BalDataContext);
 
@@ -60,7 +62,7 @@ function BALSummary({
             icon={EditIcon}
             marginTop={-4}
             onClick={onEditNomsAlt}
-            title="Edit alternate jurisdiction names"
+            title={t("editAltNames")}
           />
         )}
       </Heading>
@@ -72,17 +74,25 @@ function BALSummary({
       <Pane display="flex" alignItems="center" gap={8}>
         {streets && (
           <Text>
-            <b>{streets.length}</b> street{streets.length > 1 && "s"}
+            {t.rich("streetCount", {
+              count: streets.length,
+              b: (chunks) => <b>{chunks}</b>,
+            })}
           </Text>
         )}
         {placeNames && (
           <Text>
-            <b>{placeNames.length}</b> place name{placeNames.length > 1 && "s"}
+            {t.rich("placeNameCountSummary", {
+              count: placeNames.length,
+              b: (chunks) => <b>{chunks}</b>,
+            })}
           </Text>
         )}
         <Text>
-          <b>{localAddressBase.numberOfAddresses}</b> address
-          {localAddressBase.numberOfAddresses > 1 && "es"}
+          {t.rich("addressCount", {
+            count: localAddressBase.numberOfAddresses,
+            b: (chunks) => <b>{chunks}</b>,
+          })}
         </Text>
       </Pane>
     </Pane>

@@ -7,6 +7,7 @@ import {
   useEffect,
 } from "react";
 import { SelectMenu, Pane, Button, Text, Alert } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 import { BasesLocalesService, Numero } from "@/lib/openapi-api-bal";
@@ -21,19 +22,18 @@ function AddNumerosWithPolygon({
   numerosIds,
   setNumerosIds,
 }: AddNumerosWithPolygonProps) {
+  const t = useTranslations("lists");
   const [numerosSelected, setNumerosSelected] = useState<Numero[]>([]);
   const { baseLocale } = useContext(BalDataContext);
   const { data, setHint, setDrawMode } = useContext(DrawContext);
 
   useEffect(() => {
     setDrawMode(DrawMode.DRAW_NUMEROS_TO_TOPONYME_POLYGONE);
-    setHint(
-      "Click on the map to draw a polygon. Once finished, click on the last point to close the polygon. The numbers within the polygon will be selected"
-    );
+    setHint(t("drawPolygonHint"));
     return () => {
       setDrawMode(null);
     };
-  }, [setHint, setDrawMode]);
+  }, [setHint, setDrawMode, t]);
 
   useEffect(() => {
     async function searchNumeros() {
@@ -53,16 +53,8 @@ function AddNumerosWithPolygon({
   }, [baseLocale.id, data, setNumerosIds, setNumerosSelected]);
 
   const selectedNumerosCount = useMemo(() => {
-    if (numerosSelected.length === 0) {
-      return "No numbers selected";
-    }
-
-    if (numerosSelected.length === 1) {
-      return "1 number is selected";
-    }
-
-    return `${numerosSelected.length} numbers are selected`;
-  }, [numerosSelected.length]);
+    return t("numbersSelected", { count: numerosSelected.length });
+  }, [numerosSelected.length, t]);
 
   const numeroOptions = useMemo(() => {
     return numerosSelected.map(({ id, numero, suffixe }) => ({
@@ -82,18 +74,10 @@ function AddNumerosWithPolygon({
   return (
     <Pane>
       {data === null ? (
-        <Alert
-          intent="none"
-          title="Click on the map to draw a polygon. Once finished, click on the last point to close the polygon. The numbers within the polygon will be selected"
-          marginBottom={32}
-        />
+        <Alert intent="none" title={t("drawPolygonHint")} marginBottom={32} />
       ) : (
         <>
-          <Alert
-            intent="none"
-            title="Edit the polygon directly on the map to change the selected numbers."
-            marginBottom={8}
-          />
+          <Alert intent="none" title={t("editPolygonHint")} marginBottom={8} />
 
           <Pane
             display="flex"
@@ -104,7 +88,7 @@ function AddNumerosWithPolygon({
             <SelectMenu
               isMultiSelect
               hasFilter={false}
-              title="Number selection"
+              title={t("numberSelection")}
               options={numeroOptions}
               selected={numerosIds}
               emptyView={
@@ -116,16 +100,14 @@ function AddNumerosWithPolygon({
                   justifyContent="center"
                   textAlign="center"
                 >
-                  <Text size={300}>
-                    No numbers are available for this street
-                  </Text>
+                  <Text size={300}>{t("noNumbersForStreet")}</Text>
                 </Pane>
               }
               onSelect={handleSelectNumero}
               onDeselect={handleSelectNumero}
             >
               <Button marginTop={0} type="button">
-                Select numbers
+                {t("selectNumbers")}
               </Button>
             </SelectMenu>
 

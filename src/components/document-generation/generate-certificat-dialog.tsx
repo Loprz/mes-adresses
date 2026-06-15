@@ -1,6 +1,7 @@
 import LocalStorageContext from "@/contexts/local-storage";
 import { GenerateCertificatDTO } from "@/lib/openapi-api-bal";
 import { Dialog, Pane, TextInputField, Checkbox } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import {
   DocumentGenerationData,
@@ -28,15 +29,17 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
   const { data } =
     (docData as DocumentGenerationData<GeneratedDocumentType.CERTIFICAT_ADRESSAGE>) ||
     {};
+  const t = useTranslations("docGen");
+  const tc = useTranslations("common");
   const [isGeneratingCertificat, setIsGeneratingCertificat] = useState(false);
   const { setCertificatEmetteur } = useContext(LocalStorageContext);
 
   return (
     <Dialog
       isShown={docData?.type === GeneratedDocumentType.CERTIFICAT_ADRESSAGE}
-      title="Generate an addressing certificate"
-      cancelLabel="Cancel"
-      confirmLabel="Download"
+      title={t("certificatTitle")}
+      cancelLabel={tc("cancel")}
+      confirmLabel={tc("download")}
       onCloseComplete={() => setData(null)}
       onCancel={() => setData(null)}
       isConfirmLoading={isGeneratingCertificat}
@@ -61,8 +64,8 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
     >
       <Pane is="form" onSubmit={(e) => e.preventDefault()}>
         <TextInputField
-          label="Issuer (optional)"
-          description="The issuer will be mentioned in the addressing certificate"
+          label={t("issuerLabel")}
+          description={t("issuerDescription")}
           value={data?.emetteur || ""}
           onChange={(e) =>
             setData((data) => ({
@@ -73,10 +76,10 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
               },
             }))
           }
-          placeholder="Jane Smith, Deputy Mayor"
+          placeholder={t("issuerPlaceholder")}
         />
         <Checkbox
-          label="Remember the issuer"
+          label={t("rememberIssuer")}
           checked={data?.rememberEmetteur || false}
           onChange={(e) =>
             setData((data) => ({
@@ -90,8 +93,8 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
           marginBottom={16}
         />
         <TextInputField
-          label="Recipient (optional)"
-          description="Enter the recipient name for a named certificate"
+          label={t("recipientLabel")}
+          description={t("recipientDescription")}
           value={data?.destinataire || ""}
           onChange={(e) =>
             setData((data) => ({
@@ -102,7 +105,7 @@ export function GenerateCertificatDialog<type extends GeneratedDocumentType>({
               },
             }))
           }
-          placeholder="Mr John Smith"
+          placeholder={t("recipientPlaceholder")}
         />
       </Pane>
     </Dialog>

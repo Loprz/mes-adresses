@@ -9,6 +9,7 @@ import {
   Alert,
   Text,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import MarkersContext from "@/contexts/markers";
 
@@ -28,6 +29,7 @@ function PositionEditor({
   isToponyme,
   validationMessage,
 }: PositionEditorProps) {
+  const t = useTranslations("editorForm");
   const { isMobile, setIsMapFullscreen } = useContext(LayoutContext);
   const { markers, addMarker, updateMarker, removeMarker, disableMarkers } =
     useContext(MarkersContext);
@@ -63,15 +65,15 @@ function PositionEditor({
 
   return (
     <FormField label="" validationMessage={validationMessage}>
-      <InputLabel title="Positions *" />
+      <InputLabel title={t("positions")} />
       {markers.length > 0 ? (
         <Pane display="grid" gridTemplateColumns="2fr .5fr 1fr 1fr .5fr">
           <Strong fontWeight={400} paddingBottom=".5em">
-            Type
+            {t("typeColumn")}
           </Strong>
           <div />
-          <Strong fontWeight={400}>Latitude</Strong>
-          <Strong fontWeight={400}>Longitude</Strong>
+          <Strong fontWeight={400}>{t("latitude")}</Strong>
+          <Strong fontWeight={400}>{t("longitude")}</Strong>
           <div />
 
           {markers
@@ -88,7 +90,7 @@ function PositionEditor({
         </Pane>
       ) : (
         <Pane paddingBottom=".5em" textAlign="center">
-          <Heading size={400}>This place name has no position</Heading>
+          <Heading size={400}>{t("noPosition")}</Heading>
         </Pane>
       )}
 
@@ -103,7 +105,11 @@ function PositionEditor({
         justifyContent="center"
         onClick={handleAddMarker}
       >
-        {`Add a position to the ${isToponyme ? "place name" : "number"}`}
+        {t("addPosition", {
+          addressType: isToponyme
+            ? t("addressTypePlaceName")
+            : t("addressTypeNumber"),
+        })}
       </Button>
     </FormField>
   );

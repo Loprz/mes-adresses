@@ -11,6 +11,7 @@ import {
   Spinner,
   Strong,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import LocalStorageContext from "@/contexts/local-storage";
 
@@ -40,6 +41,8 @@ function RecoverBALCommune({
   setIsLoading,
   onClose,
 }: RecoverBALCommuneProps) {
+  const t = useTranslations("dialogs");
+  const tc = useTranslations("common");
   const { recoveryEmailCommuneSent, setRecoveryEmailCommuneSent } =
     useContext(LocalStorageContext);
   const { pushToast } = useContext(LayoutContext);
@@ -106,7 +109,7 @@ function RecoverBALCommune({
     });
     setRecoveryEmailCommuneSent(new Date());
     pushToast({
-      title: `An email has been sent to the jurisdiction`,
+      title: t("emailSentToJurisdiction"),
       intent: "success",
     });
     setError(null);
@@ -116,6 +119,7 @@ function RecoverBALCommune({
     setRecoveryEmailCommuneSent,
     pushToast,
     setError,
+    t,
   ]);
 
   const handleConfirmCommune = useCallback(async () => {
@@ -125,7 +129,7 @@ function RecoverBALCommune({
       setIsLoading(false);
       onClose();
       pushToast({
-        title: "An email has already been sent, please wait.",
+        title: t("emailAlreadySent"),
         intent: "warning",
       });
       return;
@@ -146,6 +150,7 @@ function RecoverBALCommune({
     pushToast,
     recoveryCommune,
     setError,
+    t,
   ]);
 
   return (
@@ -165,18 +170,15 @@ function RecoverBALCommune({
             width={66}
             height={66}
             src={"/static/images/mairie.svg"}
-            alt="jurisdiction logo"
+            alt={t("jurisdictionLogo")}
             style={{ filter: "grayscale(100%)" }}
           />
         </Pane>
         <Heading is="h2" marginBottom={8}>
-          With the official email of your jurisdiction
+          {t("withOfficialEmail")}
         </Heading>
         {!baseLocale?.id && (
-          <Paragraph marginBottom={8}>
-            Choose the jurisdiction for which you want to recover the Local
-            Address Bases.
-          </Paragraph>
+          <Paragraph marginBottom={8}>{t("chooseJurisdiction")}</Paragraph>
         )}
         {!baseLocale && (
           <JurisdictionSelector
@@ -193,22 +195,22 @@ function RecoverBALCommune({
         {isLoadingEmails && (
           <Pane marginTop={16} display="flex" alignItems="center" gap={8}>
             <Spinner />
-            <Paragraph>Loading jurisdiction email addresses...</Paragraph>
+            <Paragraph>{t("loadingEmails")}</Paragraph>
           </Pane>
         )}
         {!isLoadingEmails && emailsCommune.length > 0 && (
           <Alert marginTop={16} intent="info" hasIcon={false}>
             <Paragraph color="blue600">
-              An email with the recovery link will be sent to the address of
-              your jurisdiction: <Strong>{emailsCommune.join(", ")}</Strong>
+              {t.rich("emailRecoveryInfo", {
+                emails: emailsCommune.join(", "),
+                s: (chunks) => <Strong>{chunks}</Strong>,
+              })}
             </Paragraph>
           </Alert>
         )}
         {!isLoadingEmails && selectedCommuneCode && emailsCommune.length === 0 && (
           <Alert marginTop={16} intent="warning">
-            We couldn't preview an official jurisdiction email here. You can
-            still continue, and the recovery request will use the backend
-            directory lookup.
+            {t("emailPreviewFallback")}
           </Alert>
         )}
       </Pane>
@@ -220,7 +222,7 @@ function RecoverBALCommune({
           disabled={(!Boolean(baseLocale?.id) && !commune) || isLoading}
           alignSelf="flex-end"
         >
-          {isLoading ? "Loading..." : "Receive the email"}
+          {isLoading ? tc("loading") : t("receiveEmail")}
         </Button>
       )}
     </Pane>

@@ -19,6 +19,7 @@ import {
   EndorsedIcon,
   PlusIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import Tuto from "@/components/help/tuto";
 import SubTuto from "@/components/help/tuto/sub-tuto";
@@ -30,96 +31,94 @@ import {
   PEERTUBE_LINK,
 } from "@/components/help/video-container";
 
-const before = (
-  <Paragraph marginTop="default">
-    Display the list of numbers for a street by selecting it from the
-    sidebar or by clicking on its name or one of its numbers directly from
-    the map.
-  </Paragraph>
-);
-
 function Numeros() {
+  const t = useTranslations("helpNumeros");
+  const strong = (chunks: React.ReactNode) => (
+    <Strong size={500}>{chunks}</Strong>
+  );
+  const before = (
+    <Paragraph marginTop="default">{t("beforeIntro")}</Paragraph>
+  );
+  const createStreetBtn = (
+    <Button marginX={4} iconBefore={PlusIcon}>
+      {t("createStreetButton")}
+    </Button>
+  );
+  const certifyBtn = (
+    <Button
+      marginX={4}
+      appearance="primary"
+      intent="success"
+      iconAfter={EndorsedIcon}
+    >
+      {t("certifyAndSave")}
+    </Button>
+  );
+  const saveBtn = (
+    <Button marginX={4} intent="success">
+      {t("saveButton")}
+    </Button>
+  );
+  const moreBtn = (
+    <Button background="tint1" iconBefore={MoreIcon} appearance="minimal" />
+  );
+
   return (
     <Pane>
       <VideoContainer
-        title="Creating / Editing a number:"
+        title={t("videoTitle")}
         link={`${PEERTUBE_LINK}/w/ts9chg7zehHXkTrotsjpqr`}
       />
-      <Tuto title="Good to know">
+      <Tuto title={t("goodToKnowTuto")}>
         <ListItem listStyleType="none">
-          To improve address quality, we recommend
-          certifying all of your addresses.{" "}
-          <b>A certified address is declared authentic by the local government</b>,
-          which improves the quality of the Local Address Base and facilitates
-          its reuse.
+          {t.rich("goodToKnow", { b: (chunks) => <b>{chunks}</b> })}
         </ListItem>
       </Tuto>
-      <Tuto title="Add a number">
+      <Tuto title={t("addTuto")}>
         {before}
 
-        <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
+        <SubTuto title={t("fromSidebar")} icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Click the button
+              {t("addSidebarStep1Pre")}
               <Button
                 iconBefore={AddIcon}
                 marginX={4}
                 appearance="primary"
                 intent="success"
               >
-                Add a number
+                {t("addNumberButton")}
               </Button>
             </ListItem>
             <ListItem>
-              A <MapMarkerIcon color="info" /> has appeared at the center of the
-              map, move it to the desired location using your mouse
+              {t("markerAppearedPre")} <MapMarkerIcon color="info" />{" "}
+              {t("markerAppearedPost")}
             </ListItem>
             <ListItem>
-              Enter the number in the field{" "}
-              <Strong size={500}>Number</Strong>
+              {t("enterNumberPre")} {strong(t("numberField"))}
             </ListItem>
             <ListItem>
-              Enter the suffix (example: 1/2) in the field{" "}
-              <Strong size={500}>Suffix</Strong>
+              {t("enterSuffixSlashPre")} {strong(t("suffixField"))}
             </ListItem>
             <ListItem>
-              Search for the street the number belongs to and select
-              it. Note that if a street is already selected, it will be
-              suggested by default. You can also create a new
-              street directly by clicking{" "}
-              <Button marginX={4} iconBefore={PlusIcon}>
-                Create a street
-              </Button>
-              . You will be automatically redirected to this street.
+              {t("searchStreetSidebarPre")} {createStreetBtn}
+              {t("searchStreetPost")}
             </ListItem>
             <ListItem>
-              Select the position using the dropdown{" "}
-              <Strong size={500}>Type</Strong>
+              {t("selectPositionPre")} {strong(t("typeField"))}
             </ListItem>
             <ListItem>
-              To finish, click the button{" "}
-              <Button
-                marginX={4}
-                appearance="primary"
-                intent="success"
-                iconAfter={EndorsedIcon}
-              >
-                Certify and save
-              </Button>{" "}
-              if you validate this address, or{" "}
-              <Button marginX={4} intent="success">
-                Save
-              </Button>{" "}
-              to give yourself time to verify before certifying.
+              {t("finishCertifyPre")} {certifyBtn} {t("finishCertifyMid")}{" "}
+              {saveBtn} {t("finishCertifyPost")}
             </ListItem>
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="From the map" icon={MapIcon}>
+        <SubTuto title={t("fromMap")} icon={MapIcon}>
           <OrderedList margin={8}>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                Click on the button{" "}
+                {t("addMapStep1Pre")}{" "}
                 <IconButton
                   marginLeft={8}
                   icon={AddIcon}
@@ -129,138 +128,101 @@ function Numeros() {
               </Pane>
             </ListItem>
             <ListItem>
-              A <MapMarkerIcon color="info" /> has appeared at the center of the
-              map, move it to the desired location using your mouse
+              {t("markerAppearedPre")} <MapMarkerIcon color="info" />{" "}
+              {t("markerAppearedPost")}
             </ListItem>
             <ListItem>
-              In the new menu that appeared, enter the number in the
-              field <Strong size={500}>Number</Strong>
+              {t("enterNumberMapPre")} {strong(t("numberField"))}
             </ListItem>
             <ListItem>
-              Enter the suffix (example: bis) in the field{" "}
-              <Strong size={500}>Suffix</Strong>
+              {t("enterSuffixBisPre")} {strong(t("suffixField"))}
             </ListItem>
             <ListItem>
-              Search for the street to which the number belongs and select
-              it. Note that if a street is already selected, it will be
-              suggested by default. You can also create a new
-              street directly by clicking{" "}
-              <Button marginX={4} iconBefore={PlusIcon}>
-                Create a street
-              </Button>
-              . You will be automatically redirected to this street.
+              {t("searchStreetMapPre")} {createStreetBtn}
+              {t("searchStreetPost")}
             </ListItem>
             <ListItem>
-              Select the position using the dropdown{" "}
-              <Strong size={500}>Type</Strong>
+              {t("selectPositionPre")} {strong(t("typeField"))}
             </ListItem>
             <ListItem>
-              To finish, click on the button{" "}
-              <Button
-                marginX={4}
-                appearance="primary"
-                intent="success"
-                iconAfter={EndorsedIcon}
-              >
-                Certify and save
-              </Button>{" "}
-              if you validate this address, or{" "}
-              <Button marginX={4} intent="success">
-                Save
-              </Button>{" "}
-              to give yourself time to verify before certifying.
+              {t("finishCertifyMapPre")} {certifyBtn} {t("finishCertifyMid")}{" "}
+              {saveBtn} {t("finishCertifyPost")}
             </ListItem>
           </OrderedList>
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Edit a number">
+      <Tuto title={t("editTuto")}>
         {before}
 
-        <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
+        <SubTuto title={t("fromSidebar")} icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Click on the button{" "}
-              <Button
-                background="tint1"
-                iconBefore={MoreIcon}
-                appearance="minimal"
-              />{" "}
-              to the right of the number
+              {t("editSidebarStep1Pre")} {moreBtn} {t("editSidebarStep1Post")}
             </ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                In the menu that appeared, choose
+                {t("inMenuChoose")}
                 <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                  Edit
+                  {t("editMenuItem")}
                 </Menu.Item>
               </Pane>
             </ListItem>
             <ListItem>
-              You can now modify the number, suffix,
-              address type, or position by moving the{" "}
-              <MapMarkerIcon color="info" /> on the map, and certify your
-              address.
+              {t("editSidebarStep3Pre")} <MapMarkerIcon color="info" />{" "}
+              {t("editStepPostComma")}
             </ListItem>
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="From the map" icon={MapIcon}>
+        <SubTuto title={t("fromMap")} icon={MapIcon}>
           <OrderedList margin={8}>
-            <ListItem>Click on the number</ListItem>
+            <ListItem>{t("editMapStep1")}</ListItem>
             <ListItem>
-              You can now modify the number, suffix,
-              address type or position by moving the{" "}
-              <MapMarkerIcon color="info" /> on the map and certify your
-              address.
+              {t("editMapStep2Pre")} <MapMarkerIcon color="info" />{" "}
+              {t("editStepPost")}
             </ListItem>
           </OrderedList>
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Delete a number">
+      <Tuto title={t("deleteTuto")}>
         {before}
 
-        <SubTuto title="From the sidebar menu" icon={ColumnLayoutIcon}>
+        <SubTuto title={t("fromSidebarMenu")} icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Click on the button{" "}
-              <Button
-                background="tint1"
-                iconBefore={MoreIcon}
-                appearance="minimal"
-              />{" "}
-              located to the right of the number
+              {t("deleteStep1Pre")} {moreBtn} {t("deleteStep1Post")}
             </ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                In the menu that just appeared, choose
+                {t("inMenuJustChoose")}
                 <Menu.Item
                   background="tint1"
                   marginLeft={8}
                   icon={TrashIcon}
                   intent="danger"
                 >
-                  Delete...
+                  {t("deleteMenuItem")}
                 </Menu.Item>
               </Pane>
             </ListItem>
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="From the map" icon={MapIcon}>
+        <SubTuto title={t("fromMap")} icon={MapIcon}>
           <OrderedList margin={8}>
-            <ListItem>Right-click on the number</ListItem>
+            <ListItem>{t("deleteMapStep1")}</ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                In the menu that just appeared, choose
+                {t("inMenuJustChoose")}
                 <Menu.Item
                   background="tint1"
                   marginLeft={8}
                   icon={TrashIcon}
                   intent="danger"
                 >
-                  Delete…
+                  {t("deleteMenuItem")}
                 </Menu.Item>
               </Pane>
             </ListItem>
@@ -268,141 +230,96 @@ function Numeros() {
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Uncertify an address">
+      <Tuto title={t("uncertifyTuto")}>
         <OrderedList margin={8}>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              Display the list of numbers for a street by selecting it
-              from the sidebar or by clicking on its name or one of its
-              numbers directly from the map.
+              {t("beforeIntro")}
             </Pane>
           </ListItem>
           <ListItem>
-            At the bottom of the page, click the button{" "}
+            {t("uncertifyStep2Pre")}{" "}
             <Button marginX={4} intent="danger">
-              Uncertify and save
+              {t("uncertifyButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Associate parcels">
+      <Tuto title={t("parcelsTuto")}>
         {before}
 
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button{" "}
-            <Button
-              background="tint1"
-              iconBefore={MoreIcon}
-              appearance="minimal"
-            />{" "}
-            located to the right of the number
+            {t("parcelsStep1Pre")} {moreBtn} {t("parcelsStep1Post")}
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              In the menu that just appeared, choose
+              {t("inMenuJustChoose")}
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                Edit
+                {t("editMenuItem")}
               </Menu.Item>
             </Pane>
           </ListItem>
+          <ListItem>{t("parcelsStep3")}</ListItem>
           <ListItem>
-            From the map, click on the parcel(s) you want to
-            associate with the number
-          </ListItem>
-          <ListItem>
-            To save the parcels, click the button{" "}
-            <Button
-              marginX={4}
-              appearance="primary"
-              intent="success"
-              iconAfter={EndorsedIcon}
-            >
-              Certify and save
-            </Button>{" "}
-            or{" "}
-            <Button marginX={4} intent="success">
-              Save
-            </Button>{" "}
-            if you do not want to certify this address at this time.
+            {t("parcelsStep4Pre")} {certifyBtn} {t("or")} {saveBtn}{" "}
+            {t("parcelsStep4Post")}
           </ListItem>
         </OrderedList>
 
         <Pane>
-          <Strong>Parcel color code:</Strong>
+          <Strong>{t("parcelColorTitle")}</Strong>
           <Paragraph display="flex">
             <Badge margin={4} height="100%" color="green">
-              associated parcel
+              {t("parcelAssociated")}
             </Badge>
             <Badge margin={4} height="100%" color="yellow">
-              parcel that can be associated
+              {t("parcelCanAssociate")}
             </Badge>
             <Badge margin={4} height="100%" color="red">
-              parcel that can be dissociated
+              {t("parcelCanDissociate")}
             </Badge>
           </Paragraph>
         </Pane>
       </Tuto>
 
-      <Tuto title="Add a note or comment">
+      <Tuto title={t("commentTuto")}>
         {before}
 
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button{" "}
-            <Button
-              background="tint1"
-              iconBefore={MoreIcon}
-              appearance="minimal"
-            />{" "}
-            located to the right of the number
+            {t("commentStep1Pre")} {moreBtn} {t("commentStep1Post")}
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              In the menu that just appeared, choose
+              {t("inMenuJustChoose")}
               <Menu.Item background="tint1" marginLeft={8} icon={EditIcon}>
-                Edit
+                {t("editMenuItem")}
               </Menu.Item>
             </Pane>
           </ListItem>
           <ListItem>
-            Fill in the text field <Strong size={500}>Comment</Strong>{" "}
-            to leave a note about the number
+            {t("commentStep3Pre")} {strong(t("commentField"))}{" "}
+            {t("commentStep3Post")}
           </ListItem>
           <ListItem>
-            To save your comment, click the button{" "}
-            <Button
-              marginX={4}
-              appearance="primary"
-              intent="success"
-              iconAfter={EndorsedIcon}
-            >
-              Certify and save
-            </Button>{" "}
-            or{" "}
-            <Button marginX={4} intent="success">
-              Save
-            </Button>{" "}
-            if you do not wish to certify this address at the moment.
+            {t("commentStep4Pre")} {certifyBtn} {t("or")} {saveBtn}{" "}
+            {t("commentStep4Post")}
           </ListItem>
         </OrderedList>
 
         <Paragraph>
-          You will notice a <CommentIcon /> on the number row. Hovering over
-          it will show the comment.
+          {t("commentNoticePre")} <CommentIcon /> {t("commentNoticePost")}
         </Paragraph>
       </Tuto>
 
       <Problems>
-        <Tuto title="I can't find a street when adding a number from the map">
-          <Paragraph marginTop="default">
-            Before creating a number from the map, make sure that the street
-            it belongs to has been created.
-          </Paragraph>
+        <Tuto title={t("cantFindStreetTitle")}>
+          <Paragraph marginTop="default">{t("cantFindStreetBody")}</Paragraph>
         </Tuto>
 
-        <Unauthorized title="I can't add/delete a number" />
+        <Unauthorized title={t("unauthorizedTitle")} />
 
         <Sidebar />
       </Problems>

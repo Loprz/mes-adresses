@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Pane, Link, Paragraph, defaultTheme } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import NextImage from "next/image";
 
@@ -15,6 +16,7 @@ function MiniCard({
   href: string;
 }) {
   const [hover, setHover] = useState(false);
+  const t = useTranslations("miniCard");
 
   return (
     <Pane
@@ -38,7 +40,7 @@ function MiniCard({
       >
         <NextImage
           src={img}
-          alt="logo formations en ligne"
+          alt={t("logoAlt")}
           width={64}
           height={64}
         />

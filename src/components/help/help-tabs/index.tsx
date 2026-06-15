@@ -4,12 +4,13 @@ import Toponymes from "@/components/help/help-tabs/toponymes";
 import Numeros from "@/components/help/help-tabs/numeros";
 import Publication from "@/components/help/help-tabs/publication";
 
+// Translation keys (resolved against the "helpCommon" namespace in the Help UI)
 export const TABS = [
-  "Local Base",
-  "Streets",
-  "Place Names",
-  "Numbers",
-  "Publication",
+  "tabLocalBase",
+  "tabStreets",
+  "tabPlaceNames",
+  "tabNumbers",
+  "tabPublication",
 ];
 
 interface HelpTabsProps {

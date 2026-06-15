@@ -18,6 +18,7 @@ import {
   Text,
 } from "evergreen-ui";
 import { Fragment, JSX, useState } from "react";
+import { useTranslations } from "next-intl";
 import { uniqBy } from "lodash";
 
 interface ImportDataStepProps {
@@ -51,29 +52,28 @@ function extractCommuneFromCSV(rows: ValidateRowFullType[]): CommuneRow[] {
   return uniqBy(communes, "code");
 }
 
-const getImportOptions = (commune: CommuneType) => [
+const getImportOptions = (
+  commune: CommuneType,
+  t: ReturnType<typeof useTranslations>
+) => [
   {
-    label: "Start from existing data in the National Address Platform",
+    label: t("optionBanLabel"),
     value: "ban",
-    description: (
-      <>
-        This method is recommended in most cases. It allows you
-        to start from addresses already present in the{" "}
+    description: t.rich("optionBanDescription", {
+      link: (chunks) => (
         <a
           href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/carte-base-adresse-nationale?id=${commune.code}`}
           target="_blank"
         >
-          National Address Platform
-        </a>{" "}
-        (NAP) and to enrich them with your own data.
-      </>
-    ),
+          {chunks}
+        </a>
+      ),
+    }),
   },
   {
-    label: "Use a CSV file in LAB format",
+    label: t("optionFileLabel"),
     value: "file",
-    description:
-      "This method is recommended if you already have a CSV file in LAB format.",
+    description: t("optionFileDescription"),
   },
 ];
 
@@ -86,9 +86,10 @@ function ImportDataStep({
   setCsvImportFile,
   commune,
 }: ImportDataStepProps) {
+  const t = useTranslations("importStep");
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<JSX.Element | null>(null);
-  const options = getImportOptions(commune);
+  const options = getImportOptions(commune, t);
 
   const onAlert = (alert: JSX.Element, canCreateBAL?: boolean) => {
     if (!canCreateBAL) {
@@ -102,9 +103,8 @@ function ImportDataStep({
     if (file) {
       if (getFileExtension(file.name).toLowerCase() !== "csv") {
         return onAlert(
-          <Alert title="An error occurred" intent="danger" marginTop={16}>
-            This file type is not supported. You must upload a
-            CSV file.
+          <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+            {t("errorNotCsv")}
           </Alert>
         );
       }
@@ -127,34 +127,20 @@ function ImportDataStep({
           setCsvImportFile(file);
         } else if (communes.length === 1 && communes[0].code !== commune.code) {
           onAlert(
-            <Alert
-              title="An error occurred"
-              intent="danger"
-              marginTop={16}
-            >
-              The file does not match the jurisdiction selected in
-              the previous step.
+            <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+              {t("errorWrongJurisdiction")}
             </Alert>
           );
         } else if (communes.length > 1) {
           onAlert(
-            <Alert
-              title="An error occurred"
-              intent="danger"
-              marginTop={16}
-            >
-              The file must contain only one jurisdiction. Please
-              check your file.
+            <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+              {t("errorMultipleJurisdictions")}
             </Alert>
           );
         } else {
           onAlert(
-            <Alert
-              title="An error occurred"
-              intent="danger"
-              marginTop={16}
-            >
-              No jurisdiction could be found.
+            <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+              {t("errorNoJurisdiction")}
             </Alert>
           );
         }
@@ -162,44 +148,31 @@ function ImportDataStep({
         if (invalidRowsCount > 0) {
           onAlert(
             <Alert
-              title="The file contains errors"
+              title={t("fileErrorsTitle")}
               intent="warning"
               marginTop={16}
             >
               <Paragraph marginTop={8}>
-                {invalidRowsCount > 1 ? (
-                  <>
-                    <Strong>
-                      {invalidRowsCount} rows contain at least one error
-                    </Strong>{" "}
-                    and cannot be imported into your Local Address
-                    Base.
-                  </>
-                ) : (
-                  <>
-                    <Strong>1 row contains at least one error</Strong> and
-                    cannot be imported into your Local Address Base.
-                  </>
-                )}
+                {t.rich("rowsError", {
+                  count: invalidRowsCount,
+                  b: (chunks) => <Strong>{chunks}</Strong>,
+                })}
               </Paragraph>
 
-              <Paragraph>
-                By continuing, only compliant addresses will be used
-                to create your Local Address Base.
-              </Paragraph>
+              <Paragraph>{t("onlyCompliant")}</Paragraph>
 
               <Paragraph>
-                For a detailed report of the errors that were
-                detected, see{" "}
-                <a
-                  href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/bases-locales/validateur`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  the Local Address Base validator{" "}
-                  <ShareIcon verticalAlign="middle" />
-                </a>
-                .
+                {t.rich("detailedReport", {
+                  link: (chunks) => (
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/bases-locales/validateur`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {chunks} <ShareIcon verticalAlign="middle" />
+                    </a>
+                  ),
+                })}
               </Paragraph>
             </Alert>,
             true
@@ -208,8 +181,8 @@ function ImportDataStep({
       } catch (err) {
         console.error(err);
         onAlert(
-          <Alert title="An error occurred" intent="danger" marginTop={16}>
-            An error occurred while analyzing the file.
+          <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+            {t("errorAnalyzing")}
           </Alert>
         );
       } finally {
@@ -223,21 +196,20 @@ function ImportDataStep({
 
     if (rejectedFiles.length > 1) {
       onAlert(
-        <Alert title="An error occurred" intent="danger" marginTop={16}>
-          You can only upload one file.
+        <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+          {t("errorOnlyOneFile")}
         </Alert>
       );
     } else if (file.size > MAX_SIZE) {
       return onAlert(
-        <Alert title="An error occurred" intent="danger" marginTop={16}>
-          This file is too large. You must upload a file smaller
-          than 10 MB.
+        <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+          {t("errorTooLarge")}
         </Alert>
       );
     } else {
       onAlert(
-        <Alert title="An error occurred" intent="danger" marginTop={16}>
-          Unable to upload this file.
+        <Alert title={t("errorTitle")} intent="danger" marginTop={16}>
+          {t("errorUploadFailed")}
         </Alert>
       );
     }
@@ -249,9 +221,9 @@ function ImportDataStep({
 
   return (
     <>
-      <Pane aria-label="Choose your starting point" role="group">
+      <Pane aria-label={t("chooseStartingPoint")} role="group">
         <Text fontWeight={500} fontSize="14px" color="gray700">
-          Choose your starting point
+          {t("chooseStartingPoint")}
         </Text>
         {options.map((option) => (
           <Fragment key={option.value}>
@@ -278,8 +250,8 @@ function ImportDataStep({
             maxSize={MAX_SIZE}
             height={150}
             marginBottom={24}
-            placeholder="Select or drag your LAB file in CSV format here (maximum 10 MB)"
-            loadingLabel="Analyzing..."
+            placeholder={t("uploaderPlaceholder")}
+            loadingLabel={t("analyzing")}
             disabled={isLoading}
             onDrop={onDrop}
             onDropRejected={onDropRejected}
@@ -287,14 +259,8 @@ function ImportDataStep({
           />
           {alert}
 
-          <Alert
-            title="Do you already have a Local Address Base in CSV format managed from another tool?"
-            marginY={16}
-          >
-            <Paragraph marginTop={16}>
-              Use the submission form to publish your addresses to
-              the National Address Platform.
-            </Paragraph>
+          <Alert title={t("alreadyHaveTitle")} marginY={16}>
+            <Paragraph marginTop={16}>{t("useSubmissionForm")}</Paragraph>
             <Pane marginTop={16}>
               <Button
                 appearance="primary"
@@ -303,7 +269,7 @@ function ImportDataStep({
                 href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/bases-locales/publication`}
                 target="_blank"
               >
-                Go to submission form
+                {t("goToSubmissionForm")}
               </Button>
             </Pane>
           </Alert>

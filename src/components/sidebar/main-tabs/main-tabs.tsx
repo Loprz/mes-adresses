@@ -2,6 +2,7 @@
 
 import { useContext, useMemo, useState } from "react";
 import { Pane, Pulsar } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "./main-tabs.module.css";
 import SignalementContext from "@/contexts/signalement";
@@ -31,6 +32,7 @@ interface MainTabsProps {
 }
 
 function MainTabs({ balId }: MainTabsProps) {
+  const t = useTranslations("sidebar");
   const pathname = usePathname();
 
   const selectedTab = useMemo(() => {
@@ -54,10 +56,10 @@ function MainTabs({ balId }: MainTabsProps) {
   });
   const reportsEnabled = isReportsFeatureEnabled();
   const tabTitles: Record<TabsEnum, string> = {
-    [TabsEnum.COMMUNE]: "Jurisdiction",
-    [TabsEnum.VOIES]: "Streets",
-    [TabsEnum.TOPONYMES]: "Place names",
-    [TabsEnum.SIGNALEMENTS]: "Reports",
+    [TabsEnum.COMMUNE]: t("tabCommune"),
+    [TabsEnum.VOIES]: t("tabStreets"),
+    [TabsEnum.TOPONYMES]: t("tabPlaceNames"),
+    [TabsEnum.SIGNALEMENTS]: t("tabReports"),
   };
 
   const isTabSelected = (tabKey: TabsEnum, index: number) => {
@@ -74,7 +76,7 @@ function MainTabs({ balId }: MainTabsProps) {
               <div className={styles.tabImage}>
                 <ResponsiveImage
                   src="/static/images/icone-commune.png"
-                  alt="Jurisdiction tab illustration"
+                  alt={t("altCommune")}
                   draggable={false}
                   orientation="portrait"
                 />
@@ -92,7 +94,7 @@ function MainTabs({ balId }: MainTabsProps) {
               >
                 <ResponsiveImage
                   src="/static/images/icone-voies.png"
-                  alt="Streets tab illustration"
+                  alt={t("altStreets")}
                   draggable={false}
                   orientation="portrait"
                 />
@@ -113,7 +115,7 @@ function MainTabs({ balId }: MainTabsProps) {
               >
                 <ResponsiveImage
                   src="/static/images/icone-toponymes.png"
-                  alt="Place names tab illustration"
+                  alt={t("altPlaceNames")}
                   draggable={false}
                   orientation="portrait"
                 />
@@ -131,7 +133,7 @@ function MainTabs({ balId }: MainTabsProps) {
                 <ResponsiveImage
                   className={styles.tabImage}
                   src="/static/images/icone-signalements.png"
-                  alt="Reports tab illustration"
+                  alt={t("altReports")}
                   draggable={false}
                   orientation="portrait"
                 />
@@ -148,7 +150,7 @@ function MainTabs({ balId }: MainTabsProps) {
             const tab = (
               <Link
                 key={key}
-                title={`Tab: ${tabTitles[key]}`}
+                title={t("tabPrefix", { name: tabTitles[key] })}
                 className={styles.tabLink}
                 role="tab"
                 href={href}

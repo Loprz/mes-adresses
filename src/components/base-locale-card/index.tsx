@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { formatDistanceToNow } from "date-fns";
-import { enUS } from "date-fns/locale";
+import { getDateFnsLocale } from "@/lib/utils/date";
 import {
   Card,
   Pane,
@@ -35,6 +36,8 @@ interface BaseLocaleCardProps {
 }
 
 function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
+  const t = useTranslations("baseLocaleCard");
+  const locale = useLocale();
   const [pendingSignalementsCount, setPendingSignalementsCount] = useState(0);
   const [flag, setFlag] = useState<string | null>(null);
   const {
@@ -89,7 +92,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
   }, [baseLocale]);
 
   const lastUpdatedDistance = formatDistanceToNow(new Date(updatedAt), {
-    locale: enUS,
+    locale: getDateFnsLocale(locale),
   });
 
   const canHardDelete =
@@ -137,8 +140,8 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           </Heading>
           <Text fontSize={12} fontStyle="italic">
             {updatedAt
-              ? "Last updated " + lastUpdatedDistance
-              : "Never updated"}{" "}
+              ? t("lastUpdated", { distance: lastUpdatedDistance })
+              : t("neverUpdated")}{" "}
           </Text>
           {communeNom && (
             <Link
@@ -150,14 +153,14 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
               textDecoration="underline"
               width="fit-content"
             >
-              View the page for {communeNom}
+              {t("viewPage", { communeNom })}
             </Link>
           )}
         </Pane>
         <Pane display="flex" flexDirection="column">
           <Pane marginTop={5} display="flex">
             <Text display="block" marginRight={5}>
-              Certified addresses:
+              {t("certifiedAddresses")}
             </Text>
             <CertificationCount
               nbNumeros={nbNumeros}
@@ -167,7 +170,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           {pendingSignalementsCount > 0 && (
             <Pane marginTop={5} display="flex">
               <Text display="block" marginRight={5}>
-                Pending reports:
+                {t("pendingReports")}
               </Text>
               <Text fontWeight="bold" whiteSpace="nowrap">
                 {pendingSignalementsCount}
@@ -192,7 +195,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           <button
             onClick={onRemove}
             className={`${styles["custom-button"]} ${styles["delete-button"]}`}
-            title="Delete the Local Address Base"
+            title={t("deleteTitle")}
           >
             <Icon icon={TrashIcon} />
           </button>
@@ -201,7 +204,7 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
           <button
             onClick={onRemove}
             className={`${styles["custom-button"]} ${styles["hide-button"]}`}
-            title="Hide the Local Address Base"
+            title={t("hideTitle")}
           >
             <Icon icon={EyeOffIcon} />
           </button>
@@ -211,10 +214,10 @@ function BaseLocaleCard({ baseLocale, onRemove }: BaseLocaleCardProps) {
         <NextLink
           href={`/bal/${id}/${TabsEnum.VOIES}`}
           className={`${styles["custom-button"]} ${styles["manage-button"]}`}
-          title="Access the Local Address Base"
+          title={t("accessTitle")}
         >
           <Text fontSize={16} fontWeight={300} color="inherit">
-            Manage addresses
+            {t("manageAddresses")}
           </Text>
           <Icon marginLeft={10} icon={ArrowRightIcon} />
         </NextLink>

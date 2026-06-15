@@ -1,5 +1,6 @@
 import { useState, useContext, useCallback, useEffect } from "react";
 import { Pane, Button, RadioGroup } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 import DrawContext from "@/contexts/draw";
@@ -33,17 +34,18 @@ interface VoieEditorProps {
   onClose: () => void;
 }
 
-const options = [
-  { label: "Numeric", value: Voie.typeNumerotation.NUMERIQUE },
-  { label: "Metric", value: Voie.typeNumerotation.METRIQUE },
-];
-
 function VoieEditor({
   initialValue,
   onClose,
   formInputRef,
   onSubmit,
 }: VoieEditorProps) {
+  const t = useTranslations("editorForm");
+  const tc = useTranslations("common");
+  const options = [
+    { label: t("numeric"), value: Voie.typeNumerotation.NUMERIQUE },
+    { label: t("metric"), value: Voie.typeNumerotation.METRIQUE },
+  ];
   const [isLoading, setIsLoading] = useState(false);
   const [typeNumerotation, setTypeNumerotation] = useState(
     initialValue?.typeNumerotation || Voie.typeNumerotation.NUMERIQUE
@@ -81,8 +83,8 @@ function VoieEditor({
           ? toaster(
               async () =>
                 VoiesService.updateVoie(initialValue.id, body as UpdateVoieDTO),
-              "The street has been updated",
-              "The street could not be updated",
+              t("streetUpdated"),
+              t("streetUpdateError"),
               (err) => {
                 setValidationMessages(err.body.message);
               }
@@ -93,8 +95,8 @@ function VoieEditor({
                   baseLocale.id,
                   body as CreateVoieDTO
                 ),
-              "The street has been added",
-              "The street could not be added",
+              t("streetAdded"),
+              t("streetAddError"),
               (err) => {
                 setValidationMessages(err.body.message);
               }
@@ -132,6 +134,7 @@ function VoieEditor({
       reloadTiles,
       onSubmit,
       toaster,
+      t,
     ]
   );
 
@@ -163,8 +166,8 @@ function VoieEditor({
           <AssistedTextField
             forwadedRef={ref}
             exitFocus={() => setIsFocus(false)}
-            label="Street name"
-            placeholder="Street name"
+            label={t("streetName")}
+            placeholder={t("streetName")}
             value={nom}
             onChange={onNomChange}
             validationMessage={getValidationMessage("voie_nom")}
@@ -174,7 +177,7 @@ function VoieEditor({
             isRequired
             className={styles["custom-radio-group"]}
             marginTop="1em"
-            label="Numbering type *"
+            label={t("numberingType")}
             value={typeNumerotation}
             options={options}
             onChange={(event) =>
@@ -207,7 +210,7 @@ function VoieEditor({
           appearance="primary"
           intent="success"
         >
-          {isLoading ? "In progress…" : "Save"}
+          {isLoading ? t("inProgress") : tc("save")}
         </Button>
 
         {onClose && (
@@ -218,7 +221,7 @@ function VoieEditor({
             display="inline-flex"
             onClick={onFormCancel}
           >
-            Cancel
+            {tc("cancel")}
           </Button>
         )}
       </Pane>

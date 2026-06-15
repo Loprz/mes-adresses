@@ -7,6 +7,7 @@ import {
   Paragraph,
   Strong,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import ProgressBar from "@/components/progress-bar";
 import Counter from "@/components/counter";
@@ -33,6 +34,7 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
   const percentCertified =
     nbNumeros > 0 ? Math.floor((nbNumerosCertifies * 100) / nbNumeros) : 0;
 
+  const t = useTranslations("panels");
   const [isActive, setIsActive] = useState(false);
   const { setTileLayersMode } = useContext(MapContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
@@ -60,11 +62,11 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
             <Pane display="flex" alignItems="center" gap={16}>
               <AchievementBadge
                 icone="/static/images/achievements/100-certified.svg"
-                title="Publication"
+                title={t("badgeTitle")}
                 completed={isCompleted}
               />
               <Heading color={isCompleted && defaultTheme.colors.green700}>
-                Certification
+                {t("certification")}
               </Heading>
             </Pane>
             {!isCompleted ? (
@@ -72,12 +74,12 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
                 <ProgressBar percent={percentCertified} />
                 <Pane display="flex" justifyContent="center">
                   <Counter
-                    label="Certified addresses"
+                    label={t("certifiedAddresses")}
                     value={nbNumerosCertifies}
                     color={defaultTheme.colors.green500}
                   />
                   <Counter
-                    label="Uncertified addresses"
+                    label={t("uncertifiedAddresses")}
                     value={nbNumeros - nbNumerosCertifies}
                     color={defaultTheme.colors.gray500}
                   />
@@ -85,7 +87,7 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
               </Pane>
             ) : (
               <Pane marginTop={16} width="100%">
-                <Text>All addresses are certified by the jurisdiction</Text>
+                <Text>{t("certComplete")}</Text>
               </Pane>
             )}
           </Pane>
@@ -99,15 +101,18 @@ function CertificationGoal({ baseLocale }: CertificationGoalProps) {
       >
         <Pane padding={8}>
           <Paragraph>
-            <a
-              href="https://nationaladdressplatform.us/guide/certification"
-              target="_blank"
-              rel="noreferrer"
-            >
-              certification
-            </a>{" "}
-            helps you <Strong>track address reliability progress</Strong> and{" "}
-            <Strong>highlight your work</Strong> for data consumers.
+            {t.rich("certHelp", {
+              link: (chunks) => (
+                <a
+                  href="https://nationaladdressplatform.us/guide/certification"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {chunks}
+                </a>
+              ),
+              s: (chunks) => <Strong>{chunks}</Strong>,
+            })}
           </Paragraph>
         </Pane>
       </AccordionCard>

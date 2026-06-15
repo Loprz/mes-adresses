@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pane, Button, toaster } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import usePublishProcess from "@/hooks/publish-process";
 
@@ -35,6 +36,8 @@ function BALStatus({
   handleHabilitation,
   reloadBaseLocale,
 }: BALStatusProps) {
+  const t = useTranslations("balStatus");
+  const tc = useTranslations("common");
   const [isHabilitationValid, setIsHabilitationValid] = useState<
     boolean | null
   >(null);
@@ -58,13 +61,9 @@ function BALStatus({
   const handlePause = async () => {
     try {
       await BasesLocalesService.pauseBaseLocale(baseLocale.id);
-      toaster.success(
-        "Automatic updates to the National Address Platform have been paused"
-      );
+      toaster.success(t("pausedSuccess"));
     } catch (error: unknown) {
-      toaster.danger(
-        "Unable to pause updates to the National Address Platform",
-        {
+      toaster.danger(t("pauseError"), {
           description: (error as any).body.message,
         }
       );
@@ -75,13 +74,9 @@ function BALStatus({
   const handleResumeSync = async () => {
     try {
       await BasesLocalesService.resumeBaseLocale(baseLocale.id);
-      toaster.success(
-        "Automatic updates to the National Address Platform have resumed"
-      );
+      toaster.success(t("resumedSuccess"));
     } catch (error: unknown) {
-      toaster.danger(
-        "Unable to resume automatic updates to the National Address Platform",
-        {
+      toaster.danger(t("resumeError"), {
           description: (error as any).body.message,
         }
       );
@@ -125,7 +120,7 @@ function BALStatus({
                   appearance="primary"
                   onClick={handleShowHabilitationProcess}
                 >
-                  Renew authorization
+                  {t("renewAuthorization")}
                 </Button>
               )}
             {baseLocale.status === ExtendedBaseLocaleDTO.status.DRAFT && (
@@ -135,7 +130,7 @@ function BALStatus({
                 appearance="primary"
                 onClick={handleHabilitation}
               >
-                Publish
+                {tc("publish")}
               </Button>
             )}
           </>

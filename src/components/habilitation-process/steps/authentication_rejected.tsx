@@ -1,4 +1,5 @@
 import { Alert, Button, Pane, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { StrategyDTO } from "@/lib/openapi-api-bal";
 
 interface AuthenticationRejectedStepProps {
@@ -8,22 +9,22 @@ interface AuthenticationRejectedStepProps {
 }
 
 function AuthenticationRejectedStep({
-  communeName,
   strategyType,
   handleClose,
 }: AuthenticationRejectedStepProps) {
+  const t = useTranslations("authRejected");
+  const tc = useTranslations("common");
   return (
     <Pane display="flex" flexDirection="column" gap={16}>
-      <Alert intent="danger" title="Your authorization request has been rejected">
+      <Alert intent="danger" title={t("title")}>
         <Text>
-          {strategyType === StrategyDTO.type.EMAIL &&
-            "You have exceeded the maximum number of allowed attempts."}
+          {strategyType === StrategyDTO.type.EMAIL && t("maxAttempts")}
         </Text>
       </Alert>
 
       <Pane display="flex" flexDirection="row" justifyContent="end" gap={16}>
         <Button intent="primary" onClick={handleClose}>
-          Close
+          {tc("close")}
         </Button>
       </Pane>
     </Pane>

@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useState } from "react";
 import { Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import {
   BasesLocalesService,
@@ -23,6 +24,7 @@ interface PanelGoalProps {
 }
 
 function PanelGoal({ commune, onEditNomsAlt }: PanelGoalProps) {
+  const t = useTranslations("panels");
   const { baseLocale, reloadBaseLocale } = useContext(BalDataContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
   const { settings } = baseLocale;
@@ -51,7 +53,7 @@ function PanelGoal({ commune, onEditNomsAlt }: PanelGoalProps) {
           <CertificationGoal baseLocale={baseLocale} />
           {(!settings.toponymeGoalIgnored || !settings.languageGoalIgnored) && (
             <AccordionSimple
-              title="Objectifs secondaires"
+              title={t("secondaryGoals")}
               isActive={isActive}
               onClick={() => setIsActive(!isActive)}
             >

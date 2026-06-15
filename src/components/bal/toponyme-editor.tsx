@@ -1,6 +1,7 @@
 import { useState, useMemo, useContext, useCallback, useEffect } from "react";
 import { xor } from "lodash";
 import { Pane, Button } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import BalDataContext from "@/contexts/bal-data";
 import MarkersContext from "@/contexts/markers";
@@ -46,6 +47,8 @@ function ToponymeEditor({
   onSubmit,
   refs,
 }: ToponymeEditorProps) {
+  const t = useTranslations("editorForm");
+  const tc = useTranslations("common");
   const [isLoading, setIsLoading] = useState(false);
   const [communeDeleguee, setCommuneDeleguee] = useState(
     initialValue ? initialValue.communeDeleguee : ""
@@ -119,8 +122,8 @@ function ToponymeEditor({
         const submit = initialValue
           ? toaster(
               () => ToponymesService.updateToponyme(initialValue.id, body),
-              "The place name has been updated",
-              "The place name could not be updated",
+              t("placeNameUpdated"),
+              t("placeNameUpdateError"),
               (error) => {
                 setValidationMessages(error.body.message);
               }
@@ -134,8 +137,8 @@ function ToponymeEditor({
                 await updateNumerosToponyme(toponyme.id);
                 return toponyme;
               },
-              "The place name has been added",
-              "The place name could not be added",
+              t("placeNameAdded"),
+              t("placeNameAddError"),
               (error) => {
                 setValidationMessages(error.body.message);
               }
@@ -178,6 +181,7 @@ function ToponymeEditor({
       updateNumerosToponyme,
       reloadTiles,
       onSubmit,
+      t,
     ]
   );
 
@@ -191,11 +195,11 @@ function ToponymeEditor({
 
   const submitLabel = useMemo(() => {
     if (isLoading) {
-      return "In progress…";
+      return t("inProgress");
     }
 
-    return "Save";
-  }, [isLoading]);
+    return tc("save");
+  }, [isLoading, t, tc]);
 
   useEffect(() => {
     const { nom } = initialValue || {};
@@ -205,17 +209,15 @@ function ToponymeEditor({
 
   useEffect(() => {
     if (markers.length > 1) {
-      setHint(
-        "Drag the markers on the map to modify positions"
-      );
+      setHint(t("dragMarkers"));
     } else {
-      setHint("Drag the marker on the map to position the place name");
+      setHint(t("dragMarkerToponyme"));
     }
 
     return () => {
       setHint(null);
     };
-  }, [markers, setHint]);
+  }, [markers, setHint, t]);
 
   return (
     <Form
@@ -229,8 +231,8 @@ function ToponymeEditor({
             forwadedRef={ref}
             exitFocus={() => setIsFocus(false)}
             isDisabled={isLoading}
-            label="Place name"
-            placeholder="Place name"
+            label={t("placeName")}
+            placeholder={t("placeName")}
             value={nom}
             onChange={onNomChange}
             validationMessage={getValidationMessage("voie_nom")}
@@ -250,7 +252,7 @@ function ToponymeEditor({
               selectedCodeCommune={communeDeleguee}
               setSelectedCodeCommune={setCommuneDeleguee}
               withOptionNull={true}
-              label="Sub-jurisdiction"
+              label={t("subJurisdiction")}
             />
           </FormInput>
         )}
@@ -282,7 +284,7 @@ function ToponymeEditor({
             />
           </FormInput>
         ) : (
-          <DisabledFormInput label="Parcels" />
+          <DisabledFormInput label={t("parcels")} />
         )}
       </Pane>
 
@@ -312,7 +314,7 @@ function ToponymeEditor({
           onClick={onFormCancel}
           boxShadow="0 0 1px rgba(67, 90, 111, 0.3), 0 5px 8px -4px rgba(67, 90, 111, 0.47)"
         >
-          Cancel
+          {tc("cancel")}
         </Button>
       </Pane>
     </Form>

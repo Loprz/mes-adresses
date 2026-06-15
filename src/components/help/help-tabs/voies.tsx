@@ -14,6 +14,7 @@ import {
   TrashIcon,
   KeyTabIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import Tuto from "@/components/help/tuto";
 import SubTuto from "@/components/help/tuto/sub-tuto";
@@ -25,173 +26,164 @@ import {
   PEERTUBE_LINK,
 } from "@/components/help/video-container";
 
-const before = (
-  <Paragraph marginTop="default">
-    Display the list of streets for a jurisdiction by clicking on its name
-    in the upper left of your screen.
-  </Paragraph>
-);
-
 function Voies() {
+  const t = useTranslations("helpVoies");
+  const strong = (chunks: React.ReactNode) => (
+    <Strong size={500} fontStyle="italic">
+      {chunks}
+    </Strong>
+  );
+  const before = (
+    <Paragraph marginTop="default">{t("beforeIntro")}</Paragraph>
+  );
+
   return (
     <Pane>
       <VideoContainer
-        title="Creating / Editing a street:"
+        title={t("videoTitle")}
         link={`${PEERTUBE_LINK}/w/v2caTXtfYkvg6wUELBvLs2`}
       />
-      <Tuto title="Add a street">
+      <Tuto title={t("addTuto")}>
         {before}
         <OrderedList margin={8}>
           <ListItem>
-            Click the button
+            {t("addStep1Pre")}
             <Button
               iconBefore={AddIcon}
               marginX={4}
               appearance="primary"
               intent="success"
             >
-              Add a street
+              {t("addStreetButton")}
             </Button>
           </ListItem>
+          <ListItem>{t.rich("addStep2", { s: strong })}</ListItem>
           <ListItem>
-            Enter the name of the street you want to create in the field{" "}
-            <Strong size={500} fontStyle="italic">
-              Street name...
-            </Strong>
-          </ListItem>
-          <ListItem>
-            To finish, click on the button{" "}
+            {t("addStep3Pre")}{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Add
+              {t("addButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Rename a street">
+      <Tuto title={t("renameTuto")}>
         {before}
 
         <OrderedList margin={8}>
-          <ListItem>Click on the street name</ListItem>
-          <ListItem>Edit the street name</ListItem>
+          <ListItem>{t("renameStep1")}</ListItem>
+          <ListItem>{t("renameStep2")}</ListItem>
           <ListItem>
-            To finish, click on{" "}
+            {t("renameStep3Pre")}{" "}
             <Button marginX={4} appearance="primary" intent="success">
-              Save
+              {t("saveButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="View a street">
+      <Tuto title={t("viewTuto")}>
         {before}
 
-        <SubTuto title="From the sidebar" icon={ColumnLayoutIcon}>
+        <SubTuto title={t("fromSidebar")} icon={ColumnLayoutIcon}>
           <OrderedList margin={8}>
             <ListItem>
-              Click on the button{" "}
+              {t("viewSidebarStep1Pre")}{" "}
               <Button
                 background="tint1"
                 iconBefore={MoreIcon}
                 appearance="minimal"
               />{" "}
-              to the right of the street name
+              {t("viewSidebarStep1Post")}
             </ListItem>
             <ListItem>
               <Pane display="flex" alignItems="center">
-                In the menu that appeared, choose
+                {t("viewSidebarStep2Pre")}
                 <Menu.Item
                   background="tint1"
                   marginLeft={8}
                   icon={SendToMapIcon}
                 >
-                  View
+                  {t("viewMenuItem")}
                 </Menu.Item>
               </Pane>
             </ListItem>
           </OrderedList>
         </SubTuto>
 
-        <SubTuto title="From the map" icon={MapIcon}>
+        <SubTuto title={t("fromMap")} icon={MapIcon}>
           <OrderedList margin={8}>
-            <ListItem>
-              Click on the street name or on one of its numbers
-            </ListItem>
+            <ListItem>{t("viewMapStep1")}</ListItem>
           </OrderedList>
         </SubTuto>
       </Tuto>
 
-      <Tuto title="Delete a street">
+      <Tuto title={t("deleteTuto")}>
         {before}
 
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button{" "}
+            {t("deleteStep1Pre")}{" "}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />{" "}
-            located to the right of the street name
+            {t("deleteStep1Post")}
           </ListItem>
           <ListItem>
             <Pane display="flex" alignItems="center">
-              In the menu that just appeared, choose
+              {t("deleteStep2Pre")}
               <Menu.Item
                 background="tint1"
                 marginLeft={8}
                 icon={TrashIcon}
                 intent="danger"
               >
-                Delete...
+                {t("deleteMenuItem")}
               </Menu.Item>
             </Pane>
           </ListItem>
           <ListItem>
-            To finish, confirm your choice by clicking{" "}
+            {t("deleteStep3Pre")}{" "}
             <Button marginX={4} intent="danger" appearance="primary">
-              Delete
+              {t("deleteButton")}
             </Button>
           </ListItem>
         </OrderedList>
       </Tuto>
 
-      <Tuto title="Convert a street to a place name">
+      <Tuto title={t("convertTuto")}>
         {before}
-        <Paragraph marginTop="default">
-          You can convert a street to a place name if the street does not
-          contain any numbers.
-        </Paragraph>
+        <Paragraph marginTop="default">{t("convertIntro")}</Paragraph>
         <OrderedList margin={8}>
           <ListItem>
-            Click on the button
+            {t("convertStep1Pre")}
             <Button
               background="tint1"
               iconBefore={MoreIcon}
               appearance="minimal"
             />
-            located to the right of the street name
+            {t("convertStep1Post")}
           </ListItem>
           <ListItem>
-            In the menu that just appeared, choose
+            {t("convertStep2Pre")}
             <Button iconBefore={KeyTabIcon} marginX={4}>
-              Convert to place name
+              {t("convertButton")}
             </Button>
           </ListItem>
           <ListItem>
-            To finish, confirm your choice by clicking on
+            {t("convertStep3Pre")}
             <Button marginX={4} appearance="primary">
-              Confirm
+              {t("confirmButton")}
             </Button>
           </ListItem>
-          <ListItem>
-            You will be redirected to editing the new place name
-          </ListItem>
+          <ListItem>{t("convertStep4")}</ListItem>
         </OrderedList>
       </Tuto>
 
       <Problems>
-        <Unauthorized title="I can't add/delete a street" />
+        <Unauthorized title={t("unauthorizedTitle")} />
         <Sidebar />
       </Problems>
     </Pane>

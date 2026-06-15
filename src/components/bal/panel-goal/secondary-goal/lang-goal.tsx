@@ -9,6 +9,7 @@ import {
   IconButton,
 } from "evergreen-ui";
 import { useContext, useState } from "react";
+import { useTranslations } from "next-intl";
 import languesRegionales from "@ban-team/shared-data/langues-regionales.json";
 
 import BalDataContext from "@/contexts/bal-data";
@@ -28,6 +29,7 @@ interface LangGoalProps {
 }
 
 function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
+  const t = useTranslations("panels");
   const [isActive, setIsActive] = useState(false);
   const { voies, toponymes } = useContext(BalDataContext);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
@@ -70,17 +72,17 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
               <Pane display="flex" alignItems="center" gap={16}>
                 <AchievementBadge
                   icone="/static/images/achievements/regional-language.svg"
-                  title="Regional Language Badge"
+                  title={t("regionalLanguageBadge")}
                   completed={isCompleted}
                 />
                 <Heading color={isCompleted && defaultTheme.colors.green700}>
-                  Regional Language
+                  {t("regionalLanguage")}
                 </Heading>
               </Pane>
               {!hasLangRegional && (
                 <IconButton
                   icon={TrashIcon}
-                  title="Remove goal"
+                  title={t("removeGoal")}
                   appearance="minimal"
                   intent="danger"
                   onClick={onIgnoreGoal}
@@ -90,30 +92,23 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
             {hasLangRegional ? (
               <Pane display="flex" justifyContent="center">
                 <Counter
-                  label={`street${nbWithLang > 1 ? "s" : ""}, place${
-                    nbWithLang > 1 ? "s" : ""
-                  } or place name${nbWithLang > 1 ? "s" : ""} multilingual${
-                    nbWithLang > 1 ? "s" : ""
-                  }`}
+                  label={t("multilingualCount", { count: nbWithLang })}
                   value={nbWithLang}
                   color={defaultTheme.colors.blue700}
                 />
               </Pane>
             ) : (
               <Pane marginTop={16}>
-                <Paragraph>
-                  For multilingual addressing, start by entering the name
-                  of the jurisdiction in the regional language
-                </Paragraph>
+                <Paragraph>{t("langIntro")}</Paragraph>
                 <Button
                   marginTop={16}
-                  title="Edit the jurisdiction regional language name"
+                  title={t("editJurisdictionNameTitle")}
                   appearance="primary"
                   intent="success"
                   width="100%"
                   onClick={onEditNomsAlt}
                 >
-                  Edit the jurisdiction name <EditIcon marginLeft={8} />
+                  {t("editJurisdictionName")} <EditIcon marginLeft={8} />
                 </Button>
               </Pane>
             )}
@@ -129,9 +124,9 @@ function LangGoal({ baseLocale, onEditNomsAlt, onIgnoreGoal }: LangGoalProps) {
         {hasLangRegional && (
           <Pane padding={8}>
             <Paragraph marginBottom={8}>
-              Showcase your linguistic heritage by entering your
-              street, place, and place name labels
-              {langueRegional && ` en ${langueRegional}`}
+              {t("langShowcase")}
+              {langueRegional &&
+                ` ${t("inLanguage", { language: langueRegional })}`}
             </Paragraph>
           </Pane>
         )}

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { sortBy } from "lodash";
 import { Table, AddIcon, TrashIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { normalizeSort } from "@/lib/normalize";
 
@@ -26,8 +27,9 @@ function ItemsListDelete({
   onRemove,
   onRemoveNumeros,
 }: ItemsListDeleteProps) {
+  const t = useTranslations("trash");
+  const tc = useTranslations("common");
   const [filtered, setFilter] = useFuse(itemsDeleted, 200, fuseOptions);
-  const modelLabel = model === "street" ? "street" : "place name";
 
   const scrollableItems = useMemo(
     () => sortBy(filtered, (v) => normalizeSort(v.nom)),
@@ -40,15 +42,15 @@ function ItemsListDelete({
         label:
           model === "street"
             ? item.deletedAt
-              ? "Restore street"
-              : "View number(s)"
-            : "Restore place name",
+              ? t("restoreStreet")
+              : t("viewNumbers")
+            : t("restorePlaceName"),
         callback: () => onRestore(item),
         icon: AddIcon,
         intent: "none",
       },
       {
-        label: "Delete",
+        label: tc("delete"),
         callback: () =>
           item.deletedAt ? onRemove(item) : onRemoveNumeros(item),
         icon: TrashIcon,
@@ -61,16 +63,13 @@ function ItemsListDelete({
   const complement = (item) => {
     if (model === "street" && item.numeros) {
       if (item.deletedAt) {
-        return (
-          "street" +
-          (item.numeros.length > 0
-            ? " and " + item.numeros.length + " number(s) deleted"
-            : "")
-        );
+        return item.numeros.length > 0
+          ? t("complementStreetWithNumbers", { count: item.numeros.length })
+          : t("complementStreet");
       }
 
       return item.numeros.length > 0
-        ? item.numeros.length + " number(s) deleted"
+        ? t("complementNumbersDeleted", { count: item.numeros.length })
         : "";
     }
 
@@ -81,7 +80,9 @@ function ItemsListDelete({
     <Table display="flex" flex={1} flexDirection="column" overflowY="auto">
       <Table.Head>
         <Table.SearchHeaderCell
-          placeholder={`Search for a ${modelLabel}`}
+          placeholder={
+            model === "street" ? t("searchStreet") : t("searchPlaceName")
+          }
           onChange={setFilter}
         />
       </Table.Head>
@@ -89,7 +90,7 @@ function ItemsListDelete({
       {filtered.length === 0 && (
         <Table.Row>
           <Table.TextCell color="muted" fontStyle="italic">
-            No results
+            {t("noResults")}
           </Table.TextCell>
         </Table.Row>
       )}

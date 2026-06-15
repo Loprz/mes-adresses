@@ -1,4 +1,5 @@
 import { Pane, Heading, Strong, Text, Link } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import styles from "./button-pro-connect.module.css";
 
 interface ProConnectProps {
@@ -6,11 +7,12 @@ interface ProConnectProps {
 }
 
 function ProConnect({ handleStrategy }: ProConnectProps) {
+  const t = useTranslations("proConnect");
   return (
     <>
       <Pane>
         <Heading is="h5" height={60} textAlign="center">
-          Use your ProConnect account
+          {t("useAccount")}
         </Heading>
       </Pane>
       <Pane
@@ -25,9 +27,7 @@ function ProConnect({ handleStrategy }: ProConnectProps) {
           style={{ cursor: "pointer" }}
           onClick={handleStrategy}
         >
-          <span className={styles["proconnect-sr-only"]}>
-            Sign in with ProConnect
-          </span>
+          <span className={styles["proconnect-sr-only"]}>{t("signIn")}</span>
         </button>
       </Pane>
       <Link
@@ -36,9 +36,7 @@ function ProConnect({ handleStrategy }: ProConnectProps) {
         rel="noopener noreferrer"
       >
         <Text textDecoration="underline">
-          <Strong>
-            What is ProConnect and how do I use it? Open the tutorial
-          </Strong>
+          <Strong>{t("tutorial")}</Strong>
         </Text>
       </Link>
     </>

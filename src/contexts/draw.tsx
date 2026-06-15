@@ -11,6 +11,7 @@ import React, {
 } from "react";
 import length from "@turf/length";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import MapContext from "./map";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import { defaultTheme } from "evergreen-ui";
@@ -107,6 +108,7 @@ export enum DrawMode {
 }
 
 export function DrawContextProvider(props: ChildrenProps) {
+  const t = useTranslations("draw");
   const [drawMode, setDrawMode] = useState<DrawMode | null>(null);
   const [hint, setHint] = useState<string | null>(null);
   const [data, setData] = useState<GeoJSON.Feature<LineString> | null>(null);
@@ -163,41 +165,31 @@ export function DrawContextProvider(props: ChildrenProps) {
         case DrawMode.RULER:
           if (!data) {
             draw.changeMode("draw_line_string");
-            setHint(
-              "Click on the map to measure a distance. Double-click to finish."
-            );
+            setHint(t("rulerHint"));
           } else {
             draw.changeMode("direct_select", { featureId: data.id });
             const lineLength = length(data, { units: "meters" });
-            setHint(`Length: ${Math.round(lineLength)} m`);
+            setHint(t("length", { length: Math.round(lineLength) }));
           }
           break;
         case DrawMode.DRAW_NUMEROS_TO_TOPONYME_POLYGONE:
           draw.changeMode("draw_polygon");
           if (!data) {
-            setHint(
-              "Click on the map to start the polygon, then add new points to draw your polygon. When finished, click the last point to close the polygon."
-            );
+            setHint(t("polygonStartHint"));
           } else {
             draw.changeMode("direct_select", { featureId: data.id });
-            setHint(
-              "You can edit the polygon by dragging points or adding new points by clicking on the polygon outline."
-            );
+            setHint(t("polygonEditHint"));
           }
           break;
         case DrawMode.DRAW_METRIC_VOIE:
           if (!data) {
             draw.deleteAll();
             draw.changeMode("draw_line_string");
-            setHint(
-              "Click on the map to start the street, then add new points to draw your street. When finished, click the last point to end the street."
-            );
+            setHint(t("streetStartHint"));
           } else {
             const featureId = data.id || draw.add(data)[0];
             draw.changeMode("direct_select", { featureId });
-            setHint(
-              "You can edit the path by dragging points or adding new points by clicking on the path."
-            );
+            setHint(t("streetEditHint"));
           }
           break;
         default:
@@ -210,7 +202,7 @@ export function DrawContextProvider(props: ChildrenProps) {
       setHint(null);
       setData(null);
     }
-  }, [drawMode, data, isMapLoaded]);
+  }, [drawMode, data, isMapLoaded, t]);
 
   const value = useMemo(
     () => ({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext } from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   SideSheet,
@@ -19,6 +20,7 @@ import HelpTabs, { TABS } from "@/components/help/help-tabs";
 import LayoutContext from "@/contexts/layout";
 
 function Help() {
+  const t = useTranslations("helpCommon");
   const { isMobile } = useContext(LayoutContext);
   const { showHelp, setShowHelp, selectedIndex, setSelectedIndex } =
     useContext(HelpContext);
@@ -36,7 +38,7 @@ function Help() {
     >
       <Pane zIndex={1} flexShrink={0} elevation={0} backgroundColor="white">
         <Pane padding={16} borderBottom="muted">
-          <Heading size={600}>Need help?</Heading>
+          <Heading size={600}>{t("needHelp")}</Heading>
         </Pane>
         <Pane display="flex" padding={8}>
           <Tablist>
@@ -46,7 +48,7 @@ function Help() {
                 isSelected={selectedIndex === index}
                 onSelect={() => setSelectedIndex(index)}
               >
-                {tab}
+                {t(tab)}
               </Tab>
             ))}
           </Tablist>
@@ -58,16 +60,17 @@ function Help() {
       </Pane>
 
       <Pane padding={16} background="tint2" elevation={1}>
-        <Heading>Didn't find the solution to your problem?</Heading>
+        <Heading>{t("notFound")}</Heading>
         <Paragraph>
           <Link target="_blank" href="https://doc.adresse.data.gouv.fr/">
-            Check the addressing guides
+            {t("checkGuides")}
           </Link>
         </Paragraph>
-        <Paragraph>or</Paragraph>
+        <Paragraph>{t("or")}</Paragraph>
         <Paragraph>
-          Contact us at{" "}
-          <a href="mailto:support@nap.us.gov">support@nap.us.gov</a>
+          {t.rich("contactUs", {
+            link: (chunks) => <a href="mailto:support@nap.us.gov">{chunks}</a>,
+          })}
         </Paragraph>
       </Pane>
       {isMobile && (

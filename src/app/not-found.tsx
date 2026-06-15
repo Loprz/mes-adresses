@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Button,
@@ -11,6 +12,7 @@ import {
 } from "evergreen-ui";
 
 export default function NotFound() {
+  const t = useTranslations("notFound");
   return (
     <>
       <Pane
@@ -29,10 +31,10 @@ export default function NotFound() {
           color="#101840"
         />
         <Heading size={800} marginBottom="2em">
-          Error 404 - Page not found
+          {t("title")}
         </Heading>
         <Button iconBefore={ArrowLeftIcon} is={Link} href="/">
-          Back to home page
+          {t("backHome")}
         </Button>
       </Pane>
     </>

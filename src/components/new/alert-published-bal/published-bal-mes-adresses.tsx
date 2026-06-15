@@ -1,6 +1,7 @@
 import { Revision } from "@/lib/api-depot/types";
 import { CommuneType } from "@/types/commune";
 import { Button, Pane, Paragraph } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import NextLink from "next/link";
 
 interface PublishedBALMesAdressesProps {
@@ -14,17 +15,15 @@ function PublishedBALMesAdresses({
   commune,
   buttonPosition = "left",
 }: PublishedBALMesAdressesProps) {
+  const t = useTranslations("publishConflict");
   const publishedBALId = revision.context?.extras?.balId || null;
 
   return (
     <Pane marginLeft={35}>
       <Paragraph marginTop={8}>
-        A Local Address Base is already published for {commune.nom}.
+        {t("publishedForJurisdiction", { communeName: commune.nom })}
       </Paragraph>
-      <Paragraph marginTop={8}>
-        If you manage this jurisdiction, it is usually better to continue from
-        the published LAB rather than replace it with a separate draft.
-      </Paragraph>
+      <Paragraph marginTop={8}>{t("continueFromPublished")}</Paragraph>
       <Pane
         display="flex"
         justifyContent={buttonPosition === "left" ? "start" : "end"}
@@ -37,7 +36,7 @@ function PublishedBALMesAdresses({
           target="_blank"
           href={`${process.env.NEXT_PUBLIC_EDITEUR_URL}/bal/${publishedBALId}`}
         >
-          Open the published Local Address Base
+          {t("openPublished")}
         </Button>
       </Pane>
     </Pane>

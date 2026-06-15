@@ -1,10 +1,12 @@
 import { Heading, Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface ProblemsProps {
   children: React.ReactNode;
 }
 
 function Problems({ children }: ProblemsProps) {
+  const t = useTranslations("helpCommon");
   return (
     <Pane
       borderLeft="default"
@@ -14,7 +16,7 @@ function Problems({ children }: ProblemsProps) {
       display="flex"
       flexDirection="column"
     >
-      <Heading is="h2">Having a problem?</Heading>
+      <Heading is="h2">{t("havingProblem")}</Heading>
       <Pane margin={8}>{children}</Pane>
     </Pane>
   );

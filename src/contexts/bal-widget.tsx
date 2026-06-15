@@ -3,6 +3,7 @@
 import { ApiBalAdminService } from "@/lib/bal-admin";
 import { Pane } from "evergreen-ui";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -46,6 +47,7 @@ interface BALWidgetProviderProps {
 const visibleOnPages = ["/", "/new", "/accessibilite", "/mentions-legales"];
 
 export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
+  const t = useTranslations("balWidget");
   const balWidgetRef = useRef<HTMLIFrameElement>(null);
   const transitionTimeout = useRef<NodeJS.Timeout>(undefined);
   const [isWidgetDisplayed, setIsWidgetDisplayed] = useState(false);
@@ -214,7 +216,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           is="iframe"
           ref={balWidgetRef}
           src={widgetUrl || undefined}
-          title="LAB Widget"
+          title={t("title")}
           position="fixed"
           bottom={40}
           right={40}

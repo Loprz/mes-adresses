@@ -1,4 +1,5 @@
 import { Tooltip, Button, ControlIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { PARCELS_AVAILABLE } from "@/components/map/layers/parcels";
 
 interface ParcelControlProps {
@@ -10,28 +11,26 @@ function ParcelControl({
   isParcelsDisplayed,
   onClick,
 }: ParcelControlProps) {
+  const t = useTranslations("mapControls");
+  const parcelLabel = isParcelsDisplayed
+    ? t("hideParcelData")
+    : t("showParcelData");
   return PARCELS_AVAILABLE ? (
-    <Tooltip
-      content={
-        isParcelsDisplayed ? "Hide parcel data" : "Show parcel data"
-      }
-    >
+    <Tooltip content={parcelLabel}>
       <Button
         style={{ padding: ".8em" }}
         onClick={onClick}
-        title={
-          isParcelsDisplayed ? "Hide parcel data" : "Show parcel data"
-        }
+        title={parcelLabel}
       >
         <ControlIcon color={isParcelsDisplayed ? "selected" : "muted"} />
       </Button>
     </Tooltip>
   ) : (
-    <Tooltip content="Parcel data is not configured — set NEXT_PUBLIC_PARCEL_TILES_URL">
+    <Tooltip content={t("parcelNotConfigured")}>
       <Button
         style={{ padding: ".8em" }}
         cursor="not-allowed"
-        title="Parcel data is not available"
+        title={t("parcelNotAvailable")}
       >
         <ControlIcon color="muted" />
       </Button>

@@ -1,4 +1,5 @@
 import { Alert, Dialog, MobilePhoneIcon, Pane, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import ShareClipBoard from "./share-clipboard";
 import ShareQRCode from "./share-qr-code";
 import { BaseLocale } from "@/lib/openapi-api-bal";
@@ -19,12 +20,13 @@ export function ShareBALAccessDialog({
   token,
   onCloseComplete,
 }: ShareEmailsDialogProps) {
+  const t = useTranslations("settings");
   const urlAdminBal = `${EDITEUR_URL}/bal/${baseLocale.id}/${token}`;
 
   return (
     <Dialog
       isShown={isShown}
-      title="Share access with other devices"
+      title={t("shareAccessTitle")}
       hasFooter={false}
       onCloseComplete={onCloseComplete}
     >
@@ -35,10 +37,7 @@ export function ShareBALAccessDialog({
         <Alert intent="success" marginTop={12} hasIcon={false}>
           <Pane display="flex" alignItems="center">
             <MobilePhoneIcon size={24} marginRight={8} />
-            <Text>
-              My Addresses also works on your phone. Scan the QR code
-              to access your LAB.
-            </Text>
+            <Text>{t("worksOnPhone")}</Text>
           </Pane>
         </Alert>
       </Pane>

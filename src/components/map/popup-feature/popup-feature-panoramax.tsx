@@ -1,5 +1,6 @@
 import ResponsiveImage from "@/components/responsive-image";
 import { Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface PopupFeaturePanoramaxProps {
   feature: {
@@ -10,10 +11,11 @@ interface PopupFeaturePanoramaxProps {
 }
 
 function PopupFeaturePanoramax({ feature }: PopupFeaturePanoramaxProps) {
+  const t = useTranslations("mapPopup");
   return (
     <Pane>
       <ResponsiveImage
-        alt="Panoramax picture thumbnail"
+        alt={t("panoramaxThumbAlt")}
         src={`${process.env.NEXT_PUBLIC_PANORAMAX_API_ENDPOINT}/api/pictures/${feature.properties.id}/thumb.jpg`}
       />
     </Pane>

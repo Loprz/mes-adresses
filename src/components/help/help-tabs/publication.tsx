@@ -12,6 +12,7 @@ import {
   UploadIcon,
   EditIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import StatusBadge from "@/components/status-badge";
 import Tuto from "@/components/help/tuto";
@@ -24,70 +25,64 @@ import {
 import { BaseLocale, BaseLocaleSync } from "@/lib/openapi-api-bal";
 
 function Publication() {
+  const t = useTranslations("helpPublication");
+  const tc = useTranslations("helpCommon");
   return (
     <Pane>
       <VideoContainer
-        title="Publishing your Local Address Base:"
+        title={t("videoTitle")}
         link={`${PEERTUBE_LINK}/w/oMKnhiVycDTjddCBXZuYMB`}
       />
-      <Tuto title="Publish your Local Address Base">
+      <Tuto title={t("publishTuto")}>
         <OrderedList margin={8}>
           <ListItem>
             <Paragraph>
-              Click the button
+              {t("publishStep1Pre")}
               <Button marginX={4} height={24} appearance="primary">
-                Publish
+                {t("publishButton")}
               </Button>
             </Paragraph>
           </ListItem>
 
           <ListItem>
-            <Paragraph>
-              Authenticate via your local government's official email or your
-              ProConnect account
-            </Paragraph>
+            <Paragraph>{t("publishStep2")}</Paragraph>
           </ListItem>
 
           <ListItem>
-            Once authorization is obtained, you will be automatically invited to
-            publish your Local Address Base by clicking
+            {t("publishStep3Pre")}
             <Button
               marginX={4}
               height={24}
               appearance="primary"
               intent="success"
             >
-              Publish
+              {t("publishButton")}
             </Button>
           </ListItem>
         </OrderedList>
-        <Alert title="In case of conflict">
+        <Alert title={t("conflictTitle")}>
           <Text display="block" color="muted">
-            If another Local Address Base is already published for this
-            jurisdiction, your LAB will not become the current published LAB
-            until you replace it.
+            {t("conflictText1")}
           </Text>
           <Text display="block" marginTop={8} color="muted">
-            If you already manage the published LAB, it is usually better to
-            continue from that one instead of replacing it.
+            {t("conflictText2")}
           </Text>
           <Text display="block" marginTop={8} color="muted">
-            By clicking
+            {t("conflictText3Pre")}
             <Button
               appearance="primary"
               intent="danger"
               height={24}
               marginX={4}
             >
-              Force publication
+              {t("forcePublishButton")}
             </Button>
-            your Local Address Base will become the current published LAB and
-            replace the one currently in place.
+            {t("conflictText3Post")}
           </Text>
         </Alert>
       </Tuto>
 
-      <Tuto title="Synchronization statuses">
+      <Tuto title={t("syncTuto")}>
         <Pane display="flex" flexDirection="column" gap={16} marginTop={8}>
           <Pane display="grid" gridTemplateColumns="160px 1fr" gap={8}>
             <Pane height={32} marginTop={4}>
@@ -97,10 +92,7 @@ function Publication() {
                 isHabilitationValid={true}
               />
             </Pane>
-            <Text>
-              Your Local Address Base is up to date with the National Address
-              Platform. All its addresses are accounted for.
-            </Text>
+            <Text>{t("syncSynced")}</Text>
           </Pane>
 
           <Pane display="grid" gridTemplateColumns="160px 1fr" gap={8}>
@@ -114,10 +106,7 @@ function Publication() {
                 isHabilitationValid={true}
               />
             </Pane>
-            <Text>
-              Changes have been detected and will be automatically reflected in
-              the National Address Platform within the next few hours.
-            </Text>
+            <Text>{t("syncOutdated")}</Text>
           </Pane>
 
           <Pane display="grid" gridTemplateColumns="160px 1fr" gap={8}>
@@ -128,11 +117,7 @@ function Publication() {
                 isHabilitationValid={true}
               />
             </Pane>
-            <Text>
-              You have paused updates for your Local Address Base. No changes
-              will be sent to the National Address Platform. You can resume
-              updates at any time.
-            </Text>
+            <Text>{t("syncPaused")}</Text>
           </Pane>
 
           <Pane display="grid" gridTemplateColumns="160px 1fr" gap={8}>
@@ -146,11 +131,7 @@ function Publication() {
                 isHabilitationValid={true}
               />
             </Pane>
-            <Text>
-              A different Local Address Base is currently published for this
-              jurisdiction. Automatic updates from this LAB are blocked until
-              you take over publication.
-            </Text>
+            <Text>{t("syncConflict")}</Text>
           </Pane>
 
           <Pane display="grid" gridTemplateColumns="160px 1fr" gap={8}>
@@ -164,17 +145,13 @@ function Publication() {
                 isHabilitationValid={false}
               />
             </Pane>
-            <Text>
-              The authorization for this Local Address Base is no longer valid.
-              Renew it so new changes can sync to the National Address
-              Platform again.
-            </Text>
+            <Text>{t("syncInvalidAuth")}</Text>
           </Pane>
         </Pane>
       </Tuto>
 
       <Problems>
-        <Unauthorized title="I can't edit my LAB" />
+        <Unauthorized title={tc("cantEditTitle")} />
       </Problems>
     </Pane>
   );

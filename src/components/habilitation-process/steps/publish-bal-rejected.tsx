@@ -1,33 +1,31 @@
 import { Alert, Strong, Link, Text, Button, Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface PublishBalRejectedStepProps {
   handleClose: () => void;
 }
 
 function PublishBalRejectedStep({ handleClose }: PublishBalRejectedStepProps) {
+  const t = useTranslations("publishBalRejected");
+  const tc = useTranslations("common");
   return (
     <Pane display="flex" flexDirection="column" gap={16}>
-      <Alert
-        intent="danger"
-        title="Your Local Address Base could not be published"
-        marginTop={16}
-        width="100%"
-      >
+      <Alert intent="danger" title={t("title")} marginTop={16} width="100%">
         <Text is="div" color="muted" marginTop={8}>
-          We recommend{" "}
-          <Strong>
-            contacting the administrators of the other Local Address Base
-          </Strong>{" "}
-          or our support team:{" "}
-          <Link href="mailto:support@nationaladdressplatform.us">
-            support@nationaladdressplatform.us
-          </Link>
+          {t.rich("body", {
+            s: (chunks) => <Strong>{chunks}</Strong>,
+            link: (chunks) => (
+              <Link href="mailto:support@nationaladdressplatform.us">
+                {chunks}
+              </Link>
+            ),
+          })}
         </Text>
       </Alert>
 
       <Pane display="flex" flexDirection="row" justifyContent="end" gap={16}>
         <Button intent="primary" onClick={handleClose}>
-          Close
+          {tc("close")}
         </Button>
       </Pane>
     </Pane>

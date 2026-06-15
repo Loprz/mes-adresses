@@ -2,6 +2,7 @@ import { ApiDepotService } from "@/lib/api-depot";
 import { Revision } from "@/lib/api-depot/types";
 import { CommuneType } from "@/types/commune";
 import { Button, Pane, Spinner } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import AlertPublishedBALMesAdresses from "./alert-published-bal/alert-published-bal-mes-adresses";
 import AlertPublishedBALMoissoneur from "./alert-published-bal/alert-published-bal-moissoneur";
@@ -28,6 +29,7 @@ function CommunePublicationInfos({
   outdatedApiDepotClients,
   onCreateNewBAL,
 }: CommunePublicationInfosProps) {
+  const tn = useTranslations("newBase");
   const [apiDepotLastRevision, setApiDepotLastRevision] =
     useState<Revision | null>(null);
   const [existingBALCount, setExistingBALCount] = useState(0);
@@ -133,7 +135,7 @@ function CommunePublicationInfos({
           )}
 
           <Button marginTop={16} intent="none" onClick={onCreateNewBAL}>
-            Create a new Local Address Base
+            {tn("title")}
           </Button>
         </>
       )}

@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { reduce, uniqueId } from "lodash";
 import { Button, AddIcon, Text, ErrorIcon, Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import languesRegionales from "@ban-team/shared-data/langues-regionales.json";
 
@@ -48,6 +49,7 @@ function LanguesRegionalesForm({
   handleLanguages,
   autoOpen = false,
 }: LanguesRegionalesFormProps) {
+  const t = useTranslations("languesRegionales");
   const { baseLocale } = useContext(BalDataContext);
   const [nomAlt, setNomAlt] = useState(getInitialValue(initialValue, autoOpen));
 
@@ -129,7 +131,7 @@ function LanguesRegionalesForm({
         marginTop="1em"
         disabled={nomAlt.length >= languesRegionales.length}
       >
-        Add a regional language
+        {t("addLanguage")}
       </Button>
     </>
   );

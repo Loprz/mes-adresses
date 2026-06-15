@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useContext, useCallback } from "react";
+import { useTranslations } from "next-intl";
 
 import { DrawerContextProvider } from "@/contexts/drawer";
 import { DrawContextProvider } from "@/contexts/draw";
@@ -31,6 +32,7 @@ interface EditorProps {
 }
 
 function Editor({ children }: EditorProps) {
+  const t = useTranslations("balData");
   const { isMobile, isMapFullscreen, setIsMapFullscreen } =
     useContext(LayoutContext);
   const [isAddressFormOpen, setIsAddressFormOpen] = useState(false);
@@ -53,7 +55,7 @@ function Editor({ children }: EditorProps) {
             <BalDataContext.Consumer>
               {({ habilitationIsLoading }) =>
                 (tokenIsChecking || habilitationIsLoading) && (
-                  <Overlay text="Loading the Local Address Base" />
+                  <Overlay text={t("loading")} />
                 )
               }
             </BalDataContext.Consumer>

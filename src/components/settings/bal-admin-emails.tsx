@@ -8,6 +8,7 @@ import {
   TrashIcon,
 } from "evergreen-ui";
 import { validateEmail } from "@/lib/utils/email";
+import { useTranslations } from "next-intl";
 
 interface BALAdminEmailsProps {
   value: string[];
@@ -15,6 +16,7 @@ interface BALAdminEmailsProps {
 }
 
 export function BALAdminEmails({ value, onChange }: BALAdminEmailsProps) {
+  const t = useTranslations("settings");
   const [newEmailInput, setNewEmailInput] = useState("");
 
   const canAddEmail = useMemo(() => {
@@ -40,7 +42,7 @@ export function BALAdminEmails({ value, onChange }: BALAdminEmailsProps) {
   return (
     <Pane>
       <Label display="block" marginBottom={8}>
-        Administrator access
+        {t("adminAccessLabel")}
       </Label>
       {value.map((email) => (
         <Pane key={email} display="flex" marginBottom={8}>
@@ -70,7 +72,7 @@ export function BALAdminEmails({ value, onChange }: BALAdminEmailsProps) {
           display="block"
           type="email"
           width="100%"
-          placeholder="Add an email address..."
+          placeholder={t("addEmailPlaceholder")}
           maxWidth={400}
           value={newEmailInput}
           onChange={(e) => setNewEmailInput(e.target.value)}

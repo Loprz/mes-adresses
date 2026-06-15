@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useContext } from "react";
+import { useTranslations } from "next-intl";
 import { sortBy } from "lodash";
 import {
   Pane,
@@ -72,6 +73,8 @@ function NumerosList({
   numeros,
   handleEditing,
 }: NumerosListProps) {
+  const t = useTranslations("lists");
+  const tc = useTranslations("common");
   const [isRemoveWarningShown, setIsRemoveWarningShown] = useState(false);
   const [documentGenerationData, setDocumentGenerationData] =
     useState<DocumentGenerationData<GeneratedDocumentType> | null>(null);
@@ -173,12 +176,12 @@ function NumerosList({
           reloadTiles();
           refreshBALSync();
         },
-        "The number has been archived",
-        "The number could not be archived"
+        t("numberArchived"),
+        t("numberArchiveError")
       );
       await softDeleteNumero();
     },
-    [reloadNumeros, reloadParcelles, refreshBALSync, reloadTiles, toaster]
+    [reloadNumeros, reloadParcelles, refreshBALSync, reloadTiles, toaster, t]
   );
 
   const onDownloadCertificat = useCallback(
@@ -188,8 +191,8 @@ function NumerosList({
           const url = await NumerosService.generateCertificat(numeroId, data);
           window.open(url, "_blank");
         },
-        "The addressing certificate has been downloaded",
-        "The addressing certificate could not be downloaded"
+        t("addrCertDownloaded"),
+        t("addrCertDownloadError")
       );
       await downloadCertificat();
       matomoTrackEvent(
@@ -198,7 +201,7 @@ function NumerosList({
           .GENERATE_CERTIFICAT_ADRESSAGE
       );
     },
-    [toaster, matomoTrackEvent]
+    [toaster, matomoTrackEvent, t]
   );
 
   const onDownloadArreteDeNumerotation = useCallback(
@@ -211,8 +214,8 @@ function NumerosList({
           );
           window.open(url, "_blank");
         },
-        "The numbering order has been downloaded",
-        "The numbering order could not be downloaded"
+        t("numberingOrderDownloaded"),
+        t("numberingOrderDownloadError")
       );
       await downloadArreteDeNumerotation();
       matomoTrackEvent(
@@ -221,7 +224,7 @@ function NumerosList({
           .GENERATE_ARRETE_NUMEROTATION_NUMERO
       );
     },
-    [toaster, matomoTrackEvent]
+    [toaster, matomoTrackEvent, t]
   );
 
   const onMultipleRemove = async () => {
@@ -240,8 +243,8 @@ function NumerosList({
         setSelectedNumerosIds([]);
         setIsRemoveWarningShown(false);
       },
-      "The numbers have been archived",
-      "The numbers could not be archived"
+      t("numbersArchived"),
+      t("numbersArchiveError")
     );
     await softDeleteNumeros();
     setIsDisabled(false);
@@ -254,8 +257,8 @@ function NumerosList({
         await reloadNumeros();
         refreshBALSync();
       },
-      "The numbers have been updated",
-      "The numbers could not be updated"
+      t("numbersUpdated"),
+      t("numbersUpdateError")
     );
     await updateNumeros();
   };
@@ -274,7 +277,7 @@ function NumerosList({
         minHeight={64}
       >
         <Pane>
-          <Heading>Address list</Heading>
+          <Heading>{t("addressList")}</Heading>
         </Pane>
 
         <Pane marginLeft="auto">
@@ -292,7 +295,7 @@ function NumerosList({
                   }
             }
           >
-            Add a number
+            {t("addNumber")}
           </Button>
         </Pane>
       </Pane>
@@ -314,11 +317,7 @@ function NumerosList({
 
       <DeleteWarning
         isShown={isRemoveWarningShown}
-        content={
-          <Paragraph>
-            Are you sure you want to delete all selected numbers ?
-          </Paragraph>
-        }
+        content={<Paragraph>{t("deleteSelectedConfirm")}</Paragraph>}
         onCancel={() => {
           setIsRemoveWarningShown(false);
         }}
@@ -346,7 +345,7 @@ function NumerosList({
             </Table.Cell>
           )}
           <Table.SearchHeaderCell
-            placeholder="Search for a number"
+            placeholder={t("searchNumberPlaceholder")}
             onChange={setFilter}
           />
         </Table.Head>
@@ -354,7 +353,7 @@ function NumerosList({
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              No numbers
+              {t("noNumbers")}
             </Table.TextCell>
           </Table.Row>
         )}
@@ -397,16 +396,14 @@ function NumerosList({
 
               {numero.positions.length > 1 && (
                 <Table.TextCell flex="0 1 1">
-                  {numero.positions.length} positions
+                  {t("positionsCount", { count: numero.positions.length })}
                 </Table.TextCell>
               )}
 
               <TableRowNotifications
                 communeDeleguee={getCommuneDeleguee(numero.communeDeleguee)}
                 certification={
-                  numero.certifie
-                    ? "This address is certified by the local authority"
-                    : null
+                  numero.certifie ? t("addressCertifiedByAuthority") : null
                 }
                 comment={numero.comment}
               />
@@ -419,14 +416,14 @@ function NumerosList({
                       handleEditing(numero.id);
                     }}
                   >
-                    Edit
+                    {tc("edit")}
                   </Menu.Item>
                   <Menu.Item
                     icon={TrashIcon}
                     intent="danger"
                     onSelect={() => onRemove(numero.id)}
                   >
-                    Delete…
+                    {t("deleteMenu")}
                   </Menu.Item>
                   {Boolean(token) &&
                     baseLocale.status === BaseLocale.status.PUBLISHED && (
@@ -444,7 +441,7 @@ function NumerosList({
                     onClick={() => {
                       openRecovery({ commune });
                     }}
-                    title="Recover admin access"
+                    title={t("recoverAdminAccess")}
                     type="button"
                     height={24}
                     icon={LockIcon}

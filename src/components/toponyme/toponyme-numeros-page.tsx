@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useContext } from "react";
+import { useTranslations } from "next-intl";
 import {
   Pane,
   Heading,
@@ -41,6 +42,8 @@ const fuseOptions = {
 };
 
 export default function ToponymeNumerosPage() {
+  const t = useTranslations("lists");
+  const tc = useTranslations("common");
   const { isFormOpen, handleEditing, editedNumero, reset } = useFormState();
 
   const [error, setError] = useState<string | null>(null);
@@ -83,7 +86,7 @@ export default function ToponymeNumerosPage() {
       await reloadNumeros();
       await reloadToponymes();
       pushToast({
-        title: "The numbers have been updated",
+        title: t("numbersUpdated"),
         intent: "success",
       });
     } catch (error: unknown) {
@@ -138,7 +141,7 @@ export default function ToponymeNumerosPage() {
             savedSearchPagination[TabsEnum.TOPONYMES]
           )}
         >
-          Place names
+          {t("breadcrumbPlaceNames")}
         </Link>
         <Text color="muted">{" > "}</Text>
         <Link
@@ -148,7 +151,7 @@ export default function ToponymeNumerosPage() {
           {toponyme.nom}
         </Link>
         <Text color="muted">{" > "}</Text>
-        <Text aria-current="page">Address list</Text>
+        <Text aria-current="page">{t("addressList")}</Text>
       </>
     );
 
@@ -161,6 +164,7 @@ export default function ToponymeNumerosPage() {
     toponyme,
     setLastSelectedItem,
     savedSearchPagination,
+    t,
   ]);
 
   return (
@@ -198,7 +202,7 @@ export default function ToponymeNumerosPage() {
             alignItems="center"
             minHeight={64}
           >
-            <Heading>List of numbers</Heading>
+            <Heading>{t("listOfNumbers")}</Heading>
             <Pane marginLeft="auto">
               <Button
                 iconBefore={token ? AddIcon : LockIcon}
@@ -213,14 +217,14 @@ export default function ToponymeNumerosPage() {
                       }
                 }
               >
-                Associate numbers
+                {t("associateNumbers")}
               </Button>
             </Pane>
           </Pane>
         )}
 
         {error && (
-          <Alert marginY={5} intent="danger" title="Error">
+          <Alert marginY={5} intent="danger" title={tc("error")}>
             {error}
           </Alert>
         )}
@@ -230,7 +234,7 @@ export default function ToponymeNumerosPage() {
             {!isEditing && (
               <Table.Head>
                 <Table.SearchHeaderCell
-                  placeholder="Search for a number"
+                  placeholder={t("searchNumberPlaceholder")}
                   onChange={setFilter}
                 />
               </Table.Head>

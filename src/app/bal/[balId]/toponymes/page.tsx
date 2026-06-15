@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { sortBy } from "lodash";
 import {
   Table,
@@ -45,6 +46,8 @@ import { TilesLayerMode } from "@/components/map/layers/tiles";
 import { ButtonIconExpandHover } from "@/components/expand-button-hover/button-expand-hover";
 
 export default function ToponymesPage() {
+  const t = useTranslations("lists");
+  const tc = useTranslations("common");
   const { token } = useContext(TokenContext);
   const [toRemove, setToRemove] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -73,20 +76,22 @@ export default function ToponymesPage() {
   }, [setTileLayersMode]);
 
   useEffect(() => {
-    setBreadcrumbs(<Text aria-current="page">Place names</Text>);
+    setBreadcrumbs(
+      <Text aria-current="page">{t("breadcrumbPlaceNames")}</Text>
+    );
     scrollAndHighlightLastSelectedItem(TabsEnum.TOPONYMES);
 
     return () => {
       setBreadcrumbs(null);
     };
-  }, [setBreadcrumbs, scrollAndHighlightLastSelectedItem]);
+  }, [setBreadcrumbs, scrollAndHighlightLastSelectedItem, t]);
 
   const handleRemove = async () => {
     setIsDisabled(true);
     const softDeleteToponyme = toaster(
       () => ToponymesService.softDeleteToponyme(toRemove),
-      "The place name has been archived",
-      "The place name could not be archived"
+      t("placeNameArchived"),
+      t("placeNameArchiveError")
     );
     await softDeleteToponyme();
     await reloadToponymes();
@@ -133,11 +138,7 @@ export default function ToponymesPage() {
     <>
       <DeleteWarning
         isShown={Boolean(toRemove)}
-        content={
-          <Paragraph>
-            Are you sure you want to delete this place name?
-          </Paragraph>
-        }
+        content={<Paragraph>{t("deletePlaceNameConfirm")}</Paragraph>}
         isDisabled={isDisabled}
         onCancel={() => {
           setToRemove(null);
@@ -162,24 +163,24 @@ export default function ToponymesPage() {
           borderBottom="muted"
           textAlign="center"
         >
-          <Text>Supplementary place names and streets without addresses</Text>
+          <Text>{t("supplementaryPlaceNames")}</Text>
         </Pane>
         <Table.Head background="white">
           <Table.SearchHeaderCell
-            placeholder="Search for a place name"
+            placeholder={t("searchPlaceNamePlaceholder")}
             onChange={changeFilter}
             value={search}
           />
           <Table.HeaderCell flex="unset">
             <ButtonIconExpandHover
               icon={AddIcon}
-              title="Add a place name"
+              title={t("addPlaceName")}
               is={NextLink}
               appearance="primary"
               intent="success"
               disabled={!token || (token && isEditing)}
               href={`/bal/${baseLocale.id}/${TabsEnum.TOPONYMES}/new`}
-              message="Add a place name"
+              message={t("addPlaceName")}
             />
           </Table.HeaderCell>
         </Table.Head>
@@ -187,7 +188,7 @@ export default function ToponymesPage() {
         {filtered.length === 0 && (
           <Table.Row>
             <Table.TextCell color="muted" fontStyle="italic">
-              No results
+              {t("noResults")}
             </Table.TextCell>
           </Table.Row>
         )}
@@ -226,12 +227,10 @@ export default function ToponymesPage() {
               <TableRowNotifications
                 communeDeleguee={getCommuneDeleguee(toponyme.communeDeleguee)}
                 warning={
-                  toponyme.positions.length === 0
-                    ? "This place name has no position"
-                    : null
+                  toponyme.positions.length === 0 ? t("noPosition") : null
                 }
                 certification={
-                  toponyme.isAllCertified ? "The addresses are certified" : null
+                  toponyme.isAllCertified ? t("addressesCertified") : null
                 }
                 comment={
                   toponyme.commentedNumeros.length > 0 ? (
@@ -252,7 +251,7 @@ export default function ToponymesPage() {
                       browseToNumerosList(toponyme.id);
                     }}
                   >
-                    View
+                    {t("view")}
                   </Menu.Item>
                   <Menu.Item
                     icon={EditIcon}
@@ -260,7 +259,7 @@ export default function ToponymesPage() {
                       browseToToponyme(toponyme.id);
                     }}
                   >
-                    Edit
+                    {tc("edit")}
                   </Menu.Item>
                   <Menu.Item
                     icon={TrashIcon}
@@ -269,7 +268,7 @@ export default function ToponymesPage() {
                       setToRemove(toponyme.id);
                     }}
                   >
-                    Delete…
+                    {t("deleteMenu")}
                   </Menu.Item>
                 </TableRowActions>
               )}

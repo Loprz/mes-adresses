@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Pane, Button, Checkbox, Heading, GlobeIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 export type BoundaryVisibility = {
   states: boolean;
@@ -15,6 +16,7 @@ interface BoundaryControlProps {
 }
 
 function BoundaryControl({ visibility, onChange }: BoundaryControlProps) {
+  const t = useTranslations("mapControls");
   const [isOpen, setIsOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +45,7 @@ function BoundaryControl({ visibility, onChange }: BoundaryControlProps) {
         appearance="minimal"
         padding={8}
         onClick={() => setIsOpen(!isOpen)}
-        title="Toggle TIGER boundary layers"
+        title={t("toggleBoundaries")}
       >
         <GlobeIcon color={anyVisible ? "selected" : "muted"} size={16} />
       </Button>
@@ -61,25 +63,25 @@ function BoundaryControl({ visibility, onChange }: BoundaryControlProps) {
           zIndex={10}
         >
           <Heading size={200} marginBottom={8}>
-            TIGER Boundary Layers
+            {t("boundaryLayersTitle")}
           </Heading>
           <Pane display="flex" flexDirection="column" gap={4}>
             <Checkbox
-              label="State boundaries"
+              label={t("stateBoundaries")}
               checked={visibility.states}
               onChange={(e) =>
                 onChange({ ...visibility, states: (e.target as HTMLInputElement).checked })
               }
             />
             <Checkbox
-              label="County boundaries"
+              label={t("countyBoundaries")}
               checked={visibility.counties}
               onChange={(e) =>
                 onChange({ ...visibility, counties: (e.target as HTMLInputElement).checked })
               }
             />
             <Checkbox
-              label="City/town boundaries"
+              label={t("cityBoundaries")}
               checked={visibility.places}
               onChange={(e) =>
                 onChange({ ...visibility, places: (e.target as HTMLInputElement).checked })

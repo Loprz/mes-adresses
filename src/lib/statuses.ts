@@ -12,9 +12,8 @@ import {
 import { BaseLocale, BaseLocaleSync } from "./openapi-api-bal";
 
 type StatusType = {
-  label: string;
-  title?: string;
-  content: string;
+  // Translation key into the "balStatusInfo" namespace (label/title/content)
+  key: string;
   color:
     | "neutral"
     | "blue"
@@ -31,72 +30,48 @@ type StatusType = {
 
 const STATUSES: { [key: string]: StatusType } = {
   consultation: {
-    label: "View only",
-    title: "You are viewing this Local Address Base",
-    content:
-      "You are viewing this Local Address Base. No changes will be reflected in the National Address Platform.",
+    key: "consultation",
     color: "yellow",
     intent: "none",
     icon: EyeOpenIcon,
   },
   paused: {
-    label: "Paused",
-    title:
-      "Automatic updates for this Local Address Base are currently paused. It is no longer syncing with the National Address Platform.",
-    content:
-      "Automatic updates for this Local Address Base are currently paused. You can restart synchronization at any time.",
+    key: "paused",
     color: "yellow",
     intent: "warning",
     icon: PauseIcon,
   },
   "no-habilitation": {
-    label: "Authorization needed",
-    title:
-      "This Local Address Base needs a valid authorization to sync with the National Address Platform",
-    content:
-      "Renew authorization before new changes from this Local Address Base can be reflected in the National Address Platform.",
+    key: "no-habilitation",
     color: "yellow",
     intent: "none",
     icon: TimeIcon,
   },
   outdated: {
-    label: "Update scheduled",
-    title: "This Local Address Base will sync with the National Address Platform",
-    content:
-      "New changes have been detected. They will be automatically reflected in the National Address Platform within the next few hours.",
+    key: "outdated",
     color: "blue",
     intent: "none",
     icon: TimeIcon,
   },
   synced: {
-    label: "Up to date",
-    title: "This Local Address Base is syncing with the National Address Platform",
-    content:
-      "This Local Address Base is up to date with the National Address Platform. Any changes will be automatically reflected within the next few hours.",
+    key: "synced",
     color: "green",
     intent: "success",
     icon: TickCircleIcon,
   },
   replaced: {
-    label: "Replaced",
-    title:
-      "This Local Address Base is no longer syncing with the National Address Platform",
-    content:
-      "A different Local Address Base is currently published for this jurisdiction. Automatic updates from this LAB are blocked. Contact the administrators of the published LAB, or email support@nap.us.gov if you need to take over publication.",
+    key: "replaced",
     color: "red",
     intent: "danger",
     icon: ErrorIcon,
   },
   draft: {
-    content: "This Local Address Base is under construction",
-    label: "Draft",
+    key: "draft",
     color: "neutral",
     icon: ManuallyEnteredDataIcon,
   },
   demo: {
-    content:
-      "Demo Local Address Base — no addresses will be transmitted to the National Address Platform",
-    label: "Demo",
+    key: "demo",
     color: "orange",
     textColor: "black",
     intent: "danger",

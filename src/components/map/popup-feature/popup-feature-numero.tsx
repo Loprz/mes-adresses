@@ -1,5 +1,6 @@
 import { useMemo, useContext } from "react";
 import { Pane, Badge, Text, Strong } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import BalDataContext from "@/contexts/bal-data";
 import { CommuneType } from "@/types/commune";
 
@@ -21,6 +22,7 @@ interface PopupFeatureNumeroProps {
 }
 
 function PopupFeatureNumero({ feature, commune }: PopupFeatureNumeroProps) {
+  const t = useTranslations("mapPopup");
   const { voies, toponymes } = useContext(BalDataContext);
 
   const getParcelles = useMemo(() => {
@@ -45,13 +47,13 @@ function PopupFeatureNumero({ feature, commune }: PopupFeatureNumeroProps) {
         {commune.code} - {commune.nom}
       </Text>
       {feature.properties.certifie ? (
-        <Badge color="green">Certified</Badge>
+        <Badge color="green">{t("certified")}</Badge>
       ) : (
-        <Badge color="yellow">Non certified</Badge>
+        <Badge color="yellow">{t("nonCertified")}</Badge>
       )}
       {getParcelles.length > 0 && (
         <>
-          <Strong marginTop="10px">Parcelle(s)</Strong>
+          <Strong marginTop="10px">{t("parcelles")}</Strong>
           {getParcelles.map((parcelle) => (
             <Badge key={parcelle} color="blue" marginTop={4}>
               {parcelle}

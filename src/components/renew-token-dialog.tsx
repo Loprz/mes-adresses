@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useContext } from "react";
 import { Pane, Dialog, Paragraph, Alert } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { BaseLocale, BasesLocalesService } from "@/lib/openapi-api-bal";
 import LayoutContext from "@/contexts/layout";
 import LocalStorageContext from "@/contexts/local-storage";
@@ -20,6 +21,8 @@ function RenewTokenDialog({
   setIsShown,
   setError,
 }: RenewTokenDialogProps) {
+  const t = useTranslations("dialogs");
+  const tc = useTranslations("common");
   const [isLoading, setIsLoading] = useState(false);
   const { toaster } = useContext(LayoutContext);
   const { addBalAccess } = useContext(LocalStorageContext);
@@ -30,8 +33,8 @@ function RenewTokenDialog({
 
     const renewTokenBaseLocale = toaster(
       () => BasesLocalesService.renewTokenBaseLocale(baseLocaleId),
-      "Authorizations have been renewed successfully",
-      "Unable to renew authorizations",
+      t("renewSuccess"),
+      t("renewError"),
       (err) => {
         setError(err.message);
       }
@@ -43,27 +46,31 @@ function RenewTokenDialog({
     reloadEmails();
     setIsLoading(false);
     setIsShown(false);
-  }, [baseLocaleId, setError, setIsShown, toaster, addBalAccess, reloadEmails]);
+  }, [
+    baseLocaleId,
+    setError,
+    setIsShown,
+    toaster,
+    addBalAccess,
+    reloadEmails,
+    t,
+  ]);
 
   return (
     <Pane>
       <Dialog
         isShown={isShown}
-        title="Renew authorizations"
+        title={t("renewTitle")}
         intent="success"
-        cancelLabel="Cancel"
-        confirmLabel="Confirm"
+        cancelLabel={tc("cancel")}
+        confirmLabel={tc("confirm")}
         isConfirmLoading={isLoading}
         onConfirm={() => handleConfirm()}
         onCloseComplete={() => setIsShown(false)}
       >
-        <Paragraph>
-          You have removed one or more collaborators. Do you wish to
-          proceed with renewing the authorizations ?
-        </Paragraph>
-        <Alert title="Irreversible action" marginY={8} intent="warning">
-          You will no longer be able to modify the Local Address Base until you
-          receive the new authorization by email.
+        <Paragraph>{t("renewBody")}</Paragraph>
+        <Alert title={t("irreversibleAction")} marginY={8} intent="warning">
+          {t("renewWarning")}
         </Alert>
       </Dialog>
     </Pane>

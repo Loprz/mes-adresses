@@ -6,6 +6,7 @@ import {
   Position,
   CaretDownIcon,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import { computeStatus } from "@/lib/statuses";
 
@@ -31,8 +32,10 @@ function BANSync({
   handleSync,
   togglePause,
 }: BANSyncProps) {
+  const t = useTranslations("balStatus");
+  const ts = useTranslations("balStatusInfo");
   const { isMobile } = useContext(LayoutContext);
-  const { intent, title, content } = computeStatus(
+  const { intent, key } = computeStatus(
     baseLocale.status,
     baseLocale.sync,
     isHabilitationValid
@@ -49,8 +52,8 @@ function BANSync({
             gap={8}
             padding={8}
           >
-            <Alert intent={intent} title={title}>
-              {content}
+            <Alert intent={intent} title={ts(`${key}.title`)}>
+              {ts(`${key}.content`)}
             </Alert>
 
             <BANHistory
@@ -71,7 +74,7 @@ function BANSync({
         position={Position.BOTTOM_RIGHT}
       >
         <Button height={28} appearance="primary" iconAfter={CaretDownIcon}>
-          {isMobile ? "Status" : "Sync status"}
+          {isMobile ? t("statusShort") : t("syncStatus")}
         </Button>
       </Popover>
     </Pane>

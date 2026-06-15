@@ -1,5 +1,6 @@
 import { useContext, useCallback, useEffect } from "react";
 import { Pane, Heading, Button, Alert, EraserIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import DrawContext, { DrawMode } from "@/contexts/draw";
 import { LineString, Voie } from "@/lib/openapi-api-bal";
@@ -9,6 +10,7 @@ interface DrawMetricVoieEditorProps {
 }
 
 export function DrawMetricVoieEditor({ voie }: DrawMetricVoieEditorProps) {
+  const t = useTranslations("editorForm");
   const { hint, data, setData, setDrawMode } = useContext(DrawContext);
 
   useEffect(() => {
@@ -31,13 +33,9 @@ export function DrawMetricVoieEditor({ voie }: DrawMetricVoieEditorProps) {
 
   return (
     <Pane borderLeft="default" paddingX={12} marginBottom={12}>
-      <Heading is="h4">Street path</Heading>
+      <Heading is="h4">{t("streetPath")}</Heading>
 
-      <Alert
-        marginTop={8}
-        intent="none"
-        title="Use the map to draw the street path"
-      >
+      <Alert marginTop={8} intent="none" title={t("drawStreetPath")}>
         {hint}
       </Alert>
 
@@ -53,7 +51,7 @@ export function DrawMetricVoieEditor({ voie }: DrawMetricVoieEditorProps) {
             setData(null);
           }}
         >
-          Clear the path
+          {t("clearPath")}
         </Button>
       )}
     </Pane>

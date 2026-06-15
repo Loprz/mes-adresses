@@ -8,6 +8,7 @@ import {
   ControlIcon,
   Text,
 } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import ParcellesContext from "@/contexts/parcelles";
 import MapContext from "@/contexts/map";
@@ -23,6 +24,7 @@ function SelectParcelles({
   initialParcelles = [],
   isToponyme,
 }: SelectParcellesProps) {
+  const t = useTranslations("editorForm");
   const { isParcelsDisplayed, setIsParcelsDisplayed } =
     useContext(MapContext);
   const {
@@ -33,7 +35,9 @@ function SelectParcelles({
     handleHoveredParcelles,
     handleParcelles,
   } = useContext(ParcellesContext);
-  const addressType = isToponyme ? "place name" : "number";
+  const addressType = isToponyme
+    ? t("addressTypePlaceName")
+    : t("addressTypeNumber");
 
   useEffect(() => {
     setHighlightedParcelles(initialParcelles);
@@ -47,8 +51,8 @@ function SelectParcelles({
   return (
     <Pane display="flex" flexDirection="column">
       <InputLabel
-        title="Parcel data"
-        help={`From the map, click on the parcels you want to add to the ${addressType}. By specifying the parcels associated with this address, you accelerate its reuse by many services including mail carriers, fiber providers, and GPS services.`}
+        title={t("parcelData")}
+        help={t("parcelHelp", { addressType })}
       />
       {highlightedParcelles.length > 0 ? (
         <Pane display="grid" gridTemplateColumns="1fr 1fr 1fr">
@@ -82,10 +86,7 @@ function SelectParcelles({
       ) : (
         <Pane>
           <Alert marginTop={8}>
-            <Text>
-              On the map, click on the parcels you want to add to the{" "}
-              {addressType}.
-            </Text>
+            <Text>{t("parcelClickHint", { addressType })}</Text>
           </Alert>
         </Pane>
       )}
@@ -98,7 +99,7 @@ function SelectParcelles({
         iconAfter={ControlIcon}
         onClick={() => setIsParcelsDisplayed(!isParcelsDisplayed)}
       >
-        {isParcelsDisplayed ? "Hide" : "Show"} parcel data
+        {isParcelsDisplayed ? t("hideParcelData") : t("showParcelData")}
       </Button>
     </Pane>
   );

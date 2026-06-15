@@ -6,6 +6,7 @@ import {
   useEffect,
 } from "react";
 import { Pane, Button, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 import AddNumerosWithVoie from "./add-numeros-with-voie";
 import AddNumerosWithPolygon from "./add-numeros-with-polygon";
@@ -18,6 +19,8 @@ interface AddNumerosProps {
 }
 
 function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
+  const t = useTranslations("lists");
+  const tc = useTranslations("common");
   const [typeSelection, setTypeSelection] = useState<"voie" | "polygon">(null);
   const { drawMode, setDrawMode } = useContext(DrawContext);
 
@@ -31,7 +34,7 @@ function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
     <Pane>
       <Pane marginBottom="8px">
         <Pane marginBottom="8px">
-          <Text marginBottom="8px">Associate numbers</Text>
+          <Text marginBottom="8px">{t("associateNumbers")}</Text>
         </Pane>
         <Pane display="flex" alignItems="center" justifyContent="space-between">
           <Button
@@ -39,15 +42,15 @@ function AddNumerosInput({ numerosIds, setNumerosIds }: AddNumerosProps) {
             type="button"
             onClick={() => setTypeSelection("voie")}
           >
-            With a street
+            {t("withStreet")}
           </Button>
-          <Text>or</Text>
+          <Text>{tc("or")}</Text>
           <Button
             marginTop={0}
             type="button"
             onClick={() => setTypeSelection("polygon")}
           >
-            By drawing the outline
+            {t("byDrawing")}
           </Button>
         </Pane>
       </Pane>{" "}

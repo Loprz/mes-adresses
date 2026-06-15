@@ -4,6 +4,7 @@ import ProtectedPage from "@/layouts/protected-page";
 import { TabsEnum } from "@/components/sidebar/main-tabs/main-tabs";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import LayoutContext from "@/contexts/layout";
 import NextLink from "next/link";
 import { Text, Link } from "evergreen-ui";
@@ -15,6 +16,7 @@ import { TilesLayerMode } from "@/components/map/layers/tiles";
 import MapContext from "@/contexts/map";
 
 export default function ToponymePage() {
+  const t = useTranslations("lists");
   const router = useRouter();
   const { setBreadcrumbs } = useContext(LayoutContext);
   const { savedSearchPagination, setLastSelectedItem } = useContext(
@@ -41,7 +43,7 @@ export default function ToponymePage() {
             savedSearchPagination[TabsEnum.TOPONYMES]
           )}
         >
-          Place names
+          {t("breadcrumbPlaceNames")}
         </Link>
         <Text color="muted">{" > "}</Text>
         <Text aria-current="page">{toponyme.nom}</Text>
@@ -57,6 +59,7 @@ export default function ToponymePage() {
     toponyme,
     setLastSelectedItem,
     savedSearchPagination,
+    t,
   ]);
 
   return (

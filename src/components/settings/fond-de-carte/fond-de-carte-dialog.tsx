@@ -1,4 +1,5 @@
 import { Alert, Dialog, Pane } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 import { BaseLocale } from "@/lib/openapi-api-bal";
 import FondDeCarteForm from "./fond-de-carte-form";
 
@@ -11,22 +12,17 @@ export function FondDeCarteDialog({
   isShown,
   onCloseComplete,
 }: FondDeCarteDialogProps) {
+  const t = useTranslations("settings");
   return (
     <Dialog
       isShown={isShown}
-      title="Add map background"
+      title={t("addMapBackground")}
       hasFooter={false}
       onCloseComplete={onCloseComplete}
     >
       <Pane paddingBottom={16}>
-        <Alert
-          marginBottom={8}
-          intent="none"
-          title="How to add your own map backgrounds?"
-        >
-          Only WMTS or WMS service URLs are supported. The data
-          must be raster type and images must be 256x256 pixels. See
-          the example below.
+        <Alert marginBottom={8} intent="none" title={t("howToAddTitle")}>
+          {t("howToAddBody")}
         </Alert>
         <FondDeCarteForm />
       </Pane>

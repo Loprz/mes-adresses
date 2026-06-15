@@ -1,10 +1,12 @@
 import { Pane, Alert, Label } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface DisabledFormInputProps {
   label: string;
 }
 
 function DisabledFormInput({ label }: DisabledFormInputProps) {
+  const t = useTranslations("disabledFormInput");
   return (
     <Pane
       background="white"
@@ -17,7 +19,7 @@ function DisabledFormInput({ label }: DisabledFormInputProps) {
       <Alert
         marginY={4}
         intent="warning"
-        title="This feature is not available for this jurisdiction."
+        title={t("notAvailable")}
       />
     </Pane>
   );
