@@ -607,6 +607,7 @@
     "panoramaxLogoAlt": "Panoramax logo",
     "openStreetView": "Open Street View",
     "closeStreetView": "Close Street View",
+    "clickPhotoToPlace": "Click in the photo to move the point",
     "layerNumbers": "Numbers",
     "layerStreets": "Streets",
     "layerPlaceNames": "Place names",
@@ -1085,7 +1086,8 @@
     "noNumber": "No number",
     "allCertified": "All numbers certified",
     "someCertified": "{certified}/{total} certified",
-    "panoramaxThumbAlt": "Panoramax picture thumbnail"
+    "panoramaxThumbAlt": "Panoramax picture thumbnail",
+    "mapillaryHint": "Mapillary imagery — click to open"
   },
   "mapMarker": {
     "certifiedTooltip": "This address is certified",
@@ -1162,7 +1164,7 @@
   },
   "draw": {
     "rulerHint": "Click on the map to measure a distance. Double-click to finish.",
-    "length": "Length: {length} m",
+    "length": "Length: {length} ft",
     "polygonStartHint": "Click on the map to start the polygon, then add new points to draw your polygon. When finished, click the last point to close the polygon.",
     "polygonEditHint": "You can edit the polygon by dragging points or adding new points by clicking on the polygon outline.",
     "streetStartHint": "Click on the map to start the street, then add new points to draw your street. When finished, click the last point to end the street.",

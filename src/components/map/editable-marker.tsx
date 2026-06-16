@@ -3,6 +3,8 @@
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import { Marker, ViewState } from "react-map-gl/maplibre";
 import { Pane, MapMarkerIcon, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
+import { getPositionTypeKey } from "@/lib/positions-types-list";
 import nearestPointOnLine from "@turf/nearest-point-on-line";
 import length from "@turf/length";
 import * as helpers from "@turf/helpers";
@@ -32,6 +34,7 @@ function EditableMarker({
   const { markers, updateMarker, completeNumero, setSuggestedNumero } =
     useContext(MarkersContext);
   const { isEditing } = useContext(BalDataContext);
+  const tp = useTranslations("positionTypes");
 
   const voie = useMemo(() => {
     if (idVoie) {
@@ -120,8 +123,8 @@ function EditableMarker({
             whiteSpace="nowrap"
           >
             {completeNumero
-              ? `${completeNumero} - ${marker.type}`
-              : `${marker.type}`}
+              ? `${completeNumero} - ${tp(getPositionTypeKey(marker.type))}`
+              : `${tp(getPositionTypeKey(marker.type))}`}
           </Text>
 
           <MapMarkerIcon

@@ -168,7 +168,7 @@ export function DrawContextProvider(props: ChildrenProps) {
             setHint(t("rulerHint"));
           } else {
             draw.changeMode("direct_select", { featureId: data.id });
-            const lineLength = length(data, { units: "meters" });
+            const lineLength = length(data, { units: "feet" });
             setHint(t("length", { length: Math.round(lineLength) }));
           }
           break;

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  CameraIcon,
   CrossIcon,
   IconButton,
   Pane,
@@ -8,43 +9,42 @@ import {
   Text,
   Button,
 } from "evergreen-ui";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import { useContext, useEffect, useState } from "react";
 import { CommuneType } from "@/types/commune";
 import {
-  PANORAMAX_LAYERS_SOURCE,
-  PANORAMAX_SOURCE_ID,
-} from "../layers/panoramax";
+  MAPILLARY_LAYERS_SOURCE,
+  MAPILLARY_SOURCE_ID,
+} from "../layers/mapillary";
 import MatomoTrackingContext, {
   MatomoEventAction,
   MatomoEventCategory,
 } from "@/contexts/matomo-tracking";
 
-interface PanoramaxControlProps {
+interface MapillaryControlProps {
   map: MaplibreMap | null;
-  setShowPanoramax: (show: boolean) => void;
-  showPanoramax: boolean;
+  setShowMapillary: (show: boolean) => void;
+  showMapillary: boolean;
   commune: CommuneType;
 }
 
-function PanoramaxControl({
+function MapillaryControl({
   map,
-  setShowPanoramax,
-  showPanoramax,
+  setShowMapillary,
+  showMapillary,
   commune,
-}: PanoramaxControlProps) {
+}: MapillaryControlProps) {
   const t = useTranslations("mapControls");
   const [disabled, setDisabled] = useState(true);
   const { matomoTrackEvent } = useContext(MatomoTrackingContext);
 
   useEffect(() => {
-    if (map && showPanoramax) {
+    if (map && showMapillary) {
       // Rerender the map to avoid tiles remaining on screen
       map.zoomTo(map.getZoom());
     }
-  }, [map, showPanoramax]);
+  }, [map, showMapillary]);
 
   useEffect(() => {
     if (!map) {
@@ -52,20 +52,20 @@ function PanoramaxControl({
       return;
     }
 
-    const checkPanoramaxData = (e) => {
-      if (e.sourceId === PANORAMAX_SOURCE_ID && e.isSourceLoaded) {
-        const sequences = map?.querySourceFeatures(PANORAMAX_SOURCE_ID, {
-          sourceLayer: PANORAMAX_LAYERS_SOURCE.SEQUENCES,
+    const checkMapillaryData = (e) => {
+      if (e.sourceId === MAPILLARY_SOURCE_ID && e.isSourceLoaded) {
+        const sequences = map?.querySourceFeatures(MAPILLARY_SOURCE_ID, {
+          sourceLayer: MAPILLARY_LAYERS_SOURCE.SEQUENCES,
         });
 
         setDisabled(!(sequences && sequences.length > 0));
       }
     };
 
-    map.on("sourcedata", checkPanoramaxData);
+    map.on("sourcedata", checkMapillaryData);
 
     return () => {
-      map.off("sourcedata", checkPanoramaxData);
+      map.off("sourcedata", checkMapillaryData);
     };
   }, [map, commune]);
 
@@ -73,34 +73,27 @@ function PanoramaxControl({
     <IconButton
       disabled={disabled}
       onClick={() => {
-        setShowPanoramax(true);
+        setShowMapillary(true);
         matomoTrackEvent(
           MatomoEventCategory.MAP,
-          MatomoEventAction[MatomoEventCategory.MAP].ENABLE_PANORAMAX
+          MatomoEventAction[MatomoEventCategory.MAP].ENABLE_MAPILLARY
         );
       }}
       height={29}
       width={29}
-      icon={
-        <Image
-          src="/static/images/panoramax.svg"
-          alt={t("panoramaxLogoAlt")}
-          width={20}
-          height={20}
-          style={{ filter: disabled ? "grayscale(1) opacity(0.5)" : "none" }}
-        />
-      }
+      icon={CameraIcon}
       title={t("openStreetView")}
+      style={{ color: disabled ? undefined : "#05CB63" }}
     />
   );
 
-  return showPanoramax ? (
+  return showMapillary ? (
     <IconButton
       height={29}
       width={29}
       icon={CrossIcon}
       onClick={() => {
-        setShowPanoramax(false);
+        setShowMapillary(false);
       }}
       title={t("closeStreetView")}
     />
@@ -114,7 +107,7 @@ function PanoramaxControl({
           <Button
             is="a"
             size="small"
-            href="https://www.google.com/maps"
+            href="https://www.mapillary.com/app"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -130,4 +123,4 @@ function PanoramaxControl({
   );
 }
 
-export default PanoramaxControl;
+export default MapillaryControl;

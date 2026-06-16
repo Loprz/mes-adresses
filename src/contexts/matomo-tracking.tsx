@@ -34,6 +34,7 @@ export const MatomoEventAction = {
   },
   [MatomoEventCategory.MAP]: {
     ENABLE_PANORAMAX: "enable_panoramax",
+    ENABLE_MAPILLARY: "enable_mapillary",
     ENABLE_RULER: "enable_ruler",
     GEOLOCATE_ME: "geolocate_me",
     TAKE_SCREENSHOT: "take_screenshot",

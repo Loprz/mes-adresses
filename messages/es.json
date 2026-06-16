@@ -607,6 +607,7 @@
     "panoramaxLogoAlt": "Logotipo de Panoramax",
     "openStreetView": "Abrir Street View",
     "closeStreetView": "Cerrar Street View",
+    "clickPhotoToPlace": "Haz clic en la foto para mover el punto",
     "layerNumbers": "Números",
     "layerStreets": "Calles",
     "layerPlaceNames": "Nombres de lugares",
@@ -1085,7 +1086,8 @@
     "noNumber": "Sin número",
     "allCertified": "Todos los números certificados",
     "someCertified": "{certified}/{total} certificados",
-    "panoramaxThumbAlt": "Miniatura de imagen de Panoramax"
+    "panoramaxThumbAlt": "Miniatura de imagen de Panoramax",
+    "mapillaryHint": "Imágenes de Mapillary — haz clic para abrir"
   },
   "mapMarker": {
     "certifiedTooltip": "Esta dirección está certificada",
@@ -1162,7 +1164,7 @@
   },
   "draw": {
     "rulerHint": "Haga clic en el mapa para medir una distancia. Haga doble clic para terminar.",
-    "length": "Longitud: {length} m",
+    "length": "Longitud: {length} ft",
     "polygonStartHint": "Haga clic en el mapa para iniciar el polígono, luego agregue nuevos puntos para dibujar su polígono. Cuando termine, haga clic en el último punto para cerrar el polígono.",
     "polygonEditHint": "Puede editar el polígono arrastrando puntos o agregando nuevos puntos haciendo clic en el contorno del polígono.",
     "streetStartHint": "Haga clic en el mapa para iniciar la calle, luego agregue nuevos puntos para dibujar su calle. Cuando termine, haga clic en el último punto para finalizar la calle.",

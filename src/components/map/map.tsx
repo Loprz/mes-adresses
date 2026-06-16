@@ -63,16 +63,17 @@ import {
   PARCEL_PROMOTE_ID,
 } from "./layers/parcels";
 import RulerControl from "./controls/ruler-control";
-import PanoramaxControl from "./controls/panoramax-control";
+import MapillaryControl from "./controls/mapillary-control";
+import MapillaryViewer from "./mapillary-viewer";
 import BoundaryControl from "./controls/boundary-control";
 import {
-  PANORAMAX_LAYERS_SOURCE,
-  PANORAMAX_PICTURE_LAYER_ID,
-  PANORAMAX_SOURCE_ID,
-  PANORAMAX_TILE_URL,
-  panoramaxPictureLayer,
-  panoramaxSequenceLayer,
-} from "./layers/panoramax";
+  MAPILLARY_LAYERS_SOURCE,
+  MAPILLARY_PICTURE_LAYER_ID,
+  MAPILLARY_SOURCE_ID,
+  MAPILLARY_TILE_URL,
+  mapillaryPictureLayer,
+  mapillarySequenceLayer,
+} from "./layers/mapillary";
 import {
   boundarySourceConfigs,
   boundaryLayerConfigs,
@@ -129,7 +130,8 @@ function Map({
   const { isParcelleSelectionEnabled, handleParcelles } =
     useContext(ParcellesContext);
   const { isMobile } = useContext(LayoutContext);
-  const [showPanoramax, setShowPanoramax] = useState(false);
+  const [showMapillary, setShowMapillary] = useState(false);
+  const [mapillaryImageId, setMapillaryImageId] = useState<string | null>(null);
 
   const [cursor, setCursor] = useState("default");
   const [isContextMenuDisplayed, setIsContextMenuDisplayed] = useState(null);
@@ -150,7 +152,7 @@ function Map({
     (featureHovered.sourceLayer === LAYERS_SOURCE.VOIES_POINTS ||
       featureHovered.sourceLayer === LAYERS_SOURCE.NUMEROS_POINTS ||
       featureHovered.sourceLayer === LAYERS_SOURCE.TOPONYME_POINTS ||
-      featureHovered.sourceLayer === PANORAMAX_LAYERS_SOURCE.PICTURES);
+      featureHovered.sourceLayer === MAPILLARY_LAYERS_SOURCE.PICTURES);
 
   function getBaseStyle(style: MapStyle | string) {
     const fondDeCarte = baseLocale.settings?.fondsDeCartes?.find(
@@ -244,7 +246,7 @@ function Map({
         NUMEROS_LABEL,
         VOIE_LABEL,
         TOPONYME_LABEL,
-        PANORAMAX_PICTURE_LAYER_ID
+        MAPILLARY_PICTURE_LAYER_ID
       );
     }
 
@@ -264,7 +266,7 @@ function Map({
           return (
             source === PARCEL_SOURCE ||
             source === "tiles" ||
-            source === "panoramax"
+            source === MAPILLARY_SOURCE_ID
           );
         });
       const feature = features && features[0];
@@ -294,14 +296,9 @@ function Map({
           }
           break;
         }
-        case "panoramax": {
-          if (feature.sourceLayer === PANORAMAX_LAYERS_SOURCE.PICTURES) {
-            const pictureId = feature.properties.id;
-            window.open(
-              `${process.env.NEXT_PUBLIC_PANORAMAX_API_ENDPOINT}/?focus=pic&pic=${pictureId}`,
-              "_blank",
-              "noreferrer"
-            );
+        case MAPILLARY_SOURCE_ID: {
+          if (feature.sourceLayer === MAPILLARY_LAYERS_SOURCE.PICTURES) {
+            setMapillaryImageId(feature.properties.id);
           }
           break;
         }
@@ -447,11 +444,11 @@ function Map({
         {!isMobile && <ImageControl map={map} communeNom={commune.nom} />}
         {!isMobile && <RulerControl disabled={isEditing} />}
         {isMobile && navigator.geolocation && <GeolocationControl map={map} />}
-        <PanoramaxControl
+        <MapillaryControl
           commune={commune}
           map={map}
-          showPanoramax={showPanoramax}
-          setShowPanoramax={setShowPanoramax}
+          showMapillary={showMapillary}
+          setShowMapillary={setShowMapillary}
         />
         <BoundaryControl
           visibility={boundaryVisibility}
@@ -471,7 +468,7 @@ function Map({
         </Pane>
       )}
 
-      <Pane display="flex" flex={1}>
+      <Pane display="flex" flex={1} position="relative">
         <MapGl
           ref={handleMapRef}
           hash={true}
@@ -500,25 +497,25 @@ function Map({
             ))}
           </Source>
 
-          {PANORAMAX_TILE_URL && (
+          {MAPILLARY_TILE_URL && (
             <Source
-              id={PANORAMAX_SOURCE_ID}
+              id={MAPILLARY_SOURCE_ID}
               type="vector"
-              tiles={[PANORAMAX_TILE_URL]}
+              tiles={[MAPILLARY_TILE_URL]}
             >
               <Layer
                 {...({
-                  ...panoramaxSequenceLayer,
+                  ...mapillarySequenceLayer,
                   paint: {
-                    ...panoramaxSequenceLayer.paint,
-                    "line-opacity": showPanoramax ? 1 : 0,
+                    ...mapillarySequenceLayer.paint,
+                    "line-opacity": showMapillary ? 1 : 0,
                   },
                 } as LayerProps)}
               />
               <Layer
                 {...({
-                  ...panoramaxPictureLayer,
-                  layout: { visibility: showPanoramax ? "visible" : "none" },
+                  ...mapillaryPictureLayer,
+                  layout: { visibility: showMapillary ? "visible" : "none" },
                 } as LayerProps)}
               />
             </Source>
@@ -652,6 +649,10 @@ function Map({
             <PopupFeature feature={featureHovered} commune={commune} />
           )}
         </MapGl>
+        <MapillaryViewer
+          imageId={mapillaryImageId}
+          onClose={() => setMapillaryImageId(null)}
+        />
       </Pane>
     </Pane>
   );
