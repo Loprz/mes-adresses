@@ -152,6 +152,18 @@ function Map({
   const [handleHover, handleMouseLeave, featureHovered] = useHovered(map);
   const bounds = useBounds(map, commune, voie, toponyme);
 
+  // Existing address points for the current street, projected into the
+  // Mapillary photo as pins so users can see them while viewing imagery.
+  const mapillaryPoints = useMemo(() => {
+    if (!numeros) return [];
+    return numeros.flatMap((n) => {
+      const coords = n.positions?.[0]?.point?.coordinates;
+      return coords
+        ? [{ id: n.id, lng: coords[0], lat: coords[1] }]
+        : [];
+    });
+  }, [numeros]);
+
   const displayPopupFeature =
     featureHovered !== null &&
     viewport.zoom > 14 &&
@@ -696,6 +708,7 @@ function Map({
           imageId={mapillaryImageId}
           onClose={() => setMapillaryImageId(null)}
           onCameraChange={setMapillaryCamera}
+          points={mapillaryPoints}
         />
       </Pane>
     </Pane>

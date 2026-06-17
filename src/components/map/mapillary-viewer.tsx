@@ -29,6 +29,8 @@ interface MapillaryViewerProps {
   // Reports the camera position + viewing direction so the map can draw a
   // field-of-view cone. Called with null when the viewer closes.
   onCameraChange?: (camera: MapillaryCamera | null) => void;
+  // Existing address points for the current street, shown as pins in the photo.
+  points?: { id: string; lng: number; lat: number }[];
 }
 
 function MapillaryViewer({
@@ -36,6 +38,7 @@ function MapillaryViewer({
   onClose,
   placeMode = true,
   onCameraChange,
+  points = [],
 }: MapillaryViewerProps) {
   const t = useTranslations("mapControls");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,6 +64,10 @@ function MapillaryViewer({
   // Initial image id, read once at viewer creation (navigation uses moveTo).
   const imageIdRef = useRef(imageId);
   imageIdRef.current = imageId;
+  // Street points + a handle to re-render the in-photo pins from outside.
+  const pointsRef = useRef(points);
+  pointsRef.current = points;
+  const syncRef = useRef<() => void>(() => {});
 
   // Create the viewer ONCE when it opens; destroy when it closes/unmounts.
   // Keyed on open/closed (not imageId) so navigating between images reuses the
@@ -75,7 +82,7 @@ function MapillaryViewer({
       container: containerRef.current,
       imageId: imageIdRef.current as string,
       cameraControls: CameraControls.Street, // required for accurate click lngLat
-      component: { cover: false },
+      component: { cover: false, marker: true }, // marker is off by default
     });
     viewerRef.current = viewer;
 
@@ -87,26 +94,48 @@ function MapillaryViewer({
       markerComp = null;
     }
     const syncPhotoMarker = () => {
-      const active = markersRef.current[0];
-      if (!markerComp || !active?.longitude || !active?.latitude) return;
+      if (!markerComp) return;
       try {
         markerComp.removeAll();
-        markerComp.add([
-          new SimpleMarker(
-            "nap-active-point",
-            { lng: active.longitude, lat: active.latitude },
-            {
-              color: "#f06a1b",
-              ballColor: "#ffffff",
-              radius: 1,
-              interactive: false,
-            }
-          ),
-        ]);
+        const pins: any[] = [];
+        // Existing address points for this street (green, non-interactive).
+        for (const p of pointsRef.current) {
+          if (p.lng == null || p.lat == null) continue;
+          pins.push(
+            new SimpleMarker(
+              `nap-${p.id}`,
+              { lng: p.lng, lat: p.lat },
+              {
+                color: "#05CB63",
+                ballColor: "#ffffff",
+                radius: 0.8,
+                interactive: false,
+              }
+            )
+          );
+        }
+        // The point currently being added/edited (orange, stands out).
+        const active = markersRef.current[0];
+        if (active?.longitude && active?.latitude) {
+          pins.push(
+            new SimpleMarker(
+              "nap-active-point",
+              { lng: active.longitude, lat: active.latitude },
+              {
+                color: "#f06a1b",
+                ballColor: "#ffffff",
+                radius: 1.2,
+                interactive: false,
+              }
+            )
+          );
+        }
+        if (pins.length) markerComp.add(pins);
       } catch {
         /* marker geometry not ready yet — ignore */
       }
     };
+    syncRef.current = syncPhotoMarker;
 
     // Report camera position + viewing direction to the map (FOV cone).
     const emitCamera = () => {
@@ -152,6 +181,11 @@ function MapillaryViewer({
     // Create/destroy only on open<->close. Navigation is handled by moveTo.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
+
+  // Refresh the in-photo pins when the street's points change.
+  useEffect(() => {
+    syncRef.current();
+  }, [points]);
 
   // Navigate to a newly clicked image without rebuilding the viewer.
   useEffect(() => {
