@@ -58,15 +58,22 @@ function MapillaryViewer({
   // Latest camera position / bearing, combined into one emit to the map.
   const camPosRef = useRef<{ lng: number; lat: number } | null>(null);
   const camBearingRef = useRef<number>(0);
+  // Initial image id, read once at viewer creation (navigation uses moveTo).
+  const imageIdRef = useRef(imageId);
+  imageIdRef.current = imageId;
 
-  // Create the viewer once we have a container + first image, destroy on unmount.
+  // Create the viewer ONCE when it opens; destroy when it closes/unmounts.
+  // Keyed on open/closed (not imageId) so navigating between images reuses the
+  // same WebGL context instead of rebuilding it (which exhausts GL contexts →
+  // "THREE.WebGLRenderer: Context Lost").
+  const isOpen = imageId !== null;
   useEffect(() => {
-    if (!imageId || !containerRef.current || !MAPILLARY_TOKEN) return;
+    if (!isOpen || !containerRef.current || !MAPILLARY_TOKEN) return;
 
     const viewer = new Viewer({
       accessToken: MAPILLARY_TOKEN,
       container: containerRef.current,
-      imageId,
+      imageId: imageIdRef.current as string,
       cameraControls: CameraControls.Street, // required for accurate click lngLat
       component: { cover: false },
     });
@@ -142,9 +149,9 @@ function MapillaryViewer({
       viewer.remove();
       viewerRef.current = null;
     };
-    // Re-create only when the source image changes.
+    // Create/destroy only on open<->close. Navigation is handled by moveTo.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageId]);
+  }, [isOpen]);
 
   // Navigate to a newly clicked image without rebuilding the viewer.
   useEffect(() => {
