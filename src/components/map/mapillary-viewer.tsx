@@ -1,7 +1,14 @@
 "use client";
 
-import { useContext, useEffect, useRef } from "react";
-import { Pane, IconButton, CrossIcon, Text } from "evergreen-ui";
+import { useContext, useEffect, useRef, useState } from "react";
+import {
+  Pane,
+  IconButton,
+  CrossIcon,
+  MaximizeIcon,
+  MinimizeIcon,
+  Text,
+} from "evergreen-ui";
 import { useTranslations } from "next-intl";
 import { Viewer, CameraControls } from "mapillary-js";
 import "mapillary-js/dist/mapillary.css";
@@ -23,6 +30,8 @@ function MapillaryViewer({
   const t = useTranslations("mapControls");
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<Viewer | null>(null);
+  // Docked (small, bottom-right) vs. maximized (left split, map stays usable).
+  const [maximized, setMaximized] = useState(false);
 
   const { markers, updateMarker } = useContext(MarkersContext);
   // Read markers/updateMarker via refs so the viewer's click handler (bound
@@ -76,18 +85,24 @@ function MapillaryViewer({
     }
   }, [imageId]);
 
+  // MapillaryJS needs an explicit resize when its container changes size.
+  useEffect(() => {
+    const id = window.setTimeout(() => viewerRef.current?.resize(), 50);
+    return () => window.clearTimeout(id);
+  }, [maximized]);
+
   if (!imageId || !MAPILLARY_TOKEN) return null;
+
+  const dockedSize = { bottom: 16, right: 16, width: 440, height: 320 };
+  const maximizedSize = { top: 0, left: 0, bottom: 0, width: "55%" };
 
   return (
     <Pane
       position="absolute"
-      bottom={16}
-      right={16}
-      width={440}
-      height={320}
+      {...(maximized ? maximizedSize : dockedSize)}
       zIndex={3}
       elevation={3}
-      borderRadius={6}
+      borderRadius={maximized ? 0 : 6}
       overflow="hidden"
       background="white"
     >
@@ -112,6 +127,12 @@ function MapillaryViewer({
             {t("clickPhotoToPlace")}
           </Text>
         )}
+        <IconButton
+          icon={maximized ? MinimizeIcon : MaximizeIcon}
+          appearance="minimal"
+          onClick={() => setMaximized((m) => !m)}
+          title={maximized ? t("collapseViewer") : t("expandViewer")}
+        />
         <IconButton
           icon={CrossIcon}
           appearance="minimal"

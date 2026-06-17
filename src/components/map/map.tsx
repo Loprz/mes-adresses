@@ -502,6 +502,8 @@ function Map({
               id={MAPILLARY_SOURCE_ID}
               type="vector"
               tiles={[MAPILLARY_TILE_URL]}
+              minzoom={6}
+              maxzoom={14}
             >
               <Layer
                 {...({

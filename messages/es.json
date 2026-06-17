@@ -608,6 +608,8 @@
     "openStreetView": "Abrir Street View",
     "closeStreetView": "Cerrar Street View",
     "clickPhotoToPlace": "Haz clic en la foto para mover el punto",
+    "expandViewer": "Ampliar imágenes",
+    "collapseViewer": "Reducir imágenes",
     "layerNumbers": "Números",
     "layerStreets": "Calles",
     "layerPlaceNames": "Nombres de lugares",
