@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import MapGl, {
   Source,
   Layer,
+  Marker,
   ViewState,
   SourceProps,
   LayerProps,
@@ -132,6 +133,11 @@ function Map({
   const { isMobile } = useContext(LayoutContext);
   const [showMapillary, setShowMapillary] = useState(false);
   const [mapillaryImageId, setMapillaryImageId] = useState<string | null>(null);
+  const [mapillaryCamera, setMapillaryCamera] = useState<{
+    lng: number;
+    lat: number;
+    bearing: number;
+  } | null>(null);
 
   const [cursor, setCursor] = useState("default");
   const [isContextMenuDisplayed, setIsContextMenuDisplayed] = useState(null);
@@ -650,10 +656,46 @@ function Map({
           {displayPopupFeature && (
             <PopupFeature feature={featureHovered} commune={commune} />
           )}
+
+          {mapillaryCamera && (
+            <Marker
+              longitude={mapillaryCamera.lng}
+              latitude={mapillaryCamera.lat}
+              anchor="center"
+            >
+              <div
+                style={{
+                  transform: `rotate(${mapillaryCamera.bearing}deg)`,
+                  transformOrigin: "50% 50%",
+                  pointerEvents: "none",
+                }}
+              >
+                <svg width="54" height="54" viewBox="0 0 54 54">
+                  {/* Field-of-view cone pointing in the camera's bearing (north-up map) */}
+                  <path
+                    d="M27 27 L14 3 L40 3 Z"
+                    fill="#05CB63"
+                    fillOpacity="0.3"
+                    stroke="#05CB63"
+                    strokeWidth="1.5"
+                  />
+                  <circle
+                    cx="27"
+                    cy="27"
+                    r="5"
+                    fill="#05CB63"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </div>
+            </Marker>
+          )}
         </MapGl>
         <MapillaryViewer
           imageId={mapillaryImageId}
           onClose={() => setMapillaryImageId(null)}
+          onCameraChange={setMapillaryCamera}
         />
       </Pane>
     </Pane>
