@@ -86,7 +86,7 @@ function MapillaryViewer({
     });
     viewerRef.current = viewer;
 
-    // In-photo pin showing the active address point's current location.
+    // In-photo pins: the street's existing points plus the one being edited.
     let markerComp: any = null;
     try {
       markerComp = viewer.getComponent("marker");

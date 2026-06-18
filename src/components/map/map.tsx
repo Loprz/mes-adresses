@@ -51,7 +51,13 @@ import {
   setMapFilter,
 } from "@/lib/utils/map";
 import GeolocationControl from "./controls/geolocation-control";
-import { getStyleDynamically, ortho, planIGN, vector } from "./styles";
+import {
+  getStyleDynamically,
+  buildOrthoStyle,
+  resolveOrthoTiles,
+  planIGN,
+  vector,
+} from "./styles";
 import {
   parcelLayers,
   parcelRasterLayer,
@@ -152,17 +158,41 @@ function Map({
   const [handleHover, handleMouseLeave, featureHovered] = useHovered(map);
   const bounds = useBounds(map, commune, voie, toponyme);
 
-  // Existing address points for the current street, projected into the
-  // Mapillary photo as pins so users can see them while viewing imagery.
+  // Address points near the Mapillary camera, pulled from the rendered numeros
+  // tiles so the viewer can pin them in the photo whether or not a single
+  // street is open. Keyed on the rounded camera position so it doesn't recompute
+  // on every bearing change while panning the photo.
+  const camPosKey = mapillaryCamera
+    ? `${mapillaryCamera.lng.toFixed(5)}|${mapillaryCamera.lat.toFixed(5)}`
+    : "";
   const mapillaryPoints = useMemo(() => {
-    if (!numeros) return [];
-    return numeros.flatMap((n) => {
-      const coords = n.positions?.[0]?.point?.coordinates;
-      return coords
-        ? [{ id: n.id, lng: coords[0], lat: coords[1] }]
-        : [];
-    });
-  }, [numeros]);
+    if (!map || !mapillaryCamera) return [];
+    let feats: any[] = [];
+    try {
+      feats = map.queryRenderedFeatures({ layers: [NUMEROS_POINT] }) || [];
+    } catch {
+      return [];
+    }
+    const { lng, lat } = mapillaryCamera;
+    const mLon = 111320 * Math.cos((lat * Math.PI) / 180);
+    const mLat = 111320;
+    const seen = new Set<string>();
+    const out: { id: string; lng: number; lat: number }[] = [];
+    for (const f of feats) {
+      const c = (f.geometry as any)?.coordinates;
+      if (!c) continue;
+      const dx = (c[0] - lng) * mLon;
+      const dy = (c[1] - lat) * mLat;
+      if (dx * dx + dy * dy > 200 * 200) continue; // within ~200 m of the camera
+      const id = String(f.properties?.id ?? `${c[0]},${c[1]}`);
+      if (seen.has(id)) continue;
+      seen.add(id);
+      out.push({ id, lng: c[0], lat: c[1] });
+      if (out.length >= 80) break;
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, camPosKey]);
 
   const displayPopupFeature =
     featureHovered !== null &&
@@ -181,7 +211,9 @@ function Map({
     }
     switch (style) {
       case MapStyle.ORTHO:
-        return ortho;
+        return buildOrthoStyle(
+          resolveOrthoTiles(commune.countyFips ?? commune.code?.slice(0, 5))
+        );
 
       case MapStyle.VECTOR:
         return vector;
