@@ -4,11 +4,12 @@ import { parcelleDiff } from "@/components/signalement/signalement-diff/signalem
 import { positionDiff } from "@/components/signalement/signalement-diff/signalement-position-diff";
 import MarkersContext from "@/contexts/markers";
 import ParcellesContext from "@/contexts/parcelles";
-import { getPositionName } from "@/lib/positions-types-list";
+import { getPositionTypeKey } from "@/lib/positions-types-list";
 import { ActiveCardEnum, SignalementDiff } from "@/lib/utils/signalement";
 import { useContext, useEffect, useState } from "react";
 import { useMapStyleLoaded } from "./useMapStyleLoaded";
 import { useSignalementCadastre } from "./useSignalementCadastre";
+import { useTranslations } from "next-intl";
 
 export type SignalementMapDiffUpdateExistingLocation = {
   positions: any[];
@@ -24,6 +25,7 @@ export function useSignalementMapDiffUpdate(
   existingLocation: SignalementMapDiffUpdateExistingLocation,
   changesRequested: SignalementMapDiffUpdateChangesRequested
 ) {
+  const tp = useTranslations("positionTypes");
   const { positions, parcelles } = changesRequested;
   const { positions: existingPositions, parcelles: existingParcelles } =
     existingLocation;
@@ -55,7 +57,7 @@ export function useSignalementMapDiffUpdate(
           isMapMarker: true,
           isDisabled: true,
           color: position.color,
-          label: getPositionName(position.type),
+          label: tp(getPositionTypeKey(position.type)),
           longitude: position.point.coordinates[0],
           latitude: position.point.coordinates[1],
         });

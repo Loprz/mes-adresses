@@ -7,6 +7,7 @@ import { Voie, VoiesService } from "@/lib/openapi-api-bal";
 import { SignalementFormButtons } from "../signalement-form-buttons";
 import { SignalementVoieDiffCard } from "../../signalement-diff/signalement-voie-diff-card";
 import LayoutContext from "@/contexts/layout";
+import { useTranslations } from "next-intl";
 
 interface SignalementUpdateVoieProps {
   signalement: Signalement;
@@ -27,6 +28,7 @@ function SignalementUpdateVoie({
   handleClose,
   isLoading,
 }: SignalementUpdateVoieProps) {
+  const t = useTranslations("signalement");
   const { nom: existingNom } = existingLocation;
   const { nom } = signalement.changesRequested as VoieChangesRequestedDTO;
   const { pushToast } = useContext(LayoutContext);
@@ -40,7 +42,7 @@ function SignalementUpdateVoie({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -49,13 +51,13 @@ function SignalementUpdateVoie({
   return (
     <>
       <SignalementVoieDiffCard
-        title="Current street name"
+        title={t("form.currentStreetName")}
         nom={{
           to: existingNom,
         }}
       />
       <SignalementVoieDiffCard
-        title="Proposed change"
+        title={t("form.proposedChange")}
         signalementType={Signalement.type.LOCATION_TO_UPDATE}
         nom={{
           from: existingNom,
@@ -63,7 +65,7 @@ function SignalementUpdateVoie({
         }}
       />
       <SignalementVoieDiffCard
-        title="Street name after modification"
+        title={t("form.streetNameAfterModification")}
         nom={{
           to: nom,
         }}

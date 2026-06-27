@@ -1,7 +1,8 @@
 import { Position } from "@/lib/openapi-api-bal";
 import { PositionDTO } from "@/lib/openapi-signalement";
-import { getPositionName } from "@/lib/positions-types-list";
+import { getPositionTypeKey } from "@/lib/positions-types-list";
 import { SignalementDiff } from "@/lib/utils/signalement";
+import { useTranslations } from "next-intl";
 import {
   Heading,
   MinusIcon,
@@ -61,6 +62,8 @@ export function SignalementPositionDiff({
   positions,
   existingPositions,
 }: SignalementPositionDiffProps) {
+  const tp = useTranslations("positionTypes");
+  const ts = useTranslations("signalement");
   const positionsDiff = positionDiff(
     positions as PositionDTO[],
     existingPositions
@@ -69,12 +72,12 @@ export function SignalementPositionDiff({
   return (
     <Pane marginTop={10} padding={8} borderRadius={8} className="glass-pane">
       <Text fontWeight="bold">
-        Position{positionsDiff.length > 1 ? "s" : ""}
+        {ts("position.label", { count: positionsDiff.length })}
       </Text>
       <Pane display="grid" gridTemplateColumns="2fr 2fr" rowGap={6}>
         <Pane />
         <Strong fontWeight={200} fontSize="small">
-          Proposed modification
+          {ts("positionDiff.proposedModification")}
         </Strong>
 
         {positionsDiff.map(({ type, diff }, index) => {
@@ -92,12 +95,12 @@ export function SignalementPositionDiff({
                   color="purple"
                   marginY={2}
                 >
-                  {getPositionName(diff[0])}
+                  {tp(getPositionTypeKey(diff[0]))}
                   <ArrowRightIcon marginX={4} />
-                  {getPositionName(diff[1])}
+                  {tp(getPositionTypeKey(diff[1]))}
                 </Badge>
                 <Heading size={100} marginY="auto">
-                  <Small>Type modification</Small>
+                  <Small>{ts("positionDiff.typeModification")}</Small>
                 </Heading>
               </React.Fragment>
             );
@@ -113,10 +116,10 @@ export function SignalementPositionDiff({
                   color="orange"
                 >
                   <MinusIcon marginRight={4} />
-                  {getPositionName(type)}
+                  {tp(getPositionTypeKey(type))}
                 </Badge>
                 <Heading size={100} marginY="auto">
-                  <Small>Suppression de position</Small>
+                  <Small>{ts("positionDiff.positionRemoved")}</Small>
                 </Heading>
               </React.Fragment>
             );
@@ -132,10 +135,10 @@ export function SignalementPositionDiff({
                   color="teal"
                 >
                   <PlusIcon marginRight={4} />
-                  {getPositionName(type)}
+                  {tp(getPositionTypeKey(type))}
                 </Badge>
                 <Heading size={100} marginY="auto">
-                  <Small>Ajout de position</Small>
+                  <Small>{ts("positionDiff.positionAdded")}</Small>
                 </Heading>
               </React.Fragment>
             );
@@ -150,10 +153,10 @@ export function SignalementPositionDiff({
                   marginY={2}
                   color="blue"
                 >
-                  {getPositionName(type)}
+                  {tp(getPositionTypeKey(type))}
                 </Badge>
                 <Heading size={100} marginY="auto">
-                  <Small>No modification</Small>
+                  <Small>{ts("positionDiff.noModification")}</Small>
                 </Heading>
               </React.Fragment>
             );

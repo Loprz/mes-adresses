@@ -10,7 +10,10 @@ import {
 } from "evergreen-ui";
 import { useTranslations } from "next-intl";
 
-import { positionsTypesList } from "@/lib/positions-types-list";
+import {
+  positionsTypesList,
+  getPositionTypeKey,
+} from "@/lib/positions-types-list";
 import { Marker } from "@/contexts/markers";
 
 interface PositionItemProps {
@@ -54,13 +57,13 @@ function PositionItem({
         >
           {positionsTypesList.map((positionType) => (
             <option key={positionType.value} value={positionType.value}>
-              {tp(positionType.value)}
+              {tp(positionType.key)}
             </option>
           ))}
         </Select>
       ) : (
         <Heading size={100} marginY="auto">
-          <Small>{tp(marker.type)}</Small>
+          <Small>{tp(getPositionTypeKey(marker.type))}</Small>
         </Heading>
       )}
       <Icon icon={MapMarkerIcon} size={22} margin="auto" color={marker.color} />

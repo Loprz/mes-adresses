@@ -24,15 +24,12 @@ export function useBALDataImport() {
     });
 
     if (!response.isValid) {
-      throw new Error("Le fichier CSV est invalide.");
+      throw new Error("The CSV file is invalid.");
     }
   };
 
-  const importFromBAN = async (bal: BaseLocale) => {
-    Object.assign(OpenAPI, { TOKEN: bal.token });
-    BasesLocalesService.populateBaseLocale(bal.id);
-
-    return new Promise((resolve, reject) => {
+  const pollUntilPopulated = (bal: BaseLocale) =>
+    new Promise((resolve, reject) => {
       interval.current = setInterval(async () => {
         try {
           const isPopulating = await BasesLocalesService.isPopulatingBaseLocale(
@@ -49,7 +46,22 @@ export function useBALDataImport() {
         }
       }, 2000);
     });
+
+  const importFromBAN = async (bal: BaseLocale) => {
+    Object.assign(OpenAPI, { TOKEN: bal.token });
+    BasesLocalesService.populateBaseLocale(bal.id);
+
+    return pollUntilPopulated(bal);
   };
 
-  return { importFromCSVFile, importFromBAN };
+  const importFromOverture = async (bal: BaseLocale) => {
+    Object.assign(OpenAPI, { TOKEN: bal.token });
+    // Fire the on-demand Overture extract; we ignore the (potentially long)
+    // request promise and track completion via the is_populating poll instead.
+    BasesLocalesService.populateBaseLocale(bal.id, "overture");
+
+    return pollUntilPopulated(bal);
+  };
+
+  return { importFromCSVFile, importFromBAN, importFromOverture };
 }

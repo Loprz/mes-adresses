@@ -18,6 +18,7 @@ import { Signalement } from "@/lib/openapi-signalement";
 import SignalementTypeBadge from "./signalement-type-badge";
 import MarkersContext from "@/contexts/markers";
 import { SignalementListItem } from "./signalement-list-item";
+import { useTranslations } from "next-intl";
 
 interface SignalementListProps {
   signalements: Signalement[];
@@ -48,6 +49,7 @@ function SignalementList({
   editionEnabled,
   onShowPurgeExpiredSignalementsDialog,
 }: SignalementListProps) {
+  const t = useTranslations("signalement");
   const [showFilters, setShowFilters] = useState(false);
   const { updateMarker } = useContext(MarkersContext);
 
@@ -91,7 +93,7 @@ function SignalementList({
           </Table.Cell>
         )}
         <Table.SearchHeaderCell
-          placeholder="Search for a report"
+          placeholder={t("list.searchPlaceholder")}
           onChange={onSearch}
         />
         <Table.HeaderCell flex="unset">
@@ -123,7 +125,7 @@ function SignalementList({
               iconBefore={hasActiveFilters ? FilterRemoveIcon : FilterIcon}
               onClick={() => setShowFilters((prev) => !prev)}
             >
-              Filters
+              {t("list.filters")}
             </Button>
           </Tooltip>
           {showFilters && (
@@ -138,11 +140,11 @@ function SignalementList({
             />
           )}
           {editionEnabled && (
-            <Tooltip content="Refresh reports">
+            <Tooltip content={t("list.refresh")}>
               <IconButton
                 icon={RefreshIcon}
                 marginLeft={16}
-                title="Refresh reports"
+                title={t("list.refresh")}
                 onClick={onShowPurgeExpiredSignalementsDialog}
               />
             </Tooltip>
@@ -153,7 +155,7 @@ function SignalementList({
       {signalements.length === 0 && (
         <Table.Row>
           <Table.TextCell marginLeft={40} color="muted" fontStyle="italic">
-            There are currently no reports
+            {t("list.empty")}
           </Table.TextCell>
         </Table.Row>
       )}

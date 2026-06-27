@@ -13,6 +13,7 @@ import {
   Text,
 } from "evergreen-ui";
 import { useContext, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface SignalementFormButtonsProps {
   author?: Signalement["author"];
@@ -22,13 +23,15 @@ interface SignalementFormButtonsProps {
   onClose: () => void;
 }
 
+// Stable option keys; labels are resolved via the
+// `signalement.buttons.rejectionReasons` i18n namespace.
 const rejectionReasonsOptions = [
-  "Irrelevant report",
-  "Duplicate report",
-  "Report already processed",
-  "Report incorrectly positioned",
-  "Non-compliant report",
-  "Other",
+  "irrelevant",
+  "duplicate",
+  "alreadyProcessed",
+  "incorrectlyPositioned",
+  "nonCompliant",
+  "other",
 ] as const;
 
 type RejectionReasonOption = (typeof rejectionReasonsOptions)[number];
@@ -40,6 +43,7 @@ export function SignalementFormButtons({
   onReject,
   onClose,
 }: SignalementFormButtonsProps) {
+  const t = useTranslations("signalement");
   const { pendingSignalementsCount } = useContext(SignalementContext);
   const [rejectionReasonSelected, setRejectionReasonSelected] =
     useState<RejectionReasonOption | null>(null);
@@ -68,26 +72,27 @@ export function SignalementFormButtons({
             width="100%"
           >
             <Label htmlFor="reject-reason" marginBottom={8} display="block">
-              <Text fontWeight="bold">Reason</Text>
+              <Text fontWeight="bold">{t("buttons.reason")}</Text>
               {author?.email && (
                 <Text marginLeft={4} size={300} color="muted">
-                  (The report author will receive this information by email)
+                  {t("buttons.reasonAuthorNotice")}
                 </Text>
               )}
             </Label>
             <BadgeSelect
               options={rejectionReasonsOptions}
+              getLabel={(value: string) => t(`buttons.rejectionReasons.${value}`)}
               onChange={(value: string) =>
                 setRejectionReasonSelected(value as RejectionReasonOption)
               }
               value={rejectionReasonSelected}
             />
-            {rejectionReasonSelected === "Other" && (
+            {rejectionReasonSelected === "other" && (
               <Textarea
                 id="reject-reason"
                 value={rejectionReason}
                 onChange={(e) => setRejectionReason(e.target.value)}
-                placeholder="Please specify the reason for rejection. Do not include personal data."
+                placeholder={t("buttons.rejectPlaceholder")}
                 rows={4}
                 resize="none"
               />
@@ -108,9 +113,13 @@ export function SignalementFormButtons({
                   isLoading={isLoading}
                   onClick={async () => {
                     await onReject(
-                      rejectionReasonSelected === "Other"
+                      rejectionReasonSelected === "other"
                         ? rejectionReason
                         : rejectionReasonSelected
+                          ? t(
+                              `buttons.rejectionReasons.${rejectionReasonSelected}`
+                            )
+                          : undefined
                     );
                     setShowRejectionForm(false);
                     setRejectionReason("");
@@ -119,10 +128,9 @@ export function SignalementFormButtons({
                   intent="danger"
                   iconAfter={BanCircleIcon}
                 >
-                  Reject and{" "}
                   {pendingSignalementsCount > 1
-                    ? "move to next"
-                    : "finish"}
+                    ? t("buttons.rejectAndNext")
+                    : t("buttons.rejectAndFinish")}
                 </Button>
               </Pane>
               <Pane
@@ -136,7 +144,7 @@ export function SignalementFormButtons({
                   display="inline-flex"
                   onClick={() => setShowRejectionForm(false)}
                 >
-                  Cancel
+                  {t("buttons.cancel")}
                 </Button>
               </Pane>
             </Pane>
@@ -155,7 +163,7 @@ export function SignalementFormButtons({
               intent="success"
               iconAfter={TickCircleIcon}
             >
-              Accept
+              {t("buttons.accept")}
             </Button>
           </Pane>
 
@@ -172,7 +180,7 @@ export function SignalementFormButtons({
               onClick={() => setShowRejectionForm(true)}
               iconAfter={BanCircleIcon}
             >
-              Reject
+              {t("buttons.reject")}
             </Button>
           </Pane>
 
@@ -187,7 +195,7 @@ export function SignalementFormButtons({
               display="inline-flex"
               onClick={onClose}
             >
-              Back
+              {t("buttons.back")}
             </Button>
           </Pane>
         </>

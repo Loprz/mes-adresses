@@ -5,6 +5,7 @@ import { Pane, SelectMenu, Button, Position, LayersIcon } from "evergreen-ui";
 import { useTranslations } from "next-intl";
 
 import ParcelControl from "@/components/map/controls/cadastre-control";
+import BuildingsControl from "@/components/map/controls/buildings-control";
 import { CommuneType } from "@/types/commune";
 import { MapStyle } from "@/contexts/map";
 import LocalStorageContext from "@/contexts/local-storage";
@@ -15,6 +16,8 @@ interface StyleControlProps {
   handleStyle: (style: MapStyle | string) => void;
   isParcelsDisplayed: boolean;
   handleParcelsToggle: (fn: (show: boolean) => boolean) => void;
+  isBuildingsDisplayed?: boolean;
+  handleBuildingsToggle?: () => void;
   commune: CommuneType;
   baseLocale: ExtendedBaseLocaleDTO;
 }
@@ -26,6 +29,8 @@ function StyleControl({
   handleStyle,
   isParcelsDisplayed,
   handleParcelsToggle,
+  isBuildingsDisplayed,
+  handleBuildingsToggle,
 }: StyleControlProps) {
   const t = useTranslations("mapControls");
   const [showPopover, setShowPopover] = useState(false);
@@ -119,6 +124,12 @@ function StyleControl({
         isParcelsDisplayed={isParcelsDisplayed}
         onClick={() => handleParcelsToggle((show) => !show)}
       />
+      {handleBuildingsToggle && (
+        <BuildingsControl
+          isBuildingsDisplayed={isBuildingsDisplayed}
+          onClick={handleBuildingsToggle}
+        />
+      )}
     </Pane>
   );
 }

@@ -12,6 +12,7 @@ import { useSignalementMapDiffCreation } from "../../hooks/useSignalementMapDiff
 import useFuse from "@/hooks/fuse";
 import { Alert, Link, Paragraph } from "evergreen-ui";
 import NextLink from "next/link";
+import { useTranslations } from "next-intl";
 
 interface SignalementCreateToponymeProps {
   signalement: Signalement;
@@ -30,6 +31,7 @@ function SignalementCreateToponyme({
   handleClose,
   isLoading,
 }: SignalementCreateToponymeProps) {
+  const t = useTranslations("signalement");
   const { nom, parcelles, positions } =
     signalement.changesRequested as ToponymeChangesRequestedDTO;
   const { pushToast } = useContext(LayoutContext);
@@ -61,7 +63,7 @@ function SignalementCreateToponyme({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -70,7 +72,7 @@ function SignalementCreateToponyme({
   return (
     <>
       <SignalementToponymeDiffCard
-        title="Place name creation request"
+        title={t("form.placeNameCreationRequest")}
         signalementType={Signalement.type.LOCATION_TO_CREATE}
         isActive
         nom={{
@@ -85,16 +87,12 @@ function SignalementCreateToponyme({
       />
       {!isLoading && similarToponymes.length > 0 && (
         <Alert
-          title="Accepting this report may create a duplicate"
+          title={t("form.duplicateWarningTitle")}
           flexShrink={0}
           intent="warning"
         >
           <Paragraph>
-            The Local Address Base contains{" "}
-            {similarToponymes.length === 1
-              ? `a place name`
-              : `several place names`}{" "}
-            with a similar name:{" "}
+            {t("form.similarPlaceNames", { count: similarToponymes.length })}{" "}
             {similarToponymes.map(({ id, nom }) => (
               <Link
                 key={id}

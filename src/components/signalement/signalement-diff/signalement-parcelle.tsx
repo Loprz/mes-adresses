@@ -1,5 +1,6 @@
 import { Signalement } from "@/lib/openapi-signalement";
 import { Badge, Pane, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementParcelleProps {
   parcelles: string[];
@@ -10,10 +11,11 @@ export function SignalementParcelle({
   parcelles,
   signalementType,
 }: SignalementParcelleProps) {
+  const t = useTranslations("signalement");
   return parcelles.length > 0 ? (
     <Pane marginTop={10} padding={8} borderRadius={8} className="glass-pane">
       <Text is="div" fontWeight="bold" marginBottom={5}>
-        Parcelle{parcelles.length > 1 ? "s" : ""}
+        {t("parcelle.label", { count: parcelles.length })}
       </Text>
 
       {parcelles.map((parcelle) => (

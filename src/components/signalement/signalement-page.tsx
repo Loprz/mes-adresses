@@ -18,6 +18,7 @@ import SignalementContext from "@/contexts/signalement";
 import TokenContext from "@/contexts/token";
 import { TabsEnum } from "@/components/sidebar/main-tabs/main-tabs";
 import { TilesLayerMode } from "@/components/map/layers/tiles";
+import { useTranslations } from "next-intl";
 
 interface SignalementPageProps {
   signalement: Signalement;
@@ -30,6 +31,7 @@ export default function SignalementPage({
   existingLocation,
   requestedLocations,
 }: SignalementPageProps) {
+  const t = useTranslations("signalement");
   const router = useRouter();
   const { fetchPendingSignalements, updateOneSignalement } =
     useContext(SignalementContext);
@@ -48,7 +50,7 @@ export default function SignalementPage({
     setBreadcrumbs(
       <>
         <Link is={NextLink} href={`/bal/${baseLocale.id}/signalements`}>
-          Reports
+          {t("page.title")}
         </Link>
         <Text color="muted">{" > "}</Text>
         <Text aria-current="page">{getSignalementLabel(signalement)}</Text>
@@ -120,9 +122,9 @@ export default function SignalementPage({
           await refreshBALSync();
         },
         status === Signalement.status.PROCESSED
-          ? "The report has been processed"
-          : "The report has been dismissed",
-        "An error occurred"
+          ? t("page.processed")
+          : t("page.dismissed"),
+        t("page.error")
       );
 
       await _updateSignalement();
@@ -178,13 +180,8 @@ export default function SignalementPage({
         </Pane>
       ) : (
         <Pane padding={20}>
-          <Paragraph>
-            Unable to find the report location.
-          </Paragraph>
-          <Paragraph>
-            It has been marked as expired and will no longer appear in the list
-            of reports.
-          </Paragraph>
+          <Paragraph>{t("page.locationNotFound")}</Paragraph>
+          <Paragraph>{t("page.expiredInfo")}</Paragraph>
           <Button
             is={NextLink}
             href={`/bal/${baseLocale.id}/signalements`}
@@ -194,7 +191,7 @@ export default function SignalementPage({
             alignSelf="center"
             appearance="primary"
           >
-            Back to reports list
+            {t("page.backToList")}
           </Button>
         </Pane>
       )}

@@ -5,6 +5,7 @@ import { SignalementNumeroDiffCard } from "../../signalement-diff/signalement-nu
 import { Signalement } from "@/lib/openapi-signalement";
 import { useSignalementMapDiffDeletion } from "../../hooks/useSignalementMapDiffDeletion";
 import LayoutContext from "@/contexts/layout";
+import { useTranslations } from "next-intl";
 
 interface SignalementDeleteNumeroProps {
   author: Signalement["author"];
@@ -23,6 +24,7 @@ function SignalementDeleteNumero({
   handleClose,
   isLoading,
 }: SignalementDeleteNumeroProps) {
+  const t = useTranslations("signalement");
   const { numero, suffixe, voie, parcelles, positions } = existingLocation;
   const { pushToast } = useContext(LayoutContext);
   useSignalementMapDiffDeletion(existingLocation);
@@ -34,7 +36,7 @@ function SignalementDeleteNumero({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -45,7 +47,7 @@ function SignalementDeleteNumero({
       <SignalementNumeroDiffCard
         isActive
         signalementType={Signalement.type.LOCATION_TO_DELETE}
-        title="Address deletion request"
+        title={t("form.addressDeletionRequest")}
         numero={{
           to: `${numero}${suffixe ? ` ${suffixe}` : ""}`,
         }}

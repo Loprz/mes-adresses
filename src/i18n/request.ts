@@ -1,5 +1,5 @@
 import { getRequestConfig } from "next-intl/server";
-import { routing } from "./routing";
+import { getUserLocale } from "./locale";
 
 // Static imports for bundler compatibility (Edge middleware can't use dynamic imports)
 import en from "../../messages/en.json";
@@ -7,14 +7,11 @@ import es from "../../messages/es.json";
 
 const messagesByLocale: Record<string, typeof en> = { en, es };
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  // This typically corresponds to the `[locale]` segment
-  let locale = await requestLocale;
-
-  // Ensure that a valid locale is used
-  if (!locale || !routing.locales.includes(locale as "en" | "es")) {
-    locale = routing.defaultLocale;
-  }
+export default getRequestConfig(async () => {
+  // This app has no `[locale]` URL segment or middleware, so the active locale
+  // is read from the NEXT_LOCALE cookie (set by the in-app language switcher),
+  // falling back to the default locale.
+  const locale = await getUserLocale();
 
   return {
     locale,

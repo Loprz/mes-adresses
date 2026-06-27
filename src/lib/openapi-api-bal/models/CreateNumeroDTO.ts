@@ -14,5 +14,9 @@ export type CreateNumeroDTO = {
     certifie?: boolean;
     communeDeleguee?: string;
     positions: Array<Position>;
+    /**
+     * Overture Maps GERS ID — links this address to an Overture building/entity.
+     */
+    gersId?: string;
 };
 

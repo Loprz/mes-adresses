@@ -29,6 +29,7 @@ import SignalementContext from "@/contexts/signalement";
 import BalDataContext from "@/contexts/bal-data";
 import { PurgeExpiredSignalementsDialog } from "@/components/signalement/purge-expired-signalements-dialog";
 import { TilesLayerMode } from "@/components/map/layers/tiles";
+import { useTranslations } from "next-intl";
 
 const fuseOptions = {
   keys: ["label"],
@@ -41,6 +42,7 @@ interface SignalementsPageProps {
 export default function SignalementsPage({
   paginatedSignalements: initialSignalements,
 }: SignalementsPageProps) {
+  const t = useTranslations("signalement");
   const { commune, baseLocale } = useContext(BalDataContext);
   const [signalements, setSignalements] = useState<Signalement[]>(
     initialSignalements.data
@@ -73,16 +75,20 @@ export default function SignalementsPage({
   });
 
   const tabs = [
-    { label: "In progress", key: "pending", count: pendingSignalementsCount },
     {
-      label: "Archived",
+      label: t("tabs.inProgress"),
+      key: "pending",
+      count: pendingSignalementsCount,
+    },
+    {
+      label: t("tabs.archived"),
       key: "archived",
       count: archivedSignalementsCount,
     },
   ];
 
   useEffect(() => {
-    setBreadcrumbs(<Text aria-current="page">Reports</Text>);
+    setBreadcrumbs(<Text aria-current="page">{t("page.title")}</Text>);
     setTileLayersMode(TilesLayerMode.HIDDEN);
 
     return () => {
@@ -182,10 +188,8 @@ export default function SignalementsPage({
   const handleIgnoreSignalements = async (ids: string[]) => {
     const _updateSignalements = toaster(
       () => updateManySignalements(ids, Signalement.status.IGNORED),
-      ids.length > 1
-        ? "The reports have been dismissed"
-        : "The report has been dismissed",
-      "An error occurred"
+      t("bulkActions.dismissedResult", { count: ids.length }),
+      t("page.error")
     );
 
     await _updateSignalements();
@@ -221,7 +225,7 @@ export default function SignalementsPage({
         borderBottom="muted"
         textAlign="center"
       >
-        <Text>Reports</Text>
+        <Text>{t("page.title")}</Text>
       </Pane>
       <Tablist background="white" padding={8}>
         {tabs.map(({ label, key, count }, index) => (
@@ -249,19 +253,19 @@ export default function SignalementsPage({
         {selectedSignalements.length > 1 && (
           <Pane padding={16}>
             <Pane marginBottom={5}>
-              <Heading>Bulk actions</Heading>
+              <Heading>{t("bulkActions.title")}</Heading>
             </Pane>
             <Pane>
               <Dialog
                 isShown={showWarningDialog}
                 intent="success"
-                title="Confirm bulk action"
+                title={t("bulkActions.confirmTitle")}
                 hasFooter={false}
                 onCloseComplete={() => setShowWarningDialog(false)}
               >
                 <Pane marginX="-32px" marginBottom="-8px">
                   <Paragraph marginBottom={8} marginLeft={32} color="muted">
-                    Are you sure you want to dismiss these reports?
+                    {t("bulkActions.confirmText")}
                   </Paragraph>
                 </Pane>
 
@@ -275,13 +279,13 @@ export default function SignalementsPage({
                       setSelectedSignalements([]);
                     }}
                   >
-                    Confirm
+                    {t("bulkActions.confirm")}
                   </Button>
                   <Button
                     appearance="default"
                     onClick={() => setShowWarningDialog(false)}
                   >
-                    Cancel
+                    {t("bulkActions.cancel")}
                   </Button>
                 </Pane>
               </Dialog>
@@ -291,7 +295,7 @@ export default function SignalementsPage({
                 intent="danger"
                 onClick={() => setShowWarningDialog(true)}
               >
-                Ignore reports
+                {t("bulkActions.ignore")}
               </Button>
             </Pane>
           </Pane>

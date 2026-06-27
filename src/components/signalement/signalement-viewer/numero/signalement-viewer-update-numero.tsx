@@ -8,6 +8,7 @@ import { SignalementNumeroDiffCard } from "../../signalement-diff/signalement-nu
 import { ActiveCardEnum } from "@/lib/utils/signalement";
 import { useSignalementMapDiffUpdate } from "@/components/signalement/hooks/useSignalementMapDiffUpdate";
 import { BanCircleIcon, TickCircleIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerUpdateNumeroProps {
   signalement: Signalement;
@@ -16,6 +17,7 @@ interface SignalementViewerUpdateNumeroProps {
 function SignalementViewerUpdateNumero({
   signalement,
 }: SignalementViewerUpdateNumeroProps) {
+  const t = useTranslations("signalement");
   const { changesRequested, existingLocation, status } = signalement;
 
   const { numero, suffixe, positions, parcelles, nomVoie, nomComplement } =
@@ -43,7 +45,7 @@ function SignalementViewerUpdateNumero({
   return (
     <>
       <SignalementNumeroDiffCard
-        title="Related address"
+        title={t("viewer.relatedAddress")}
         isActive={activeCard === ActiveCardEnum.INITIAL}
         numero={{
           to: `${existingNumero}${
@@ -69,8 +71,10 @@ function SignalementViewerUpdateNumero({
       <SignalementNumeroDiffCard
         title={
           <>
-            Update request{" "}
-            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
+            {t("viewer.updateRequest")}{" "}
+            {status === Signalement.status.PROCESSED
+              ? t("viewer.accepted")
+              : t("viewer.rejected")}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

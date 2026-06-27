@@ -69,6 +69,15 @@ import {
   PARCEL_TILES_TYPE,
   PARCEL_PROMOTE_ID,
 } from "./layers/parcels";
+import {
+  BUILDINGS_SOURCE,
+  BUILDINGS_LAYER,
+  BUILDINGS_MIN_ZOOM,
+  buildingLayers,
+  fetchBuildings,
+  EMPTY_BUILDINGS,
+  BuildingsFeatureCollection,
+} from "./layers/buildings";
 import RulerControl from "./controls/ruler-control";
 import MapillaryControl from "./controls/mapillary-control";
 import MapillaryViewer from "./mapillary-viewer";
@@ -148,12 +157,16 @@ function Map({
   const [cursor, setCursor] = useState("default");
   const [isContextMenuDisplayed, setIsContextMenuDisplayed] = useState(null);
   const [mapStyle, setMapStyle] = useState<any>(generateNewStyle(style));
+  const [isBuildingsDisplayed, setIsBuildingsDisplayed] = useState(false);
+  const [buildingsData, setBuildingsData] =
+    useState<BuildingsFeatureCollection>(EMPTY_BUILDINGS);
 
   const balId = params.balId;
   const { voie, toponyme, numeros, editingId, setEditingId, isEditing } =
     useContext(BalDataContext);
   const { hint, drawMode } = useContext(DrawContext);
   const { token } = useContext(TokenContext);
+  const { markers, setPendingBuildingPlacement } = useContext(MarkersContext);
 
   const [handleHover, handleMouseLeave, featureHovered] = useHovered(map);
   const bounds = useBounds(map, commune, voie, toponyme);
@@ -300,12 +313,19 @@ function Map({
       );
     }
 
+    // Make building footprints clickable (to place a building-typed address)
+    // while the layer is shown and we're not mid-edit.
+    if (isBuildingsDisplayed && !isEditing) {
+      layers.push(BUILDINGS_LAYER.FILL);
+    }
+
     return layers;
   }, [
     isEditing,
     isParcelleSelectionEnabled,
     isParcelsDisplayed,
     isTileSourceLoaded,
+    isBuildingsDisplayed,
   ]);
 
   const onClick = useCallback(
@@ -316,9 +336,28 @@ function Map({
           return (
             source === PARCEL_SOURCE ||
             source === "tiles" ||
-            source === MAPILLARY_SOURCE_ID
+            source === MAPILLARY_SOURCE_ID ||
+            source === BUILDINGS_SOURCE
           );
         });
+
+      // Clicking an Overture building footprint starts a new building-typed
+      // address at the click location, linked to the building's GERS ID.
+      if (isBuildingsDisplayed && !isEditing) {
+        const building = features.find((f) => f.source === BUILDINGS_SOURCE);
+        if (building) {
+          const { lng, lat } = event.lngLat || {};
+          setPendingBuildingPlacement({
+            longitude: lng,
+            latitude: lat,
+            gersId: building.properties?.gersId,
+          });
+          handleAddressForm(true);
+          setIsContextMenuDisplayed(null);
+          return;
+        }
+      }
+
       const feature = features && features[0];
       const source = feature && feature.source;
 
@@ -366,6 +405,9 @@ function Map({
       voie,
       handleParcelles,
       tileLayersMode,
+      isBuildingsDisplayed,
+      setPendingBuildingPlacement,
+      handleAddressForm,
     ]
   );
 
@@ -378,6 +420,36 @@ function Map({
       setCursor("default");
     }
   }, [drawMode, featureHovered]);
+
+  // Fetch Overture building footprints for the current viewport (debounced),
+  // only while the buildings layer is enabled and the zoom is high enough to
+  // keep the bbox — and the payload — small.
+  useEffect(() => {
+    if (!isBuildingsDisplayed || !map) {
+      return;
+    }
+    if ((viewport?.zoom ?? 0) < BUILDINGS_MIN_ZOOM) {
+      setBuildingsData(EMPTY_BUILDINGS);
+      return;
+    }
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      try {
+        const b = map.getBounds();
+        const bbox = `${b.getWest()},${b.getSouth()},${b.getEast()},${b.getNorth()}`;
+        const fc = await fetchBuildings(bbox);
+        if (!cancelled) {
+          setBuildingsData(fc);
+        }
+      } catch (err) {
+        console.error("Failed to load Overture buildings", err);
+      }
+    }, 400);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [isBuildingsDisplayed, viewport, map]);
 
   // Hide current voie's or toponyme's numeros
   useEffect(() => {
@@ -462,7 +534,6 @@ function Map({
       .color;
   }, [map, voie, isMapLoaded]);
 
-  const { markers } = useContext(MarkersContext);
 
   return (
     <Pane display="flex" flexDirection="column" flex={1}>
@@ -473,6 +544,8 @@ function Map({
         commune={commune}
         isParcelsDisplayed={isParcelsDisplayed}
         handleParcelsToggle={setIsParcelsDisplayed}
+        isBuildingsDisplayed={isBuildingsDisplayed}
+        handleBuildingsToggle={() => setIsBuildingsDisplayed((show) => !show)}
       />
 
       <Pane
@@ -623,6 +696,19 @@ function Map({
               } as LayerProps)}
             />
           </Source>
+
+          {/* Overture Building Footprints (viewport-driven GeoJSON) */}
+          {isBuildingsDisplayed && (
+            <Source
+              id={BUILDINGS_SOURCE}
+              type="geojson"
+              data={buildingsData as any}
+            >
+              {buildingLayers.map((layer) => (
+                <Layer key={layer.id} {...(layer as LayerProps)} />
+              ))}
+            </Source>
+          )}
 
           {/* US Parcel Tile Layers */}
           {PARCELS_AVAILABLE && PARCEL_TILES_TYPE === "vector" && (

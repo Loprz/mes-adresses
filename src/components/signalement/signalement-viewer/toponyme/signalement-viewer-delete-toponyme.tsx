@@ -3,6 +3,7 @@ import { ExistingToponyme, Signalement } from "@/lib/openapi-signalement";
 import { SignalementToponymeDiffCard } from "../../signalement-diff/signalement-toponyme-diff-card";
 import { BanCircleIcon, TickCircleIcon } from "evergreen-ui";
 import { useSignalementMapDiffDeletion } from "../../hooks/useSignalementMapDiffDeletion";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerUpdateToponymeProps {
   signalement: Signalement;
@@ -11,6 +12,7 @@ interface SignalementViewerUpdateToponymeProps {
 function SignalementViewerUpdateToponyme({
   signalement,
 }: SignalementViewerUpdateToponymeProps) {
+  const t = useTranslations("signalement");
   const { existingLocation, status } = signalement;
 
   const { nom, position, parcelles } = existingLocation as ExistingToponyme;
@@ -26,8 +28,10 @@ function SignalementViewerUpdateToponyme({
     <SignalementToponymeDiffCard
       title={
         <>
-          Place name deletion request{" "}
-          {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
+          {t("viewer.placeNameDeletionRequest")}{" "}
+          {status === Signalement.status.PROCESSED
+            ? t("viewer.accepted")
+            : t("viewer.rejected")}
           {status === Signalement.status.PROCESSED ? (
             <TickCircleIcon size={20} color="success" marginLeft={10} />
           ) : (

@@ -8,6 +8,7 @@ import { Signalement } from "@/lib/openapi-signalement";
 import { signalementTypeMap } from "../signalement-type-badge";
 import { SignalementParcelle } from "./signalement-parcelle";
 import TextChange from "./text-change";
+import { useTranslations } from "next-intl";
 
 interface SignalementNumeroDiffCardProps {
   title: string | React.ReactNode;
@@ -47,6 +48,7 @@ export function SignalementNumeroDiffCard({
   isActive,
   signalementType,
 }: SignalementNumeroDiffCardProps) {
+  const t = useTranslations("signalement");
   return (
     <AccordionCard
       title={title}
@@ -65,13 +67,13 @@ export function SignalementNumeroDiffCard({
       >
         <Pane padding={8} borderRadius={8} className="glass-pane">
           <Text is="div" fontWeight="bold" marginBottom={5}>
-            Number
+            {t("diffCard.number")}
           </Text>
           <TextDiff from={numero.from} to={numero.to} />
         </Pane>
         <Pane padding={8} borderRadius={8} className="glass-pane">
           <Text is="div" fontWeight="bold" marginBottom={5}>
-            Street
+            {t("diffCard.street")}
           </Text>
           <TextChange from={voie.from} to={voie.to} />
         </Pane>
@@ -79,7 +81,7 @@ export function SignalementNumeroDiffCard({
       {complement.to && (
         <Pane marginTop={8} padding={8} borderRadius={8} className="glass-pane">
           <Text is="div" fontWeight="bold" marginBottom={5}>
-            Address complement
+            {t("diffCard.addressComplement")}
           </Text>
           <TextChange from={complement.from} to={complement.to} />
         </Pane>

@@ -89,7 +89,7 @@ function NumeroEditor({
     reloadVoies,
   } = useContext(BalDataContext);
   const { highlightedParcelles } = useContext(ParcellesContext);
-  const { markers, suggestedNumero, setCompleteNumero } =
+  const { markers, suggestedNumero, setCompleteNumero, pendingBuildingPlacement } =
     useContext(MarkersContext);
   const { setHint } = useContext(DrawContext);
   const { reloadTiles } = useContext(MapContext);
@@ -138,7 +138,14 @@ function NumeroEditor({
         });
       });
 
-      return { ...body, positions };
+      // When the address was started from an Overture building footprint, link
+      // the new numero to that building's GERS ID.
+      const gersId =
+        !initialValue && pendingBuildingPlacement?.gersId
+          ? pendingBuildingPlacement.gersId
+          : undefined;
+
+      return { ...body, positions, ...(gersId ? { gersId } : {}) };
     }
   }, [
     initialValue,
@@ -150,6 +157,7 @@ function NumeroEditor({
     comment,
     communeDeleguee,
     highlightedParcelles,
+    pendingBuildingPlacement,
   ]);
 
   const onFormSubmit = useCallback(

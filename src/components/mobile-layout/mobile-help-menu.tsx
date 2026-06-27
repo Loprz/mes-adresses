@@ -13,6 +13,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import { PEERTUBE_LINK } from "@/components/help/video-container";
+import { LanguageMenuItems } from "@/components/language-switcher";
 import HelpContext from "@/contexts/help";
 
 export function MobileHelpMenu() {
@@ -45,6 +46,7 @@ export function MobileHelpMenu() {
               {t("addressingGuides")}
             </Menu.Item>
           </Menu.Group>
+          <LanguageMenuItems />
         </Menu>
       }
     >

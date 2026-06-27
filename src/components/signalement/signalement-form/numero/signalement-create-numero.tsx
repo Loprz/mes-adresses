@@ -21,6 +21,7 @@ import { Alert, Link, Paragraph, Text, Pane, Button } from "evergreen-ui";
 import useFuse from "@/hooks/fuse";
 import NextLink from "next/link";
 import { computeCompletNumero } from "@/lib/utils/numero";
+import { useTranslations } from "next-intl";
 
 interface SignalementCreateNumeroProps {
   signalement: Signalement;
@@ -43,6 +44,7 @@ function SignalementCreateNumero({
   handleClose,
   isLoading,
 }: SignalementCreateNumeroProps) {
+  const t = useTranslations("signalement");
   const { numero, suffixe, parcelles, positions, nomVoie } =
     signalement.changesRequested as NumeroChangesRequestedDTO;
   const { pushToast } = useContext(LayoutContext);
@@ -116,7 +118,7 @@ function SignalementCreateNumero({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -127,7 +129,7 @@ function SignalementCreateNumero({
       <SignalementNumeroDiffCard
         isActive
         signalementType={Signalement.type.LOCATION_TO_CREATE}
-        title="Address creation request"
+        title={t("form.addressCreationRequest")}
         numero={{
           to: `${numero}${suffixe ? ` ${suffixe}` : ""}`,
         }}
@@ -148,22 +150,20 @@ function SignalementCreateNumero({
       {!existingVoie && similarVoies.length === 0 && (
         <Alert flexShrink={0}>
           <Text>
-            The new street <b>{nomVoie}</b> will be created by accepting this
-            report.
+            {t("form.newStreetPrefix")} <b>{nomVoie}</b>{" "}
+            {t("form.newStreetSuffix")}
           </Text>
         </Alert>
       )}
 
       {!isLoading && !existingVoie && similarVoies.length > 0 && (
         <Alert
-          title="Accepting this report may create a duplicate"
+          title={t("form.duplicateWarningTitle")}
           flexShrink={0}
           intent="warning"
         >
           <Paragraph>
-            The Local Address Base contains{" "}
-            {similarVoies.length === 1 ? `a street` : `several streets`} with a
-            similar name:
+            {t("form.similarStreets", { count: similarVoies.length })}
           </Paragraph>
 
           {similarVoies.map((voie) => (
@@ -179,7 +179,7 @@ function SignalementCreateNumero({
                 onClick={() => setExistingVoie(voie)}
                 marginLeft={20}
               >
-                Add the address to this street
+                {t("form.addToThisStreet")}
               </Button>
             </Pane>
           ))}
@@ -188,13 +188,14 @@ function SignalementCreateNumero({
 
       {!isLoading && numeroAlreadyExists && (
         <Alert
-          title="Accepting this report may create a duplicate"
+          title={t("form.duplicateWarningTitle")}
           flexShrink={0}
           intent="warning"
         >
           <Paragraph>
-            The street <b>{existingVoie.nom}</b> already has an address at
-            number <b>{computeCompletNumero(numero, suffixe)}</b>.
+            {t("form.duplicateNumeroPrefix")} <b>{existingVoie.nom}</b>{" "}
+            {t("form.duplicateNumeroMid")}{" "}
+            <b>{computeCompletNumero(numero, suffixe)}</b>.
           </Paragraph>
         </Alert>
       )}

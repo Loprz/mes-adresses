@@ -285,17 +285,25 @@ export class BasesLocalesService {
     /**
      * Populate Base Locale
      * @param baseLocaleId
+     * @param source Data source to populate from ("ban" default, or "overture" for an on-demand Overture extract)
+     * @param fips Override jurisdiction FIPS for an Overture extract (defaults to the LAB's commune)
      * @returns BaseLocale
      * @throws ApiError
      */
     public static populateBaseLocale(
         baseLocaleId: string,
+        source?: 'ban' | 'overture',
+        fips?: string,
     ): CancelablePromise<BaseLocale> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/v2/bases-locales/{baseLocaleId}/populate',
             path: {
                 'baseLocaleId': baseLocaleId,
+            },
+            query: {
+                'source': source,
+                'fips': fips,
             },
         });
     }

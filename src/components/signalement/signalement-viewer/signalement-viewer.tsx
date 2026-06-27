@@ -18,6 +18,7 @@ import SignalementViewerDeleteVoie from "./voie/signalement-viewer-delete-voie";
 import SignalementViewerDeleteToponyme from "./toponyme/signalement-viewer-delete-toponyme";
 import { isToponymeChangesRequested } from "@/lib/utils/signalement";
 import SignalementViewerCreateToponyme from "./toponyme/signalement-viewer-create-toponyme";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerProps {
   signalement: Signalement;
@@ -30,6 +31,7 @@ export function SignalementViewer({
   author,
   onClose,
 }: SignalementViewerProps) {
+  const t = useTranslations("signalement");
   const { map } = useContext(MapContext);
 
   // Point the map to the location of the signalement
@@ -127,7 +129,7 @@ export function SignalementViewer({
             display="inline-flex"
             onClick={onClose}
           >
-            Close
+            {t("viewer.close")}
           </Button>
         </Pane>
       </Pane>

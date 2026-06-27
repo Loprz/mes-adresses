@@ -31,8 +31,14 @@ function PositionEditor({
 }: PositionEditorProps) {
   const t = useTranslations("editorForm");
   const { isMobile, setIsMapFullscreen } = useContext(LayoutContext);
-  const { markers, addMarker, updateMarker, removeMarker, disableMarkers } =
-    useContext(MarkersContext);
+  const {
+    markers,
+    addMarker,
+    updateMarker,
+    removeMarker,
+    disableMarkers,
+    pendingBuildingPlacement,
+  } = useContext(MarkersContext);
 
   const handleAddMarker = useCallback(() => {
     addMarker({
@@ -52,6 +58,17 @@ function PositionEditor({
         type: position.type,
       }));
       positions.forEach((position) => addMarker(position));
+    } else if (pendingBuildingPlacement && !isToponyme) {
+      // Seed the address on the clicked Overture building footprint, typed as
+      // "bâtiment" (building). The GERS link is read at submit by NumeroEditor.
+      addMarker({
+        longitude: pendingBuildingPlacement.longitude,
+        latitude: pendingBuildingPlacement.latitude,
+        type: Position.type.B_TIMENT,
+      });
+      if (isMobile) {
+        setIsMapFullscreen(true);
+      }
     } else {
       handleAddMarker();
     }

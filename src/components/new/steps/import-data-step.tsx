@@ -24,7 +24,7 @@ import { uniqBy } from "lodash";
 interface ImportDataStepProps {
   commune: CommuneType;
   importValue: string;
-  setImportValue: (value: "ban" | "file") => void;
+  setImportValue: (value: "ban" | "file" | "overture") => void;
   csvImportFile: File | null;
   setCsvImportFile: (file: File | null) => void;
 }
@@ -69,6 +69,11 @@ const getImportOptions = (
         </a>
       ),
     }),
+  },
+  {
+    label: t("optionOvertureLabel"),
+    value: "overture",
+    description: t("optionOvertureDescription"),
   },
   {
     label: t("optionFileLabel"),
@@ -232,7 +237,9 @@ function ImportDataStep({
               name="import-option"
               checked={importValue === option.value}
               label={option.label}
-              onChange={() => setImportValue(option.value as "ban" | "file")}
+              onChange={() =>
+                setImportValue(option.value as "ban" | "file" | "overture")
+              }
             />
             {importValue === option.value && (
               <Alert intent="info" marginBottom={16}>

@@ -9,6 +9,7 @@ import { ActiveCardEnum } from "@/lib/utils/signalement";
 import { SignalementNumeroDiffCard } from "../../signalement-diff/signalement-numero-diff-card";
 import { useSignalementMapDiffUpdate } from "@/components/signalement/hooks/useSignalementMapDiffUpdate";
 import LayoutContext from "@/contexts/layout";
+import { useTranslations } from "next-intl";
 
 interface SignalementUpdateNumeroProps {
   signalement: Signalement;
@@ -33,6 +34,7 @@ function SignalementUpdateNumero({
   handleClose,
   isLoading,
 }: SignalementUpdateNumeroProps) {
+  const t = useTranslations("signalement");
   const { pushToast } = useContext(LayoutContext);
 
   const { numero, suffixe, positions, parcelles, nomVoie } =
@@ -65,7 +67,7 @@ function SignalementUpdateNumero({
     } catch (error) {
       console.error("Error accepting signalement update:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -74,7 +76,7 @@ function SignalementUpdateNumero({
   return (
     <>
       <SignalementNumeroDiffCard
-        title="Current address"
+        title={t("form.currentAddress")}
         isActive={activeCard === ActiveCardEnum.INITIAL}
         numero={{
           to: `${existingNumero}${
@@ -98,7 +100,7 @@ function SignalementUpdateNumero({
         }}
       />
       <SignalementNumeroDiffCard
-        title="Proposed modification"
+        title={t("form.proposedModification")}
         isActive={activeCard === ActiveCardEnum.CHANGES}
         signalementType={Signalement.type.LOCATION_TO_UPDATE}
         numero={{
@@ -128,7 +130,7 @@ function SignalementUpdateNumero({
         }}
       />
       <SignalementNumeroDiffCard
-        title="Address after modification"
+        title={t("form.addressAfterModification")}
         isActive={activeCard === ActiveCardEnum.FINAL}
         numero={{
           to: `${numero}${suffixe ? ` ${suffixe}` : ""}`,

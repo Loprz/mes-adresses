@@ -13,6 +13,9 @@ export const routing = defineRouting({
   localePrefix: "as-needed",
 });
 
+// Union of supported locale codes, e.g. "en" | "es"
+export type Locale = (typeof routing.locales)[number];
+
 // Lightweight wrappers around Next.js navigation APIs
 // that handle locale automatically
 export const { Link, redirect, usePathname, useRouter, getPathname } =

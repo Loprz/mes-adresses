@@ -6,6 +6,7 @@ import LayoutContext from "@/contexts/layout";
 import BalDataContext from "@/contexts/bal-data";
 import { Alert, Text } from "evergreen-ui";
 import { SignalementVoieDiffCard } from "../../signalement-diff/signalement-voie-diff-card";
+import { useTranslations } from "next-intl";
 
 interface SignalementDeleteVoieProps {
   author: Signalement["author"];
@@ -24,6 +25,7 @@ function SignalementDeleteVoie({
   handleClose,
   isLoading,
 }: SignalementDeleteVoieProps) {
+  const t = useTranslations("signalement");
   const { nom, nbNumeros } = existingLocation;
   const { pushToast } = useContext(LayoutContext);
   const { reloadVoies } = useContext(BalDataContext);
@@ -36,7 +38,7 @@ function SignalementDeleteVoie({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -46,18 +48,20 @@ function SignalementDeleteVoie({
     <>
       <SignalementVoieDiffCard
         signalementType={Signalement.type.LOCATION_TO_DELETE}
-        title="Request to delete a street"
+        title={t("form.streetDeletionRequest")}
         nom={{
           to: nom,
         }}
       />
       <Alert intent={nbNumeros > 0 ? "warning" : "info"} flexShrink={0}>
         <Text>
-          By accepting this report, the street <b>{nom}</b> will be moved to the
-          trash{" "}
+          {t("form.deleteVoiePrefix")} <b>{nom}</b> {t("form.deleteVoieSuffix")}
           {nbNumeros > 0 && (
             <>
-              with the <b>{nbNumeros} addresses</b> attached to it
+              {" "}
+              {t("form.deleteVoieAttachedPrefix")}{" "}
+              <b>{t("form.addresses", { count: nbNumeros })}</b>{" "}
+              {t("form.deleteVoieAttachedSuffix")}
             </>
           )}
         </Text>

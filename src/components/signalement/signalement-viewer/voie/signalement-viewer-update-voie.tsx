@@ -6,6 +6,7 @@ import {
 } from "@/lib/openapi-signalement";
 import { SignalementVoieDiffCard } from "../../signalement-diff/signalement-voie-diff-card";
 import { BanCircleIcon, TickCircleIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerUpdateVoieProps {
   signalement: Signalement;
@@ -14,6 +15,7 @@ interface SignalementViewerUpdateVoieProps {
 function SignalementViewerUpdateVoie({
   signalement,
 }: SignalementViewerUpdateVoieProps) {
+  const t = useTranslations("signalement");
   const { existingLocation, changesRequested, status } = signalement;
   const { nom: existingNom } = existingLocation as ExistingVoie;
   const { nom } = changesRequested as VoieChangesRequestedDTO;
@@ -21,7 +23,7 @@ function SignalementViewerUpdateVoie({
   return (
     <>
       <SignalementVoieDiffCard
-        title="Street name before modification"
+        title={t("viewer.streetNameBefore")}
         nom={{
           to: existingNom,
         }}
@@ -29,8 +31,10 @@ function SignalementViewerUpdateVoie({
       <SignalementVoieDiffCard
         title={
           <>
-            Update request{" "}
-            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
+            {t("viewer.updateRequest")}{" "}
+            {status === Signalement.status.PROCESSED
+              ? t("viewer.accepted")
+              : t("viewer.rejected")}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

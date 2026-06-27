@@ -12,6 +12,7 @@ import {
 import { BaseLocale } from "@/lib/openapi-api-bal";
 import LayoutContext from "@/contexts/layout";
 import { CommuneType } from "@/types/commune";
+import { useTranslations } from "next-intl";
 
 interface UsePublishProcess {
   massDeletionConfirm: null | (() => void);
@@ -36,6 +37,8 @@ export default function usePublishProcess(
   } = useContext(BalDataContext);
 
   const { toaster, pushToast } = useContext(LayoutContext);
+  const t = useTranslations("publishProcess");
+  const tCommon = useTranslations("common");
 
   const checkMassDeletion = async () => {
     try {
@@ -43,9 +46,8 @@ export default function usePublishProcess(
       return (baseLocale.nbNumeros / communeBAN.nbNumeros) * 100 <= 50;
     } catch (error) {
       pushToast({
-        title: "Error",
-        message:
-          "Unable to retrieve data from the National Address Platform",
+        title: tCommon("error"),
+        message: t("fetchDataError"),
         intent: "danger",
       });
 
@@ -76,8 +78,8 @@ export default function usePublishProcess(
         }
       } catch (err) {
         pushToast({
-          title: "Error",
-          message: "Unable to create an authorization process",
+          title: tCommon("error"),
+          message: t("createHabilitationError"),
           intent: "danger",
         });
       }

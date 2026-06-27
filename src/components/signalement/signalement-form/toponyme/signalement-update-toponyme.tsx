@@ -9,6 +9,7 @@ import { SignalementToponymeDiffCard } from "../../signalement-diff/signalement-
 import { ActiveCardEnum } from "@/lib/utils/signalement";
 import { useSignalementMapDiffUpdate } from "@/components/signalement/hooks/useSignalementMapDiffUpdate";
 import LayoutContext from "@/contexts/layout";
+import { useTranslations } from "next-intl";
 
 interface SignalementUpdateToponymeProps {
   signalement: Signalement;
@@ -37,6 +38,7 @@ function SignalementUpdateToponyme({
 
   const { nom, parcelles, positions } =
     signalement.changesRequested as ToponymeChangesRequestedDTO;
+  const t = useTranslations("signalement");
   const { pushToast } = useContext(LayoutContext);
 
   const { activeCard, setActiveCard } = useSignalementMapDiffUpdate(
@@ -53,7 +55,7 @@ function SignalementUpdateToponyme({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -62,7 +64,7 @@ function SignalementUpdateToponyme({
   return (
     <>
       <SignalementToponymeDiffCard
-        title="Current place name"
+        title={t("form.currentPlaceName")}
         isActive={activeCard === ActiveCardEnum.INITIAL}
         nom={{
           to: existingNom,
@@ -78,7 +80,7 @@ function SignalementUpdateToponyme({
         }}
       />
       <SignalementToponymeDiffCard
-        title="Proposed change"
+        title={t("form.proposedChange")}
         isActive={activeCard === ActiveCardEnum.CHANGES}
         signalementType={Signalement.type.LOCATION_TO_UPDATE}
         nom={{
@@ -98,7 +100,7 @@ function SignalementUpdateToponyme({
         }}
       />
       <SignalementToponymeDiffCard
-        title="Place name after modification"
+        title={t("form.placeNameAfterModification")}
         isActive={activeCard === ActiveCardEnum.FINAL}
         nom={{
           to: nom,

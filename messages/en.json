@@ -51,6 +51,11 @@
     "accessibility": "Accessibility",
     "legalNotice": "Legal Notice"
   },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "spanish": "Spanish"
+  },
   "home": {
     "title": "My Addresses",
     "subtitle": "Manage your jurisdiction's addresses simply and efficiently.",
@@ -206,7 +211,9 @@
     "step3Description": "Review your settings and create the address base.",
     "importFile": "Import a LAB file (CSV)",
     "startEmpty": "Start with an empty base",
-    "creating": "Creating your Local Address Base..."
+    "creating": "Creating your Local Address Base...",
+    "createError": "An error occurred while creating the Local Address Base",
+    "importError": "An error occurred while importing data into the Local Address Base"
   },
   "demoWarning": {
     "banner": "This demonstration Local Address Base will be deleted within 24 hours without modifications",
@@ -268,6 +275,8 @@
     "chooseStartingPoint": "Choose your starting point",
     "optionBanLabel": "Start from existing data in the National Address Platform",
     "optionBanDescription": "This method is recommended in most cases. It allows you to start from addresses already present in the <link>National Address Platform</link> (NAP) and to enrich them with your own data.",
+    "optionOvertureLabel": "Build from Overture (live)",
+    "optionOvertureDescription": "Pull addresses for this jurisdiction on demand directly from Overture Maps. Each address keeps its Overture GERS ID so your Local Address Base stays linked to the open data source. Recommended when no data exists yet in the National Address Platform.",
     "optionFileLabel": "Use a CSV file in LAB format",
     "optionFileDescription": "This method is recommended if you already have a CSV file in LAB format.",
     "errorTitle": "An error occurred",
@@ -602,6 +611,8 @@
     "cityBoundaries": "City/town boundaries",
     "hideParcelData": "Hide parcel data",
     "showParcelData": "Show parcel data",
+    "hideBuildingData": "Hide building footprints",
+    "showBuildingData": "Show building footprints",
     "parcelNotConfigured": "Parcel data is not configured — set NEXT_PUBLIC_PARCEL_TILES_URL",
     "parcelNotAvailable": "Parcel data is not available",
     "panoramaxLogoAlt": "Panoramax logo",
@@ -1179,5 +1190,178 @@
   },
   "balWidget": {
     "title": "LAB Widget"
+  },
+  "publishProcess": {
+    "fetchDataError": "Unable to retrieve data from the National Address Platform",
+    "createHabilitationError": "Unable to create an authorization process"
+  },
+  "productTour": {
+    "skip": "Skip",
+    "next": "Next",
+    "back": "Previous",
+    "last": "Finish",
+    "close": "Close"
+  },
+  "globalError": {
+    "title": "An error has occurred.",
+    "retry": "Try again"
+  },
+  "signalement": {
+    "type": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete"
+    },
+    "position": {
+      "label": "{count, plural, one {Position} other {Positions}}",
+      "lat": "Lat",
+      "long": "Long"
+    },
+    "positionDiff": {
+      "proposedModification": "Proposed modification",
+      "typeModification": "Type modification",
+      "noModification": "No modification",
+      "positionAdded": "Position added",
+      "positionRemoved": "Position removed"
+    },
+    "parcelle": {
+      "label": "{count, plural, one {Parcel} other {Parcels}}"
+    },
+    "diffCard": {
+      "number": "Number",
+      "street": "Street",
+      "addressComplement": "Address complement"
+    },
+    "page": {
+      "title": "Reports",
+      "processed": "The report has been processed",
+      "dismissed": "The report has been dismissed",
+      "error": "An error occurred",
+      "locationNotFound": "Unable to find the report location.",
+      "expiredInfo": "It has been marked as expired and will no longer appear in the list of reports.",
+      "backToList": "Back to reports list"
+    },
+    "tabs": {
+      "inProgress": "In progress",
+      "archived": "Archived"
+    },
+    "bulkActions": {
+      "title": "Bulk actions",
+      "confirmTitle": "Confirm bulk action",
+      "confirmText": "Are you sure you want to dismiss these reports?",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "ignore": "Ignore reports",
+      "dismissedResult": "{count, plural, one {The report has been dismissed} other {The reports have been dismissed}}"
+    },
+    "list": {
+      "searchPlaceholder": "Search for a report",
+      "filters": "Filters",
+      "refresh": "Refresh reports",
+      "empty": "There are currently no reports",
+      "review": "Review",
+      "dismiss": "Dismiss",
+      "acceptedOn": "Accepted on {date}",
+      "rejectedOn": "Rejected on {date}"
+    },
+    "header": {
+      "submittedOn": "Submitted on",
+      "submitted": "Submitted",
+      "by": "by",
+      "via": "via",
+      "comment": "Comment:",
+      "reason": "Reason:",
+      "acceptedRequestOn": "You accepted this request on",
+      "rejectedRequestOn": "You rejected this request on",
+      "sourcePrivate": "This report comes from a trusted partner",
+      "sourcePublic": "This report comes from a public source"
+    },
+    "form": {
+      "currentAddress": "Current address",
+      "proposedModification": "Proposed modification",
+      "addressAfterModification": "Address after modification",
+      "currentStreetName": "Current street name",
+      "proposedChange": "Proposed change",
+      "streetNameAfterModification": "Street name after modification",
+      "currentPlaceName": "Current place name",
+      "placeNameAfterModification": "Place name after modification",
+      "addressCreationRequest": "Address creation request",
+      "addressDeletionRequest": "Address deletion request",
+      "placeNameCreationRequest": "Place name creation request",
+      "placeNameDeletionRequest": "Place name deletion request",
+      "streetDeletionRequest": "Request to delete a street",
+      "duplicateWarningTitle": "Accepting this report may create a duplicate",
+      "newStreetPrefix": "The new street",
+      "newStreetSuffix": "will be created by accepting this report.",
+      "similarStreets": "The Local Address Base contains {count, plural, one {a street} other {several streets}} with a similar name:",
+      "similarPlaceNames": "The Local Address Base contains {count, plural, one {a place name} other {several place names}} with a similar name:",
+      "addToThisStreet": "Add the address to this street",
+      "duplicateNumeroPrefix": "The street",
+      "duplicateNumeroMid": "already has an address at number",
+      "deleteVoiePrefix": "By accepting this report, the street",
+      "deleteVoieSuffix": "will be moved to the trash",
+      "deleteVoieAttachedPrefix": "with the",
+      "deleteVoieAttachedSuffix": "attached to it",
+      "addresses": "{count, plural, one {# address} other {# addresses}}",
+      "deletePlaceName": "By accepting this report, the place name {nom} will be moved to the trash",
+      "remaining": "{count, plural, one {# report remaining to process} other {# reports remaining to process}}",
+      "acceptError": "Error while accepting the report."
+    },
+    "buttons": {
+      "reason": "Reason",
+      "reasonAuthorNotice": "(The report author will receive this information by email)",
+      "rejectPlaceholder": "Please specify the reason for rejection. Do not include personal data.",
+      "cancel": "Cancel",
+      "accept": "Accept",
+      "reject": "Reject",
+      "back": "Back",
+      "rejectAndNext": "Reject and move to next",
+      "rejectAndFinish": "Reject and finish",
+      "rejectionReasons": {
+        "irrelevant": "Irrelevant report",
+        "duplicate": "Duplicate report",
+        "alreadyProcessed": "Report already processed",
+        "incorrectlyPositioned": "Report incorrectly positioned",
+        "nonCompliant": "Non-compliant report",
+        "other": "Other"
+      }
+    },
+    "viewer": {
+      "close": "Close",
+      "relatedAddress": "Related address",
+      "relatedPlaceName": "Related place name",
+      "streetNameBefore": "Street name before modification",
+      "accepted": "accepted",
+      "rejected": "rejected",
+      "updateRequest": "Update request",
+      "addressCreationRequest": "Address creation request",
+      "addressDeletionRequest": "Address deletion request",
+      "placeNameCreationRequest": "Place name creation request",
+      "placeNameDeletionRequest": "Place name deletion request",
+      "streetDeletionRequest": "Street deletion request"
+    },
+    "purge": {
+      "successTitle": "Success",
+      "errorTitle": "Error",
+      "title": "Updating reports",
+      "inProgress": "This operation may take some time, please wait.",
+      "description1": "If you have made changes to your Local Address Base, such as street deletions or renames, some reports may have become obsolete.",
+      "description2": "By refreshing, obsolete reports will be removed from the list.",
+      "confirm": "Update reports",
+      "close": "Close",
+      "successResult": "{count, plural, one {# expired report has been removed from the list.} other {# expired reports have been removed from the list.}}",
+      "error": "An error occurred while updating the reports. Please try again later."
+    },
+    "tour": {
+      "step1Title": "Your Local Address Base has received improvement proposals",
+      "step1Text": "Residents or public services have proposed improvements to the addresses in your jurisdiction through the reporting system.",
+      "step2": "To view them, go to the reports tab.",
+      "step3": "This tab lets you view pending reports awaiting review",
+      "step4": "This tab lets you view reports that have already been processed",
+      "step5": "You can filter reports by name by typing in this search bar...",
+      "step6": "...or by type (Creation, Modification, and Deletion) by clicking this button",
+      "step7": "Finally, select a report either from the list...",
+      "step8": "Or from the map"
+    }
   }
 }

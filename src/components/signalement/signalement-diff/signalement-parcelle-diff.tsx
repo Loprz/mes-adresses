@@ -1,5 +1,6 @@
 import { SignalementDiff } from "@/lib/utils/signalement";
 import { Badge, Pane, PlusIcon, MinusIcon, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementParcelleDiffProps {
   parcelles: string[];
@@ -36,12 +37,13 @@ export function SignalementParcelleDiff({
   parcelles,
   existingParcelles,
 }: SignalementParcelleDiffProps) {
+  const t = useTranslations("signalement");
   const parcellesDiff = parcelleDiff(parcelles, existingParcelles);
 
   return parcelles.length > 0 ? (
     <Pane marginTop={10} padding={8} borderRadius={8} className="glass-pane">
       <Text is="div" fontWeight="bold" marginBottom={5}>
-        Parcelle{parcellesDiff.length > 1 ? "s" : ""}
+        {t("parcelle.label", { count: parcellesDiff.length })}
       </Text>
 
       <Pane display="flex" flexWrap="wrap">

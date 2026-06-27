@@ -3,6 +3,7 @@ import { SignalementNumeroDiffCard } from "../../signalement-diff/signalement-nu
 import { ExistingNumero, Signalement } from "@/lib/openapi-signalement";
 import { useSignalementMapDiffDeletion } from "../../hooks/useSignalementMapDiffDeletion";
 import { BanCircleIcon, TickCircleIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerDeleteNumeroProps {
   signalement: Signalement;
@@ -11,6 +12,7 @@ interface SignalementViewerDeleteNumeroProps {
 function SignalementViewerDeleteNumero({
   signalement,
 }: SignalementViewerDeleteNumeroProps) {
+  const t = useTranslations("signalement");
   const { existingLocation, status } = signalement;
 
   const { numero, suffixe, toponyme, parcelles, position, nomComplement } =
@@ -30,8 +32,10 @@ function SignalementViewerDeleteNumero({
         signalementType={Signalement.type.LOCATION_TO_DELETE}
         title={
           <>
-            Address deletion request{" "}
-            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
+            {t("viewer.addressDeletionRequest")}{" "}
+            {status === Signalement.status.PROCESSED
+              ? t("viewer.accepted")
+              : t("viewer.rejected")}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

@@ -6,6 +6,7 @@ import {
 import { BanCircleIcon, TickCircleIcon } from "evergreen-ui";
 import { useSignalementMapDiffCreation } from "../../hooks/useSignalementMapDiffCreation";
 import { SignalementToponymeDiffCard } from "../../signalement-diff/signalement-toponyme-diff-card";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerCreateToponymeProps {
   signalement: Signalement;
@@ -14,6 +15,7 @@ interface SignalementViewerCreateToponymeProps {
 function SignalementViewerCreateToponyme({
   signalement,
 }: SignalementViewerCreateToponymeProps) {
+  const t = useTranslations("signalement");
   const { changesRequested, status } = signalement;
 
   const { nom, parcelles, positions } =
@@ -26,8 +28,10 @@ function SignalementViewerCreateToponyme({
     <SignalementToponymeDiffCard
       title={
         <>
-          Place name creation request{" "}
-          {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
+          {t("viewer.placeNameCreationRequest")}{" "}
+          {status === Signalement.status.PROCESSED
+            ? t("viewer.accepted")
+            : t("viewer.rejected")}
           {status === Signalement.status.PROCESSED ? (
             <TickCircleIcon size={20} color="success" marginLeft={10} />
           ) : (

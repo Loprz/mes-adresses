@@ -15,6 +15,7 @@ import {
   Tooltip,
 } from "evergreen-ui";
 import SignalementTypeBadge from "./signalement-type-badge";
+import { useTranslations } from "next-intl";
 
 interface SignalementListItemProps {
   signalement: Signalement & { label: string };
@@ -37,6 +38,7 @@ export function SignalementListItem({
   onSelect,
   onIgnore,
 }: SignalementListItemProps) {
+  const t = useTranslations("signalement");
   return (
     <Table.Row
       key={signalement.id}
@@ -52,17 +54,17 @@ export function SignalementListItem({
           />
         ) : signalement.status === Signalement.status.IGNORED ? (
           <Tooltip
-            content={`Rejected on ${new Date(
-              signalement.updatedAt
-            ).toLocaleDateString("en-US")}`}
+            content={t("list.rejectedOn", {
+              date: new Date(signalement.updatedAt).toLocaleDateString("en-US"),
+            })}
           >
             <Icon icon={BanCircleIcon} color="red500" />
           </Tooltip>
         ) : signalement.status === Signalement.status.PROCESSED ? (
           <Tooltip
-            content={`Accepted on ${new Date(
-              signalement.updatedAt
-            ).toLocaleDateString("en-US")}`}
+            content={t("list.acceptedOn", {
+              date: new Date(signalement.updatedAt).toLocaleDateString("en-US"),
+            })}
           >
             <Icon icon={TickCircleIcon} color="green500" />
           </Tooltip>
@@ -89,14 +91,14 @@ export function SignalementListItem({
                     icon={SendToMapIcon}
                     onSelect={() => onSelect(signalement.id)}
                   >
-                    Review
+                    {t("list.review")}
                   </Menu.Item>
                   <Menu.Item
                     icon={TrashIcon}
                     intent="danger"
                     onSelect={() => onIgnore(signalement.id)}
                   >
-                    Dismiss
+                    {t("list.dismiss")}
                   </Menu.Item>
                 </Menu.Group>
               </Menu>

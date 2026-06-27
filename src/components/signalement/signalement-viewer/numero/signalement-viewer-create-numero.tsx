@@ -6,6 +6,7 @@ import {
 import { SignalementNumeroDiffCard } from "../../signalement-diff/signalement-numero-diff-card";
 import { useSignalementMapDiffCreation } from "@/components/signalement/hooks/useSignalementMapDiffCreation";
 import { BanCircleIcon, TickCircleIcon } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementViewerCreateNumeroProps {
   signalement: Signalement;
@@ -14,6 +15,7 @@ interface SignalementViewerCreateNumeroProps {
 function SignalementViewerCreateNumero({
   signalement,
 }: SignalementViewerCreateNumeroProps) {
+  const t = useTranslations("signalement");
   const { changesRequested, status } = signalement;
 
   const { numero, suffixe, parcelles, positions, nomVoie, nomComplement } =
@@ -28,8 +30,10 @@ function SignalementViewerCreateNumero({
         signalementType={Signalement.type.LOCATION_TO_CREATE}
         title={
           <>
-            Address creation request{" "}
-            {status === Signalement.status.PROCESSED ? "accepted" : "rejected"}
+            {t("viewer.addressCreationRequest")}{" "}
+            {status === Signalement.status.PROCESSED
+              ? t("viewer.accepted")
+              : t("viewer.rejected")}
             {status === Signalement.status.PROCESSED ? (
               <TickCircleIcon size={20} color="success" marginLeft={10} />
             ) : (

@@ -10,6 +10,7 @@ import {
 import SignalementTypeBadge from "./signalement-type-badge";
 import { Signalement, Source } from "@/lib/openapi-signalement";
 import { getDuration, getLongFormattedDate } from "@/lib/utils/date";
+import { useTranslations } from "next-intl";
 
 interface SignalementHeaderProps {
   signalement: Signalement;
@@ -22,6 +23,7 @@ export function SignalementHeader({
   signalement,
   author,
 }: SignalementHeaderProps) {
+  const t = useTranslations("signalement");
   const {
     type,
     createdAt,
@@ -46,16 +48,17 @@ export function SignalementHeader({
       <Pane marginTop={8}>
         {Date.now() - new Date(createdAt).getTime() > MONTH_IN_MS ? (
           <Paragraph>
-            Submitted on <b>{getLongFormattedDate(new Date(createdAt))}</b>{" "}
+            {t("header.submittedOn")}{" "}
+            <b>{getLongFormattedDate(new Date(createdAt))}</b>{" "}
           </Paragraph>
         ) : (
           <Paragraph>
-            Submitted <b>{getDuration(new Date(createdAt))}</b>{" "}
+            {t("header.submitted")} <b>{getDuration(new Date(createdAt))}</b>{" "}
           </Paragraph>
         )}
         {author && (
           <Paragraph>
-            by{" "}
+            {t("header.by")}{" "}
             <b>
               {author.firstName} {author.lastName}
             </b>{" "}
@@ -65,13 +68,13 @@ export function SignalementHeader({
           </Paragraph>
         )}
         <Paragraph>
-          via <b>{source.nom}</b>
+          {t("header.via")} <b>{source.nom}</b>
           {source.type === Source.type.PRIVATE ? (
-            <Tooltip content="This report comes from a trusted partner">
+            <Tooltip content={t("header.sourcePrivate")}>
               <LockIcon marginLeft={5} color="success" />
             </Tooltip>
           ) : (
-            <Tooltip content="This report comes from a public source">
+            <Tooltip content={t("header.sourcePublic")}>
               <UnlockIcon marginLeft={5} color="muted" />
             </Tooltip>
           )}
@@ -79,13 +82,13 @@ export function SignalementHeader({
 
         {changesRequested.comment && (
           <Paragraph marginTop={10}>
-            Comment: <b>{changesRequested.comment}</b>
+            {t("header.comment")} <b>{changesRequested.comment}</b>
           </Paragraph>
         )}
 
         {status === Signalement.status.PROCESSED && (
           <Paragraph marginTop={10}>
-            You accepted this request on{" "}
+            {t("header.acceptedRequestOn")}{" "}
             <b>{getLongFormattedDate(new Date(updatedAt))}</b>
           </Paragraph>
         )}
@@ -93,13 +96,13 @@ export function SignalementHeader({
         {status === Signalement.status.IGNORED && (
           <>
             <Paragraph marginTop={10}>
-              You rejected this request on{" "}
+              {t("header.rejectedRequestOn")}{" "}
               <b>{getLongFormattedDate(new Date(updatedAt))}</b>
             </Paragraph>
 
             {rejectionReason && (
               <Paragraph marginTop={10}>
-                Reason: <b>{rejectionReason}</b>
+                {t("header.reason")} <b>{rejectionReason}</b>
               </Paragraph>
             )}
           </>

@@ -17,6 +17,7 @@ import { useTranslations } from "next-intl";
 import HelpContext from "@/contexts/help";
 import { PEERTUBE_LINK } from "@/components/help/video-container";
 import { MobileHelpMenu } from "./mobile-layout/mobile-help-menu";
+import { LanguageSwitcher } from "./language-switcher";
 import LayoutContext from "@/contexts/layout";
 
 function Header() {
@@ -102,6 +103,8 @@ function Header() {
             >
               {t("nav.documentation")}
             </Button>
+
+            <LanguageSwitcher />
           </Pane>
         ) : (
           <MobileHelpMenu />

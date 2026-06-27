@@ -15,6 +15,7 @@ import {
 import { SignalementsService as SignalementsServiceBal } from "@/lib/openapi-api-bal";
 import { Signalement } from "@/lib/openapi-signalement";
 import SignalementContext from "@/contexts/signalement";
+import { useTranslations } from "next-intl";
 
 interface PurgeExpiredSignalementsDialogProps {
   baseLocale: ExtendedBaseLocaleDTO;
@@ -27,6 +28,7 @@ export function PurgeExpiredSignalementsDialog({
   isShown,
   onClose,
 }: PurgeExpiredSignalementsDialogProps) {
+  const t = useTranslations("signalement");
   const [isLoading, setIsLoading] = useState(false);
   const { pushToast } = useContext(LayoutContext);
   const { fetchPendingSignalements } = useContext(SignalementContext);
@@ -83,16 +85,15 @@ export function PurgeExpiredSignalementsDialog({
       }
 
       pushToast({
-        title: "Success",
-        message: `${purgedSignalementsCount} expired report(s) have been removed from the list.`,
+        title: t("purge.successTitle"),
+        message: t("purge.successResult", { count: purgedSignalementsCount }),
         intent: "success",
       });
     } catch (error) {
       console.error("Failed to purge expired signalements:", error);
       pushToast({
-        title: "Error",
-        message:
-          "An error occurred while updating the reports. Please try again later.",
+        title: t("purge.errorTitle"),
+        message: t("purge.error"),
         intent: "danger",
       });
     } finally {
@@ -116,35 +117,26 @@ export function PurgeExpiredSignalementsDialog({
     >
       <Pane paddingY={16}>
         <Heading is="h4" size={600}>
-          Updating reports
+          {t("purge.title")}
         </Heading>
       </Pane>
       {isLoading ? (
         <>
-          <Paragraph>
-            This operation may take some time, please wait.
-          </Paragraph>
+          <Paragraph>{t("purge.inProgress")}</Paragraph>
           <Pane marginBottom={16}>
             <ProgressBar percent={progress} />
           </Pane>
         </>
       ) : (
         <>
-          <Paragraph>
-            If you have made changes to your Local Address Base,
-            such as street deletions or renames, some
-            reports may have become obsolete.
-          </Paragraph>
-          <Paragraph marginTop={8}>
-            By refreshing, obsolete reports will be removed from the
-            list.
-          </Paragraph>
+          <Paragraph>{t("purge.description1")}</Paragraph>
+          <Paragraph marginTop={8}>{t("purge.description2")}</Paragraph>
           <Pane marginY={16} display="flex" justifyContent="flex-end">
             <Button marginRight={16} appearance="primary" onClick={handlePurge}>
-              Update reports
+              {t("purge.confirm")}
             </Button>
             <Button appearance="default" onClick={onClose}>
-              Close
+              {t("purge.close")}
             </Button>
           </Pane>
         </>

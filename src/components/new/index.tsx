@@ -49,17 +49,21 @@ export default function NewPageComponent({
   outdatedHarvestSources,
 }: NewPageProps) {
   const tNewBase = useTranslations("newBase");
+  const tCommon = useTranslations("common");
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { addBalAccess } = useContext(LocalStorageContext);
   const { pushToast } = useContext(LayoutContext);
   const [commune, setCommune] = useState<CommuneType | null>(defaultCommune);
-  const [importValue, setImportValue] = useState<"ban" | "file">("ban");
+  const [importValue, setImportValue] = useState<"ban" | "file" | "overture">(
+    "ban"
+  );
   const [csvImportFile, setCsvImportFile] = useState<File | null>(null);
   const [balName, setBalName] = useState<string | null>(null);
   const [adminEmails, setAdminEmails] = useState<string[]>([]);
   const [allowAutomaticProceed, setAllowAutomaticProceed] = useState(true);
-  const { importFromCSVFile, importFromBAN } = useBALDataImport();
+  const { importFromCSVFile, importFromBAN, importFromOverture } =
+    useBALDataImport();
   const router = useRouter();
 
   useEffect(() => {
@@ -134,9 +138,8 @@ export default function NewPageComponent({
       }
     } catch (err) {
       pushToast({
-        title: "Error",
-        message:
-          "An error occurred while creating the Local Address Base",
+        title: tCommon("error"),
+        message: tNewBase("createError"),
         intent: "danger",
       });
       setIsLoading(false);
@@ -148,14 +151,15 @@ export default function NewPageComponent({
     try {
       if (importValue === "file") {
         await importFromCSVFile(bal, csvImportFile);
+      } else if (importValue === "overture") {
+        await importFromOverture(bal);
       } else if (importValue === "ban") {
         await importFromBAN(bal);
       }
     } catch (err) {
       pushToast({
-        title: "Error",
-        message:
-          "An error occurred while importing data into the Local Address Base",
+        title: tCommon("error"),
+        message: tNewBase("importError"),
         intent: "danger",
       });
       setIsLoading(false);

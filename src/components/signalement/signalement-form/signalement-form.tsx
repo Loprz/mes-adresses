@@ -21,6 +21,7 @@ import SignalementCreateToponyme from "./toponyme/signalement-create-toponyme";
 import { isToponymeChangesRequested } from "@/lib/utils/signalement";
 import SignalementDeleteToponyme from "./toponyme/signalement-delete-toponyme";
 import SignalementDeleteVoie from "./voie/signalement-delete-voie";
+import { useTranslations } from "next-intl";
 
 interface SignalementFormProps {
   report: Signalement;
@@ -39,6 +40,7 @@ function SignalementForm({
   onSubmit,
   onClose,
 }: SignalementFormProps) {
+  const t = useTranslations("signalement");
   const [isLoading, setIsLoading] = useState(false);
   const { map } = useContext(MapContext);
   const { pendingSignalementsCount } = useContext(SignalementContext);
@@ -209,8 +211,7 @@ function SignalementForm({
           />
         ))}
       <Paragraph textAlign="center">
-        {pendingSignalementsCount} report
-        {pendingSignalementsCount === 1 ? "" : "s"} remaining to process
+        {t("form.remaining", { count: pendingSignalementsCount })}
       </Paragraph>
     </Form>
   );

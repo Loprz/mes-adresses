@@ -27,6 +27,12 @@ export interface Marker {
   showTooltip?: boolean;
 }
 
+export interface PendingBuildingPlacement {
+  longitude: number;
+  latitude: number;
+  gersId?: string;
+}
+
 interface MarkersContextType {
   markers: Marker[];
   addMarker: (value: Partial<Marker>) => void;
@@ -37,6 +43,11 @@ interface MarkersContextType {
   disableMarkers: () => void;
   suggestedNumero: number | null;
   setSuggestedNumero: (value: number) => void;
+  // One-shot hand-off when a user clicks an Overture building footprint:
+  // seeds the new address at that location (type "bâtiment") and links it to
+  // the building's GERS ID. Consumed by the position/numero editors.
+  pendingBuildingPlacement: PendingBuildingPlacement | null;
+  setPendingBuildingPlacement: (value: PendingBuildingPlacement | null) => void;
 }
 
 const MarkersContext = React.createContext<MarkersContextType | null>(null);
@@ -45,6 +56,8 @@ export function MarkersContextProvider(props: ChildrenProps) {
   const [markers, setMarkers] = useState<Marker[]>([]);
   const [completeNumero, setCompleteNumero] = useState<string | null>(null);
   const [suggestedNumero, setSuggestedNumero] = useState<number | null>(null);
+  const [pendingBuildingPlacement, setPendingBuildingPlacement] =
+    useState<PendingBuildingPlacement | null>(null);
 
   const { viewport } = useContext(MapContext);
 
@@ -52,6 +65,7 @@ export function MarkersContextProvider(props: ChildrenProps) {
     setMarkers([]);
     setCompleteNumero(null);
     setSuggestedNumero(null);
+    setPendingBuildingPlacement(null);
   }, []);
 
   const addMarker = useCallback(
@@ -105,6 +119,8 @@ export function MarkersContextProvider(props: ChildrenProps) {
       disableMarkers,
       suggestedNumero,
       setSuggestedNumero,
+      pendingBuildingPlacement,
+      setPendingBuildingPlacement,
     }),
     [
       markers,
@@ -114,6 +130,7 @@ export function MarkersContextProvider(props: ChildrenProps) {
       updateMarker,
       disableMarkers,
       suggestedNumero,
+      pendingBuildingPlacement,
     ]
   );
 

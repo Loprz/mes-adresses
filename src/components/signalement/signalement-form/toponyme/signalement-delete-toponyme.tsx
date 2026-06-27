@@ -7,6 +7,7 @@ import LayoutContext from "@/contexts/layout";
 import { SignalementToponymeDiffCard } from "../../signalement-diff/signalement-toponyme-diff-card";
 import BalDataContext from "@/contexts/bal-data";
 import { Alert, Text } from "evergreen-ui";
+import { useTranslations } from "next-intl";
 
 interface SignalementDeleteToponymeProps {
   author: Signalement["author"];
@@ -25,6 +26,7 @@ function SignalementDeleteToponyme({
   handleClose,
   isLoading,
 }: SignalementDeleteToponymeProps) {
+  const t = useTranslations("signalement");
   const { nom, positions, parcelles } = existingLocation;
   const { pushToast } = useContext(LayoutContext);
   const { reloadToponymes } = useContext(BalDataContext);
@@ -39,7 +41,7 @@ function SignalementDeleteToponyme({
     } catch (error) {
       console.error("Error accepting signalement:", error);
       pushToast({
-        title: "Error while accepting the report.",
+        title: t("form.acceptError"),
         intent: "danger",
       });
     }
@@ -50,7 +52,7 @@ function SignalementDeleteToponyme({
       <SignalementToponymeDiffCard
         isActive
         signalementType={Signalement.type.LOCATION_TO_DELETE}
-        title="Place name deletion request"
+        title={t("form.placeNameDeletionRequest")}
         nom={{
           to: nom,
         }}
@@ -62,10 +64,7 @@ function SignalementDeleteToponyme({
         }}
       />
       <Alert flexShrink={0}>
-        <Text>
-          By accepting this report, the place name {nom} will be moved to the
-          trash
-        </Text>
+        <Text>{t("form.deletePlaceName", { nom })}</Text>
       </Alert>
       <SignalementFormButtons
         author={author}

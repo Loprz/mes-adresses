@@ -51,6 +51,11 @@
     "accessibility": "Accesibilidad",
     "legalNotice": "Aviso Legal"
   },
+  "language": {
+    "label": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
   "home": {
     "title": "Mis Direcciones",
     "subtitle": "Administre las direcciones de su jurisdicción de manera simple y eficiente.",
@@ -206,7 +211,9 @@
     "step3Description": "Revise su configuración y cree la base de direcciones.",
     "importFile": "Importar un archivo LAB (CSV)",
     "startEmpty": "Comenzar con una base vacía",
-    "creating": "Creando su Base de Direcciones Local..."
+    "creating": "Creando su Base de Direcciones Local...",
+    "createError": "Ocurrió un error al crear la Base de Direcciones Local",
+    "importError": "Ocurrió un error al importar datos a la Base de Direcciones Local"
   },
   "demoWarning": {
     "banner": "Esta Base de Direcciones Local de demostración se eliminará en un plazo de 24 horas si no se modifica",
@@ -268,6 +275,8 @@
     "chooseStartingPoint": "Elija su punto de partida",
     "optionBanLabel": "Comenzar a partir de los datos existentes en la Plataforma Nacional de Direcciones",
     "optionBanDescription": "Este método es recomendado en la mayoría de los casos. Le permite comenzar a partir de las direcciones ya presentes en la <link>Plataforma Nacional de Direcciones</link> (NAP) y enriquecerlas con sus propios datos.",
+    "optionOvertureLabel": "Crear desde Overture (en vivo)",
+    "optionOvertureDescription": "Obtenga las direcciones de esta jurisdicción bajo demanda directamente desde Overture Maps. Cada dirección conserva su identificador GERS de Overture para que su Base de Direcciones Local permanezca vinculada a la fuente de datos abierta. Recomendado cuando aún no existen datos en la Plataforma Nacional de Direcciones.",
     "optionFileLabel": "Usar un archivo CSV en formato LAB",
     "optionFileDescription": "Este método es recomendado si ya tiene un archivo CSV en formato LAB.",
     "errorTitle": "Ocurrió un error",
@@ -602,6 +611,8 @@
     "cityBoundaries": "Límites de ciudad/pueblo",
     "hideParcelData": "Ocultar datos de parcelas",
     "showParcelData": "Mostrar datos de parcelas",
+    "hideBuildingData": "Ocultar huellas de edificios",
+    "showBuildingData": "Mostrar huellas de edificios",
     "parcelNotConfigured": "Los datos de parcelas no están configurados — establezca NEXT_PUBLIC_PARCEL_TILES_URL",
     "parcelNotAvailable": "Los datos de parcelas no están disponibles",
     "panoramaxLogoAlt": "Logotipo de Panoramax",
@@ -1179,5 +1190,178 @@
   },
   "balWidget": {
     "title": "Widget de LAB"
+  },
+  "publishProcess": {
+    "fetchDataError": "No se pudieron recuperar los datos de la Plataforma Nacional de Direcciones",
+    "createHabilitationError": "No se pudo crear un proceso de autorización"
+  },
+  "productTour": {
+    "skip": "Saltar",
+    "next": "Siguiente",
+    "back": "Anterior",
+    "last": "Finalizar",
+    "close": "Cerrar"
+  },
+  "globalError": {
+    "title": "Ha ocurrido un error.",
+    "retry": "Intentar de nuevo"
+  },
+  "signalement": {
+    "type": {
+      "create": "Crear",
+      "update": "Actualizar",
+      "delete": "Eliminar"
+    },
+    "position": {
+      "label": "{count, plural, one {Posición} other {Posiciones}}",
+      "lat": "Lat",
+      "long": "Long"
+    },
+    "positionDiff": {
+      "proposedModification": "Modificación propuesta",
+      "typeModification": "Modificación de tipo",
+      "noModification": "Sin modificación",
+      "positionAdded": "Posición añadida",
+      "positionRemoved": "Posición eliminada"
+    },
+    "parcelle": {
+      "label": "{count, plural, one {Parcela} other {Parcelas}}"
+    },
+    "diffCard": {
+      "number": "Número",
+      "street": "Calle",
+      "addressComplement": "Complemento de dirección"
+    },
+    "page": {
+      "title": "Informes",
+      "processed": "El informe ha sido procesado",
+      "dismissed": "El informe ha sido descartado",
+      "error": "Ocurrió un error",
+      "locationNotFound": "No se pudo encontrar la ubicación del informe.",
+      "expiredInfo": "Se ha marcado como caducado y ya no aparecerá en la lista de informes.",
+      "backToList": "Volver a la lista de informes"
+    },
+    "tabs": {
+      "inProgress": "En curso",
+      "archived": "Archivados"
+    },
+    "bulkActions": {
+      "title": "Acciones masivas",
+      "confirmTitle": "Confirmar acción masiva",
+      "confirmText": "¿Está seguro de que desea descartar estos informes?",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "ignore": "Ignorar informes",
+      "dismissedResult": "{count, plural, one {El informe ha sido descartado} other {Los informes han sido descartados}}"
+    },
+    "list": {
+      "searchPlaceholder": "Buscar un informe",
+      "filters": "Filtros",
+      "refresh": "Actualizar informes",
+      "empty": "Actualmente no hay informes",
+      "review": "Revisar",
+      "dismiss": "Descartar",
+      "acceptedOn": "Aceptado el {date}",
+      "rejectedOn": "Rechazado el {date}"
+    },
+    "header": {
+      "submittedOn": "Enviado el",
+      "submitted": "Enviado",
+      "by": "por",
+      "via": "vía",
+      "comment": "Comentario:",
+      "reason": "Motivo:",
+      "acceptedRequestOn": "Aceptó esta solicitud el",
+      "rejectedRequestOn": "Rechazó esta solicitud el",
+      "sourcePrivate": "Este informe proviene de un socio de confianza",
+      "sourcePublic": "Este informe proviene de una fuente pública"
+    },
+    "form": {
+      "currentAddress": "Dirección actual",
+      "proposedModification": "Modificación propuesta",
+      "addressAfterModification": "Dirección tras la modificación",
+      "currentStreetName": "Nombre actual de la calle",
+      "proposedChange": "Cambio propuesto",
+      "streetNameAfterModification": "Nombre de la calle tras la modificación",
+      "currentPlaceName": "Nombre actual del lugar",
+      "placeNameAfterModification": "Nombre del lugar tras la modificación",
+      "addressCreationRequest": "Solicitud de creación de dirección",
+      "addressDeletionRequest": "Solicitud de eliminación de dirección",
+      "placeNameCreationRequest": "Solicitud de creación de nombre de lugar",
+      "placeNameDeletionRequest": "Solicitud de eliminación de nombre de lugar",
+      "streetDeletionRequest": "Solicitud de eliminación de una calle",
+      "duplicateWarningTitle": "Aceptar este informe puede crear un duplicado",
+      "newStreetPrefix": "La nueva calle",
+      "newStreetSuffix": "se creará al aceptar este informe.",
+      "similarStreets": "La Base de Direcciones Local contiene {count, plural, one {una calle} other {varias calles}} con un nombre similar:",
+      "similarPlaceNames": "La Base de Direcciones Local contiene {count, plural, one {un nombre de lugar} other {varios nombres de lugar}} con un nombre similar:",
+      "addToThisStreet": "Añadir la dirección a esta calle",
+      "duplicateNumeroPrefix": "La calle",
+      "duplicateNumeroMid": "ya tiene una dirección en el número",
+      "deleteVoiePrefix": "Al aceptar este informe, la calle",
+      "deleteVoieSuffix": "se moverá a la papelera",
+      "deleteVoieAttachedPrefix": "con las",
+      "deleteVoieAttachedSuffix": "adjuntas",
+      "addresses": "{count, plural, one {# dirección} other {# direcciones}}",
+      "deletePlaceName": "Al aceptar este informe, el nombre de lugar {nom} se moverá a la papelera",
+      "remaining": "{count, plural, one {# informe pendiente de procesar} other {# informes pendientes de procesar}}",
+      "acceptError": "Error al aceptar el informe."
+    },
+    "buttons": {
+      "reason": "Motivo",
+      "reasonAuthorNotice": "(El autor del informe recibirá esta información por correo electrónico)",
+      "rejectPlaceholder": "Especifique el motivo del rechazo. No incluya datos personales.",
+      "cancel": "Cancelar",
+      "accept": "Aceptar",
+      "reject": "Rechazar",
+      "back": "Atrás",
+      "rejectAndNext": "Rechazar y pasar al siguiente",
+      "rejectAndFinish": "Rechazar y finalizar",
+      "rejectionReasons": {
+        "irrelevant": "Informe irrelevante",
+        "duplicate": "Informe duplicado",
+        "alreadyProcessed": "Informe ya procesado",
+        "incorrectlyPositioned": "Informe mal ubicado",
+        "nonCompliant": "Informe no conforme",
+        "other": "Otro"
+      }
+    },
+    "viewer": {
+      "close": "Cerrar",
+      "relatedAddress": "Dirección relacionada",
+      "relatedPlaceName": "Nombre de lugar relacionado",
+      "streetNameBefore": "Nombre de la calle antes de la modificación",
+      "accepted": "aceptada",
+      "rejected": "rechazada",
+      "updateRequest": "Solicitud de actualización",
+      "addressCreationRequest": "Solicitud de creación de dirección",
+      "addressDeletionRequest": "Solicitud de eliminación de dirección",
+      "placeNameCreationRequest": "Solicitud de creación de nombre de lugar",
+      "placeNameDeletionRequest": "Solicitud de eliminación de nombre de lugar",
+      "streetDeletionRequest": "Solicitud de eliminación de calle"
+    },
+    "purge": {
+      "successTitle": "Éxito",
+      "errorTitle": "Error",
+      "title": "Actualizando informes",
+      "inProgress": "Esta operación puede tardar un poco, por favor espere.",
+      "description1": "Si ha realizado cambios en su Base de Direcciones Local, como eliminaciones o cambios de nombre de calles, algunos informes pueden haber quedado obsoletos.",
+      "description2": "Al actualizar, los informes obsoletos se eliminarán de la lista.",
+      "confirm": "Actualizar informes",
+      "close": "Cerrar",
+      "successResult": "{count, plural, one {# informe caducado ha sido eliminado de la lista.} other {# informes caducados han sido eliminados de la lista.}}",
+      "error": "Ocurrió un error al actualizar los informes. Por favor, inténtelo de nuevo más tarde."
+    },
+    "tour": {
+      "step1Title": "Su Base de Direcciones Local ha recibido propuestas de mejora",
+      "step1Text": "Los residentes o los servicios públicos han propuesto mejoras a las direcciones de su jurisdicción a través del sistema de informes.",
+      "step2": "Para verlos, vaya a la pestaña de informes.",
+      "step3": "Esta pestaña le permite ver los informes pendientes de revisión",
+      "step4": "Esta pestaña le permite ver los informes que ya han sido procesados",
+      "step5": "Puede filtrar los informes por nombre escribiendo en esta barra de búsqueda...",
+      "step6": "...o por tipo (Creación, Modificación y Eliminación) haciendo clic en este botón",
+      "step7": "Finalmente, seleccione un informe ya sea de la lista...",
+      "step8": "O desde el mapa"
+    }
   }
 }

@@ -307,7 +307,7 @@ function GroupedActions({
                   )}
                   {positionsTypesList.map((positionType) => (
                     <option key={positionType.value} value={positionType.value}>
-                      {tp(positionType.value)}
+                      {tp(positionType.key)}
                     </option>
                   ))}
                 </SelectField>
