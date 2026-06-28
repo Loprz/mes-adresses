@@ -50,6 +50,25 @@ export const buildingLayers = [
   },
 ];
 
+// ── Address validation: addresses NOT on any building footprint ──────────────
+export const OFF_BUILDING_SOURCE = "off-building-addresses";
+export const OFF_BUILDING_LAYER = "off-building-addresses-circle";
+
+// A red halo drawn over address points that don't fall on a building footprint.
+export const offBuildingLayer = {
+  id: OFF_BUILDING_LAYER,
+  type: "circle",
+  source: OFF_BUILDING_SOURCE,
+  minzoom: BUILDINGS_MIN_ZOOM,
+  layout: { visibility: "visible" },
+  paint: {
+    "circle-radius": 11,
+    "circle-color": "rgba(214, 69, 69, 0.15)",
+    "circle-stroke-color": "#d64545",
+    "circle-stroke-width": 2.5,
+  },
+};
+
 const API_BASE =
   process.env.NEXT_PUBLIC_BAL_API_URL || "http://localhost:5050/v2";
 

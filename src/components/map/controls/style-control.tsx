@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 import ParcelControl from "@/components/map/controls/cadastre-control";
 import BuildingsControl from "@/components/map/controls/buildings-control";
+import MapillaryFeaturesControl from "@/components/map/controls/mapillary-features-control";
 import { CommuneType } from "@/types/commune";
 import { MapStyle } from "@/contexts/map";
 import LocalStorageContext from "@/contexts/local-storage";
@@ -18,6 +19,8 @@ interface StyleControlProps {
   handleParcelsToggle: (fn: (show: boolean) => boolean) => void;
   isBuildingsDisplayed?: boolean;
   handleBuildingsToggle?: () => void;
+  isMapillaryFeaturesDisplayed?: boolean;
+  handleMapillaryFeaturesToggle?: () => void;
   commune: CommuneType;
   baseLocale: ExtendedBaseLocaleDTO;
 }
@@ -31,6 +34,8 @@ function StyleControl({
   handleParcelsToggle,
   isBuildingsDisplayed,
   handleBuildingsToggle,
+  isMapillaryFeaturesDisplayed,
+  handleMapillaryFeaturesToggle,
 }: StyleControlProps) {
   const t = useTranslations("mapControls");
   const [showPopover, setShowPopover] = useState(false);
@@ -128,6 +133,12 @@ function StyleControl({
         <BuildingsControl
           isBuildingsDisplayed={isBuildingsDisplayed}
           onClick={handleBuildingsToggle}
+        />
+      )}
+      {handleMapillaryFeaturesToggle && (
+        <MapillaryFeaturesControl
+          isDisplayed={isMapillaryFeaturesDisplayed}
+          onClick={handleMapillaryFeaturesToggle}
         />
       )}
     </Pane>

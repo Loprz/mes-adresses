@@ -11,7 +11,7 @@ import MapGl, {
   LayerProps,
   LngLatBoundsLike,
 } from "react-map-gl/maplibre";
-import { Pane, Alert } from "evergreen-ui";
+import { Pane, Alert, Text } from "evergreen-ui";
 
 import MapContext, { MapStyle, SOURCE_TILE_ID } from "@/contexts/map";
 import MarkersContext from "@/contexts/markers";
@@ -77,7 +77,15 @@ import {
   fetchBuildings,
   EMPTY_BUILDINGS,
   BuildingsFeatureCollection,
+  OFF_BUILDING_SOURCE,
+  offBuildingLayer,
 } from "./layers/buildings";
+import { isPointOnAnyBuilding } from "@/lib/utils/point-in-polygon";
+import {
+  MAPILLARY_FEATURES_SOURCE_ID,
+  MAPILLARY_FEATURES_TILE_URL,
+  mapillaryFeatureLayers,
+} from "./layers/mapillary-features";
 import RulerControl from "./controls/ruler-control";
 import MapillaryControl from "./controls/mapillary-control";
 import MapillaryViewer from "./mapillary-viewer";
@@ -160,6 +168,13 @@ function Map({
   const [isBuildingsDisplayed, setIsBuildingsDisplayed] = useState(false);
   const [buildingsData, setBuildingsData] =
     useState<BuildingsFeatureCollection>(EMPTY_BUILDINGS);
+  const [offBuildingData, setOffBuildingData] = useState<any>({
+    type: "FeatureCollection",
+    features: [],
+  });
+  const [offBuildingCount, setOffBuildingCount] = useState(0);
+  const [isMapillaryFeaturesDisplayed, setIsMapillaryFeaturesDisplayed] =
+    useState(false);
 
   const balId = params.balId;
   const { voie, toponyme, numeros, editingId, setEditingId, isEditing } =
@@ -451,6 +466,51 @@ function Map({
     };
   }, [isBuildingsDisplayed, viewport, map]);
 
+  // Address validation: flag address points that don't fall on any building
+  // footprint. Runs over the numero points rendered in the viewport and the
+  // building footprints currently loaded.
+  useEffect(() => {
+    const empty = { type: "FeatureCollection", features: [] };
+    if (
+      !isBuildingsDisplayed ||
+      !map ||
+      (viewport?.zoom ?? 0) < BUILDINGS_MIN_ZOOM ||
+      buildingsData.features.length === 0
+    ) {
+      setOffBuildingData(empty);
+      setOffBuildingCount(0);
+      return;
+    }
+    const timer = setTimeout(() => {
+      try {
+        const numeroFeatures =
+          map.queryRenderedFeatures({ layers: [NUMEROS_POINT] }) || [];
+        const seen = new Set<string>();
+        const orphans: any[] = [];
+        for (const f of numeroFeatures) {
+          const coords = (f.geometry as any)?.coordinates;
+          if (!coords) continue;
+          const id = String(f.properties?.id ?? coords.join(","));
+          if (seen.has(id)) continue;
+          seen.add(id);
+          const [lng, lat] = coords;
+          if (!isPointOnAnyBuilding(lng, lat, buildingsData.features as any)) {
+            orphans.push({
+              type: "Feature",
+              geometry: { type: "Point", coordinates: [lng, lat] },
+              properties: { id },
+            });
+          }
+        }
+        setOffBuildingData({ type: "FeatureCollection", features: orphans });
+        setOffBuildingCount(orphans.length);
+      } catch (err) {
+        console.error("Off-building address check failed", err);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [isBuildingsDisplayed, buildingsData, viewport, map]);
+
   // Hide current voie's or toponyme's numeros
   useEffect(() => {
     updatePositionsLayer();
@@ -546,6 +606,12 @@ function Map({
         handleParcelsToggle={setIsParcelsDisplayed}
         isBuildingsDisplayed={isBuildingsDisplayed}
         handleBuildingsToggle={() => setIsBuildingsDisplayed((show) => !show)}
+        isMapillaryFeaturesDisplayed={isMapillaryFeaturesDisplayed}
+        handleMapillaryFeaturesToggle={
+          MAPILLARY_FEATURES_TILE_URL
+            ? () => setIsMapillaryFeaturesDisplayed((show) => !show)
+            : undefined
+        }
       />
 
       <Pane
@@ -588,6 +654,59 @@ function Map({
           maxWidth="50%"
         >
           <Alert title={hint} />
+        </Pane>
+      )}
+
+      {isBuildingsDisplayed && offBuildingCount > 0 && (
+        <Pane
+          zIndex={1}
+          position="absolute"
+          top={96}
+          left="50%"
+          style={{ transform: "translateX(-50%)" }}
+        >
+          <Alert
+            intent="warning"
+            title={`${offBuildingCount} address${
+              offBuildingCount === 1 ? "" : "es"
+            } in view not on a building footprint`}
+          />
+        </Pane>
+      )}
+
+      {isMapillaryFeaturesDisplayed && (
+        <Pane
+          zIndex={1}
+          position="absolute"
+          top={96}
+          right={64}
+          background="white"
+          paddingX={10}
+          paddingY={6}
+          borderRadius={4}
+          elevation={1}
+          display="flex"
+          flexDirection="column"
+          gap={4}
+        >
+          <Pane display="flex" alignItems="center" gap={6}>
+            <Pane
+              width={10}
+              height={10}
+              borderRadius="50%"
+              background="#1d6fd6"
+            />
+            <Text fontSize={12}>Mailbox (Mapillary)</Text>
+          </Pane>
+          <Pane display="flex" alignItems="center" gap={6}>
+            <Pane
+              width={10}
+              height={10}
+              borderRadius="50%"
+              background="#7d3cc9"
+            />
+            <Text fontSize={12}>Driveway entrance (Mapillary)</Text>
+          </Pane>
         </Pane>
       )}
 
@@ -705,6 +824,32 @@ function Map({
               data={buildingsData as any}
             >
               {buildingLayers.map((layer) => (
+                <Layer key={layer.id} {...(layer as LayerProps)} />
+              ))}
+            </Source>
+          )}
+
+          {/* Address validation: addresses not on any building footprint */}
+          {isBuildingsDisplayed && (
+            <Source
+              id={OFF_BUILDING_SOURCE}
+              type="geojson"
+              data={offBuildingData as any}
+            >
+              <Layer {...(offBuildingLayer as LayerProps)} />
+            </Source>
+          )}
+
+          {/* Mapillary map-features: mailboxes + driveway entrances */}
+          {isMapillaryFeaturesDisplayed && MAPILLARY_FEATURES_TILE_URL && (
+            <Source
+              id={MAPILLARY_FEATURES_SOURCE_ID}
+              type="vector"
+              tiles={[MAPILLARY_FEATURES_TILE_URL]}
+              minzoom={14}
+              maxzoom={14}
+            >
+              {mapillaryFeatureLayers.map((layer) => (
                 <Layer key={layer.id} {...(layer as LayerProps)} />
               ))}
             </Source>

@@ -613,6 +613,8 @@
     "showParcelData": "Mostrar datos de parcelas",
     "hideBuildingData": "Ocultar huellas de edificios",
     "showBuildingData": "Mostrar huellas de edificios",
+    "hideMapillaryFeatures": "Ocultar buzones y entradas de vehículos (Mapillary)",
+    "showMapillaryFeatures": "Mostrar buzones y entradas de vehículos (Mapillary)",
     "parcelNotConfigured": "Los datos de parcelas no están configurados — establezca NEXT_PUBLIC_PARCEL_TILES_URL",
     "parcelNotAvailable": "Los datos de parcelas no están disponibles",
     "panoramaxLogoAlt": "Logotipo de Panoramax",

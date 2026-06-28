@@ -613,6 +613,8 @@
     "showParcelData": "Show parcel data",
     "hideBuildingData": "Hide building footprints",
     "showBuildingData": "Show building footprints",
+    "hideMapillaryFeatures": "Hide mailboxes & driveways (Mapillary)",
+    "showMapillaryFeatures": "Show mailboxes & driveways (Mapillary)",
     "parcelNotConfigured": "Parcel data is not configured — set NEXT_PUBLIC_PARCEL_TILES_URL",
     "parcelNotAvailable": "Parcel data is not available",
     "panoramaxLogoAlt": "Panoramax logo",
