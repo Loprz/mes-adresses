@@ -584,6 +584,35 @@ function Map({
     }
   }, [map, isStyleLoaded]);
 
+  // When the imagery viewer opens, pan (without changing zoom) so the selected
+  // point stays centered in the map area not covered by the docked viewer
+  // (bottom-right), so the user doesn't have to readjust the view.
+  useEffect(() => {
+    if (!map || !mapillaryImageId || isMobile) {
+      return;
+    }
+    const target = mapillaryDetectionPoint
+      ? { lng: mapillaryDetectionPoint.lng, lat: mapillaryDetectionPoint.lat }
+      : markers[0]?.longitude != null && markers[0]?.latitude != null
+        ? { lng: markers[0].longitude, lat: markers[0].latitude }
+        : null;
+    if (!target) {
+      return;
+    }
+    try {
+      map.easeTo({
+        center: [target.lng, target.lat],
+        // Reserve space for the docked viewer (≈440×320 at bottom-right + margin).
+        padding: { top: 0, left: 0, right: 456, bottom: 336 },
+        duration: 500,
+      });
+    } catch {
+      /* ignore */
+    }
+    // Only react to the viewer opening, not to marker drags / point updates.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapillaryImageId, map]);
+
   // Hide current voie's or toponyme's numeros
   useEffect(() => {
     updatePositionsLayer();

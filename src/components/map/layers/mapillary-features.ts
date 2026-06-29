@@ -50,7 +50,8 @@ export const mailboxLayer = {
   layout: {
     visibility: "visible",
     "icon-image": MAILBOX_ICON_ID,
-    "icon-size": 1,
+    // Grow the marker as the user zooms in.
+    "icon-size": ["interpolate", ["linear"], ["zoom"], 16, 0.5, 18, 0.85, 21, 1.4],
     "icon-allow-overlap": true,
     "icon-ignore-placement": true,
   },
@@ -66,7 +67,8 @@ export const drivewayLayer = {
   layout: {
     visibility: "visible",
     "icon-image": DRIVEWAY_ICON_ID,
-    "icon-size": 1,
+    // Grow the marker as the user zooms in.
+    "icon-size": ["interpolate", ["linear"], ["zoom"], 16, 0.5, 18, 0.85, 21, 1.4],
     "icon-allow-overlap": true,
     "icon-ignore-placement": true,
   },
