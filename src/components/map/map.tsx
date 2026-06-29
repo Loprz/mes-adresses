@@ -802,7 +802,9 @@ function Map({
         <Pane
           zIndex={1}
           position="absolute"
-          top={96}
+          // Drop below the off-building warning banner when it's showing, so the
+          // two top overlays stack instead of overlapping (clears a 2-line alert).
+          top={isBuildingsDisplayed && offBuildingCount > 0 ? 184 : 96}
           right={64}
           background="white"
           paddingX={10}
