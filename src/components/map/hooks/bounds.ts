@@ -65,6 +65,32 @@ function useBounds(
     [map]
   );
 
+  // True when the center of the given bounds is already within the current map
+  // view. Used to avoid yanking the map out to a whole street's extent when the
+  // user clicks an address/street that is already on screen (only recenter when
+  // navigating to something off-screen, e.g. selecting from the list).
+  const isCenterInView = useCallback(
+    (b: number[] | null) => {
+      if (!map || !b) {
+        return false;
+      }
+      try {
+        const mb = map.getBounds();
+        const cx = (b[0] + b[2]) / 2;
+        const cy = (b[1] + b[3]) / 2;
+        return (
+          cx >= mb.getWest() &&
+          cx <= mb.getEast() &&
+          cy >= mb.getSouth() &&
+          cy <= mb.getNorth()
+        );
+      } catch {
+        return false;
+      }
+    },
+    [map]
+  );
+
   useEffect(() => {
     if (!map) {
       return;
@@ -72,7 +98,9 @@ function useBounds(
 
     if (editingItem) {
       const editingBounds = bboxForItem(editingItem);
-      if (editingBounds) {
+      // Don't recenter if the item being edited is already in view (the user
+      // clicked it on the map); only fit when it's off-screen.
+      if (editingBounds && !isCenterInView(editingBounds)) {
         setBounds(editingBounds);
       }
     } else if (!wasCenteredOnCommuneOnce) {
@@ -91,6 +119,7 @@ function useBounds(
     bboxForItem,
     commune.bbox,
     aggregateBounds,
+    isCenterInView,
   ]);
 
   useEffect(() => {
@@ -103,16 +132,18 @@ function useBounds(
 
     if (idVoie) {
       const voieBounds = bboxForItem(voie);
-      if (voieBounds) {
+      // Keep the current view when the street is already on screen (clicked an
+      // address point) — only fit to the whole street when it's off-screen.
+      if (voieBounds && !isCenterInView(voieBounds)) {
         setBounds(voieBounds);
       }
     } else if (idToponyme) {
       const toponymeBounds = bboxForItem(toponyme);
-      if (toponymeBounds) {
+      if (toponymeBounds && !isCenterInView(toponymeBounds)) {
         setBounds(toponymeBounds);
       }
     }
-  }, [params, voie, toponyme, map, bboxForItem]);
+  }, [params, voie, toponyme, map, bboxForItem, isCenterInView]);
 
   return bounds;
 }

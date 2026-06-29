@@ -83,11 +83,14 @@ const mailboxSvg = `
   <path d="M8.5 12 L15 16.5 L21.5 12" fill="none" stroke="${MAILBOX_COLOR}" stroke-width="1.6" stroke-linejoin="round"/>
 </svg>`;
 
+// Car icon (side view) — reads as "vehicle access / driveway" rather than a
+// house, which testers found confusing.
 const drivewaySvg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
   <circle cx="15" cy="15" r="13" fill="${DRIVEWAY_COLOR}" stroke="#ffffff" stroke-width="2"/>
-  <path d="M15 7 L23 14 L21 14 L21 22 L9 22 L9 14 L7 14 Z" fill="#ffffff"/>
-  <rect x="12.5" y="16" width="5" height="6" rx="0.5" fill="${DRIVEWAY_COLOR}"/>
+  <path d="M9.5 10.5 L18.5 10.5 L21.5 14.5 L23 15 L23 18 L7 18 L7 15 L8.5 14.5 Z" fill="#ffffff"/>
+  <circle cx="11" cy="19" r="2.1" fill="#ffffff" stroke="${DRIVEWAY_COLOR}" stroke-width="1.1"/>
+  <circle cx="19" cy="19" r="2.1" fill="#ffffff" stroke="${DRIVEWAY_COLOR}" stroke-width="1.1"/>
 </svg>`;
 
 function svgToImage(svg: string): Promise<HTMLImageElement> {
