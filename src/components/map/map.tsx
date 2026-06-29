@@ -84,7 +84,10 @@ import { isPointOnAnyBuilding } from "@/lib/utils/point-in-polygon";
 import {
   MAPILLARY_FEATURES_SOURCE_ID,
   MAPILLARY_FEATURES_TILE_URL,
+  MAPILLARY_FEATURE_LAYER,
   mapillaryFeatureLayers,
+  addMapillaryFeatureIcons,
+  fetchDetectionImageId,
 } from "./layers/mapillary-features";
 import RulerControl from "./controls/ruler-control";
 import MapillaryControl from "./controls/mapillary-control";
@@ -175,6 +178,13 @@ function Map({
   const [offBuildingCount, setOffBuildingCount] = useState(0);
   const [isMapillaryFeaturesDisplayed, setIsMapillaryFeaturesDisplayed] =
     useState(false);
+  // When a mailbox/driveway is clicked, the geo location of that detection so
+  // the imagery viewer can drop a pin showing where it is.
+  const [mapillaryDetectionPoint, setMapillaryDetectionPoint] = useState<{
+    id: string;
+    lng: number;
+    lat: number;
+  } | null>(null);
 
   const balId = params.balId;
   const { voie, toponyme, numeros, editingId, setEditingId, isEditing } =
@@ -334,6 +344,14 @@ function Map({
       layers.push(BUILDINGS_LAYER.FILL);
     }
 
+    // Make mailbox/driveway icons clickable (to open the detection imagery).
+    if (isMapillaryFeaturesDisplayed) {
+      layers.push(
+        MAPILLARY_FEATURE_LAYER.MAILBOX,
+        MAPILLARY_FEATURE_LAYER.DRIVEWAY
+      );
+    }
+
     return layers;
   }, [
     isEditing,
@@ -341,6 +359,7 @@ function Map({
     isParcelsDisplayed,
     isTileSourceLoaded,
     isBuildingsDisplayed,
+    isMapillaryFeaturesDisplayed,
   ]);
 
   const onClick = useCallback(
@@ -352,9 +371,38 @@ function Map({
             source === PARCEL_SOURCE ||
             source === "tiles" ||
             source === MAPILLARY_SOURCE_ID ||
-            source === BUILDINGS_SOURCE
+            source === BUILDINGS_SOURCE ||
+            source === MAPILLARY_FEATURES_SOURCE_ID
           );
         });
+
+      // Clicking a detected mailbox/driveway opens the Mapillary imagery viewer
+      // on the photo it was detected from, with a pin at its location.
+      if (isMapillaryFeaturesDisplayed) {
+        const feat = features.find(
+          (f) => f.source === MAPILLARY_FEATURES_SOURCE_ID
+        );
+        if (feat) {
+          const coords = (feat.geometry as any)?.coordinates;
+          const featureId = String(feat.properties?.id ?? "");
+          if (featureId) {
+            fetchDetectionImageId(featureId).then((imageId) => {
+              if (imageId) {
+                if (coords) {
+                  setMapillaryDetectionPoint({
+                    id: featureId,
+                    lng: coords[0],
+                    lat: coords[1],
+                  });
+                }
+                setMapillaryImageId(imageId);
+              }
+            });
+          }
+          setIsContextMenuDisplayed(null);
+          return;
+        }
+      }
 
       // Clicking an Overture building footprint starts a new building-typed
       // address at the click location, linked to the building's GERS ID.
@@ -423,6 +471,7 @@ function Map({
       isBuildingsDisplayed,
       setPendingBuildingPlacement,
       handleAddressForm,
+      isMapillaryFeaturesDisplayed,
     ]
   );
 
@@ -510,6 +559,14 @@ function Map({
     }, 500);
     return () => clearTimeout(timer);
   }, [isBuildingsDisplayed, buildingsData, viewport, map]);
+
+  // Register the mailbox/driveway icons once the style is ready (style swaps
+  // drop registered images, so re-run when the style reloads).
+  useEffect(() => {
+    if (map && isStyleLoaded) {
+      addMapillaryFeatureIcons(map);
+    }
+  }, [map, isStyleLoaded]);
 
   // Hide current voie's or toponyme's numeros
   useEffect(() => {
@@ -969,9 +1026,17 @@ function Map({
         </MapGl>
         <MapillaryViewer
           imageId={mapillaryImageId}
-          onClose={() => setMapillaryImageId(null)}
+          onClose={() => {
+            setMapillaryImageId(null);
+            setMapillaryDetectionPoint(null);
+          }}
           onCameraChange={setMapillaryCamera}
-          points={mapillaryPoints}
+          placeMode={!mapillaryDetectionPoint}
+          points={
+            mapillaryDetectionPoint
+              ? [mapillaryDetectionPoint]
+              : mapillaryPoints
+          }
         />
       </Pane>
     </Pane>

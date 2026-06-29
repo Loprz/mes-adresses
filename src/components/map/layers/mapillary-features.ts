@@ -6,7 +6,9 @@
  * point. Served from Mapillary's map-feature point vector tiles
  *   https://tiles.mapillary.com/maps/vtp/mly_map_feature_point/2/{z}/{x}/{y}
  * (layer "point", field "value"), filtered to the two classes we care about.
- * Reuses the same NEXT_PUBLIC_MAPILLARY_TOKEN as the imagery coverage layer.
+ * Rendered as recognizable icons; clicking one opens the Mapillary imagery
+ * viewer at the image the feature was detected from. Reuses the same
+ * NEXT_PUBLIC_MAPILLARY_TOKEN as the imagery coverage layer.
  */
 
 import { MAPILLARY_TOKEN } from "./mapillary";
@@ -24,6 +26,12 @@ export const MAPILLARY_FEATURES_TILE_URL =
 export const MAILBOX_VALUE = "object--mailbox";
 export const DRIVEWAY_VALUE = "construction--flat--driveway";
 
+export const MAILBOX_ICON_ID = "mly-mailbox";
+export const DRIVEWAY_ICON_ID = "mly-driveway";
+
+export const MAILBOX_COLOR = "#1d6fd6"; // blue
+export const DRIVEWAY_COLOR = "#7d3cc9"; // purple
+
 export const MAPILLARY_FEATURE_LAYER = {
   MAILBOX: "mapillary-mailbox",
   DRIVEWAY: "mapillary-driveway",
@@ -34,34 +42,105 @@ const FEATURES_MIN_ZOOM = 16;
 
 export const mailboxLayer = {
   id: MAPILLARY_FEATURE_LAYER.MAILBOX,
-  type: "circle",
+  type: "symbol",
   source: MAPILLARY_FEATURES_SOURCE_ID,
   "source-layer": MAPILLARY_FEATURES_SOURCE_LAYER,
   minzoom: FEATURES_MIN_ZOOM,
   filter: ["==", ["get", "value"], MAILBOX_VALUE],
-  layout: { visibility: "visible" },
-  paint: {
-    "circle-radius": 6,
-    "circle-color": "#1d6fd6", // blue = mailbox
-    "circle-stroke-color": "#ffffff",
-    "circle-stroke-width": 2,
+  layout: {
+    visibility: "visible",
+    "icon-image": MAILBOX_ICON_ID,
+    "icon-size": 1,
+    "icon-allow-overlap": true,
+    "icon-ignore-placement": true,
   },
 };
 
 export const drivewayLayer = {
   id: MAPILLARY_FEATURE_LAYER.DRIVEWAY,
-  type: "circle",
+  type: "symbol",
   source: MAPILLARY_FEATURES_SOURCE_ID,
   "source-layer": MAPILLARY_FEATURES_SOURCE_LAYER,
   minzoom: FEATURES_MIN_ZOOM,
   filter: ["==", ["get", "value"], DRIVEWAY_VALUE],
-  layout: { visibility: "visible" },
-  paint: {
-    "circle-radius": 6,
-    "circle-color": "#7d3cc9", // purple = driveway entrance
-    "circle-stroke-color": "#ffffff",
-    "circle-stroke-width": 2,
+  layout: {
+    visibility: "visible",
+    "icon-image": DRIVEWAY_ICON_ID,
+    "icon-size": 1,
+    "icon-allow-overlap": true,
+    "icon-ignore-placement": true,
   },
 };
 
 export const mapillaryFeatureLayers = [mailboxLayer, drivewayLayer];
+
+// ── Icons ────────────────────────────────────────────────────────────────────
+// Badge + white glyph so the points read clearly over aerial imagery.
+const mailboxSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <circle cx="15" cy="15" r="13" fill="${MAILBOX_COLOR}" stroke="#ffffff" stroke-width="2"/>
+  <rect x="8" y="11" width="14" height="9" rx="1.5" fill="#ffffff"/>
+  <path d="M8.5 12 L15 16.5 L21.5 12" fill="none" stroke="${MAILBOX_COLOR}" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>`;
+
+const drivewaySvg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <circle cx="15" cy="15" r="13" fill="${DRIVEWAY_COLOR}" stroke="#ffffff" stroke-width="2"/>
+  <path d="M15 7 L23 14 L21 14 L21 22 L9 22 L9 14 L7 14 Z" fill="#ffffff"/>
+  <rect x="12.5" y="16" width="5" height="6" rx="0.5" fill="${DRIVEWAY_COLOR}"/>
+</svg>`;
+
+function svgToImage(svg: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image(30, 30);
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src =
+      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg.trim());
+  });
+}
+
+/**
+ * Register the mailbox + driveway icons on the map (idempotent). Call after the
+ * map style is loaded and whenever the style changes (style swaps drop images).
+ */
+export async function addMapillaryFeatureIcons(map: any): Promise<void> {
+  const defs: Array<[string, string]> = [
+    [MAILBOX_ICON_ID, mailboxSvg],
+    [DRIVEWAY_ICON_ID, drivewaySvg],
+  ];
+  for (const [id, svg] of defs) {
+    try {
+      if (map.hasImage && map.hasImage(id)) continue;
+      const img = await svgToImage(svg);
+      if (!map.hasImage(id)) {
+        map.addImage(id, img, { pixelRatio: 2 });
+      }
+    } catch {
+      /* icon load failed — layer falls back to no icon, non-fatal */
+    }
+  }
+}
+
+// ── Detection image lookup ───────────────────────────────────────────────────
+/**
+ * Given a Mapillary map-feature id, return the id of an image it was detected
+ * from (so the viewer can open on the street-level photo showing the object).
+ */
+export async function fetchDetectionImageId(
+  featureId: string
+): Promise<string | null> {
+  if (!MAPILLARY_TOKEN || !featureId) return null;
+  try {
+    const url =
+      `https://graph.mapillary.com/${featureId}` +
+      `?fields=images&access_token=${MAPILLARY_TOKEN}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const images = data?.images?.data || [];
+    return images.length ? String(images[0].id) : null;
+  } catch {
+    return null;
+  }
+}
