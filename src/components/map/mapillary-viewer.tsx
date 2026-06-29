@@ -37,7 +37,10 @@ interface MapillaryViewerProps {
   // field-of-view cone. Called with null when the viewer closes.
   onCameraChange?: (camera: MapillaryCamera | null) => void;
   // Existing address points for the current street, shown as pins in the photo.
-  points?: { id: string; lng: number; lat: number }[];
+  // An optional `color` renders that point as a prominent, world-anchored
+  // marker (used for a clicked detection, so it stays glued to the object as
+  // the user navigates between images).
+  points?: { id: string; lng: number; lat: number; color?: string }[];
   // A detected object's outline (basic image coords, 0..1) to highlight in the
   // photo — e.g. the mailbox/driveway Mapillary detected.
   detectionPolygon?: number[][] | null;
@@ -176,17 +179,20 @@ function MapillaryViewer({
       try {
         markerComp.removeAll();
         const pins: any[] = [];
-        // Existing address points for this street (green, non-interactive).
+        // Street points (small green) or, when a `color` is set, a prominent
+        // world-anchored detection marker that stays on the object across
+        // images.
         for (const p of pointsRef.current) {
           if (p.lng == null || p.lat == null) continue;
+          const isDetection = !!p.color;
           pins.push(
             new SimpleMarker(
               `nap-${p.id}`,
               { lng: p.lng, lat: p.lat },
               {
-                color: "#05CB63",
+                color: p.color || "#05CB63",
                 ballColor: "#ffffff",
-                radius: 0.8,
+                radius: isDetection ? 1.6 : 0.8,
                 interactive: false,
               }
             )

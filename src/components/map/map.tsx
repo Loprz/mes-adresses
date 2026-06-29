@@ -88,6 +88,9 @@ import {
   mapillaryFeatureLayers,
   addMapillaryFeatureIcons,
   fetchDetectionImageId,
+  MAILBOX_VALUE,
+  MAILBOX_COLOR,
+  DRIVEWAY_COLOR,
 } from "./layers/mapillary-features";
 import { fetchDetectionForFeature } from "./layers/mapillary-detection";
 import RulerControl from "./controls/ruler-control";
@@ -180,11 +183,15 @@ function Map({
   const [isMapillaryFeaturesDisplayed, setIsMapillaryFeaturesDisplayed] =
     useState(false);
   // When a mailbox/driveway is clicked, the geo location of that detection so
-  // the imagery viewer can drop a pin showing where it is.
+  // the imagery viewer can drop a pin showing where it is. `color` tags it by
+  // kind (driveway vs mailbox); the viewer renders it as a prominent, world-
+  // anchored marker that stays glued to the spot as the user moves between
+  // images.
   const [mapillaryDetectionPoint, setMapillaryDetectionPoint] = useState<{
     id: string;
     lng: number;
     lat: number;
+    color?: string;
   } | null>(null);
   // The detected object's outline (basic image coords) to highlight in the photo.
   const [mapillaryDetectionPolygon, setMapillaryDetectionPolygon] = useState<
@@ -395,6 +402,10 @@ function Map({
         if (feat) {
           const coords = (feat.geometry as any)?.coordinates;
           const featureId = String(feat.properties?.id ?? "");
+          const featureColor =
+            feat.properties?.value === MAILBOX_VALUE
+              ? MAILBOX_COLOR
+              : DRIVEWAY_COLOR;
           if (featureId) {
             const openAt = (
               imageId: string | null,
@@ -407,6 +418,7 @@ function Map({
                   id: featureId,
                   lng: coords[0],
                   lat: coords[1],
+                  color: featureColor,
                 });
               }
               setMapillaryDetectionByImage(byImage);
