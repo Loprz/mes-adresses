@@ -173,7 +173,13 @@ const numerosLabelLayer = {
       ["format", ["get", "numero"], {}, " ", {}, ["get", "suffixe"], {}],
       ["get", "numero"],
     ],
-    "text-ignore-placement": true,
+    // Let MapLibre collide labels (drop ones that overlap) instead of forcing
+    // every number to render. At county scale (hundreds of thousands of
+    // addresses) "ignore-placement: true" rendered thousands of glyphs at once
+    // and stuttered; collision culling keeps the readable ones and is far
+    // cheaper. text-optional lets a label drop when crowded.
+    "text-allow-overlap": false,
+    "text-optional": true,
   },
 };
 

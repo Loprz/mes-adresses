@@ -91,6 +91,19 @@ function useHovered(map) {
           feature.id = feature.properties.id;
         }
 
+        // onMouseMove fires for every pixel of movement. If we're still on the
+        // same feature as last time, there's nothing to update — bail out before
+        // the expensive querySourceFeatures + setFeatureState scan below.
+        const prev = hovered.current;
+        if (
+          prev &&
+          prev.source === feature.source &&
+          prev.sourceLayer === feature.sourceLayer &&
+          prev.id === feature.id
+        ) {
+          return;
+        }
+
         const { source, id, sourceLayer } = feature;
 
         const parcels = event.features.filter(
