@@ -41,6 +41,10 @@ interface MapillaryViewerProps {
   // A detected object's outline (basic image coords, 0..1) to highlight in the
   // photo — e.g. the mailbox/driveway Mapillary detected.
   detectionPolygon?: number[][] | null;
+  // The same object's outline in every image it was detected in (imageId →
+  // outline). As the user navigates between images, the viewer redraws the
+  // outline for the current image so it stays on the object.
+  detectionByImage?: Record<string, number[][]>;
 }
 
 function MapillaryViewer({
@@ -50,6 +54,7 @@ function MapillaryViewer({
   onCameraChange,
   points = [],
   detectionPolygon = null,
+  detectionByImage = {},
 }: MapillaryViewerProps) {
   const t = useTranslations("mapControls");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -80,6 +85,8 @@ function MapillaryViewer({
   pointsRef.current = points;
   const detectionPolygonRef = useRef(detectionPolygon);
   detectionPolygonRef.current = detectionPolygon;
+  const detectionByImageRef = useRef(detectionByImage);
+  detectionByImageRef.current = detectionByImage;
   const syncRef = useRef<() => void>(() => {});
   const syncTagRef = useRef<() => void>(() => {});
 
@@ -223,6 +230,14 @@ function MapillaryViewer({
     viewer.on("image", (event) => {
       camPosRef.current = event.image.lngLat;
       emitCamera();
+      // Navigation-aware highlight: when we have per-image detections, swap the
+      // active outline to the one belonging to the image now in view (or clear
+      // it if this image has no detection) so it stays on the object.
+      const byImg = detectionByImageRef.current;
+      if (byImg && Object.keys(byImg).length) {
+        const id = String((event.image as any)?.id ?? "");
+        detectionPolygonRef.current = byImg[id] || null;
+      }
       syncPhotoMarker();
       syncDetectionTag();
     });

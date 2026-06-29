@@ -15,6 +15,11 @@ export type DetectionResult = {
   imageId: string | null;
   // Closed ring of [x, y] in basic image coords (0..1), or null if undecodable.
   polygon: number[][] | null;
+  // Every image this feature was detected in, keyed by image id → that image's
+  // own outline (basic image coords). Lets the viewer redraw the polygon on the
+  // correct spot as the user navigates between images, instead of leaving a
+  // stale outline anchored to the first image's coordinates.
+  byImage: Record<string, number[][]>;
 };
 
 function base64ToBytes(b64: string): Uint8Array {
@@ -164,16 +169,29 @@ export async function fetchDetectionForFeature(
     }
     const data = await res.json();
     const detections = data?.data || [];
+    // Decode every detection and key it by the image it belongs to.
+    const byImage: Record<string, number[][]> = {};
+    for (const det of detections) {
+      const imgId = det?.image?.id ? String(det.image.id) : null;
+      if (!imgId || !det?.geometry) continue;
+      const poly = decodeDetectionPolygon(det.geometry);
+      if (poly) byImage[imgId] = poly;
+    }
     const d = detections[0];
     const imageId = d?.image?.id ? String(d.image.id) : null;
-    const polygon = d?.geometry ? decodeDetectionPolygon(d.geometry) : null;
+    const polygon =
+      imageId && byImage[imageId]
+        ? byImage[imageId]
+        : d?.geometry
+          ? decodeDetectionPolygon(d.geometry)
+          : null;
     console.log("[nap-detection] fetched", {
       count: detections.length,
-      hasGeometry: !!d?.geometry,
+      imagesWithPolygon: Object.keys(byImage).length,
       imageId,
       polygonPoints: Array.isArray(polygon) ? polygon.length : 0,
     });
-    return { imageId, polygon };
+    return { imageId, polygon, byImage };
   } catch (e) {
     console.log("[nap-detection] fetch error", String(e));
     return null;

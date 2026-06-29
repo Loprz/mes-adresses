@@ -190,6 +190,11 @@ function Map({
   const [mapillaryDetectionPolygon, setMapillaryDetectionPolygon] = useState<
     number[][] | null
   >(null);
+  // The same object's outline in every image it was detected in (imageId →
+  // outline), so the highlight follows the object as the user navigates images.
+  const [mapillaryDetectionByImage, setMapillaryDetectionByImage] = useState<
+    Record<string, number[][]>
+  >({});
 
   const balId = params.balId;
   const { voie, toponyme, numeros, editingId, setEditingId, isEditing } =
@@ -391,7 +396,11 @@ function Map({
           const coords = (feat.geometry as any)?.coordinates;
           const featureId = String(feat.properties?.id ?? "");
           if (featureId) {
-            const openAt = (imageId: string | null, polygon: number[][] | null) => {
+            const openAt = (
+              imageId: string | null,
+              polygon: number[][] | null,
+              byImage: Record<string, number[][]> = {}
+            ) => {
               if (!imageId) return;
               if (coords) {
                 setMapillaryDetectionPoint({
@@ -400,6 +409,7 @@ function Map({
                   lat: coords[1],
                 });
               }
+              setMapillaryDetectionByImage(byImage);
               setMapillaryDetectionPolygon(polygon);
               setMapillaryImageId(imageId);
             };
@@ -407,7 +417,7 @@ function Map({
             // fall back to the feature's first image if detections are absent.
             fetchDetectionForFeature(featureId).then((det) => {
               if (det?.imageId) {
-                openAt(det.imageId, det.polygon);
+                openAt(det.imageId, det.polygon, det.byImage);
               } else {
                 fetchDetectionImageId(featureId).then((imageId) =>
                   openAt(imageId, null)
@@ -1075,6 +1085,7 @@ function Map({
             setMapillaryImageId(null);
             setMapillaryDetectionPoint(null);
             setMapillaryDetectionPolygon(null);
+            setMapillaryDetectionByImage({});
           }}
           onCameraChange={setMapillaryCamera}
           placeMode={!mapillaryDetectionPoint}
@@ -1084,6 +1095,7 @@ function Map({
               : mapillaryPoints
           }
           detectionPolygon={mapillaryDetectionPolygon}
+          detectionByImage={mapillaryDetectionByImage}
         />
       </Pane>
     </Pane>
