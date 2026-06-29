@@ -107,22 +107,28 @@ function useHovered(map) {
         }
 
         if (hovered.current) {
-          map.setFeatureState(
-            {
-              source: hovered.current.source,
-              id: hovered.current.id,
-              sourceLayer: hovered.current.sourceLayer,
-            },
-            { hover: false }
-          );
+          if (hovered.current.id != null) {
+            map.setFeatureState(
+              {
+                source: hovered.current.source,
+                id: hovered.current.id,
+                sourceLayer: hovered.current.sourceLayer,
+              },
+              { hover: false }
+            );
+          }
           handleRelatedFeatures(map, hovered.current, false);
           setFeatureHovered(null);
         }
 
         hovered.current = feature;
 
-        // Highlight hovered features
-        map.setFeatureState({ source, id, sourceLayer }, { hover: true });
+        // Highlight hovered features. Some interactive layers (geojson/symbol
+        // overlays like buildings, off-building points, Mapillary features) have
+        // no feature id — setFeatureState would throw, so guard on it.
+        if (id != null) {
+          map.setFeatureState({ source, id, sourceLayer }, { hover: true });
+        }
         handleRelatedFeatures(map, feature, true);
         if (
           sourceLayer === LAYERS_SOURCE.NUMEROS_POINTS ||
@@ -141,7 +147,9 @@ function useHovered(map) {
   const handleMouseLeave = useCallback(() => {
     if (hovered.current) {
       const { id, source, sourceLayer } = hovered.current;
-      map.setFeatureState({ source, sourceLayer, id }, { hover: false });
+      if (id != null) {
+        map.setFeatureState({ source, sourceLayer, id }, { hover: false });
+      }
       handleRelatedFeatures(map, hovered.current, false);
       setFeatureHovered(null);
 

@@ -148,15 +148,24 @@ export async function fetchDetectionForFeature(
       `https://graph.mapillary.com/${featureId}/detections` +
       `?fields=image,value,geometry&access_token=${MAPILLARY_TOKEN}`;
     const res = await fetch(url);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.log("[nap-detection] /detections HTTP", res.status);
+      return null;
+    }
     const data = await res.json();
     const detections = data?.data || [];
-    if (!detections.length) return null;
     const d = detections[0];
     const imageId = d?.image?.id ? String(d.image.id) : null;
     const polygon = d?.geometry ? decodeDetectionPolygon(d.geometry) : null;
+    console.log("[nap-detection] fetched", {
+      count: detections.length,
+      hasGeometry: !!d?.geometry,
+      imageId,
+      polygonPoints: Array.isArray(polygon) ? polygon.length : 0,
+    });
     return { imageId, polygon };
-  } catch {
+  } catch (e) {
+    console.log("[nap-detection] fetch error", String(e));
     return null;
   }
 }

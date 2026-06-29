@@ -15,6 +15,7 @@ import {
   CameraControls,
   SimpleMarker,
   PolygonGeometry,
+  RectGeometry,
   OutlineTag,
 } from "mapillary-js";
 import "mapillary-js/dist/mapillary.css";
@@ -107,22 +108,51 @@ function MapillaryViewer({
       tagComp = null;
     }
     const syncDetectionTag = () => {
-      if (!tagComp) return;
+      if (!tagComp) {
+        console.log("[nap-detection] no tag component");
+        return;
+      }
       try {
         tagComp.removeAll();
-        const poly = detectionPolygonRef.current;
-        if (poly && poly.length >= 4) {
-          const geometry = new PolygonGeometry(poly as number[][]);
-          const tag = new OutlineTag("nap-detection", geometry, {
-            lineColor: 0xffb000,
-            lineWidth: 3,
-            fillColor: 0xffb000,
-            fillOpacity: 0.25,
-          });
-          tagComp.add([tag]);
-        }
       } catch {
-        /* tag geometry not ready / invalid — ignore, photo still shows */
+        /* ignore */
+      }
+      const poly = detectionPolygonRef.current;
+      if (!poly || poly.length < 4) {
+        console.log("[nap-detection] draw skipped", {
+          points: poly ? poly.length : 0,
+        });
+        return;
+      }
+      const opts = {
+        lineColor: 0xffb000,
+        lineWidth: 3,
+        fillColor: 0xffb000,
+        fillOpacity: 0.25,
+      };
+      // Try the exact polygon; if MapillaryJS rejects it, fall back to its
+      // bounding box (a rect) so the object is still highlighted.
+      try {
+        const geometry = new PolygonGeometry(poly as number[][]);
+        tagComp.add([new OutlineTag("nap-detection", geometry, opts)]);
+        console.log("[nap-detection] drew polygon", { points: poly.length });
+        return;
+      } catch (e) {
+        console.log("[nap-detection] polygon failed, trying rect", String(e));
+      }
+      try {
+        const xs = poly.map((p) => p[0]);
+        const ys = poly.map((p) => p[1]);
+        const rect = new RectGeometry([
+          Math.min(...xs),
+          Math.min(...ys),
+          Math.max(...xs),
+          Math.max(...ys),
+        ]);
+        tagComp.add([new OutlineTag("nap-detection", rect, opts)]);
+        console.log("[nap-detection] drew rect fallback");
+      } catch (e) {
+        console.log("[nap-detection] rect failed", String(e));
       }
     };
     syncTagRef.current = syncDetectionTag;
