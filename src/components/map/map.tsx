@@ -89,6 +89,7 @@ import {
   addMapillaryFeatureIcons,
   fetchDetectionImageId,
 } from "./layers/mapillary-features";
+import { fetchDetectionForFeature } from "./layers/mapillary-detection";
 import RulerControl from "./controls/ruler-control";
 import MapillaryControl from "./controls/mapillary-control";
 import MapillaryViewer from "./mapillary-viewer";
@@ -185,6 +186,10 @@ function Map({
     lng: number;
     lat: number;
   } | null>(null);
+  // The detected object's outline (basic image coords) to highlight in the photo.
+  const [mapillaryDetectionPolygon, setMapillaryDetectionPolygon] = useState<
+    number[][] | null
+  >(null);
 
   const balId = params.balId;
   const { voie, toponyme, numeros, editingId, setEditingId, isEditing } =
@@ -386,16 +391,27 @@ function Map({
           const coords = (feat.geometry as any)?.coordinates;
           const featureId = String(feat.properties?.id ?? "");
           if (featureId) {
-            fetchDetectionImageId(featureId).then((imageId) => {
-              if (imageId) {
-                if (coords) {
-                  setMapillaryDetectionPoint({
-                    id: featureId,
-                    lng: coords[0],
-                    lat: coords[1],
-                  });
-                }
-                setMapillaryImageId(imageId);
+            const openAt = (imageId: string | null, polygon: number[][] | null) => {
+              if (!imageId) return;
+              if (coords) {
+                setMapillaryDetectionPoint({
+                  id: featureId,
+                  lng: coords[0],
+                  lat: coords[1],
+                });
+              }
+              setMapillaryDetectionPolygon(polygon);
+              setMapillaryImageId(imageId);
+            };
+            // Prefer the detection (gives the image + the object's outline);
+            // fall back to the feature's first image if detections are absent.
+            fetchDetectionForFeature(featureId).then((det) => {
+              if (det?.imageId) {
+                openAt(det.imageId, det.polygon);
+              } else {
+                fetchDetectionImageId(featureId).then((imageId) =>
+                  openAt(imageId, null)
+                );
               }
             });
           }
@@ -1029,6 +1045,7 @@ function Map({
           onClose={() => {
             setMapillaryImageId(null);
             setMapillaryDetectionPoint(null);
+            setMapillaryDetectionPolygon(null);
           }}
           onCameraChange={setMapillaryCamera}
           placeMode={!mapillaryDetectionPoint}
@@ -1037,6 +1054,7 @@ function Map({
               ? [mapillaryDetectionPoint]
               : mapillaryPoints
           }
+          detectionPolygon={mapillaryDetectionPolygon}
         />
       </Pane>
     </Pane>

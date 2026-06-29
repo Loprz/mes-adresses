@@ -10,7 +10,13 @@ import {
   Text,
 } from "evergreen-ui";
 import { useTranslations } from "next-intl";
-import { Viewer, CameraControls, SimpleMarker } from "mapillary-js";
+import {
+  Viewer,
+  CameraControls,
+  SimpleMarker,
+  PolygonGeometry,
+  OutlineTag,
+} from "mapillary-js";
 import "mapillary-js/dist/mapillary.css";
 import MarkersContext from "@/contexts/markers";
 import { MAPILLARY_TOKEN } from "./layers/mapillary";
@@ -31,6 +37,9 @@ interface MapillaryViewerProps {
   onCameraChange?: (camera: MapillaryCamera | null) => void;
   // Existing address points for the current street, shown as pins in the photo.
   points?: { id: string; lng: number; lat: number }[];
+  // A detected object's outline (basic image coords, 0..1) to highlight in the
+  // photo — e.g. the mailbox/driveway Mapillary detected.
+  detectionPolygon?: number[][] | null;
 }
 
 function MapillaryViewer({
@@ -39,6 +48,7 @@ function MapillaryViewer({
   placeMode = true,
   onCameraChange,
   points = [],
+  detectionPolygon = null,
 }: MapillaryViewerProps) {
   const t = useTranslations("mapControls");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,7 +77,10 @@ function MapillaryViewer({
   // Street points + a handle to re-render the in-photo pins from outside.
   const pointsRef = useRef(points);
   pointsRef.current = points;
+  const detectionPolygonRef = useRef(detectionPolygon);
+  detectionPolygonRef.current = detectionPolygon;
   const syncRef = useRef<() => void>(() => {});
+  const syncTagRef = useRef<() => void>(() => {});
 
   // Create the viewer ONCE when it opens; destroy when it closes/unmounts.
   // Keyed on open/closed (not imageId) so navigating between images reuses the
@@ -82,9 +95,37 @@ function MapillaryViewer({
       container: containerRef.current,
       imageId: imageIdRef.current as string,
       cameraControls: CameraControls.Street, // required for accurate click lngLat
-      component: { cover: false, marker: true }, // marker is off by default
+      component: { cover: false, marker: true, tag: true },
     });
     viewerRef.current = viewer;
+
+    // Detection outline overlay (e.g. the mailbox/driveway Mapillary detected).
+    let tagComp: any = null;
+    try {
+      tagComp = viewer.getComponent("tag");
+    } catch {
+      tagComp = null;
+    }
+    const syncDetectionTag = () => {
+      if (!tagComp) return;
+      try {
+        tagComp.removeAll();
+        const poly = detectionPolygonRef.current;
+        if (poly && poly.length >= 4) {
+          const geometry = new PolygonGeometry(poly as number[][]);
+          const tag = new OutlineTag("nap-detection", geometry, {
+            lineColor: 0xffb000,
+            lineWidth: 3,
+            fillColor: 0xffb000,
+            fillOpacity: 0.25,
+          });
+          tagComp.add([tag]);
+        }
+      } catch {
+        /* tag geometry not ready / invalid — ignore, photo still shows */
+      }
+    };
+    syncTagRef.current = syncDetectionTag;
 
     // In-photo pins: the street's existing points plus the one being edited.
     let markerComp: any = null;
@@ -153,12 +194,16 @@ function MapillaryViewer({
       camPosRef.current = event.image.lngLat;
       emitCamera();
       syncPhotoMarker();
+      syncDetectionTag();
     });
     viewer.on("bearing", (event) => {
       camBearingRef.current = event.bearing;
       emitCamera();
     });
-    viewer.on("load", syncPhotoMarker);
+    viewer.on("load", () => {
+      syncPhotoMarker();
+      syncDetectionTag();
+    });
 
     const onClick = (event: { lngLat: { lng: number; lat: number } | null }) => {
       if (!placeModeRef.current || !event.lngLat) return;
@@ -186,6 +231,11 @@ function MapillaryViewer({
   useEffect(() => {
     syncRef.current();
   }, [points]);
+
+  // Redraw the detection outline when it changes.
+  useEffect(() => {
+    syncTagRef.current();
+  }, [detectionPolygon]);
 
   // Navigate to a newly clicked image without rebuilding the viewer.
   useEffect(() => {
