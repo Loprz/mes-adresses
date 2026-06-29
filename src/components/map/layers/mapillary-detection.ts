@@ -47,8 +47,12 @@ class PBReader {
   }
   skip(wireType: number) {
     if (wireType === 0) this.varint();
-    else if (wireType === 2) this.pos += this.varint();
-    else if (wireType === 5) this.pos += 4;
+    else if (wireType === 2) {
+      // Read the length into a temp FIRST — `this.pos += this.varint()` would
+      // capture this.pos before varint() advances it, losing the length bytes.
+      const len = this.varint();
+      this.pos += len;
+    } else if (wireType === 5) this.pos += 4;
     else if (wireType === 1) this.pos += 8;
   }
 }
@@ -68,7 +72,11 @@ export function decodeDetectionPolygon(b64: string): number[][] | null {
       const field = tag >> 3;
       const wt = tag & 7;
       if (field === 3 && wt === 2) {
-        const end = r.pos + r.varint();
+        // Read the length into a temp FIRST: `r.pos + r.varint()` evaluates
+        // r.pos before varint() advances it, so the length's own bytes get
+        // dropped from `end` and the parser walks off-alignment.
+        const layerLen = r.varint();
+        const end = r.pos + layerLen;
         while (r.pos < end) {
           const t2 = r.varint();
           const f2 = t2 >> 3;
@@ -77,13 +85,15 @@ export function decodeDetectionPolygon(b64: string): number[][] | null {
             extent = r.varint(); // Layer.extent
           } else if (f2 === 2 && w2 === 2) {
             // Layer.features → Feature
-            const fend = r.pos + r.varint();
+            const featLen = r.varint();
+            const fend = r.pos + featLen;
             while (r.pos < fend) {
               const t3 = r.varint();
               const f3 = t3 >> 3;
               const w3 = t3 & 7;
               if (f3 === 4 && w3 === 2) {
-                const gend = r.pos + r.varint();
+                const geomLen = r.varint();
+                const gend = r.pos + geomLen;
                 const cmds: number[] = [];
                 while (r.pos < gend) cmds.push(r.varint());
                 if (!geomCmds) geomCmds = cmds;
